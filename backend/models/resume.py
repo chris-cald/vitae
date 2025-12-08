@@ -1,6 +1,7 @@
 from sqlmodel import SQLModel, Field, Relationship  # type: ignore
 from typing import TYPE_CHECKING, Optional, List, Dict, Any
-from sqlalchemy import Column, JSON
+from sqlalchemy import Column, JSON, ForeignKey
+import sqlalchemy as sa
 from datetime import datetime, timezone
 
 if TYPE_CHECKING:
@@ -9,7 +10,9 @@ if TYPE_CHECKING:
 
 
 class ProcessedResume(SQLModel, table=True):
-    resume_id: str = Field(primary_key=True, foreign_key="resume.resume_id")
+    resume_id: str = Field(
+        sa_column=Column(sa.String(), ForeignKey("resume.resume_id"), primary_key=True)
+    )
     basics: Dict[str, Any] = Field(sa_column=Column(JSON))
     work: Optional[List[Dict[str, Any]]] = Field(default=None, sa_column=Column(JSON))
     volunteer: Optional[List[Dict[str, Any]]] = Field(
@@ -50,9 +53,9 @@ class ProcessedResume(SQLModel, table=True):
 
 class Resume(SQLModel, table=True):
     id: Optional[int] = Field(default=None, primary_key=True)
-    resume_id: str = Field(index=True, unique=True)
-    content: str
-    content_type: str
+    resume_id: str = Field(sa_column=Column(sa.String(), unique=True, index=True))
+    content: str = Field(sa_column=Column(sa.String()))
+    content_type: str = Field(sa_column=Column(sa.String()))
     created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
     raw_resume_association: Optional["ProcessedResume"] = Relationship(
         back_populates="raw_resume", sa_relationship_kwargs={"uselist": False}
