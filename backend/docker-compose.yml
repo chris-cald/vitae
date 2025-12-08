@@ -14,6 +14,8 @@ services:
       - .:/app
     depends_on:
       - postgres
+      # Uncomment the next line to depend on litellm
+      # - litellm
     # Uncomment below if you want to use a .env file
     # env_file:
     #   - .env
@@ -29,6 +31,18 @@ services:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
+
+  # Optional: LiteLLM service for local LLM proxying
+  # Uncomment to enable
+  # litellm:
+  #   image: ghcr.io/berriai/litellm:latest
+  #   container_name: litellm
+  #   ports:
+  #     - "4000:4000"
+  #   environment:
+  #     LITELLM_MODEL: "gpt-3.5-turbo"  # or your preferred model
+  #     LITELLM_API_KEY: "sk-..."       # set your API key if needed
+  #   restart: unless-stopped
 
 volumes:
   postgres_data:
