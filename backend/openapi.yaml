@@ -1,0 +1,228 @@
+openapi: 3.0.3
+info:
+  title: Vitae Backend API
+  version: 1.0.0
+  description: API for uploading resumes, job descriptions, and scoring improvements.
+
+paths:
+  /api/v1/resume:
+    post:
+      summary: Upload a resume in PDF or DOCX format and store it in DB in HTML/Markdown format
+      tags: [Resume]
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+      responses:
+        '200':
+          description: Resume uploaded and processed successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+
+  /api/v1/job:
+    post:
+      summary: Store the job posting in the database by parsing the JD into a structured format JSON
+      tags: [Job]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StructuredJob'
+      responses:
+        '200':
+          description: Job uploaded and processed successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+
+  /api/v1/job-fit:
+    post:
+      summary: Create a job-fit analysis between a candidate profile and a job description
+      tags: [JobFit]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                resume_id:
+                  type: string
+                job_id:
+                  type: string
+      responses:
+        '201':
+          description: Job-fit analysis created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JobFit'
+
+  /api/v1/job-fit/{job_fit_id}:
+    get:
+      summary: Get details of a job-fit analysis
+      tags: [JobFit]
+      parameters:
+        - name: job_fit_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Job-fit analysis details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JobFit'
+
+  /api/v1/job-fit/{job_fit_id}/score:
+    get:
+      summary: Get score for a job-fit analysis
+      tags: [Score]
+      parameters:
+        - name: job_fit_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Score result
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScoreResult'
+
+  /api/v1/job-fit/{job_fit_id}/feedback:
+    get:
+      summary: Get feedback for a job-fit analysis
+      tags: [Feedback]
+      parameters:
+        - name: job_fit_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Feedback items
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/FeedbackItem'
+
+  /api/v1/job:
+    post:
+      summary: Store the job posting in the database by parsing the JD into a structured format JSON
+      tags: [Job]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StructuredJob'
+      responses:
+        '200':
+          description: Job uploaded and processed successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+
+components:
+  schemas:
+    Job:
+      $ref: './schemas/json/job.schema.json'
+    Resume:
+      $ref: './schemas/json/resume.schema.json'
+    ScoreImprovementResult:
+      type: object
+      properties:
+        id:
+          type: integer
+        resume_id:
+          type: string
+        job_id:
+          type: string
+        suggestions:
+          type: object
+          additionalProperties: true
+        score_delta:
+          type: integer
+        created_at:
+          type: string
+          format: date-time
+
+    JobFit:
+      type: object
+      properties:
+        id:
+          type: string
+        resume_id:
+          type: string
+        job_id:
+          type: string
+        links:
+          type: array
+          items:
+            type: object
+            properties:
+              rel:
+                type: string
+              href:
+                type: string
+
+    ScoreResult:
+      type: object
+      properties:
+        score:
+          type: integer
+        links:
+          type: array
+          items:
+            type: object
+            properties:
+              rel:
+                type: string
+              href:
+                type: string
+
+    FeedbackItem:
+      type: object
+      properties:
+        intent:
+          type: string
+          enum:
+            - strength
+            - improvement
+            - irrelevant
+            - missing
+            - clarification
+            - redundant
+            - formatting
+        message:
+          type: string
+        lineNumber:
+          type: string
