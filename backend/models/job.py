@@ -14,6 +14,10 @@ class ProcessedJob(SQLModel, table=True):
     job_id: str = Field(
         sa_column=Column(sa.String(), ForeignKey("job.job_id"), primary_key=True)
     )
+    resume_id: Optional[str] = Field(
+        default=None,
+        sa_column=Column(sa.String(), ForeignKey("processedresume.resume_id")),
+    )
     title: str = Field(sa_column=Column(sa.String()))
     company: str = Field(sa_column=Column(sa.String()))
     type: Optional[str] = Field(default=None, sa_column=Column(sa.String()))
@@ -29,7 +33,7 @@ class ProcessedJob(SQLModel, table=True):
     meta: Optional[Dict[str, Any]] = Field(default=None, sa_column=Column(JSON))
     processed_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
     raw_job: Optional["Job"] = Relationship(back_populates="raw_job_association")
-    processed_resumes: List["ProcessedResume"] = Relationship(
+    processed_resume: Optional["ProcessedResume"] = Relationship(
         back_populates="processed_jobs"
     )
 

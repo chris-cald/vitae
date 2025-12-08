@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from backend.api.router.v1 import (
+from api.router.v1 import (
     resume_router,
     job_router,
     job_fit_router,

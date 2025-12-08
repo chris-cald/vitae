@@ -1,10 +1,10 @@
 import json
 import uuid
-from backend.models.job_fit import JobFit, ScoreResult, FeedbackItem
-from backend.db import AsyncSessionLocal
-from backend.services.utils import call_llm_stub
-from backend.models.resume import Resume
-from backend.models.job import Job
+from models.job_fit import JobFit, ScoreResult, FeedbackItem
+from db import AsyncSessionLocal
+from services.utils import call_llm_stub
+from models.resume import Resume
+from models.job import Job
 
 
 class JobFitService:

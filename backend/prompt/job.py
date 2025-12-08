@@ -10,7 +10,7 @@ PROMPT = (
     "4. Ensure all URLs conform to URI format.\n"
     "5. If a field is missing, use an empty string or empty list as appropriate.\n"
     "6. Output only raw JSON, not Markdown or any other format.\n"
-    "7. If you cannot extract valid JSON, return {}.\n\n"
+    "7. If you cannot extract valid JSON, return {{}}.\n\n"
     "Schema:\n{0}\n\n"
     "Job Posting:\n{1}\n"
 )

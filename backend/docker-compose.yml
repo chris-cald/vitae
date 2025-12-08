@@ -1,7 +1,8 @@
-version: '3.8'
 services:
   backend:
-    build: .
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
     container_name: vitae-backend
     ports:
       - "8000:8000"
@@ -9,40 +10,11 @@ services:
       DATABASE_URL: sqlite+aiosqlite:///./test.db
       # To use PostgreSQL, override DATABASE_URL in your .env or compose file:
       # DATABASE_URL: postgresql+asyncpg://postgres:postgres@postgres:5432/vitae
+      # External LiteLLM API base URL (override in litellm override)
+      LITELLM_API_BASE: "https://api.litellm.example.com"
+      # External LiteLLM API key (override in litellm override)
+      LITELLM_API_KEY: "your-litellm-api-key"
     restart: unless-stopped
     volumes:
       - .:/app
-    depends_on:
-      - postgres
-      # Uncomment the next line to depend on litellm
-      # - litellm
-    # Uncomment below if you want to use a .env file
-    # env_file:
-    #   - .env
-
-  postgres:
-    image: postgres:15
-    container_name: vitae-postgres
-    environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: vitae
-    ports:
-      - "5432:5432"
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
-
-  # Optional: LiteLLM service for local LLM proxying
-  # Uncomment to enable
-  # litellm:
-  #   image: ghcr.io/berriai/litellm:latest
-  #   container_name: litellm
-  #   ports:
-  #     - "4000:4000"
-  #   environment:
-  #     LITELLM_MODEL: "gpt-3.5-turbo"  # or your preferred model
-  #     LITELLM_API_KEY: "sk-..."       # set your API key if needed
-  #   restart: unless-stopped
-
-volumes:
-  postgres_data:
+    # No external dependencies for dev (sqlite)

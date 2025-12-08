@@ -1,7 +1,7 @@
 from fastapi import APIRouter, HTTPException, Request
 from fastapi import Body
-from backend.models.job_fit import JobFit, ScoreResult, FeedbackItem
-from backend.services.job_fit_service import JobFitService
+from models.job_fit import JobFit, ScoreResult, FeedbackItem
+from services.job_fit_service import JobFitService
 
 router = APIRouter()
 
@@ -18,7 +18,13 @@ async def create_job_fit(
     job_id: str = Body(..., embed=True),
 ):
     service = JobFitService()
-    job_fit = await service.analyze_fit(resume_id=resume_id, job_id=job_id)
+    try:
+        job_fit = await service.analyze_fit(resume_id=resume_id, job_id=job_id)
+    except Exception as e:
+        msg = str(e)
+        if "not found" in msg:
+            raise HTTPException(status_code=404, detail=msg)
+        raise HTTPException(status_code=400, detail=msg)
     return job_fit
 
 

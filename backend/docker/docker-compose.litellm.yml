@@ -1,0 +1,21 @@
+services:
+  backend:
+    environment:
+      LITELLM_API_BASE: "http://litellm:4000"
+      LITELLM_API_KEY: "local-litellm-key"  # Set if needed
+    depends_on:
+      - litellm
+
+  litellm:
+    image: ghcr.io/berriai/litellm:latest
+    container_name: litellm
+    ports:
+      - "4000:4000"
+    environment:
+      LITELLM_CONFIG: /app/litellm.config.yaml
+      LITELLM_API_KEY: "local-litellm-key"  # Set if needed
+      PORT: 4000
+      # LITELLM_API_KEY: "sk-..."  # set your API key if needed
+    volumes:
+      - ./docker/litellm.config.yaml:/app/litellm.config.yaml:ro
+    restart: unless-stopped

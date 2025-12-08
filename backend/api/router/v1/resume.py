@@ -1,6 +1,6 @@
 # Minimal API route for resume upload
 from fastapi import APIRouter, File, UploadFile, HTTPException, status, Request, Query
-from backend.services import ResumeService
+from services import ResumeService
 
 resume_router = APIRouter()
 

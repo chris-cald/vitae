@@ -47,7 +47,7 @@ class ProcessedResume(SQLModel, table=True):
         back_populates="raw_resume_association"
     )
     processed_jobs: List["ProcessedJob"] = Relationship(
-        back_populates="processed_resumes"
+        back_populates="processed_resume"
     )
 
 

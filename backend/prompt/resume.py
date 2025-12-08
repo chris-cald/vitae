@@ -11,7 +11,7 @@ PROMPT = (
     "5. Use 'Present' if an end date is ongoing; prefer 'YYYY-MM-DD' for dates.\n"
     "6. List technical skills, languages, certifications/training, and awards exactly as they appear.\n"
     "7. Output only raw JSON, not Markdown or any other format.\n"
-    "8. If you cannot extract valid JSON, return {}.\n\n"
+    "8. If you cannot extract valid JSON, return {{}}.\n\n"
     "Schema:\n{0}\n\n"
     "Resume:\n{1}\n"
 )

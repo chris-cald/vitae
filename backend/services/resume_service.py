@@ -1,10 +1,10 @@
 import os
-from backend.models.resume import Resume, ProcessedResume
+from models.resume import Resume, ProcessedResume
 
-from backend.db import AsyncSessionLocal
-from backend.prompt.resume import PROMPT
+from db import AsyncSessionLocal
+from prompt.resume import PROMPT
 import json
-from backend.services.utils import (
+from services.utils import (
     extract_pdf_text_util,
     extract_docx_text_util,
     load_schema,
@@ -14,7 +14,7 @@ from backend.services.utils import (
 
 class ResumeService:
     async def fetch_resume(self, resume_id: str):
-        from backend.models.resume import ProcessedResume
+        from models.resume import ProcessedResume
         from sqlmodel import select
 
         async with AsyncSessionLocal() as session:
@@ -28,7 +28,7 @@ class ResumeService:
             return None
 
     async def fetch_resumes(self, limit: int = 20, offset: int = 0):
-        from backend.models.resume import ProcessedResume
+        from models.resume import ProcessedResume
         from sqlmodel import select
 
         async with AsyncSessionLocal() as session:

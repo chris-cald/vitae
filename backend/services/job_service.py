@@ -4,11 +4,11 @@ from fastapi import UploadFile
 import json
 import uuid
 from typing import Optional
-from backend.models.job import Job, ProcessedJob
-from backend.db import AsyncSessionLocal
-from backend.prompt.job import PROMPT
+from models.job import Job, ProcessedJob
+from db import AsyncSessionLocal
+from prompt.job import PROMPT
 import httpx
-from backend.services.utils import (
+from services.utils import (
     extract_pdf_text_util,
     extract_docx_text_util,
     load_schema,
@@ -18,7 +18,7 @@ from backend.services.utils import (
 
 class JobService:
     async def fetch_job(self, job_id: str):
-        from backend.models.job import ProcessedJob
+        from models.job import ProcessedJob
 
         async with AsyncSessionLocal() as session:
             from sqlmodel import select
@@ -31,7 +31,7 @@ class JobService:
             return None
 
     async def fetch_jobs(self, limit: int = 20, offset: int = 0):
-        from backend.models.job import ProcessedJob
+        from models.job import ProcessedJob
 
         async with AsyncSessionLocal() as session:
             from sqlmodel import select

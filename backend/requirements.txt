@@ -3,3 +3,5 @@ uvicorn
 sqlmodel
 markitdown
 litellm
+aiosqlite
+python-multipart
