@@ -1,0 +1,66 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "JobFitAnalysis",
+  "type": "object",
+  "properties": {
+    "job_fit_id": { "type": "string" },
+    "resume_id": { "type": "string" },
+    "job_id": { "type": "string" },
+    "score": { "type": "number", "minimum": 0, "maximum": 100 },
+    "analysis": { "type": "string" },
+    "feedback": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "intent": {
+            "type": "string",
+            "enum": [
+              "preserve",
+              "add",
+              "remove",
+              "reword",
+              "reformat",
+              "move",
+              "clarify"
+            ],
+            "description": "Action-oriented intent for LLM revision: \n- preserve: Keep this content as-is (it’s valuable).\n- add: Insert new information or details.\n- remove: Delete irrelevant or redundant content.\n- reword: Change wording for clarity or impact.\n- reformat: Change structure or presentation (e.g., bullet points).\n- move: Relocate content to a more relevant section.\n- clarify: Make content more specific or detailed."
+          },
+          "weight": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1,
+            "description": "Importance of this feedback (0=lowest, 1=highest)."
+          },
+          "message": { "type": "string" },
+          "lineNumber": { "type": "string" }
+        },
+        "required": ["intent", "message", "lineNumber", "weight"]
+      }
+    },
+    "job_keywords": { "type": "string" },
+    "skill_comparison": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "skill": { "type": "string" },
+          "score": { "type": "number" }
+        },
+        "required": ["skill", "score"]
+      }
+    },
+    "created_at": { "type": "string", "format": "date-time" }
+  },
+  "required": [
+    "job_fit_id",
+    "resume_id",
+    "job_id",
+    "score",
+    "analysis",
+    "feedback",
+    "job_keywords",
+    "skill_comparison",
+    "created_at"
+  ]
+}
