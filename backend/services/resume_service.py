@@ -1,3 +1,4 @@
+import os
 from backend.models.resume import Resume, ProcessedResume
 
 from backend.db import AsyncSessionLocal
@@ -12,6 +13,30 @@ from backend.services.utils import (
 
 
 class ResumeService:
+    async def fetch_resume(self, resume_id: str):
+        from backend.models.resume import ProcessedResume
+        from sqlmodel import select
+
+        async with AsyncSessionLocal() as session:
+            statement = select(ProcessedResume).where(
+                ProcessedResume.resume_id == resume_id
+            )
+            result = await session.execute(statement)
+            resume = result.scalar_one_or_none()
+            if resume:
+                return resume.model_dump()
+            return None
+
+    async def fetch_resumes(self, limit: int = 20, offset: int = 0):
+        from backend.models.resume import ProcessedResume
+        from sqlmodel import select
+
+        async with AsyncSessionLocal() as session:
+            statement = select(ProcessedResume).limit(limit).offset(offset)
+            result = await session.execute(statement)
+            resumes = result.scalars().all()
+            return [resume.model_dump() for resume in resumes]
+
     async def process_resume(
         self, file_bytes: bytes, content_type: str, filename: str
     ) -> None:

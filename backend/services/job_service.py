@@ -17,6 +17,30 @@ from backend.services.utils import (
 
 
 class JobService:
+    async def fetch_job(self, job_id: str):
+        from backend.models.job import ProcessedJob
+
+        async with AsyncSessionLocal() as session:
+            from sqlmodel import select
+
+            statement = select(ProcessedJob).where(ProcessedJob.job_id == job_id)
+            result = await session.execute(statement)
+            job = result.scalar_one_or_none()
+            if job:
+                return job.model_dump()
+            return None
+
+    async def fetch_jobs(self, limit: int = 20, offset: int = 0):
+        from backend.models.job import ProcessedJob
+
+        async with AsyncSessionLocal() as session:
+            from sqlmodel import select
+
+            statement = select(ProcessedJob).limit(limit).offset(offset)
+            result = await session.execute(statement)
+            jobs = result.scalars().all()
+            return [job.model_dump() for job in jobs]
+
     async def process_job_input(
         self,
         job_text: Optional[str] = None,
@@ -28,24 +52,21 @@ class JobService:
         async with AsyncSessionLocal() as session:
             file_bytes = None
             if job_text:
-                original_content = job_text
                 content_type = "text/plain"
             elif job_url:
                 async with httpx.AsyncClient() as client:
                     resp = await client.get(job_url)
                     resp.raise_for_status()
-                    original_content = resp.text
                 content_type = "text/html"
             elif job_file:
                 file_bytes = await job_file.read()
-                original_content = file_bytes.decode(errors="ignore")
                 content_type = getattr(
                     job_file, "content_type", "application/octet-stream"
                 )
             else:
                 raise ValueError("No valid input provided.")
 
-            job = Job(job_id=job_id, content=original_content, resume_id="")
+            job = Job(job_id=job_id, content={}, resume_id="")
             session.add(job)
             await session.commit()
             await session.refresh(job)

@@ -1,5 +1,5 @@
 # Minimal API route for resume upload
-from fastapi import APIRouter, File, UploadFile, HTTPException, status, Request
+from fastapi import APIRouter, File, UploadFile, HTTPException, status, Request, Query
 from backend.services import ResumeService
 
 resume_router = APIRouter()
@@ -33,3 +33,30 @@ async def upload_resume(
     filename = file.filename if file.filename is not None else ""
     await service.process_resume(file_bytes, file.content_type, filename)
     return {"message": "Resume uploaded and processed successfully."}
+
+
+# Fetch endpoint for resumes
+@resume_router.get(
+    "",
+    summary="Fetch all resumes.",
+)
+async def fetch_resumes(
+    limit: int = Query(20, ge=1, le=100),
+    offset: int = Query(0, ge=0),
+):
+    service = ResumeService()
+    resumes = await service.fetch_resumes(limit=limit, offset=offset)
+    return {"resumes": resumes}
+
+
+# Fetch single resume by resume_id
+@resume_router.get(
+    "/{resume_id}",
+    summary="Fetch a single resume by resume_id.",
+)
+async def fetch_resume(resume_id: str):
+    service = ResumeService()
+    resume = await service.fetch_resume(resume_id)
+    if not resume:
+        raise HTTPException(status_code=404, detail="Resume not found.")
+    return {"resume": resume}
