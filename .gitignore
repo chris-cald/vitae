@@ -1,0 +1,53 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pyc
+*.env
+.env
+venv/
+ENV/
+.env.*
+
+# Jupyter Notebooks
+.ipynb_checkpoints
+
+# VS Code
+.vscode/
+
+# macOS
+.DS_Store
+
+# Docker
+*.log
+docker-compose.override.yml
+
+# Alembic
+alembic/versions/__pycache__/
+
+# General
+*.sqlite3
+*.db
+*.bak
+*.swp
+*.swo
+
+# Test and coverage
+.coverage
+htmlcov/
+*.cover
+*.py,cover
+
+# Node
+node_modules/
+
+# Other
+*.tmp
+*.out
+*.pid
+*.seed
+*.pid.lock
+
+# Ignore local files
+local_settings.py
