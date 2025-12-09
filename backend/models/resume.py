@@ -54,7 +54,8 @@ class ProcessedResume(SQLModel, table=True):
 class Resume(SQLModel, table=True):
     id: Optional[int] = Field(default=None, primary_key=True)
     resume_id: str = Field(sa_column=Column(sa.String(), unique=True, index=True))
-    content: str = Field(sa_column=Column(sa.String()))
+    file_path: str = Field(sa_column=Column(sa.String()))  # path to uploaded file
+    extracted_content: str = Field(sa_column=Column(sa.String()))  # text sent to LLM
     content_type: str = Field(sa_column=Column(sa.String()))
     created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
     raw_resume_association: Optional["ProcessedResume"] = Relationship(
