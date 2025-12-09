@@ -92,9 +92,22 @@ class JobService:
             prompt = PROMPT.format(schema, text)
             processed_json = call_llm_stub(prompt)
 
+            # Strip code block fencing if present
+            import re
+
+            def strip_code_fence(text: str) -> str:
+                match = re.match(r"^```[a-zA-Z]*\n([\s\S]*?)```$", text.strip())
+                if match:
+                    return match.group(1).strip()
+                if text.strip().startswith("```") and text.strip().endswith("```"):
+                    return text.strip().strip("`").strip()
+                return text.strip()
+
+            processed_json_stripped = strip_code_fence(processed_json)
+
             # 4. Persist processed JSON
             processed_job = ProcessedJob(
-                job_id=job.job_id, **json.loads(processed_json)
+                job_id=job.job_id, **json.loads(processed_json_stripped)
             )
             session.add(processed_job)
             await session.commit()

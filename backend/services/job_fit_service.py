@@ -24,6 +24,19 @@ class JobFitService:
                 raise ValueError(f"Job with id {job_id} not found.")
             job_fit_id = self._generate_job_fit_id()
 
+            # Strip code block fencing if present
+            import re
+
+            def strip_code_fence(text: str) -> str:
+                match = re.match(r"^```[a-zA-Z]*\n([\s\S]*?)```$", text.strip())
+                if match:
+                    return match.group(1).strip()
+                if text.strip().startswith("```") and text.strip().endswith("```"):
+                    return text.strip().strip("`").strip()
+                return text.strip()
+
+            processed_json_stripped = strip_code_fence(processed_json)
+
             # Prepare prompt and send to LLM
             prompt = f"""Analyze the fit between the following resume and job. Return a JSON document adhering to job-fit-analysis.schema.json.\nResume: {json.dumps(resume.content)}\nJob: {json.dumps(job.content)}"""
             # Call LLM and parse result (extend as needed)
