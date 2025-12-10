@@ -89,3 +89,15 @@ def call_llm_stub(prompt: str) -> str:
     except Exception as e:
         logging.error(f"LiteLLM call failed: {e}")
         return "{}"  # Fallback to empty JSON on error
+
+
+# Strip code block fencing if present
+def strip_code_fence(text: str) -> str:
+    import re
+
+    match = re.match(r"^```[a-zA-Z]*\n([\s\S]*?)```$", text.strip())
+    if match:
+        return match.group(1).strip()
+    if text.strip().startswith("```") and text.strip().endswith("```"):
+        return text.strip().strip("`").strip()
+    return text.strip()

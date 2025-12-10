@@ -5,7 +5,7 @@ import json
 import uuid
 from typing import Optional
 from models.job import Job, ProcessedJob
-from db import AsyncSessionLocal
+from db.db import AsyncSessionLocal
 from prompt.job import PROMPT
 import httpx
 from services.utils import (
@@ -13,6 +13,7 @@ from services.utils import (
     extract_docx_text_util,
     load_schema,
     call_llm_stub,
+    strip_code_fence,
 )
 
 
@@ -86,22 +87,11 @@ class JobService:
 
             # 3. Prepare prompt and send to LLM
             schema_path = os.path.join(
-                os.path.dirname(__file__), "../schemas/json/job.schema.json"
+                os.path.dirname(__file__), "../../schemas/json/job.schema.json"
             )
             schema = load_schema(schema_path)
             prompt = PROMPT.format(schema, text)
             processed_json = call_llm_stub(prompt)
-
-            # Strip code block fencing if present
-            import re
-
-            def strip_code_fence(text: str) -> str:
-                match = re.match(r"^```[a-zA-Z]*\n([\s\S]*?)```$", text.strip())
-                if match:
-                    return match.group(1).strip()
-                if text.strip().startswith("```") and text.strip().endswith("```"):
-                    return text.strip().strip("`").strip()
-                return text.strip()
 
             processed_json_stripped = strip_code_fence(processed_json)
 

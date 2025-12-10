@@ -2,7 +2,7 @@ import os
 from typing import Any
 from models.resume import Resume, ProcessedResume
 
-from db import AsyncSessionLocal
+from db.db import AsyncSessionLocal
 from prompt.resume import PROMPT
 import json
 from services.utils import (
@@ -10,6 +10,7 @@ from services.utils import (
     extract_docx_text_util,
     load_schema,
     call_llm_stub,
+    strip_code_fence,
 )
 
 
@@ -73,13 +74,7 @@ class ResumeService:
             "UPLOAD_DIR", os.path.join(os.path.dirname(__file__), "../uploads")
         )
         os.makedirs(upload_dir, exist_ok=True)
-        file_ext = {
-            "application/pdf": ".pdf",
-            "application/vnd.openxmlformats-officedocument.wordprocessingml.document": ".docx",
-            "text/markdown": ".md",
-            "text/plain": ".txt",
-        }.get(content_type, "")
-        file_name = f"{resume_id}{file_ext}"
+        file_name = resume_id
         file_path = os.path.join(upload_dir, file_name)
         with open(file_path, "wb") as f:
             f.write(file_bytes)
@@ -113,22 +108,12 @@ class ResumeService:
             await session.refresh(resume)
 
     def _call_llm_and_strip(self, extracted_content: str) -> str:
-        import re
-
         schema_path = os.path.join(
-            os.path.dirname(__file__), "../schemas/json/resume.schema.json"
+            os.path.dirname(__file__), "../../schemas/json/resume.schema.json"
         )
         schema = load_schema(schema_path)
         prompt = PROMPT.format(schema, extracted_content)
         processed_json = call_llm_stub(prompt)
-
-        def strip_code_fence(text: str) -> str:
-            match = re.match(r"^```[a-zA-Z]*\n([\s\S]*?)```$", text.strip())
-            if match:
-                return match.group(1).strip()
-            if text.strip().startswith("```") and text.strip().endswith("```"):
-                return text.strip().strip("`").strip()
-            return text.strip()
 
         return strip_code_fence(processed_json)
 

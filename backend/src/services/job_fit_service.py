@@ -1,10 +1,13 @@
-import json
+import os
 import uuid
+
+from sqlalchemy import text
 from models.job_fit import JobFit, ScoreResult, FeedbackItem
-from db import AsyncSessionLocal
-from services.utils import call_llm_stub
+from db.db import AsyncSessionLocal
+from services.utils import call_llm_stub, load_schema, strip_code_fence
 from models.resume import Resume
 from models.job import Job
+from prompt.job_fit import PROMPT
 
 
 class JobFitService:
@@ -24,29 +27,23 @@ class JobFitService:
                 raise ValueError(f"Job with id {job_id} not found.")
             job_fit_id = self._generate_job_fit_id()
 
-            # Strip code block fencing if present
-            import re
-
-            def strip_code_fence(text: str) -> str:
-                match = re.match(r"^```[a-zA-Z]*\n([\s\S]*?)```$", text.strip())
-                if match:
-                    return match.group(1).strip()
-                if text.strip().startswith("```") and text.strip().endswith("```"):
-                    return text.strip().strip("`").strip()
-                return text.strip()
-
-            processed_json_stripped = strip_code_fence(processed_json)
-
+            schema_path = os.path.join(
+                os.path.dirname(__file__),
+                "../../schemas/json/job-fit-analysis.schema.json",
+            )
             # Prepare prompt and send to LLM
-            prompt = f"""Analyze the fit between the following resume and job. Return a JSON document adhering to job-fit-analysis.schema.json.\nResume: {json.dumps(resume.content)}\nJob: {json.dumps(job.content)}"""
+            schema = load_schema(schema_path)
+            prompt = PROMPT.format(schema, text)
             # Call LLM and parse result (extend as needed)
-            call_llm_stub(prompt)
+            processed_json = call_llm_stub(prompt)
+            processed_json_stripped = strip_code_fence(processed_json)
 
             # Persist JobFit analysis
             job_fit = JobFit(
                 id=job_fit_id,
                 resume_id=resume_id,
                 job_id=job_id,
+                analysis=processed_json_stripped,
                 links=[
                     {"rel": "self", "href": f"/api/v1/job-fit/{job_fit_id}"},
                     {"rel": "score", "href": f"/api/v1/job-fit/{job_fit_id}/score"},

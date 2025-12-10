@@ -1,10 +1,10 @@
 from fastapi import FastAPI
-from api.router.v1 import (
+from src.api.router.v1 import (
     resume_router,
     job_router,
     job_fit_router,
 )
-from db import init_db
+from db.db import init_db
 from contextlib import asynccontextmanager
 
 

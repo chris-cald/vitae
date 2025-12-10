@@ -6,8 +6,16 @@ import sys
 from sqlalchemy import pool
 from alembic import context
 from typing import Optional
-from models import job, resume, job_fit  # pyright: ignore[reportUnusedImport] # noqa: F401 # Import all SQLModels here
+import models.job  # pyright: ignore[reportUnusedImport] # noqa: F401 # Import all SQLModels here
+import models.resume  # pyright: ignore[reportUnusedImport] # noqa: F401
+import models.job_fit  # pyright: ignore[reportUnusedImport] # noqa: F401
 from sqlmodel import SQLModel
+
+# Register custom Alembic autogenerate renderers
+alembic_dir = os.path.dirname(os.path.abspath(__file__))
+if alembic_dir not in sys.path:
+    sys.path.insert(0, alembic_dir)
+import custom_renderers  # pyright: ignore[reportUnusedImport]  # noqa: E402, F401
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
@@ -21,7 +29,10 @@ if config.config_file_name is not None:
 
 # Import all models to ensure they are registered with SQLModel
 
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
+project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
+src_path = os.path.join(project_root, "src")
+if src_path not in sys.path:
+    sys.path.insert(0, src_path)
 
 target_metadata = SQLModel.metadata
 
