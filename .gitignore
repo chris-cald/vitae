@@ -7,6 +7,7 @@ __pycache__/
 *.env
 .env
 venv/
+.venv/
 ENV/
 .env.*
 
@@ -48,6 +49,7 @@ node_modules/
 *.pid
 *.seed
 *.pid.lock
+*.ignore
 
 # Ignore local files
 local_settings.py

@@ -5,3 +5,5 @@ markitdown
 litellm
 aiosqlite
 python-multipart
+pdfminer.six
+python-docx

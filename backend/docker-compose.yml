@@ -3,18 +3,18 @@ services:
     build:
       context: .
       dockerfile: docker/Dockerfile
-    container_name: vitae-backend
+    container_name: backend
     ports:
       - "8000:8000"
     environment:
       DATABASE_URL: sqlite+aiosqlite:///./test.db
+      LLM_MODEL: openrouter/meta-llama/llama-3.3-70b-instruct:free
+      UPLOAD_DIR: .ignore/uploads
       # To use PostgreSQL, override DATABASE_URL in your .env or compose file:
       # DATABASE_URL: postgresql+asyncpg://postgres:postgres@postgres:5432/vitae
-      # External LiteLLM API base URL (override in litellm override)
-      LITELLM_API_BASE: "https://api.litellm.example.com"
-      # External LiteLLM API key (override in litellm override)
-      LITELLM_API_KEY: "your-litellm-api-key"
+      # External LiteLLM API base URL. Uncomment and set to use external LiteLLM service.
+      # LITELLM_API_BASE: "https://api.litellm.example.com"
+      # LITELLM_API_KEY: "your-litellm-api-key"
     restart: unless-stopped
     volumes:
       - .:/app
-    # No external dependencies for dev (sqlite)

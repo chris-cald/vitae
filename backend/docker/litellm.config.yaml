@@ -1,5 +1,9 @@
-models:
-  - model_name: llama3
-    provider: ollama
-  - model_name: nomic-embed-text
-    provider: ollama
+model_list:
+  - model_name: llama-3-70b
+    litellm_params:
+      model: openrouter/meta-llama/llama-3.3-70b-instruct:free
+      api_key: "os.environ/OPENROUTER_API_KEY"
+    model_info:
+      mode: "completion"
+      max_tokens: 8192
+      metadata: "OpenRouter Llama-3 70B Instruct Free"
