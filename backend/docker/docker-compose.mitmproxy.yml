@@ -1,0 +1,24 @@
+services:
+  mitmproxy:
+    image: mitmproxy/mitmproxy:latest
+    container_name: mitmproxy
+    command: mitmdump --showhost --save-stream /data/mitmproxy.log
+    volumes:
+      - ./mitmproxy_data:/data
+    ports:
+      - "8080:8080" # Web UI
+      - "8081:8081" # Proxy port
+    networks:
+      - backend-net
+    restart: unless-stopped
+
+  backend:
+    environment:
+      - HTTP_PROXY=http://mitmproxy:8080
+      - HTTPS_PROXY=http://mitmproxy:8080
+    networks:
+      - backend-net
+
+networks:
+  backend-net:
+    external: false
