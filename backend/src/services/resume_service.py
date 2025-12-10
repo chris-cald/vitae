@@ -17,17 +17,12 @@ from services.utils import (
 class ResumeService:
     async def fetch_resume(self, resume_id: str):
         from models.resume import ProcessedResume
-        from sqlmodel import select
 
         async with AsyncSessionLocal() as session:
-            statement = select(ProcessedResume).where(
-                ProcessedResume.resume_id == resume_id
-            )
-            result = await session.execute(statement)
-            resume = result.scalar_one_or_none()
-            if resume:
-                return resume.model_dump()
-            return None
+            from services.utils import get_or_404
+
+            resume = await get_or_404(session, ProcessedResume, "resume_id", resume_id)
+            return resume.model_dump()
 
     async def fetch_resumes(self, limit: int = 20, offset: int = 0):
         from models.resume import ProcessedResume

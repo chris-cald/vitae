@@ -22,14 +22,10 @@ class JobService:
         from models.job import ProcessedJob
 
         async with AsyncSessionLocal() as session:
-            from sqlmodel import select
+            from services.utils import get_or_404
 
-            statement = select(ProcessedJob).where(ProcessedJob.job_id == job_id)
-            result = await session.execute(statement)
-            job = result.scalar_one_or_none()
-            if job:
-                return job.model_dump()
-            return None
+            job = await get_or_404(session, ProcessedJob, "job_id", job_id)
+            return job.model_dump()
 
     async def fetch_jobs(self, limit: int = 20, offset: int = 0):
         from models.job import ProcessedJob

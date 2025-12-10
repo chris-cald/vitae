@@ -1,5 +1,7 @@
 import io
 import os
+from typing import Any, Type, Optional
+from sqlmodel import select
 
 try:
     from pdfminer.high_level import extract_text as extract_pdf_text
@@ -101,3 +103,21 @@ def strip_code_fence(text: str) -> str:
     if text.strip().startswith("```") and text.strip().endswith("```"):
         return text.strip().strip("`").strip()
     return text.strip()
+
+
+# Reusable async DB fetch helper
+async def get_or_404(
+    session: Any,
+    model: Type[Any],
+    id_field: str,
+    id_value: Any,
+    error_message: Optional[str] = None,
+) -> Any:
+    statement = select(model).where(getattr(model, id_field) == id_value)
+    result = await session.execute(statement)
+    obj = result.scalars().one_or_none()
+    if obj is None:
+        raise ValueError(
+            error_message or f"{model.__name__} with {id_field} {id_value} not found."
+        )
+    return obj

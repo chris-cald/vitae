@@ -3,7 +3,7 @@
   "title": "JobFitAnalysis",
   "type": "object",
   "properties": {
-    "job_fit_id": { "type": "string" },
+    "id": { "type": "string" },
     "resume_id": { "type": "string" },
     "job_id": { "type": "string" },
     "score": { "type": "number", "minimum": 0, "maximum": 100 },
@@ -38,29 +38,34 @@
         "required": ["intent", "message", "lineNumber", "weight"]
       }
     },
-    "job_keywords": { "type": "string" },
-    "skill_comparison": {
+    "keywords": {
+      "type": "array",
+      "items": { "type": "string" },
+      "minItems": 1
+    },
+    "skills": {
       "type": "array",
       "items": {
         "type": "object",
         "properties": {
-          "skill": { "type": "string" },
+          "name": { "type": "string" },
           "score": { "type": "number" }
         },
-        "required": ["skill", "score"]
-      }
+        "required": ["name", "score"]
+      },
+      "minItems": 1
     },
     "created_at": { "type": "string", "format": "date-time" }
   },
   "required": [
-    "job_fit_id",
+    "id",
     "resume_id",
     "job_id",
     "score",
     "analysis",
     "feedback",
-    "job_keywords",
-    "skill_comparison",
+    "keywords",
+    "skills",
     "created_at"
   ]
 }

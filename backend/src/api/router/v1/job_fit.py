@@ -1,3 +1,10 @@
+@router.get("/job-fit/{job_fit_id}/skill", response_model=list[dict[str, str]])
+async def get_skill(job_fit_id: str):
+    service = JobFitService()
+    skill = await service.fetch_skill(job_fit_id)
+    return skill
+
+
 from fastapi import APIRouter, HTTPException, Request
 from fastapi import Body
 from models.job_fit import JobFit, ScoreResult, FeedbackItem
