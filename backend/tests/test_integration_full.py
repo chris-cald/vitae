@@ -14,7 +14,7 @@ DOCX_BYTES = b"PK\x03\x04"  # DOCX file header
 def test_resume_upload_and_list() -> List[Dict[str, Any]]:
     """Test uploading a resume and listing resumes."""
     files = {"file": ("test.pdf", io.BytesIO(PDF_BYTES), "application/pdf")}
-    resp = requests.post(f"{BASE_URL}/resume", files=files)
+    resp = requests.post(f"{BASE_URL}/resume/file", files=files)
     assert resp.status_code == 200, resp.text
     assert "message" in resp.json()
     resp = requests.get(f"{BASE_URL}/resume")
