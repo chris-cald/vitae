@@ -7,6 +7,13 @@ from src.api.router.v1 import (
 from db.db import init_db
 from contextlib import asynccontextmanager
 
+import logging
+
+logging.basicConfig(level=logging.INFO)
+
+# Set DEBUG logging only for job_service
+# logging.getLogger("src.services.job_service").setLevel(logging.DEBUG)
+
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
