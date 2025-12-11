@@ -1,3 +1,20 @@
+
+
+## Resume Rendering & ATS Job-Fit Feedback Tasks
+
+## Targeting Criteria & Prompt Customization
+
+- [ ] Support user selection of key profile categories (Industry, Function, Seniority, Company Size, etc.)
+- [ ] Integrate with backend to inject modular prompt fragments based on selected criteria
+- [ ] Ensure UI allows for easy extension and maintenance of category lists and prompt fragments
+- [ ] Display which targeting criteria are active in the analysis and feedback views
+
+- [ ] Implement resume JSON rendering using user-provided template (markdown or other format)
+- [ ] Display actionable ATS job-fit feedback and alignment scores interactively
+- [ ] Support selection and preview of resume templates
+- [ ] Integrate backend endpoints for ATS analysis, feedback, and rendering
+- [ ] Ensure ATS-friendly formatting in rendered output
+- [ ] Provide UI for reviewing and applying revision suggestions
 # Vitae Frontend
 
 This project is a React app (Vite + Shadcn UI) for interacting with the Vitae backend. It allows users to:
