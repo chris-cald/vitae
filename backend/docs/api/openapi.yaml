@@ -5,9 +5,38 @@ info:
   description: API for uploading resumes, job descriptions, and scoring improvements.
 
 paths:
-  /api/v1/resume:
+    /api/v1/job-fit:
+      get:
+        summary: List all job-fit analyses (paginated)
+        tags: [JobFit]
+        parameters:
+          - in: query
+            name: limit
+            schema:
+              type: integer
+              minimum: 1
+              maximum: 100
+            required: false
+            description: Maximum number of results to return (default 10, max 100)
+          - in: query
+            name: offset
+            schema:
+              type: integer
+              minimum: 0
+            required: false
+            description: Number of items to skip before starting to collect the result set (default 0)
+        responses:
+          '200':
+            description: List of job-fit analyses
+            content:
+              application/json:
+                schema:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/JobFit'
+  /api/v1/resume/file:
     post:
-      summary: Upload a resume in PDF or DOCX format and store it in DB in HTML/Markdown format
+      summary: Upload a resume in PDF, DOCX, or Markdown format and store it in DB in HTML/Markdown format
       tags: [Resume]
       requestBody:
         required: true
