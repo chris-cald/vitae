@@ -5,18 +5,21 @@ import sqlalchemy as sa
 from datetime import datetime, timezone
 
 if TYPE_CHECKING:
-    from .job import Job, ProcessedJob
-    from .resume import ProcessedResume
+    from .job import RawJob, Job
+    from .resume import Resume
 
 
 # Standardized Job Model based on JSON Resume Schema
-class ProcessedJob(SQLModel, table=True):
+class Job(SQLModel, table=True):
     job_id: str = Field(
         sa_column=Column(sa.String(), ForeignKey("job.job_id"), primary_key=True)
     )
+    name: str = Field(
+        sa_column=Column(sa.String(), nullable=False)
+    )  # Required user-friendly name
     resume_id: Optional[str] = Field(
         default=None,
-        sa_column=Column(sa.String(), ForeignKey("processedresume.resume_id")),
+        sa_column=Column(sa.String(), ForeignKey("resume.resume_id")),
     )
     title: str = Field(sa_column=Column(sa.String()))
     company: str = Field(sa_column=Column(sa.String()))
@@ -32,21 +35,22 @@ class ProcessedJob(SQLModel, table=True):
     skills: Optional[List[Dict[str, Any]]] = Field(default=None, sa_column=Column(JSON))
     meta: Optional[Dict[str, Any]] = Field(default=None, sa_column=Column(JSON))
     processed_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
-    raw_job: Optional["Job"] = Relationship(back_populates="raw_job_association")
-    processed_resume: Optional["ProcessedResume"] = Relationship(
-        back_populates="processed_jobs"
-    )
+    raw_job: Optional["RawJob"] = Relationship(back_populates="raw_job_association")
+    resume: Optional["Resume"] = Relationship(back_populates="jobs")
 
 
-class Job(SQLModel, table=True):
+class RawJob(SQLModel, table=True):
     id: Optional[int] = Field(default=None, primary_key=True)
-    job_id: str = Field(sa_column=Column(sa.String(), unique=True, index=True))
+    job_id: str = Field(
+        sa_column=Column(sa.String(), ForeignKey("job.job_id"), unique=True, index=True)
+    )
     resume_id: str = Field(
         sa_column=Column(sa.String(), ForeignKey("resume.resume_id"))
     )
     # Store the raw job JSON matching the standardized schema
     content: Dict[str, Any] = Field(sa_column=Column(JSON))
+    file_path: Optional[str] = Field(default=None, sa_column=Column(sa.String()))
     created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
-    raw_job_association: Optional["ProcessedJob"] = Relationship(
+    raw_job_association: Optional["Job"] = Relationship(
         back_populates="raw_job", sa_relationship_kwargs={"uselist": False}
     )

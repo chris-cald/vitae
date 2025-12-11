@@ -1,16 +1,53 @@
+from fastapi import APIRouter, HTTPException, Query
+from pydantic import BaseModel
+from src.models.job_fit import JobFit, FeedbackItem
+from src.services.job_fit_service import JobFitService
+
+router = APIRouter()
+
+
+# PATCH /job-fit/{job_fit_id}/name
+class JobFitNameUpdate(BaseModel):
+    name: str
+
+
+@router.patch(
+    "/job-fit/{job_fit_id}/name",
+    summary="Update the name of a job-fit analysis.",
+)
+async def update_job_fit_name(job_fit_id: str, body: JobFitNameUpdate):
+    service = JobFitService()
+    try:
+        await service.update_job_fit_name(job_fit_id, body.name)
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+    return {"message": "Job-fit name updated."}
+
+
+@router.get("/job-fit", response_model=list[JobFit])
+async def list_job_fits(
+    limit: int = Query(10, ge=1, le=100), offset: int = Query(0, ge=0)
+):
+    service = JobFitService()
+    return await service.list_job_fits(limit=limit, offset=offset)
+
+
 @router.get("/job-fit/{job_fit_id}/skill", response_model=list[dict[str, str]])
 async def get_skill(job_fit_id: str):
     service = JobFitService()
-    skill = await service.fetch_skill(job_fit_id)
+    try:
+        skill = await service.fetch_skill(job_fit_id)
+    except ValueError as e:
+        raise HTTPException(status_code=404, detail=str(e))
+    except Exception as e:
+        raise HTTPException(status_code=400, detail=str(e))
     return skill
 
 
-from fastapi import APIRouter, HTTPException, Request
-from fastapi import Body
-from models.job_fit import JobFit, ScoreResult, FeedbackItem
-from services.job_fit_service import JobFitService
-
-router = APIRouter()
+class JobFitCreateRequest(BaseModel):
+    resume_id: str
+    job_id: str
+    name: str
 
 
 @router.post(
@@ -19,14 +56,12 @@ router = APIRouter()
     response_model=JobFit,
     status_code=201,
 )
-async def create_job_fit(
-    request: Request,
-    resume_id: str = Body(..., embed=True),
-    job_id: str = Body(..., embed=True),
-):
+async def create_job_fit(req: JobFitCreateRequest):
     service = JobFitService()
     try:
-        job_fit = await service.analyze_fit(resume_id=resume_id, job_id=job_id)
+        job_fit = await service.analyze_fit(
+            resume_id=req.resume_id, job_id=req.job_id, name=req.name
+        )
     except Exception as e:
         msg = str(e)
         if "not found" in msg:
@@ -38,23 +73,35 @@ async def create_job_fit(
 @router.get("/job-fit/{job_fit_id}", response_model=JobFit)
 async def get_job_fit(job_fit_id: str):
     service = JobFitService()
-    job_fit = await service.fetch_job_fit(job_fit_id)
-    if not job_fit:
-        raise HTTPException(status_code=404, detail="JobFit not found")
+    try:
+        job_fit = await service.fetch_job_fit(job_fit_id)
+    except ValueError as e:
+        raise HTTPException(status_code=404, detail=str(e))
     return job_fit
 
 
-@router.get("/job-fit/{job_fit_id}/score", response_model=ScoreResult)
-async def get_score(job_fit_id: str):
+# DELETE /job-fit/{job_fit_id}
+@router.delete(
+    "/job-fit/{job_fit_id}",
+    summary="Delete a job-fit analysis by job_fit_id.",
+    status_code=204,
+)
+async def delete_job_fit(job_fit_id: str):
     service = JobFitService()
-    score_result = await service.fetch_score(job_fit_id)
-    if not score_result:
-        raise HTTPException(status_code=404, detail="Score not found")
-    return score_result
+    try:
+        await service.delete_job_fit(job_fit_id)
+    except Exception as e:
+        raise HTTPException(status_code=404, detail=str(e))
+    return
 
 
 @router.get("/job-fit/{job_fit_id}/feedback", response_model=list[FeedbackItem])
 async def get_feedback(job_fit_id: str):
     service = JobFitService()
-    feedback = await service.fetch_feedback(job_fit_id)
+    try:
+        feedback = await service.fetch_feedback(job_fit_id)
+    except ValueError as e:
+        raise HTTPException(status_code=404, detail=str(e))
+    except Exception as e:
+        raise HTTPException(status_code=400, detail=str(e))
     return feedback

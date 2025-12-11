@@ -5,14 +5,19 @@ import sqlalchemy as sa
 from datetime import datetime, timezone
 
 if TYPE_CHECKING:
-    from .job import ProcessedJob
-    from .resume import Resume, ProcessedResume
+    from .job import Job
+    from .resume import RawResume, Resume
 
 
-class ProcessedResume(SQLModel, table=True):
+class Resume(SQLModel, table=True):
     resume_id: str = Field(
-        sa_column=Column(sa.String(), ForeignKey("resume.resume_id"), primary_key=True)
+        sa_column=Column(
+            sa.String(), ForeignKey("rawresume.resume_id"), primary_key=True
+        )
     )
+    name: str = Field(
+        sa_column=Column(sa.String(), nullable=False)
+    )  # Required user-friendly name
     basics: Dict[str, Any] = Field(sa_column=Column(JSON))
     work: Optional[List[Dict[str, Any]]] = Field(default=None, sa_column=Column(JSON))
     volunteer: Optional[List[Dict[str, Any]]] = Field(
@@ -43,21 +48,19 @@ class ProcessedResume(SQLModel, table=True):
     )
     meta: Optional[Dict[str, Any]] = Field(default=None, sa_column=Column(JSON))
     processed_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
-    raw_resume: Optional["Resume"] = Relationship(
+    raw_resume: Optional["RawResume"] = Relationship(
         back_populates="raw_resume_association"
     )
-    processed_jobs: List["ProcessedJob"] = Relationship(
-        back_populates="processed_resume"
-    )
+    jobs: List["Job"] = Relationship(back_populates="resume")
 
 
-class Resume(SQLModel, table=True):
+class RawResume(SQLModel, table=True):
     id: Optional[int] = Field(default=None, primary_key=True)
     resume_id: str = Field(sa_column=Column(sa.String(), unique=True, index=True))
     file_path: str = Field(sa_column=Column(sa.String()))  # path to uploaded file
     extracted_content: str = Field(sa_column=Column(sa.String()))  # text sent to LLM
     content_type: str = Field(sa_column=Column(sa.String()))
     created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
-    raw_resume_association: Optional["ProcessedResume"] = Relationship(
+    raw_resume_association: Optional["Resume"] = Relationship(
         back_populates="raw_resume", sa_relationship_kwargs={"uselist": False}
     )

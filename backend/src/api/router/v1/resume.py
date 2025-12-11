@@ -1,8 +1,35 @@
-# Minimal API route for resume upload
-from fastapi import APIRouter, File, UploadFile, HTTPException, status, Request, Query
-from services import ResumeService
+from fastapi import (
+    APIRouter,
+    File,
+    UploadFile,
+    HTTPException,
+    status,
+    Request,
+    Query,
+    Body,
+)
+from src.services import ResumeService
+from pydantic import BaseModel
 
 resume_router = APIRouter()
+
+
+# PATCH /resume/{resume_id}/name
+class ResumeNameUpdate(BaseModel):
+    name: str
+
+
+@resume_router.patch(
+    "/{resume_id}/name",
+    summary="Update the name of a resume.",
+)
+async def update_resume_name(resume_id: str, body: ResumeNameUpdate):
+    service = ResumeService()
+    try:
+        await service.update_resume_name(resume_id, body.name)
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+    return {"message": "Resume name updated."}
 
 
 # 1. POST /resume/text
@@ -14,11 +41,9 @@ async def create_resume_text(request: Request):
     resume_text = await request.body()
     if not resume_text:
         raise HTTPException(status_code=400, detail="Missing resume_text.")
-    if isinstance(resume_text, bytes):
-        resume_text = resume_text.decode()
     service = ResumeService()
     try:
-        await service.process_resume(resume_text.encode(), "text/plain", "raw.txt")
+        await service.process_resume(resume_text, "text/plain", "raw.txt")
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
     return {"message": "Resume uploaded and processed successfully."}
@@ -61,14 +86,14 @@ async def create_resume_file(file: UploadFile = File(...)):
     "/url",
     summary="Create a resume from a URL.",
 )
-async def create_resume_url(input: dict = Body(...)):
+async def create_resume_url(input: dict[str, str] = Body(...)):
     resume_url = input.get("resume_url")
     if not resume_url:
         raise HTTPException(status_code=400, detail="Missing resume_url.")
     # You must implement URL fetching in ResumeService.process_resume if not already supported
     service = ResumeService()
     try:
-        await service.process_resume(None, "text/url", resume_url)
+        await service.process_resume(resume_url.encode(), "text/url", resume_url)
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
     return {"message": "Resume uploaded and processed successfully."}
@@ -99,3 +124,18 @@ async def fetch_resume(resume_id: str):
     if not resume:
         raise HTTPException(status_code=404, detail="Resume not found.")
     return {"resume": resume}
+
+
+# DELETE /resume/{resume_id}
+@resume_router.delete(
+    "/{resume_id}",
+    summary="Delete a resume by resume_id.",
+    status_code=204,
+)
+async def delete_resume(resume_id: str):
+    service = ResumeService()
+    try:
+        await service.delete_resume(resume_id)
+    except Exception as e:
+        raise HTTPException(status_code=404, detail=str(e))
+    return

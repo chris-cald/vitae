@@ -1,11 +1,11 @@
 import os
 from typing import Any
-from models.resume import Resume, ProcessedResume
+from src.models.resume import RawResume, Resume
 
 from db.db import AsyncSessionLocal
-from prompt.resume import PROMPT
+from src.prompt.resume import PROMPT
 import json
-from services.utils import (
+from src.services.utils import (
     extract_pdf_text_util,
     extract_docx_text_util,
     load_schema,
@@ -15,27 +15,48 @@ from services.utils import (
 
 
 class ResumeService:
-    async def fetch_resume(self, resume_id: str):
-        from models.resume import ProcessedResume
+    async def delete_resume(self, resume_id: str):
+        from src.models.resume import Resume
 
         async with AsyncSessionLocal() as session:
-            from services.utils import get_or_404
+            from src.services.utils import get_or_404
 
-            resume = await get_or_404(session, ProcessedResume, "resume_id", resume_id)
+            resume = await get_or_404(session, Resume, "resume_id", resume_id)
+            await session.delete(resume)
+            await session.commit()
+
+    async def update_resume_name(self, resume_id: str, name: str):
+        from src.models.resume import Resume
+
+        async with AsyncSessionLocal() as session:
+            from src.services.utils import get_or_404
+
+            resume = await get_or_404(session, Resume, "resume_id", resume_id)
+            resume.name = name
+            session.add(resume)
+            await session.commit()
+
+    async def fetch_resume(self, resume_id: str):
+        from src.models.resume import Resume
+
+        async with AsyncSessionLocal() as session:
+            from src.services.utils import get_or_404
+
+            resume = await get_or_404(session, Resume, "resume_id", resume_id)
             return resume.model_dump()
 
     async def fetch_resumes(self, limit: int = 20, offset: int = 0):
-        from models.resume import ProcessedResume
+        from src.models.resume import Resume
         from sqlmodel import select
 
         async with AsyncSessionLocal() as session:
-            statement = select(ProcessedResume).limit(limit).offset(offset)
+            statement = select(Resume).limit(limit).offset(offset)
             result = await session.execute(statement)
             resumes = result.scalars().all()
             return [resume.model_dump() for resume in resumes]
 
     async def process_resume(
-        self, file_bytes: bytes, content_type: str, filename: str
+        self, file_bytes: bytes, content_type: str, filename: str, name: str = None
     ) -> None:
         resume_id = self._generate_resume_id(filename)
         file_path = self._save_file(file_bytes, content_type, resume_id)
@@ -58,7 +79,13 @@ class ResumeService:
                 raise Exception(
                     "LLM call failed or returned invalid JSON. Resume not processed."
                 )
-            await self._insert_processed_resume(resume_id, parsed_json)
+            # Determine name: user-provided, basics.name, or fallback to filename
+            resume_name = name
+            if not resume_name:
+                resume_name = parsed_json.get("basics", {}).get("name")
+            if not resume_name:
+                resume_name = filename or resume_id
+            await self._insert_processed_resume(resume_id, parsed_json, resume_name)
         except Exception:
             if not resume_persisted:
                 self._delete_file_if_exists(file_path)
@@ -92,7 +119,7 @@ class ResumeService:
         self, resume_id: str, file_path: str, extracted_content: str, content_type: str
     ) -> None:
         async with AsyncSessionLocal() as session:
-            resume = Resume(
+            resume = RawResume(
                 resume_id=resume_id,
                 file_path=file_path,
                 extracted_content=extracted_content,
@@ -113,10 +140,10 @@ class ResumeService:
         return strip_code_fence(processed_json)
 
     async def _insert_processed_resume(
-        self, resume_id: str, parsed_json: dict[str, Any]
+        self, resume_id: str, parsed_json: dict[str, Any], name: str
     ) -> None:
         async with AsyncSessionLocal() as session:
-            processed_resume = ProcessedResume(resume_id=resume_id, **parsed_json)
+            processed_resume = Resume(resume_id=resume_id, name=name, **parsed_json)
             session.add(processed_resume)
             await session.commit()
 

@@ -1,26 +1,32 @@
-# Minimal API route for job upload
-
 from fastapi import APIRouter, HTTPException, UploadFile, File, Request, Query, Body
-from services import JobService
-from typing import Optional
+from src.services import JobService
+from typing import Any
 from pydantic import BaseModel
-
-
-class JobInput(BaseModel):
-    job_text: Optional[str] = None
-    job_url: Optional[str] = None
-    # job_file is not handled here; file uploads need a separate endpoint or logic
-
 
 job_router = APIRouter()
 
 
-# 1. POST /job/url
-@job_router.post(
-    "/url",
-    summary="Create a job posting from a URL.",
+# PATCH /job/{job_id}/name
+class JobNameUpdate(BaseModel):
+    name: str
+
+
+@job_router.patch(
+    "/{job_id}/name",
+    summary="Update the name of a job.",
 )
-async def create_job_url(input: dict = Body(...)):
+async def update_job_name(job_id: str, body: JobNameUpdate):
+    service = JobService()
+    try:
+        await service.update_job_name(job_id, body.name)
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+    return {"message": "Job name updated."}
+
+
+# 1. POST /job/url
+@job_router.post("/url", summary="Create a job posting from a URL.")
+async def create_job_url(input: dict[str, Any] = Body(...)):
     job_url = input.get("job_url")
     if not job_url:
         raise HTTPException(status_code=400, detail="Missing job_url.")
@@ -33,16 +39,15 @@ async def create_job_url(input: dict = Body(...)):
 
 
 # 2. POST /job/text
-@job_router.post(
-    "/text",
-    summary="Create a job posting from raw text.",
-)
+@job_router.post("/text", summary="Create a job posting from raw text.")
 async def create_job_text(request: Request):
     job_text = await request.body()
     if not job_text:
         raise HTTPException(status_code=400, detail="Missing job_text.")
-    # decode bytes to string if needed
-    if isinstance(job_text, bytes):
+    # decode bytes or memoryview to string if needed
+    if isinstance(job_text, memoryview):
+        job_text = job_text.tobytes().decode()
+    else:
         job_text = job_text.decode()
     service = JobService()
     try:
@@ -72,8 +77,7 @@ async def create_job_file(file: UploadFile = File(...)):
     file_bytes = await file.read()
     if len(file_bytes) > MAX_FILE_SIZE:
         raise HTTPException(
-            status_code=413,
-            detail="File size exceeds maximum allowed size of 2.0MB.",
+            status_code=413, detail="File size exceeds maximum allowed size of 2.0MB."
         )
     service = JobService()
     try:
@@ -84,10 +88,7 @@ async def create_job_file(file: UploadFile = File(...)):
 
 
 # Fetch endpoint for jobs
-@job_router.get(
-    "",
-    summary="Fetch all job postings.",
-)
+@job_router.get("", summary="Fetch all job postings.")
 async def fetch_jobs(
     limit: int = Query(20, ge=1, le=100),
     offset: int = Query(0, ge=0),
@@ -98,13 +99,21 @@ async def fetch_jobs(
 
 
 # Fetch single job by job_id
-@job_router.get(
-    "/{job_id}",
-    summary="Fetch a single job posting by job_id.",
-)
+@job_router.get("/{job_id}", summary="Fetch a single job posting by job_id.")
 async def fetch_job(job_id: str):
     service = JobService()
     job = await service.fetch_job(job_id)
     if not job:
         raise HTTPException(status_code=404, detail="Job not found.")
     return {"job": job}
+
+
+# DELETE /job/{job_id}
+@job_router.delete("/{job_id}", summary="Delete a job by job_id.", status_code=204)
+async def delete_job(job_id: str):
+    service = JobService()
+    try:
+        await service.delete_job(job_id)
+    except Exception as e:
+        raise HTTPException(status_code=404, detail=str(e))
+    return

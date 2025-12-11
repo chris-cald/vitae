@@ -41,6 +41,9 @@ class FeedbackItem(SQLModel, table=False):
 
 class JobFit(SQLModel, table=True):
     id: str = Field(sa_column=Column(sa.String(), primary_key=True))
+    name: str = Field(
+        sa_column=Column(sa.String(), nullable=False)
+    )  # Required user-friendly name
     resume_id: str = Field(sa_column=Column(sa.String()))
     job_id: str = Field(sa_column=Column(sa.String()))
     score: float = Field(

@@ -56,16 +56,18 @@ def call_llm_stub(prompt: str) -> str:
     """
     import logging
 
+    logger = logging.getLogger(__name__)
+
     model = os.getenv("LLM_MODEL", "gpt-3.5-turbo")
-    logging.basicConfig(level=logging.INFO)
     try:
         from litellm import completion  # type: ignore
 
-        logging.info(f"Calling LiteLLM with model={model}")
-        logging.info(f"Prompt sent to LiteLLM:\n{prompt}")
+        logger.debug(f"Calling LiteLLM with model={model}")
+        logger.debug(f"Prompt sent to LiteLLM:\n{prompt}")
         response = completion(
             model=model, messages=[{"role": "user", "content": prompt}]
         )
+        logger.debug(f"Raw LiteLLM response: {response}")
         content = None
         if hasattr(response, "choices") and response.choices:  # type: ignore
             choice = response.choices[0]  # type: ignore
@@ -80,17 +82,20 @@ def call_llm_stub(prompt: str) -> str:
             ):
                 content = response["choices"][0]["message"]["content"]  # type: ignore
             elif "error" in response:
-                logging.error(f"LiteLLM error response: {response['error']}")
+                logger.error(f"LiteLLM error response: {response['error']}")
         if content:
-            logging.info(f"LiteLLM extracted content: {content}")
+            logger.debug(f"LiteLLM extracted content: {content}")
+            if not content.strip() or content.strip() == "{}":
+                logger.error("LLM returned empty or invalid JSON content.")
+                raise ValueError("LLM returned empty or invalid JSON content.")
             return content  # type: ignore
-        logging.warning(
+        logger.warning(
             f"LiteLLM response malformed, returning empty JSON. Full response: {response}"
         )
-        return "{}"  # Fallback if response is malformed
+        raise ValueError("LiteLLM response malformed or empty.")
     except Exception as e:
-        logging.error(f"LiteLLM call failed: {e}")
-        return "{}"  # Fallback to empty JSON on error
+        logger.error(f"LiteLLM call failed: {e}")
+        raise
 
 
 # Strip code block fencing if present
