@@ -1,0 +1,174 @@
+import { useState, useEffect, FormEvent } from 'react';
+import { Button } from '@/components/ui/button';
+import { PencilIcon } from '@/components/ui/PencilIcon';
+
+export interface JobFitCreateResponse {
+  id?: string;
+  message?: string;
+}
+
+
+export interface JobFitCreateProps {
+  onCreated?: (data: JobFitCreateResponse) => void;
+  resumeId?: string;
+  jobId?: string;
+  onEditResume?: () => void;
+  onEditJob?: () => void;
+}
+
+
+interface ResumeListItem {
+  resume_id: string;
+  [key: string]: any;
+}
+interface JobListItem {
+  job_id: string;
+  [key: string]: any;
+}
+
+export function JobFitCreate({ onCreated, resumeId: propResumeId, jobId: propJobId, onEditResume, onEditJob }: JobFitCreateProps) {
+  const [resumeId, setResumeId] = useState<string>(propResumeId || '');
+  const [jobId, setJobId] = useState<string>(propJobId || '');
+    // If props change, update local state
+    useEffect(() => {
+      if (propResumeId) setResumeId(propResumeId);
+    }, [propResumeId]);
+    useEffect(() => {
+      if (propJobId) setJobId(propJobId);
+    }, [propJobId]);
+  const [name, setName] = useState<string>('');
+  const [resumes, setResumes] = useState<ResumeListItem[]>([]);
+  const [jobs, setJobs] = useState<JobListItem[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [creating, setCreating] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      setLoading(true);
+      try {
+        const [resumesRes, jobsRes] = await Promise.all([
+          fetch('/api/v1/resume'),
+          fetch('/api/v1/job'),
+        ]);
+        const resumesData = await resumesRes.json();
+        const jobsData = await jobsRes.json();
+        setResumes(resumesData.resumes || []);
+        setJobs(jobsData.jobs || []);
+      } catch {
+        // Optionally handle error
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchData();
+  }, []);
+
+  // Prepopulate name when resume or job changes
+  useEffect(() => {
+    const resume = resumes.find(r => r.resume_id === resumeId);
+    const job = jobs.find(j => j.job_id === jobId);
+    let defaultName = '';
+    if (resume && job) {
+      defaultName = `${resume.name || resume.resume_id} + ${job.name || job.job_id}`;
+    } else if (resume) {
+      defaultName = resume.name || resume.resume_id;
+    } else if (job) {
+      defaultName = job.name || job.job_id;
+    }
+    setName(defaultName);
+  }, [resumeId, jobId, resumes, jobs]);
+
+  const handleCreate = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setError(null);
+    if (!resumeId || !jobId) {
+      setError('Both Resume and Job are required.');
+      return;
+    }
+    if (!name.trim()) {
+      setError('Please provide a name for the analysis.');
+      return;
+    }
+    setCreating(true);
+    try {
+      const res = await fetch('/api/v1/job-fit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ resume_id: resumeId, job_id: jobId, name }),
+      });
+      const data: JobFitCreateResponse = await res.json();
+      if (res.status === 201 || res.ok) {
+        onCreated && onCreated(data);
+      } else {
+        setError(data.message || 'Creation failed.');
+      }
+    } catch (err) {
+      setError('Network error.');
+    } finally {
+      setCreating(false);
+    }
+  };
+
+  return (
+    <form onSubmit={handleCreate} className="space-y-4">
+      <div>
+        <label className="font-medium">Resume</label>
+        <div className="flex items-center gap-2">
+          <span className="truncate max-w-[220px]">
+            {(() => {
+              const resume = resumes.find(r => r.resume_id === resumeId);
+              if (resume) return resume.name || resume.resume_id;
+              if (resumeId) return resumeId;
+              return <span className="text-gray-400">None selected</span>;
+            })()}
+          </span>
+          <button
+            type="button"
+            className="ml-1 text-blue-600 hover:text-blue-800 p-1 rounded"
+            title="Change Resume"
+            onClick={onEditResume}
+          >
+            <PencilIcon className="w-4 h-4" />
+          </button>
+        </div>
+      </div>
+      <div>
+        <label className="font-medium">Job</label>
+        <div className="flex items-center gap-2">
+          <span className="truncate max-w-[220px]">
+            {(() => {
+              const job = jobs.find(j => j.job_id === jobId);
+              if (job) return job.name || (job.title ? `${job.title}${job.company ? ' @ ' + job.company : ''}` : '') || job.job_id;
+              if (jobId) return jobId;
+              return <span className="text-gray-400">None selected</span>;
+            })()}
+          </span>
+          <button
+            type="button"
+            className="ml-1 text-blue-600 hover:text-blue-800 p-1 rounded"
+            title="Change Job"
+            onClick={onEditJob}
+          >
+            <PencilIcon className="w-4 h-4" />
+          </button>
+        </div>
+      </div>
+      <div>
+        <label className="font-medium">Analysis Name</label>
+        <input
+          className="w-full border rounded px-3 py-2"
+          type="text"
+          placeholder="Analysis Name"
+          value={name}
+          onChange={e => setName(e.target.value)}
+          required
+        />
+      </div>
+      <Button type="submit" disabled={creating || loading || !resumeId || !jobId}>
+        {creating ? 'Creating...' : 'Create Job-Fit Analysis'}
+      </Button>
+      {error && <div className="text-red-500 text-sm">{error}</div>}
+    </form>
+  );
+}
