@@ -5,6 +5,21 @@ info:
   description: API for uploading resumes, job descriptions, and scoring improvements.
 
 paths:
+  /api/v1/profile-categories:
+    get:
+      summary: Get available profile categories and values for customization
+      tags: [ProfileCategories]
+      responses:
+        '200':
+          description: List of profile categories and their accepted values
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: array
+                  items:
+                    type: string
     /api/v1/job-fit:
       get:
         summary: List all job-fit analyses (paginated)
