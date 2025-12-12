@@ -1,21 +1,17 @@
 from logging.config import fileConfig
-
-
 import os
 import sys
 from sqlalchemy import pool
 from alembic import context
 from typing import Optional
-import models.job  # pyright: ignore[reportUnusedImport] # noqa: F401 # Import all SQLModels here
-import models.resume  # pyright: ignore[reportUnusedImport] # noqa: F401
-import models.job_fit  # pyright: ignore[reportUnusedImport] # noqa: F401
+from src.models import job, resume, job_fit  # pyright: ignore[reportUnusedImport] # noqa: F401
 from sqlmodel import SQLModel
 
 # Register custom Alembic autogenerate renderers
 alembic_dir = os.path.dirname(os.path.abspath(__file__))
 if alembic_dir not in sys.path:
     sys.path.insert(0, alembic_dir)
-import custom_renderers  # pyright: ignore[reportUnusedImport]  # noqa: E402, F401
+from custom_renderers import render_add_column, render_create_index, render_create_table  # pyright: ignore[reportUnusedImport]  # noqa: E402, F401
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.

@@ -10,6 +10,8 @@ if TYPE_CHECKING:
 
 
 # Standardized Job Model based on JSON Resume Schema
+
+
 class Job(SQLModel, table=True):
     job_id: str = Field(
         sa_column=Column(sa.String(), ForeignKey("job.job_id"), primary_key=True)
@@ -34,6 +36,9 @@ class Job(SQLModel, table=True):
     qualifications: Optional[List[str]] = Field(default=None, sa_column=Column(JSON))
     skills: Optional[List[Dict[str, Any]]] = Field(default=None, sa_column=Column(JSON))
     meta: Optional[Dict[str, Any]] = Field(default=None, sa_column=Column(JSON))
+    profile_categories: Optional[Dict[str, Any]] = Field(
+        default=None, sa_column=Column(JSON)
+    )
     processed_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
     raw_job: Optional["RawJob"] = Relationship(back_populates="raw_job_association")
     resume: Optional["Resume"] = Relationship(back_populates="jobs")
