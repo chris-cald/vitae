@@ -1,4 +1,5 @@
 import { useState, useEffect, FormEvent } from 'react';
+import { JobFitCategorySelector } from './JobFitCategorySelector';
 import { Button } from '@/components/ui/button';
 import { PencilIcon } from '@/components/ui/PencilIcon';
 
@@ -42,6 +43,7 @@ export function JobFitCreate({ onCreated, resumeId: propResumeId, jobId: propJob
   const [loading, setLoading] = useState(true);
   const [creating, setCreating] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [selectedCategories, setSelectedCategories] = useState<any>(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -90,12 +92,16 @@ export function JobFitCreate({ onCreated, resumeId: propResumeId, jobId: propJob
       setError('Please provide a name for the analysis.');
       return;
     }
+    if (!selectedCategories) {
+      setError('Please select targeting criteria.');
+      return;
+    }
     setCreating(true);
     try {
       const res = await fetch('/api/v1/job-fit', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ resume_id: resumeId, job_id: jobId, name }),
+        body: JSON.stringify({ resume_id: resumeId, job_id: jobId, name, profile_categories: selectedCategories }),
       });
       const data: JobFitCreateResponse = await res.json();
       if (res.status === 201 || res.ok) {
@@ -165,7 +171,18 @@ export function JobFitCreate({ onCreated, resumeId: propResumeId, jobId: propJob
           required
         />
       </div>
-      <Button type="submit" disabled={creating || loading || !resumeId || !jobId}>
+      {/* Targeting Criteria Selector */}
+      {jobId && (
+        <div>
+          <label className="font-medium mb-1 block">Targeting Criteria</label>
+          <JobFitCategorySelector
+            jobId={jobId}
+            onSubmit={setSelectedCategories}
+            onLoaded={setSelectedCategories}
+          />
+        </div>
+      )}
+      <Button type="submit" disabled={creating || loading || !resumeId || !jobId || !selectedCategories}>
         {creating ? 'Creating...' : 'Create Job-Fit Analysis'}
       </Button>
       {error && <div className="text-red-500 text-sm">{error}</div>}

@@ -70,8 +70,6 @@ class JobService:
         job_file: Optional["UploadFile"] = None,
         name: Optional[str] = None,
     ) -> None:
-        import shutil
-
         job_id = self._generate_job_id()
         upload_dir = os.getenv(
             "UPLOAD_DIR", os.path.join(os.path.dirname(__file__), "../uploads")
@@ -130,7 +128,6 @@ class JobService:
                 session.add(job)
                 await session.commit()
                 await session.refresh(job)
-                rawjob_committed = True
             logger.debug(f"RawJob DB record created for job_id={job_id}")
 
             # Extract text
@@ -175,12 +172,19 @@ class JobService:
 
             # Normalize job_data
             from src.models.job import Job as JobModel
+            from src.services.profile_category_detection import (
+                detect_profile_categories,
+            )
 
             job_fields = set(JobModel.__fields__.keys())
             normalized = {k: v for k, v in job_data.items() if k in job_fields}
             for field in job_fields:
                 if field not in normalized:
                     normalized[field] = None
+
+            # Auto-detect profile categories
+            detected_categories = detect_profile_categories(job_data)
+            normalized["profile_categories"] = detected_categories
 
             job_name = name
             if not job_name:
@@ -207,7 +211,7 @@ class JobService:
             # If file_path exists and error occurred before DB commit, delete
             import inspect
 
-            tb = exc.__traceback__
+            exc.__traceback__
             # If error occurred before or at the DB commit, file should be deleted
             # (simple heuristic: check if processed_job is in locals())
             if file_path and os.path.exists(file_path):

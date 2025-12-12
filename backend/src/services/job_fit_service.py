@@ -1,7 +1,8 @@
 import os
 import uuid
-
+from typing import Optional
 from sqlalchemy import text
+from src.category_config import CATEGORY_CONFIG, SelectedCategories
 from src.models.job_fit import JobFit, FeedbackItem
 from db.db import AsyncSessionLocal
 from src.services.utils import call_llm_stub, load_schema, strip_code_fence
@@ -52,14 +53,54 @@ class JobFitService:
             return skill
 
     async def analyze_fit(
-        self, resume_id: str, job_id: str, name: str | None = None
+        self,
+        resume_id: str,
+        job_id: str,
+        name: Optional[str] = None,
+        profile_categories: Optional[SelectedCategories] = None,
     ) -> JobFit:
+        def assemble_prompt_fragments(
+            selected_categories: SelectedCategories,
+        ) -> str:
+            """Compose a prompt string from selected profile categories using modular fragments, using fallbacks if needed."""
+            fragments = [str()]
+            for category, value in selected_categories.items():
+                if not value:
+                    continue
+                cat_conf = CATEGORY_CONFIG.get(category, {})
+                value_map = {
+                    v["value"]: v["fragment"] for v in cat_conf.get("values", [])
+                }
+                fallback = value_map.get("__default__")
+                if isinstance(value, list):
+                    found = False
+                    for v in value:
+                        frag = value_map.get(v)
+                        if frag:
+                            fragments.append(frag)
+                            found = True
+                    if not found and fallback:
+                        fragments.append(fallback)
+                else:
+                    frag = value_map.get(value)
+                    if frag:
+                        fragments.append(frag)
+                    elif fallback:
+                        fragments.append(fallback)
+            return "\n".join(fragments)
+
         async with AsyncSessionLocal() as session:
             from src.services.utils import get_or_404
 
             resume = await get_or_404(session, Resume, "resume_id", resume_id)
             job = await get_or_404(session, Job, "job_id", job_id)
             job_fit_id = self._generate_job_fit_id()
+
+            # Use provided or job-stored profile_categories
+            categories = (
+                profile_categories or getattr(job, "profile_categories", None) or {}
+            )
+            prompt_context = assemble_prompt_fragments(categories)
 
             schema_path = os.path.join(
                 os.path.dirname(__file__),
@@ -68,6 +109,8 @@ class JobFitService:
             # Prepare prompt and send to LLM
             schema = load_schema(schema_path)
             prompt = PROMPT.format(schema, resume, job)
+            if prompt_context:
+                prompt = f"{prompt_context}\n\n" + prompt
             processed_json = call_llm_stub(prompt)
             processed_json_stripped = strip_code_fence(processed_json)
 

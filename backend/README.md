@@ -11,14 +11,16 @@ To further enhance feedback quality and relevance, implement customization based
 - **Geography/Region** (if relevant)
 - **Special Requirements** (e.g., Security Clearance, Certifications)
 
+
 ### Implementation Action Plan
-- [ ] Define a set of widely accepted values for each profile category (see list above)
-- [ ] For each value, create modular prompt fragments or configuration objects that inject relevant language, priorities, and evaluation criteria
-- [ ] Use generic or fallback fragments for less common or overlapping values
-- [ ] Dynamically assemble prompts by layering fragments (e.g., Industry + Function + Level)
-- [ ] Allow users to select options for each category when submitting a resume/job for analysis
-- [ ] Inject the selected prompt fragments into the ATS analysis and feedback workflow
-- [ ] Make it easy to update or expand the lists and prompt fragments as needed
+- [x] Define a set of widely accepted values for each profile category (see list above)
+- [x] For each value, create modular prompt fragments or configuration objects that inject relevant language, priorities, and evaluation criteria
+- [x] Use generic or fallback fragments for less common or overlapping values
+- [x] Dynamically assemble prompts by layering fragments (e.g., Industry + Function + Level)
+- [x] Allow users to select options for each category when submitting a resume/job for analysis
+- [x] Inject the selected prompt fragments into the ATS analysis and feedback workflow
+- [x] Make it easy to update or expand the lists and prompt fragments as needed
+- [ ] Implement advanced NLP or external enrichment for category detection (optional, future)
 
 This modular, composable approach enables scalable, specialist-level tailoring for each candidate/job context, closely mirroring the expertise of a recruiting and placement professional while remaining practical to maintain.
 
@@ -66,12 +68,15 @@ To implement high-fidelity, actionable job-fit analysis and resume tailoring:
 - Rendering: Jinja2, markdown-it, or custom renderer
 
 ### 8. Concrete Implementation Tasks
-- [ ] Implement resume/job parsing to structured JSON
-- [ ] Develop ATS alignment and scoring logic
-- [ ] Generate actionable feedback and revision proposals
+- [x] Implement resume/job parsing to structured JSON
+- [x] Develop ATS alignment and scoring logic
+- [x] Generate actionable feedback and revision proposals
 - [ ] Render updated resume using template
 - [ ] Document all decisions and mappings
-- [ ] Expose endpoints for analysis, feedback, and rendering
+- [x] Expose endpoints for analysis, feedback, and rendering
+- [x] Modular prompt fragment system for category-driven customization
+- [x] Rule-based auto-detection of profile categories from job description
+- [ ] Advanced NLP or company enrichment for category detection
 # Vitae Backend
 
 Vitae Backend is a modular, AI-powered microservice for parsing, analyzing, and matching resumes and job descriptions. It is designed for secure, scalable, and ATS-focused resume/job processing, leveraging local LLMs and robust schema validation.
