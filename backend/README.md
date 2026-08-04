@@ -1,126 +1,95 @@
-## Customization Axes for Tailored ATS Feedback
-
-
-To further enhance feedback quality and relevance, implement customization based on key candidate/job context customization axes ("targeting criteria" or "profile categories").
-
-### Key Profile Categories
-- **Industry** (e.g., Technology, Healthcare, Finance, Education)
-- **Function/Role** (e.g., Software Engineer, Product Manager, Data Scientist, Sales Director)
-- **Seniority Level** (e.g., Entry, Mid, Senior, Executive)
-- **Company Size/Stage** (e.g., Startup, SMB, Enterprise, Public Sector)
-- **Geography/Region** (if relevant)
-- **Special Requirements** (e.g., Security Clearance, Certifications)
-
-
-### Implementation Action Plan
-(All category detection, prompt, and enrichment tasks are now tracked in the backlog directory.)
-
-This modular, composable approach enables scalable, specialist-level tailoring for each candidate/job context, closely mirroring the expertise of a recruiting and placement professional while remaining practical to maintain.
-
-## ATS Job-Fit Analysis & Resume Tailoring Workflow
-
-To implement high-fidelity, actionable job-fit analysis and resume tailoring:
-
-### 1. Structured Parsing
-- Parse uploaded master resume and job description into structured JSON (see [JSON Resume schema](https://jsonresume.org/schema/)).
-- Ensure each section (Experience, Skills, Education, etc.) and job requirements are distinct nodes.
-
-### 2. ATS Alignment & Scoring
-- Compare resume JSON to job description JSON using ATS-style criteria:
-   - Direct keyword matches
-   - Semantic similarity (NLP embeddings)
-   - Depth/relevance of experience
-   - Job level alignment (executive, manager, IC)
-- Produce ATS-equivalent alignment scores for overall job-fit and per-section fit.
-
-### 3. Actionable Feedback Generation
-- For each job requirement, provide:
-   - Matched resume content (with score)
-   - Gaps/missing elements (with suggestions)
-   - Recommendations for rewording/reordering
-- Document all mapping and transformation steps for transparency.
-
-### 4. Automated Revision Proposal
-- Generate a proposed revision of the resume JSON:
-   - Reorder sections/bullets for highest alignment
-   - Rephrase content to incorporate job keywords (preserving authenticity)
-   - Emphasize quantifiable achievements
-- Update alignment scores and feedback for the revised version.
-
-### 5. Resume Rendering
-- Render the updated resume JSON using a user-provided template (markdown or other formats).
-- Ensure formatting, section headers, and bullet points match ATS standards.
-
-### 6. Output Decision Summary & Recommendations
-- Summarize experience selection, wording changes, and rationale.
-- Provide ATS optimization, content gap analysis, and alignment opportunities.
-
-### 7. Recommended Libraries/Tools
-- NLP: spaCy, transformers, sentence-transformers
-- Scoring: Custom rubric, embedding similarity
-- Rendering: Jinja2, markdown-it, or custom renderer
-
-### 8. Concrete Implementation Tasks
-(All implementation tasks are now tracked in the backlog directory.)
 # Vitae Backend
 
-Vitae Backend is a modular, AI-powered microservice for parsing, analyzing, and matching resumes and job descriptions. It is designed for secure, scalable, and ATS-focused resume/job processing, leveraging local LLMs and robust schema validation.
+FastAPI backend for Vitae: structured resume/job ingestion, profile category detection, and transparent job-fit analysis.
 
 ## Purpose
-- **Resume Parsing:** Convert PDF/DOCX resumes into [JSON Resume](https://jsonresume.org/schema/) (open standard) structured JSON (personal data, experiences, skills, education, etc.).
-- **Job Parsing:** Extract structured data from job descriptions for downstream matching.
-- **ATS Compatibility:** Score and suggest improvements for resumes against job postings using AI and embeddings.
-- **Security:** Handles PII with strict validation, secure file handling, and minimal data retention.
 
-## Features
-- Local AI agent management (Ollama, OpenAI, LlamaIndex)
-- Modular service and model architecture
-- Pydantic and JSON schema validation
-- RESTful API for upload, processing, and scoring
-- Temporary file handling for secure document processing
+The backend converts resumes and job descriptions into structured records, compares candidate evidence against job requirements, and returns scores, mappings, gaps, and feedback that can guide resume tailoring.
 
-## Installation
-1. **Clone the repository** (if not already):
-   ```sh
-   git clone <repo-url>
-   cd vitae/backend
-   ```
-2. **Create a virtual environment:**
-   ```sh
-   python3 -m venv .venv
-   source .venv/bin/activate
-   ```
-3. **Install dependencies:**
-   ```sh
-   pip install -r requirements.txt
-   # Or install FastAPI, SQLAlchemy, MarkItDown, and your LLM provider manually
-   ```
-4. **Configure environment variables:**
-   - Set LLM provider/model and database connection in your `.env` or config file as needed.
+Core goals:
 
-## Basic Usage
-1. **Run the FastAPI app:**
-   ```sh
-   uvicorn main:app --reload
-   ```
-2. **API Endpoints:**
-   - `POST /api/v1/resume/upload` — Upload a resume (PDF/DOCX)
-   - `POST /api/v1/job/upload` — Upload a job description (JSON)
-   - `POST /api/v1/score-improvement/{resume_id}/{job_id}` — Score and suggest improvements
+- Parse uploaded resumes and job descriptions into structured JSON.
+- Store raw input separately from processed resume/job records.
+- Detect targeting/profile categories such as industry, role, seniority, company stage, geography, and special requirements.
+- Generate requirement-level job-fit analysis with evidence, gaps, skills, scores, and recommendations.
+- Keep AI/model-provider calls behind service seams.
+- Handle resume/job content as sensitive PII.
 
-3. **Example Request:**
-   ```sh
-   curl -F "file=@resume.pdf" http://localhost:8000/api/v1/resume/upload
-   ```
+## Architecture
 
-## Development
-- All core logic is in `models/`, `services/`, `agent/`, `prompt/`, and `schemas/`.
-- Extend or swap AI providers in `agent/manager.py`.
-- Add new endpoints in `api/router/v1/`.
+```text
+src/main.py                  FastAPI app and router mounting
+src/api/router/v1/           HTTP routers for resume, job, job-fit, profile categories
+src/services/                Parsing, persistence, LLM calls, category detection, scoring/feedback
+src/models/                  SQLModel persistence models
+src/prompt/                  Prompt builders/templates
+schemas/json/                JSON schemas for structured LLM outputs
+src/category_config.py       Profile/targeting category definitions
+db/db.py                     Async SQLModel database setup
+db/alembic/                  Alembic migrations
+```
 
-## Security Notes
-- All file processing uses temporary files and strict validation.
-- PII is never logged or stored beyond processing.
+Default storage is local SQLite unless `DATABASE_URL` is configured. Docker and optional service composition notes are in `README_DOCKER.md` and `docker/`.
 
-## License
-MIT (see root project)
+## Setup
+
+```sh
+cd backend
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+```
+
+Configure `.env` as needed for database and model-provider settings. Do not commit secrets.
+
+## Run locally
+
+```sh
+cd backend
+uvicorn src.main:app --reload
+```
+
+The API defaults to `http://localhost:8000`.
+
+## Main API areas
+
+Verify exact request/response shapes in `src/api/router/v1/` before publishing examples.
+
+- `GET /api/v1/resume`
+- `POST /api/v1/resume/file`
+- `GET /api/v1/resume/{resume_id}`
+- `PATCH /api/v1/resume/{resume_id}`
+- `DELETE /api/v1/resume/{resume_id}`
+- `GET /api/v1/job`
+- `POST /api/v1/job/url`
+- `POST /api/v1/job/text`
+- `POST /api/v1/job/file`
+- `GET /api/v1/job/{job_id}`
+- `PATCH /api/v1/job/{job_id}/name`
+- `DELETE /api/v1/job/{job_id}`
+- `GET /api/v1/job-fit`
+- `POST /api/v1/job-fit`
+- `GET /api/v1/job-fit/{job_fit_id}`
+- `GET /api/v1/job-fit/{job_fit_id}/mapping`
+- `GET /api/v1/job-fit/{job_fit_id}/feedback`
+- `GET /api/v1/profile-categories`
+
+## Tests
+
+```sh
+cd backend
+pytest
+```
+
+Some tests may require a running backend, LiteLLM/model configuration, embedding dependencies, or local fixture data. Document environment blockers in handoffs.
+
+## Development standards
+
+- Use TDD for code changes when practical.
+- Keep routers thin and services focused.
+- Validate LLM outputs against expected schemas before storing/returning data.
+- Keep prompt, schema, service, model, migration, frontend, and docs changes synchronized.
+- Do not log raw resumes, job descriptions, extracted text, prompts, model responses, secrets, or full PII-bearing payloads.
+- Avoid committing `.env`, `.venv`, SQLite databases, uploads, caches, or generated artifacts.
+
+See `../README.md`, `../CONTRIBUTORS.md`, and `AGENTS.md` for repository-wide context.

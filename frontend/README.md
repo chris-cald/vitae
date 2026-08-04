@@ -1,39 +1,80 @@
-
-
-## Resume Rendering & ATS Job-Fit Feedback Tasks
-
-
-## Targeting Criteria & Prompt Customization
-
-(All targeting, feedback, rendering, and UI tasks are now tracked in the backlog directory.)
 # Vitae Frontend
 
-This project is a React app (Vite + Shadcn UI) for interacting with the Vitae backend. It allows users to:
-- Upload resumes (PDF/DOCX)
-- Upload job descriptions (JSON)
-- Run job-fit analysis between a resume and a job description
+React/Vite frontend for Vitae. It lets users upload or select resumes and jobs, choose targeting criteria, create job-fit analyses, and view analysis results from the backend.
 
-## Getting Started
+## Stack
 
-1. Install dependencies:
-   ```sh
-   npm install
-   ```
-2. Start the development server:
-   ```sh
-   npm run dev
-   ```
+- React + TypeScript
+- Vite development/build tooling
+- Tailwind CSS
+- Shadcn-style UI primitives
+- Relative `/api/v1/...` backend calls proxied by Vite to `http://localhost:8000`
 
-## Features
-- Intuitive forms for uploading resumes and job descriptions
-- Job-fit analysis with results display
-- Modern UI using Shadcn components
+## Architecture
 
+```text
+src/main.tsx                         React entry point
+src/App.tsx                          Main stepper workflow and selected IDs
+src/components/resume/               Resume upload/list/manage UI
+src/components/job/                  Job URL/text/file upload and manage UI
+src/components/jobfit/               Targeting criteria, analysis creation/list/results UI
+src/components/ui/                   Reusable Shadcn-style primitives/icons
+src/lib/api.ts                       Shared API helpers for selected endpoints
+src/index.css                        Tailwind/theme tokens
+```
 
-## Backend API
-See `/backend/docs/api/openapi.yaml` for details.
+The app currently uses local React state rather than a router. `App.tsx` coordinates this flow:
 
+1. Upload or select a resume.
+2. Upload or select a job description.
+3. Select targeting/profile categories.
+4. Create a job-fit analysis.
+5. View score, mapping, feedback, and previous analyses.
 
-## Project Tasks
+## Setup
 
-See the backlog directory for all ongoing and future development tasks.
+```sh
+cd frontend
+npm install
+```
+
+## Run locally
+
+Start the backend first on port 8000, then:
+
+```sh
+cd frontend
+npm run dev
+```
+
+Vite proxies `/api` to `http://localhost:8000`.
+
+## Scripts
+
+```sh
+npm run dev      # Vite dev server
+npm run build    # Production build / TypeScript build validation
+npm run lint     # ESLint
+npm run preview  # Preview built app
+```
+
+Note: the current ESLint configuration may not cover every TS/TSX source file unless it is updated.
+
+## Backend API areas used by the frontend
+
+- `/api/v1/resume`
+- `/api/v1/job`
+- `/api/v1/job-fit`
+- `/api/v1/profile-categories`
+
+Verify exact route names and payloads in `../backend/src/api/router/v1/` when changing API calls.
+
+## Development standards
+
+- Use explicit TypeScript types for backend payloads and component props where practical.
+- Prefer shared helpers in `src/lib/api.ts` for new API calls.
+- Keep endpoint names synchronized with backend routes.
+- Use `@/*` imports, Tailwind utilities, `cn()`, and shared UI components from `src/components/ui/`.
+- Do not log sensitive resume/job content except where intentionally shown to the user.
+
+See `../README.md`, `../CONTRIBUTORS.md`, and `AGENTS.md` for repository-wide context.
