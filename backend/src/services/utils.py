@@ -1,5 +1,5 @@
-import io
 import os
+import io
 from typing import Any, Type, Optional
 from sqlmodel import select
 
@@ -59,20 +59,23 @@ def call_llm_stub(prompt: str) -> str:
     logger = logging.getLogger(__name__)
 
     model = os.getenv("LLM_MODEL", "gpt-3.5-turbo")
-    try:
-        from litellm import completion  # type: ignore
+    import traceback
 
-        logger.debug(f"Calling LiteLLM with model={model}")
-        logger.debug(f"Prompt sent to LiteLLM:\n{prompt}")
+    try:
+        from litellm import completion  # pyright: ignore[reportUnknownVariableType]
+
+        logger.info("Calling LiteLLM with model=%s and prompt_length=%s", model, len(prompt))
         response = completion(
             model=model, messages=[{"role": "user", "content": prompt}]
         )
-        logger.debug(f"Raw LiteLLM response: {response}")
-        content = None
-        if hasattr(response, "choices") and response.choices:  # type: ignore
-            choice = response.choices[0]  # type: ignore
-            if hasattr(choice, "message") and hasattr(choice.message, "content"):  # type: ignore
-                content = choice.message.content  # type: ignore
+        logger.info("LiteLLM response received")
+        content: Optional[str] = None
+        choices = getattr(response, "choices", None)
+        if choices:
+            choice = choices[0]
+            message = getattr(choice, "message", None)
+            if message and hasattr(message, "content"):
+                content = str(message.content)
         elif isinstance(response, dict):
             if (
                 "choices" in response
@@ -80,21 +83,20 @@ def call_llm_stub(prompt: str) -> str:
                 and "message" in response["choices"][0]
                 and "content" in response["choices"][0]["message"]
             ):
-                content = response["choices"][0]["message"]["content"]  # type: ignore
+                content = str(response["choices"][0]["message"]["content"])  # pyright: ignore[reportUnknownArgumentType]
             elif "error" in response:
                 logger.error(f"LiteLLM error response: {response['error']}")
         if content:
-            logger.debug(f"LiteLLM extracted content: {content}")
+            logger.debug("LiteLLM extracted content_length=%s", len(content))
             if not content.strip() or content.strip() == "{}":
                 logger.error("LLM returned empty or invalid JSON content.")
                 raise ValueError("LLM returned empty or invalid JSON content.")
             return content  # type: ignore
-        logger.warning(
-            f"LiteLLM response malformed, returning empty JSON. Full response: {response}"
-        )
+        logger.warning("LiteLLM response malformed or empty")
         raise ValueError("LiteLLM response malformed or empty.")
     except Exception as e:
         logger.error(f"LiteLLM call failed: {e}")
+        logger.error(traceback.format_exc())
         raise
 
 

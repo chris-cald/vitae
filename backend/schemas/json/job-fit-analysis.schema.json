@@ -6,6 +6,7 @@
     "id": { "type": "string" },
     "resume_id": { "type": "string" },
     "job_id": { "type": "string" },
+    "mapping_id": { "type": "string" },
     "score": { "type": "number", "minimum": 0, "maximum": 100 },
     "analysis": { "type": "string" },
     "feedback": {
@@ -14,6 +15,7 @@
       "items": {
         "type": "object",
         "properties": {
+          "requirement_id": { "type": "string" },
           "intent": {
             "type": "string",
             "enum": [
@@ -36,19 +38,48 @@
           "message": { "type": "string" },
           "lineNumber": { "type": "string" }
         },
-        "required": ["intent", "message", "lineNumber", "weight"]
+        "required": [
+          "requirement_id",
+          "intent",
+          "message",
+          "lineNumber",
+          "weight"
+        ]
       },
       "example": [
         {
+          "requirement_id": "req-1",
           "intent": "preserve",
           "message": "The candidate's experience with cloud infrastructure is highly relevant.",
           "lineNumber": "12",
           "weight": 0.9
         },
         {
+          "requirement_id": "req-1",
           "intent": "add",
           "message": "Add more detail about HIPAA compliance experience.",
           "lineNumber": "18",
+          "weight": 0.7
+        },
+        {
+          "requirement_id": "req-1",
+          "intent": "clarify",
+          "message": "Clarify the scope of leadership in previous roles to match the job description.",
+          "lineNumber": "19",
+          "weight": 0.6
+        },
+        {
+          "requirement_id": "req-2",
+          "intent": "preserve",
+          "message": "The candidate's management experience is strong.",
+          "lineNumber": "20",
+          "weight": 0.9
+        },
+        {
+          "requirement_id": "req-2",
+          "intent": "add",
+          "message": "Include more about remote team management.",
+          "lineNumber": "21",
           "weight": 0.7
         }
       ]
@@ -76,6 +107,7 @@
     "id",
     "resume_id",
     "job_id",
+    "mapping_id",
     "score",
     "analysis",
     "feedback",

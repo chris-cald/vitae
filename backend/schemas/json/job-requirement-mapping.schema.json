@@ -1,0 +1,33 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "JobRequirementMapping",
+  "type": "object",
+  "properties": {
+    "id": { "type": "string" },
+    "resume_id": { "type": "string" },
+    "job_id": { "type": "string" },
+    "requirements": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "requirement_id": { "type": "string" },
+          "requirement": { "type": "string" },
+          "resume_evidence": { "type": "string" },
+          "match_level": {
+            "type": "string",
+            "enum": ["strong", "partial", "weak", "none"]
+          },
+          "notes": { "type": "string" }
+        },
+        "required": [
+          "requirement_id",
+          "requirement",
+          "resume_evidence",
+          "match_level"
+        ]
+      }
+    }
+  },
+  "required": ["id", "resume_id", "job_id", "requirements"]
+}

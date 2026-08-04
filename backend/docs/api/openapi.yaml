@@ -2,7 +2,7 @@ openapi: 3.0.3
 info:
   title: Vitae Backend API
   version: 1.0.0
-  description: API for uploading resumes, job descriptions, and scoring improvements.
+  description: API for uploading resumes, job descriptions, profile categories, and job-fit analyses.
 
 paths:
   /api/v1/profile-categories:
@@ -11,47 +11,45 @@ paths:
       tags: [ProfileCategories]
       responses:
         '200':
-          description: List of profile categories and their accepted values
+          description: List of profile categories and accepted values
           content:
             application/json:
               schema:
                 type: object
-                additionalProperties:
-                  type: array
-                  items:
-                    type: string
-    /api/v1/job-fit:
-      get:
-        summary: List all job-fit analyses (paginated)
-        tags: [JobFit]
-        parameters:
-          - in: query
-            name: limit
-            schema:
-              type: integer
-              minimum: 1
-              maximum: 100
-            required: false
-            description: Maximum number of results to return (default 10, max 100)
-          - in: query
-            name: offset
-            schema:
-              type: integer
-              minimum: 0
-            required: false
-            description: Number of items to skip before starting to collect the result set (default 0)
-        responses:
-          '200':
-            description: List of job-fit analyses
-            content:
-              application/json:
-                schema:
-                  type: array
-                  items:
-                    $ref: '#/components/schemas/JobFit'
+                additionalProperties: true
+
+  /api/v1/resume:
+    get:
+      summary: List resumes
+      tags: [Resume]
+      parameters:
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+        - name: offset
+          in: query
+          schema:
+            type: integer
+            minimum: 0
+      responses:
+        '200':
+          description: Resume list
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  resumes:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Resume'
+
   /api/v1/resume/file:
     post:
-      summary: Upload a resume in PDF, DOCX, or Markdown format and store it in DB in HTML/Markdown format
+      summary: Upload a resume in PDF, DOCX, or Markdown format
       tags: [Resume]
       requestBody:
         required: true
@@ -74,30 +72,163 @@ paths:
                   message:
                     type: string
 
-  /api/v1/job:
-    post:
-      summary: Store the job posting in the database by parsing the JD into a structured format JSON
-      tags: [Job]
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/StructuredJob'
+  /api/v1/resume/{resume_id}:
+    get:
+      summary: Fetch a single resume by resume_id
+      tags: [Resume]
+      parameters:
+        - $ref: '#/components/parameters/ResumeId'
       responses:
         '200':
-          description: Job uploaded and processed successfully
+          description: Resume details
           content:
             application/json:
               schema:
                 type: object
                 properties:
-                  message:
-                    type: string
+                  resume:
+                    $ref: '#/components/schemas/Resume'
+    patch:
+      summary: Partially update a resume name or profile categories
+      tags: [Resume]
+      parameters:
+        - $ref: '#/components/parameters/ResumeId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProfileCategoryPatch'
+      responses:
+        '200':
+          description: Resume updated successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  resume:
+                    $ref: '#/components/schemas/Resume'
+
+  /api/v1/job:
+    get:
+      summary: List job postings
+      tags: [Job]
+      parameters:
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+        - name: offset
+          in: query
+          schema:
+            type: integer
+            minimum: 0
+      responses:
+        '200':
+          description: Job list
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  jobs:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Job'
+
+  /api/v1/job/text:
+    post:
+      summary: Store a job posting from plain text
+      tags: [Job]
+      responses:
+        '200':
+          description: Job uploaded and processed successfully
+
+  /api/v1/job/file:
+    post:
+      summary: Store a job posting from an uploaded file
+      tags: [Job]
+      responses:
+        '200':
+          description: Job uploaded and processed successfully
+
+  /api/v1/job/url:
+    post:
+      summary: Store a job posting from a URL
+      tags: [Job]
+      responses:
+        '200':
+          description: Job uploaded and processed successfully
+
+  /api/v1/job/{job_id}:
+    get:
+      summary: Fetch a single job posting by job_id
+      tags: [Job]
+      parameters:
+        - $ref: '#/components/parameters/JobId'
+      responses:
+        '200':
+          description: Job details
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  job:
+                    $ref: '#/components/schemas/Job'
+    patch:
+      summary: Partially update a job name or profile categories
+      tags: [Job]
+      parameters:
+        - $ref: '#/components/parameters/JobId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProfileCategoryPatch'
+      responses:
+        '200':
+          description: Job updated successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  job:
+                    $ref: '#/components/schemas/Job'
 
   /api/v1/job-fit:
+    get:
+      summary: List job-fit analyses
+      tags: [JobFit]
+      parameters:
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+        - name: offset
+          in: query
+          schema:
+            type: integer
+            minimum: 0
+      responses:
+        '200':
+          description: List of job-fit analyses
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/JobFit'
     post:
       summary: Create a job-fit analysis between a candidate profile and a job description
+      description: Creates a job-fit analysis and stores the requirement mapping as a sub-resource.
       tags: [JobFit]
       requestBody:
         required: true
@@ -105,11 +236,18 @@ paths:
           application/json:
             schema:
               type: object
+              required: [resume_id, job_id]
               properties:
                 resume_id:
                   type: string
                 job_id:
                   type: string
+                name:
+                  type: string
+                  nullable: true
+                profile_categories:
+                  type: object
+                  nullable: true
       responses:
         '201':
           description: Job-fit analysis created successfully
@@ -123,11 +261,7 @@ paths:
       summary: Get details of a job-fit analysis
       tags: [JobFit]
       parameters:
-        - name: job_fit_id
-          in: path
-          required: true
-          schema:
-            type: string
+        - $ref: '#/components/parameters/JobFitId'
       responses:
         '200':
           description: Job-fit analysis details
@@ -136,34 +270,26 @@ paths:
               schema:
                 $ref: '#/components/schemas/JobFit'
 
-  /api/v1/job-fit/{job_fit_id}/score:
+  /api/v1/job-fit/{job_fit_id}/mapping:
     get:
-      summary: Get score for a job-fit analysis
-      tags: [Score]
+      summary: Get the requirement mapping for a job-fit analysis
+      tags: [JobFit]
       parameters:
-        - name: job_fit_id
-          in: path
-          required: true
-          schema:
-            type: string
+        - $ref: '#/components/parameters/JobFitId'
       responses:
         '200':
-          description: Score result
+          description: Requirement mapping for this job-fit analysis
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ScoreResult'
+                $ref: '#/components/schemas/JobRequirementMapping'
 
   /api/v1/job-fit/{job_fit_id}/feedback:
     get:
       summary: Get feedback for a job-fit analysis
       tags: [Feedback]
       parameters:
-        - name: job_fit_id
-          in: path
-          required: true
-          schema:
-            type: string
+        - $ref: '#/components/parameters/JobFitId'
       responses:
         '200':
           description: Feedback items
@@ -174,70 +300,45 @@ paths:
                 items:
                   $ref: '#/components/schemas/FeedbackItem'
 
-  /api/v1/job:
-    post:
-      summary: Store the job posting in the database by parsing the JD into a structured format JSON
-      tags: [Job]
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/StructuredJob'
-      responses:
-        '200':
-          description: Job uploaded and processed successfully
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-
 components:
+  parameters:
+    ResumeId:
+      name: resume_id
+      in: path
+      required: true
+      schema:
+        type: string
+    JobId:
+      name: job_id
+      in: path
+      required: true
+      schema:
+        type: string
+    JobFitId:
+      name: job_fit_id
+      in: path
+      required: true
+      schema:
+        type: string
+
   schemas:
     Job:
       $ref: './schemas/json/job.schema.json'
     Resume:
       $ref: './schemas/json/resume.schema.json'
-    ScoreImprovementResult:
-      type: object
-      properties:
-        id:
-          type: integer
-        resume_id:
-          type: string
-        job_id:
-          type: string
-        suggestions:
-          type: object
-          additionalProperties: true
-        score_delta:
-          type: integer
-        created_at:
-          type: string
-          format: date-time
-
+    JobRequirementMapping:
+      $ref: './schemas/json/job-requirement-mapping.schema.json'
     JobFit:
+      $ref: './schemas/json/job-fit-analysis.schema.json'
+    ProfileCategoryPatch:
       type: object
       properties:
-        id:
+        name:
           type: string
-        resume_id:
-          type: string
-        job_id:
-          type: string
-        links:
-          type: array
-          items:
-            type: object
-            properties:
-              rel:
-                type: string
-              href:
-                type: string
-
+          nullable: true
+        profile_categories:
+          type: object
+          nullable: true
     ScoreResult:
       type: object
       properties:
@@ -252,21 +353,20 @@ components:
                 type: string
               href:
                 type: string
-
     FeedbackItem:
       type: object
+      required: [requirement_id, intent, message, lineNumber, weight]
       properties:
+        requirement_id:
+          type: string
         intent:
           type: string
-          enum:
-            - strength
-            - improvement
-            - irrelevant
-            - missing
-            - clarification
-            - redundant
-            - formatting
+          enum: [preserve, add, remove, reword, reformat, move, clarify]
         message:
           type: string
         lineNumber:
           type: string
+        weight:
+          type: number
+          minimum: 0
+          maximum: 1

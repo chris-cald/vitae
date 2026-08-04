@@ -22,6 +22,7 @@ class Skill(SQLModel, table=False):
 
 class FeedbackItem(SQLModel, table=False):
     job_fit_id: str
+    requirement_id: str
     intent: FeedbackIntent
     message: str
     lineNumber: str
@@ -41,14 +42,15 @@ class FeedbackItem(SQLModel, table=False):
 
 class JobFit(SQLModel, table=True):
     id: str = Field(sa_column=Column(sa.String(), primary_key=True))
-    name: str = Field(
-        sa_column=Column(sa.String(), nullable=False)
-    )  # Required user-friendly name
-    resume_id: str = Field(sa_column=Column(sa.String()))
-    job_id: str = Field(sa_column=Column(sa.String()))
-    score: float = Field(
-        sa_column=Column(sa.Float()), ge=0, le=1
-    )  # 0=lowest, 1=highest
+    name: str = Field(sa_column=Column(sa.String(), nullable=False))
+    resume_id: str = Field(
+        sa_column=Column(sa.String(), sa.ForeignKey("resume.resume_id"))
+    )
+    job_id: str = Field(sa_column=Column(sa.String(), sa.ForeignKey("job.job_id")))
+    mapping_id: str = Field(
+        sa_column=Column(sa.String(), sa.ForeignKey("jobrequirementmapping.id"))
+    )
+    score: float = Field(sa_column=Column(sa.Float()), ge=0, le=1)
     analysis: str = Field(sa_column=Column(sa.String()))
     feedback: List[FeedbackItem] = Field(
         sa_column=Column(JSON), repr=False, exclude=True
@@ -69,3 +71,20 @@ class JobFit(SQLModel, table=True):
             {"rel": "resume", "href": f"/api/v1/resume/{self.resume_id}"},
             {"rel": "job", "href": f"/api/v1/job/{self.job_id}"},
         ]
+
+
+class JobRequirementMappingItem(SQLModel, table=False):
+    requirement_id: str
+    requirement: str
+    resume_evidence: str
+    match_level: str  # strong, partial, weak, none
+    notes: str = ""
+
+
+class JobRequirementMapping(SQLModel, table=True):
+    id: str = Field(sa_column=Column(sa.String(), primary_key=True))
+    resume_id: str = Field(
+        sa_column=Column(sa.String(), sa.ForeignKey("resume.resume_id"))
+    )
+    job_id: str = Field(sa_column=Column(sa.String(), sa.ForeignKey("job.job_id")))
+    requirements: list[JobRequirementMappingItem] = Field(sa_column=Column(JSON))

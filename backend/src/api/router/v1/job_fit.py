@@ -1,7 +1,9 @@
 from fastapi import APIRouter, HTTPException, Query
 from pydantic import BaseModel
-from src.models.job_fit import JobFit, FeedbackItem
+from src.models.job_fit import JobFit, JobRequirementMapping
+from typing import Any
 from src.services.job_fit_service import JobFitService
+
 
 router = APIRouter()
 
@@ -47,7 +49,8 @@ async def get_skill(job_fit_id: str):
 class JobFitCreateRequest(BaseModel):
     resume_id: str
     job_id: str
-    name: str
+    name: str | None = None
+    profile_categories: dict[str, Any] | None = None
 
 
 @router.post(
@@ -60,7 +63,10 @@ async def create_job_fit(req: JobFitCreateRequest):
     service = JobFitService()
     try:
         job_fit = await service.analyze_fit(
-            resume_id=req.resume_id, job_id=req.job_id, name=req.name
+            resume_id=req.resume_id,
+            job_id=req.job_id,
+            name=req.name,
+            profile_categories=req.profile_categories,
         )
     except Exception as e:
         msg = str(e)
@@ -95,8 +101,21 @@ async def delete_job_fit(job_fit_id: str):
     return
 
 
-@router.get("/job-fit/{job_fit_id}/feedback", response_model=list[FeedbackItem])
-async def get_feedback(job_fit_id: str):
+# --- Sub-resource endpoints for mapping and feedback ---
+@router.get("/job-fit/{job_fit_id}/mapping", response_model=JobRequirementMapping)
+async def get_job_fit_mapping(job_fit_id: str) -> dict[str, Any]:
+    """Get the mapping for a job-fit analysis."""
+    service = JobFitService()
+    try:
+        mapping = await service.fetch_job_fit_mapping(job_fit_id)
+    except ValueError as e:
+        raise HTTPException(status_code=404, detail=str(e))
+    return mapping
+
+
+@router.get("/job-fit/{job_fit_id}/feedback")
+async def get_job_fit_feedback(job_fit_id: str):
+    """Get feedback for a job-fit analysis (lazy-loads if not present)."""
     service = JobFitService()
     try:
         feedback = await service.fetch_feedback(job_fit_id)
