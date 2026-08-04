@@ -50,7 +50,24 @@ class JobService:
             from src.services.utils import get_or_404
 
             job = await get_or_404(session, Job, "job_id", job_id)
-            return job.model_dump()
+            data = job.model_dump()
+
+            if data.get("profile_categories") is None:
+                from src.services.profile_category_detection import (
+                    detect_profile_categories,
+                )
+
+                text = ""
+                if data.get("title"):
+                    text += str(data["title"])
+                if data.get("description"):
+                    text += str(data["description"])
+                categories = detect_profile_categories({"description": text})
+                data["profile_categories"] = categories
+                job.profile_categories = categories
+                session.add(job)
+                await session.commit()
+            return data
 
     async def fetch_jobs(self, limit: int = 20, offset: int = 0):
         from src.models.job import Job
@@ -182,10 +199,6 @@ class JobService:
                 if field not in normalized:
                     normalized[field] = None
 
-            # Auto-detect profile categories
-            detected_categories = detect_profile_categories(job_data)
-            normalized["profile_categories"] = detected_categories
-
             job_name = name
             if not job_name:
                 title = normalized.get("title")
@@ -199,11 +212,38 @@ class JobService:
             # Remove 'name' and 'job_id' from normalized to avoid duplicate arguments
             normalized.pop("name", None)
             normalized.pop("job_id", None)
+
+            # Store processed job immediately after LLM parsing (without categories)
+            logger.info(
+                f"Inserting processed job (LLM only) for job_id={job_id}, name={job_name}"
+            )
             async with AsyncSessionLocal() as session:
                 processed_job = Job(job_id=job_id, name=job_name, **normalized)
                 session.add(processed_job)
                 await session.commit()
-            logger.debug(f"Processed Job DB record created for job_id={job_id}")
+            logger.info(f"Processed job (LLM only) inserted for job_id={job_id}")
+
+            # Now try to detect categories and update the processed job
+            try:
+                detected_categories = detect_profile_categories(job_data)
+                normalized["profile_categories"] = detected_categories
+                logger.info(
+                    f"Updating processed job with categories for job_id={job_id}"
+                )
+                async with AsyncSessionLocal() as session:
+                    processed_job = Job(job_id=job_id, name=job_name, **normalized)
+                    await session.merge(processed_job)
+                    await session.commit()
+                logger.info(
+                    f"Processed job updated with categories for job_id={job_id}"
+                )
+            except Exception as cat_e:
+                logger.error(f"Category detection failed for job_id={job_id}: {cat_e}")
+                import traceback
+
+                logger.error(traceback.format_exc())
+                # Do not delete file or processed job; allow for recovery
+                raise
         except Exception as exc:
             logger.error(f"Job processing failed: {exc}")
             # Only delete the uploaded file if the RawJob DB record was NOT created

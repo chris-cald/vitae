@@ -6,6 +6,44 @@ from pydantic import BaseModel
 job_router = APIRouter()
 
 
+# Unified PATCH /job/{job_id}
+class JobPatch(BaseModel):
+    name: str | None = None
+    profile_categories: Any = None
+
+
+@job_router.patch(
+    "/{job_id}",
+    summary="Partially update a job (name, profile_categories)",
+)
+async def patch_job(job_id: str, body: JobPatch = Body(...)):
+    from src.models.job import Job
+    from db.db import AsyncSessionLocal
+
+    async with AsyncSessionLocal() as session:
+        from src.services.utils import get_or_404
+
+        job = await get_or_404(session, Job, "job_id", job_id)
+        updated = False
+        patch_dict = body.model_dump(exclude_unset=True)
+        # Prevent processed_at from being set to None
+        if "processed_at" in patch_dict and patch_dict["processed_at"] is None:
+            patch_dict.pop("processed_at")
+        if "name" in patch_dict:
+            job.name = patch_dict["name"]
+            updated = True
+        if "profile_categories" in patch_dict:
+            job.profile_categories = patch_dict["profile_categories"]
+            updated = True
+        # Optionally, update processed_at if you want to track updates
+        # job.processed_at = datetime.now(timezone.utc)
+        if updated:
+            session.add(job)
+            await session.commit()
+        data = job.model_dump()
+    return {"job": data}
+
+
 # PATCH /job/{job_id}/name
 class JobNameUpdate(BaseModel):
     name: str
@@ -100,7 +138,10 @@ async def fetch_jobs(
 
 # Fetch single job by job_id
 @job_router.get("/{job_id}", summary="Fetch a single job posting by job_id.")
-async def fetch_job(job_id: str):
+async def fetch_job(
+    job_id: str,
+    force: bool = Query(False, description="Force re-detection of profile_categories"),
+) -> dict[str, Any]:
     service = JobService()
     job = await service.fetch_job(job_id)
     if not job:

@@ -47,6 +47,7 @@ class Resume(SQLModel, table=True):
         default=None, sa_column=Column(JSON)
     )
     meta: Optional[Dict[str, Any]] = Field(default=None, sa_column=Column(JSON))
+    profile_categories: Optional[Dict[str, Any]] = Field(default=None, sa_column=Column(JSON))
     processed_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
     raw_resume: Optional["RawResume"] = Relationship(
         back_populates="raw_resume_association"

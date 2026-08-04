@@ -10,26 +10,44 @@ from fastapi import (
 )
 from src.services import ResumeService
 from pydantic import BaseModel
+from typing import Any
+
+# Add missing import for AsyncSessionLocal
+from db.db import AsyncSessionLocal
 
 resume_router = APIRouter()
 
 
-# PATCH /resume/{resume_id}/name
-class ResumeNameUpdate(BaseModel):
-    name: str
+# Unified PATCH /resume/{resume_id}
+class ResumePatch(BaseModel):
+    name: str | None = None
+    profile_categories: Any = None
 
 
 @resume_router.patch(
-    "/{resume_id}/name",
-    summary="Update the name of a resume.",
+    "/{resume_id}",
+    summary="Partially update a resume (name, profile_categories)",
 )
-async def update_resume_name(resume_id: str, body: ResumeNameUpdate):
-    service = ResumeService()
-    try:
-        await service.update_resume_name(resume_id, body.name)
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
-    return {"message": "Resume name updated."}
+async def patch_resume(resume_id: str, body: ResumePatch = Body(...)):
+    from src.models.resume import Resume
+
+    async with AsyncSessionLocal() as session:
+        from src.services.utils import get_or_404
+
+        resume = await get_or_404(session, Resume, "resume_id", resume_id)
+        updated = False
+        patch_dict = body.model_dump(exclude_unset=True)
+        if "name" in patch_dict:
+            resume.name = patch_dict["name"]
+            updated = True
+        if "profile_categories" in patch_dict:
+            resume.profile_categories = patch_dict["profile_categories"]
+            updated = True
+        if updated:
+            session.add(resume)
+            await session.commit()
+        data = resume.model_dump()
+    return {"resume": data}
 
 
 # 1. POST /resume/text
@@ -55,19 +73,30 @@ async def create_resume_text(request: Request):
     summary="Create a resume from a file (PDF, DOCX, Markdown).",
 )
 async def create_resume_file(file: UploadFile = File(...)):
+    import logging
+
+    logger = logging.getLogger(__name__)
     allowed_content_types = [
         "application/pdf",
         "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
         "text/markdown",
     ]
+    logger.info(
+        "Received resume file upload with content_type=%s", file.content_type
+    )
     if file.content_type not in allowed_content_types:
+        logger.warning(
+            f"Rejected file upload: invalid content_type={file.content_type}"
+        )
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
             detail="Invalid file type. Only PDF, DOCX, and Markdown files are allowed.",
         )
     MAX_FILE_SIZE = 2 * 1024 * 1024
     file_bytes = await file.read()
+    logger.info("Resume file read complete, size=%s bytes", len(file_bytes))
     if len(file_bytes) > MAX_FILE_SIZE:
+        logger.warning("Rejected resume upload: file too large (%s bytes)", len(file_bytes))
         raise HTTPException(
             status_code=status.HTTP_413_REQUEST_ENTITY_TOO_LARGE,
             detail="File size exceeds maximum allowed size of 2.0MB.",
@@ -75,8 +104,16 @@ async def create_resume_file(file: UploadFile = File(...)):
     service = ResumeService()
     filename = file.filename if file.filename is not None else ""
     try:
+        logger.info(
+            "Processing resume upload with content_type=%s", file.content_type
+        )
         await service.process_resume(file_bytes, file.content_type, filename)
+        logger.info("Resume processed successfully")
     except Exception as e:
+        import traceback
+
+        logger.error("Error processing resume upload: %s", e)
+        logger.error(traceback.format_exc())
         raise HTTPException(status_code=500, detail=str(e))
     return {"message": "Resume uploaded and processed successfully."}
 
@@ -114,6 +151,8 @@ async def fetch_resumes(
 
 
 # Fetch single resume by resume_id
+
+
 @resume_router.get(
     "/{resume_id}",
     summary="Fetch a single resume by resume_id.",

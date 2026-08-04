@@ -7,3 +7,5 @@ aiosqlite
 python-multipart
 pdfminer.six
 python-docx
+sentence-transformers
+greenlet
