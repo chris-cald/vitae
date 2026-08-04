@@ -41,7 +41,7 @@ export function ResumeListInline({ onSelect, selectedId }: ResumeListInlineProps
               <EditableName
                 name={r.name || r.resume_id}
                 onSave={async (newName) => {
-                  await fetch(`/api/v1/resume/${r.resume_id}/name`, {
+                  await fetch(`/api/v1/resume/${r.resume_id}`, {
                     method: 'PATCH',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ name: newName }),
@@ -54,7 +54,7 @@ export function ResumeListInline({ onSelect, selectedId }: ResumeListInlineProps
                 iconSize="w-4 h-4"
               />
               <div className="flex items-center gap-2 min-w-0">
-                <JsonThumbnail data={r} fields={["name"]} className="ml-0" />
+                <JsonThumbnail data={r} className="ml-0" />
                 <Button
                   variant="ghost"
                   size="icon-sm"

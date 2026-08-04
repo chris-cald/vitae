@@ -1,0 +1,97 @@
+---
+cssclasses: [résumé]
+---
+
+
+# **$basics.name**
+$basics.location.city, $basics.location.region{% if $basics.phone %} | $basics.phone{% endif %}{% if $basics.email %} | [$basics.email](mailto:$basics.email){% endif %}{% if $basics.profiles %}{% for profile in $basics.profiles %} | [$profile.network]($profile.url){% endfor %}{% endif %}
+
+**$basics.label**{% if $basics.summary %} — $basics.summary{% endif %}
+
+{% if $skills %}
+## Core Competencies
+{% for skill in $skills %}
+**$skill.name**{% if $skill.level %} ($skill.level){% endif %}{% if $skill.keywords %}: $skill.keywords{% endif %}
+{% endfor %}
+{% endif %}
+
+{% if $work %}
+## Professional Experience
+{% for job in $work %}
+##### **$job.name**{% if $job.location %} | $job.location{% endif %}
+###### **$job.position** | *$job.startDate{% if $job.endDate %} - $job.endDate{% endif %}*
+{% if $job.summary %}- $job.summary{% endif %}
+{% if $job.highlights %}
+{% for highlight in $job.highlights %}
+- $highlight
+{% endfor %}
+{% endif %}
+{% endfor %}
+{% endif %}
+
+{% if $education %}
+## Education
+{% for edu in $education %}
+###### **$edu.institution**{% if $edu.location %} | $edu.location{% endif %}
+**$edu.studyType{% if $edu.area %}, $edu.area{% endif %}** | *$edu.startDate{% if $edu.endDate %} - $edu.endDate{% endif %}*
+{% if $edu.score %}GPA: $edu.score{% endif %}
+{% if $edu.courses %}
+Courses: $edu.courses
+{% endif %}
+{% endfor %}
+{% endif %}
+
+{% if $awards %}
+## Awards
+{% for award in $awards %}
+- **$award.title** ($award.awarder, $award.date){% if $award.summary %}: $award.summary{% endif %}
+{% endfor %}
+{% endif %}
+
+{% if $certificates %}
+## Certificates
+{% for cert in $certificates %}
+- **$cert.name** ($cert.issuer, $cert.date){% if $cert.url %} [Link]($cert.url){% endif %}
+{% endfor %}
+{% endif %}
+
+{% if $publications %}
+## Publications
+{% for pub in $publications %}
+- **$pub.name** ($pub.publisher, $pub.releaseDate){% if $pub.url %} [Link]($pub.url){% endif %}{% if $pub.summary %}: $pub.summary{% endif %}
+{% endfor %}
+{% endif %}
+
+{% if $projects %}
+## Projects
+{% for project in $projects %}
+- **$project.name**{% if $project.roles %} ($project.roles){% endif %}{% if $project.startDate %} [$project.startDate{% if $project.endDate %} - $project.endDate{% endif %}]{% endif %}
+  - $project.description
+  {% if $project.highlights %}
+  {% for highlight in $project.highlights %}
+    - $highlight
+  {% endfor %}
+  {% endif %}
+{% endfor %}
+{% endif %}
+
+{% if $languages %}
+## Languages
+{% for lang in $languages %}
+- $lang.language ($lang.fluency)
+{% endfor %}
+{% endif %}
+
+{% if $interests %}
+## Interests
+{% for interest in $interests %}
+- **$interest.name**{% if $interest.keywords %}: $interest.keywords{% endif %}
+{% endfor %}
+{% endif %}
+
+{% if $references %}
+## References
+{% for ref in $references %}
+- **$ref.name**: $ref.reference
+{% endfor %}
+{% endif %}

@@ -2,6 +2,7 @@ import { useState, useEffect, FormEvent } from 'react';
 import { JobFitCategorySelector } from './JobFitCategorySelector';
 import { Button } from '@/components/ui/button';
 import { PencilIcon } from '@/components/ui/PencilIcon';
+import { submitJobFitAnalysis, fetchJobFitMapping, fetchJobFitFeedback } from '@/lib/api';
 
 export interface JobFitCreateResponse {
   id?: string;
@@ -44,6 +45,9 @@ export function JobFitCreate({ onCreated, resumeId: propResumeId, jobId: propJob
   const [creating, setCreating] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [selectedCategories, setSelectedCategories] = useState<any>(null);
+  const [jobFit, setJobFit] = useState<any>(null);
+  const [mapping, setMapping] = useState<any>(null);
+  const [feedback, setFeedback] = useState<any>(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -98,19 +102,20 @@ export function JobFitCreate({ onCreated, resumeId: propResumeId, jobId: propJob
     }
     setCreating(true);
     try {
-      const res = await fetch('/api/v1/job-fit', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ resume_id: resumeId, job_id: jobId, name, profile_categories: selectedCategories }),
-      });
-      const data: JobFitCreateResponse = await res.json();
-      if (res.status === 201 || res.ok) {
-        onCreated && onCreated(data);
-      } else {
-        setError(data.message || 'Creation failed.');
-      }
-    } catch (err) {
-      setError('Network error.');
+      // Create job fit (mapping is created automatically)
+      const payload: any = { resume_id: resumeId, job_id: jobId, name };
+      if (selectedCategories) payload.profile_categories = selectedCategories;
+      const jobFitRes = await submitJobFitAnalysis(payload);
+      setJobFit(jobFitRes);
+      // Fetch mapping sub-resource
+      const mappingRes = await fetchJobFitMapping(jobFitRes.id);
+      setMapping(mappingRes);
+      // Fetch feedback sub-resource (triggers lazy feedback generation)
+      const feedbackRes = await fetchJobFitFeedback(jobFitRes.id);
+      setFeedback(feedbackRes);
+      onCreated && onCreated(jobFitRes);
+    } catch (err: any) {
+      setError(err.message || 'Creation failed.');
     } finally {
       setCreating(false);
     }
@@ -185,6 +190,21 @@ export function JobFitCreate({ onCreated, resumeId: propResumeId, jobId: propJob
       <Button type="submit" disabled={creating || loading || !resumeId || !jobId || !selectedCategories}>
         {creating ? 'Creating...' : 'Create Job-Fit Analysis'}
       </Button>
+      {jobFit && (
+        <div className="text-sm text-green-700">
+          Analysis created: {jobFit.name || jobFit.id || 'created'}
+        </div>
+      )}
+      {mapping && (
+        <div className="text-xs text-gray-600">
+          Requirements mapped: {Array.isArray(mapping.requirements) ? mapping.requirements.length : 0}
+        </div>
+      )}
+      {feedback && (
+        <div className="text-xs text-gray-600">
+          Feedback items: {Array.isArray(feedback) ? feedback.length : 0}
+        </div>
+      )}
       {error && <div className="text-red-500 text-sm">{error}</div>}
     </form>
   );

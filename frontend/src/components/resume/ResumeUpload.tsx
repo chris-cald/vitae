@@ -101,7 +101,7 @@ export function ResumeUpload({ onUploaded }: ResumeUploadProps) {
           id="resume-upload-input"
           type="file"
           ref={fileInput}
-          accept=".pdf,.doc,.docx"
+          accept=".pdf,.doc,.docx,.md"
           className="hidden"
           onChange={handleFileChange}
         />

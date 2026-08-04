@@ -65,8 +65,10 @@ export const JobFitCategorySelector: React.FC<JobFitCategorySelectorProps> = ({ 
     load();
   }, [jobId, onLoaded]);
 
+
+  // Always store as string for single-select
   const handleChange = (category: string, value: string) => {
-    setSelected((prev) => ({ ...prev, [category]: value }));
+    setSelected((prev) => ({ ...prev, [category]: value === undefined || value === null ? '' : String(value) }));
   };
 
   if (loading) return <div>Loading categories...</div>;
