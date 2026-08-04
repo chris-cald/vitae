@@ -16,9 +16,3 @@ services:
     environment:
       - HTTP_PROXY=http://mitmproxy:8080
       - HTTPS_PROXY=http://mitmproxy:8080
-    networks:
-      - backend-net
-
-networks:
-  backend-net:
-    external: false

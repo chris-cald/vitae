@@ -6,9 +6,9 @@ services:
     container_name: backend
     ports:
       - "8000:8000"
+    env_file: .env
     environment:
       DATABASE_URL: sqlite+aiosqlite:///./test.db
-      LLM_MODEL: openrouter/meta-llama/llama-3.3-70b-instruct:free
       UPLOAD_DIR: .ignore/uploads
       # To use PostgreSQL, override DATABASE_URL in your .env or compose file:
       # DATABASE_URL: postgresql+asyncpg://postgres:postgres@postgres:5432/vitae
@@ -18,3 +18,9 @@ services:
     restart: unless-stopped
     volumes:
       - .:/app
+    networks:
+      - backend-net
+
+networks:
+  backend-net:
+    external: false
