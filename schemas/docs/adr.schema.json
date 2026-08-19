@@ -1,0 +1,134 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://vitae.local/schemas/docs/adr.schema.json",
+  "title": "Vitae Architecture Decision Record",
+  "description": "Canonical frontmatter contract for Vitae ADR Markdown files. The Markdown body supplies the named sections; this schema validates machine-readable metadata optimized for LLM and automation consumption.",
+  "type": "object",
+  "unevaluatedProperties": false,
+  "required": [
+    "id",
+    "type",
+    "status",
+    "title",
+    "decisionDate",
+    "owners",
+    "maturity",
+    "complexity",
+    "llm"
+  ],
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "id": {
+      "$ref": "common.schema.json#/$defs/docId"
+    },
+    "type": {
+      "const": "adr"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "proposed",
+        "accepted",
+        "rejected",
+        "deprecated",
+        "superseded"
+      ]
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1
+    },
+    "decisionDate": {
+      "$ref": "common.schema.json#/$defs/isoDate"
+    },
+    "lastUpdated": {
+      "$ref": "common.schema.json#/$defs/isoDate"
+    },
+    "owners": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "common.schema.json#/$defs/owner"
+      }
+    },
+    "maturity": {
+      "$ref": "common.schema.json#/$defs/maturity"
+    },
+    "complexity": {
+      "$ref": "common.schema.json#/$defs/complexity"
+    },
+    "decisionScope": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "product",
+          "architecture",
+          "data-model",
+          "api",
+          "frontend",
+          "backend",
+          "ai-ml",
+          "workflow",
+          "security",
+          "privacy",
+          "operations",
+          "documentation"
+        ]
+      },
+      "uniqueItems": true
+    },
+    "affectedSystems": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "uniqueItems": true
+    },
+    "supersedes": {
+      "type": "array",
+      "items": {
+        "$ref": "common.schema.json#/$defs/docId"
+      },
+      "uniqueItems": true
+    },
+    "supersededBy": {
+      "$ref": "common.schema.json#/$defs/docId"
+    },
+    "links": {
+      "type": "array",
+      "items": {
+        "$ref": "common.schema.json#/$defs/link"
+      }
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^[a-z0-9][a-z0-9-]*$"
+      },
+      "uniqueItems": true
+    },
+    "llm": {
+      "$ref": "common.schema.json#/$defs/llmSummary"
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "superseded"
+          }
+        },
+        "required": ["status"]
+      },
+      "then": {
+        "required": ["supersededBy"]
+      }
+    }
+  ]
+}
