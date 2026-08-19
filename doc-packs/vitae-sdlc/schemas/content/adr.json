@@ -1,0 +1,141 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "/vitae.sdlc/content/adr",
+  "title": "vitae.sdlc/content/adr",
+  "description": "Semantic body content contract for Vitae Architecture Decision Records. The payload captures decision reasoning and can be rendered as Markdown.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "documentKind",
+    "context",
+    "decisionOutcome",
+    "consequences"
+  ],
+  "properties": {
+    "documentKind": { "const": "architecture-decision" },
+    "snapshot": { "$ref": "#/$defs/snapshot" },
+    "status": { "$ref": "/vitae.sdlc/content/common#/$defs/nonEmptyString" },
+    "context": { "$ref": "/vitae.sdlc/content/common#/$defs/nonEmptyString" },
+    "decisionDrivers": { "$ref": "/vitae.sdlc/content/common#/$defs/stringList" },
+    "consideredOptions": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/consideredOption" }
+    },
+    "decisionOutcome": { "$ref": "#/$defs/decisionOutcome" },
+    "consequences": { "$ref": "#/$defs/consequences" },
+    "confirmation": { "$ref": "#/$defs/confirmation" },
+    "implementationNotes": { "$ref": "/vitae.sdlc/content/common#/$defs/stringList" },
+    "references": {
+      "type": "array",
+      "items": { "$ref": "/vitae.sdlc/content/common#/$defs/link" }
+    },
+    "openQuestions": {
+      "type": "array",
+      "items": { "$ref": "/vitae.sdlc/content/common#/$defs/openQuestion" }
+    }
+  },
+  "$defs": {
+    "snapshot": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["decision", "whyNow", "chosenBecause", "watchFor"],
+      "properties": {
+        "decision": { "$ref": "/vitae.sdlc/content/common#/$defs/nonEmptyString" },
+        "whyNow": { "$ref": "/vitae.sdlc/content/common#/$defs/nonEmptyString" },
+        "chosenBecause": { "$ref": "/vitae.sdlc/content/common#/$defs/nonEmptyString" },
+        "watchFor": { "$ref": "/vitae.sdlc/content/common#/$defs/nonEmptyString" }
+      }
+    },
+    "consideredOption": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "description"],
+      "properties": {
+        "name": { "$ref": "/vitae.sdlc/content/common#/$defs/nonEmptyString" },
+        "description": { "$ref": "/vitae.sdlc/content/common#/$defs/nonEmptyString" },
+        "positive": { "$ref": "/vitae.sdlc/content/common#/$defs/optionalStringList" },
+        "negative": { "$ref": "/vitae.sdlc/content/common#/$defs/optionalStringList" },
+        "neutral": { "$ref": "/vitae.sdlc/content/common#/$defs/optionalStringList" }
+      }
+    },
+    "decisionOutcome": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["chosenOption", "rationale"],
+      "properties": {
+        "chosenOption": { "$ref": "/vitae.sdlc/content/common#/$defs/nonEmptyString" },
+        "rationale": { "$ref": "/vitae.sdlc/content/common#/$defs/nonEmptyString" }
+      }
+    },
+    "consequences": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["positive", "negative"],
+      "properties": {
+        "positive": { "$ref": "/vitae.sdlc/content/common#/$defs/stringList" },
+        "negative": { "$ref": "/vitae.sdlc/content/common#/$defs/stringList" },
+        "neutral": { "$ref": "/vitae.sdlc/content/common#/$defs/optionalStringList" }
+      }
+    },
+    "confirmation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["checks"],
+      "properties": {
+        "checks": { "$ref": "/vitae.sdlc/content/common#/$defs/stringList" },
+        "validationGates": {
+          "type": "array",
+          "items": { "$ref": "/vitae.sdlc/content/common#/$defs/validationGate" }
+        }
+      }
+    }
+  },
+  "examples": [
+    {
+      "documentKind": "architecture-decision",
+      "snapshot": {
+        "decision": "Use explicit Doc-Vader route metadata for Vitae SDLC documents.",
+        "whyNow": "ADR and PRD documents need portable pack routing before automation expands.",
+        "chosenBecause": "Explicit routes are easier to validate than path inference.",
+        "watchFor": "Legacy documents may need inferred routes during migration."
+      },
+      "status": "proposed",
+      "context": "Vitae records architecture-significant choices that should be machine-routable by Doc-Vader.",
+      "decisionDrivers": ["portable validation", "clear document ownership"],
+      "consideredOptions": [
+        {
+          "name": "Explicit route metadata",
+          "description": "Emit namespace and type in each generated ADR.",
+          "positive": ["Simple to validate"],
+          "negative": ["Requires template updates"]
+        }
+      ],
+      "decisionOutcome": {
+        "chosenOption": "Explicit route metadata",
+        "rationale": "It preserves deterministic routing across directories and repositories."
+      },
+      "consequences": {
+        "positive": ["Doc-Vader can route ADRs without path-specific assumptions."],
+        "negative": ["Existing ADRs may need compatibility inference."],
+        "neutral": ["Markdown remains the human-readable view."]
+      },
+      "confirmation": {
+        "checks": ["Validate ADR content payloads against this schema."]
+      },
+      "references": [
+        {
+          "label": "Document Type Packs",
+          "href": "docs/reference/document-type-packs.md",
+          "relationship": "source"
+        }
+      ],
+      "openQuestions": [
+        {
+          "question": "Should existing ADR Markdown be backfilled with content sidecars?",
+          "status": "deferred"
+        }
+      ]
+    }
+  ]
+}

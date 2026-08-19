@@ -1,0 +1,200 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "/vitae.sdlc/content/prd",
+  "title": "vitae.sdlc/content/prd",
+  "description": "Semantic body content contract for Vitae Product Requirements Documents. The payload captures product intent, traceability, and acceptance signals for Markdown rendering.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "documentKind",
+    "problemStatement",
+    "goals",
+    "nonGoals",
+    "usersAndUseCases",
+    "requirements",
+    "successMetrics",
+    "risksAndMitigations",
+    "openQuestions"
+  ],
+  "properties": {
+    "documentKind": { "const": "product-requirements" },
+    "snapshot": { "$ref": "#/$defs/snapshot" },
+    "problemStatement": { "$ref": "/vitae.sdlc/content/common#/$defs/nonEmptyString" },
+    "goals": { "$ref": "/vitae.sdlc/content/common#/$defs/stringList" },
+    "nonGoals": { "$ref": "/vitae.sdlc/content/common#/$defs/stringList" },
+    "usersAndUseCases": { "$ref": "#/$defs/usersAndUseCases" },
+    "requirements": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/requirement" }
+    },
+    "userExperienceNotes": { "$ref": "/vitae.sdlc/content/common#/$defs/stringList" },
+    "dataAndContracts": { "$ref": "/vitae.sdlc/content/common#/$defs/stringList" },
+    "successMetrics": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/successMetric" }
+    },
+    "risksAndMitigations": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "/vitae.sdlc/content/common#/$defs/risk" }
+    },
+    "assumptions": { "$ref": "/vitae.sdlc/content/common#/$defs/stringList" },
+    "openQuestions": {
+      "type": "array",
+      "items": { "$ref": "/vitae.sdlc/content/common#/$defs/openQuestion" }
+    },
+    "backlogMapping": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/backlogMapping" }
+    },
+    "validationGates": {
+      "type": "array",
+      "items": { "$ref": "/vitae.sdlc/content/common#/$defs/validationGate" }
+    }
+  },
+  "$defs": {
+    "snapshot": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["problem", "primaryUser", "outcome", "scopeBoundary", "successSignal"],
+      "properties": {
+        "problem": { "$ref": "/vitae.sdlc/content/common#/$defs/nonEmptyString" },
+        "primaryUser": { "$ref": "/vitae.sdlc/content/common#/$defs/nonEmptyString" },
+        "outcome": { "$ref": "/vitae.sdlc/content/common#/$defs/nonEmptyString" },
+        "scopeBoundary": { "$ref": "/vitae.sdlc/content/common#/$defs/nonEmptyString" },
+        "successSignal": { "$ref": "/vitae.sdlc/content/common#/$defs/nonEmptyString" }
+      }
+    },
+    "usersAndUseCases": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["primaryUsers", "coreUseCases"],
+      "properties": {
+        "primaryUsers": { "$ref": "/vitae.sdlc/content/common#/$defs/stringList" },
+        "coreUseCases": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/useCase" }
+        }
+      }
+    },
+    "useCase": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["actor", "need", "benefit"],
+      "properties": {
+        "actor": { "$ref": "/vitae.sdlc/content/common#/$defs/nonEmptyString" },
+        "need": { "$ref": "/vitae.sdlc/content/common#/$defs/nonEmptyString" },
+        "benefit": { "$ref": "/vitae.sdlc/content/common#/$defs/nonEmptyString" }
+      }
+    },
+    "requirement": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "requirement", "priority", "acceptanceSignal"],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^(REQ-[0-9]{3}|FR[0-9]+|NFR[0-9]+)$"
+        },
+        "requirement": { "$ref": "/vitae.sdlc/content/common#/$defs/nonEmptyString" },
+        "priority": {
+          "type": "string",
+          "enum": ["Must", "Should", "Could", "Won't"]
+        },
+        "acceptanceSignal": { "$ref": "/vitae.sdlc/content/common#/$defs/nonEmptyString" }
+      }
+    },
+    "successMetric": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "metric", "target", "measurementMethod"],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z0-9][a-z0-9-]*$"
+        },
+        "metric": { "$ref": "/vitae.sdlc/content/common#/$defs/nonEmptyString" },
+        "target": { "$ref": "/vitae.sdlc/content/common#/$defs/nonEmptyString" },
+        "measurementMethod": { "$ref": "/vitae.sdlc/content/common#/$defs/nonEmptyString" }
+      }
+    },
+    "backlogMapping": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["requirementId", "backlogItem"],
+      "properties": {
+        "requirementId": {
+          "type": "string",
+          "pattern": "^(REQ-[0-9]{3}|FR[0-9]+|NFR[0-9]+)$"
+        },
+        "backlogItem": { "$ref": "/vitae.sdlc/content/common#/$defs/nonEmptyString" },
+        "notes": { "$ref": "/vitae.sdlc/content/common#/$defs/nonEmptyString" }
+      }
+    }
+  },
+  "examples": [
+    {
+      "documentKind": "product-requirements",
+      "snapshot": {
+        "problem": "Candidates need trustworthy fit feedback without losing source traceability.",
+        "primaryUser": "Candidate",
+        "outcome": "The user can see which job requirements are supported by resume evidence.",
+        "scopeBoundary": "The PRD defines product behavior, not final implementation tasks.",
+        "successSignal": "Requirements and metrics can be traced to backlog items and tests."
+      },
+      "problemStatement": "Vitae needs product requirements that preserve user intent, scope boundaries, and validation signals for agent-assisted implementation.",
+      "goals": ["Capture product outcomes with stable requirement IDs."],
+      "nonGoals": ["Choose final backend implementation details in the PRD."],
+      "usersAndUseCases": {
+        "primaryUsers": ["candidate", "developer"],
+        "coreUseCases": [
+          {
+            "actor": "developer",
+            "need": "reference stable requirements",
+            "benefit": "implementation and tests can map back to product intent"
+          }
+        ]
+      },
+      "requirements": [
+        {
+          "id": "REQ-001",
+          "requirement": "The PRD must include stable requirement identifiers.",
+          "priority": "Must",
+          "acceptanceSignal": "A validator can read at least one requirement with a stable ID."
+        }
+      ],
+      "successMetrics": [
+        {
+          "id": "metric-traceability",
+          "metric": "Traceability coverage",
+          "target": "Every must-have requirement has an acceptance signal.",
+          "measurementMethod": "Schema and rendered document validation."
+        }
+      ],
+      "risksAndMitigations": [
+        {
+          "risk": "The schema becomes too rigid for early product discovery.",
+          "impact": "Authors may avoid creating PRDs.",
+          "mitigation": "Keep brief PRDs concise while reserving stricter checks for full maturity."
+        }
+      ],
+      "assumptions": ["Markdown remains the primary human-readable view."],
+      "openQuestions": [
+        {
+          "question": "Should generated PRDs always preserve a JSON sidecar?",
+          "status": "deferred"
+        }
+      ],
+      "validationGates": [
+        {
+          "name": "Content schema validation",
+          "method": "Validate PRD payloads against /vitae.sdlc/content/prd.",
+          "required": true
+        }
+      ]
+    }
+  ]
+}

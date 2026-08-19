@@ -1,0 +1,111 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "/vitae.sdlc/content/common",
+  "title": "vitae.sdlc/content/common",
+  "description": "Shared semantic content definitions for Vitae SDLC Doc-Vader document bodies. These schemas model the structured body payload used to render Markdown.",
+  "$defs": {
+    "nonEmptyString": {
+      "type": "string",
+      "minLength": 1
+    },
+    "stringList": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/nonEmptyString"
+      }
+    },
+    "optionalStringList": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/nonEmptyString"
+      },
+      "uniqueItems": true
+    },
+    "notesValue": {
+      "oneOf": [
+        { "$ref": "#/$defs/nonEmptyString" },
+        { "$ref": "#/$defs/stringList" }
+      ]
+    },
+    "idToken": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9-]*[0-9A-Za-z]$"
+    },
+    "docId": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9-]*$"
+    },
+    "link": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["label", "href"],
+      "properties": {
+        "label": { "$ref": "#/$defs/nonEmptyString" },
+        "href": { "$ref": "#/$defs/nonEmptyString" },
+        "relationship": {
+          "type": "string",
+          "enum": [
+            "source",
+            "evidence",
+            "related",
+            "supersedes",
+            "superseded-by",
+            "implements",
+            "blocks",
+            "blocked-by"
+          ]
+        }
+      }
+    },
+    "validationGate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "method"],
+      "properties": {
+        "name": { "$ref": "#/$defs/nonEmptyString" },
+        "method": { "$ref": "#/$defs/nonEmptyString" },
+        "owner": { "$ref": "#/$defs/nonEmptyString" },
+        "required": { "type": "boolean" }
+      }
+    },
+    "openQuestion": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["question", "status"],
+      "properties": {
+        "question": { "$ref": "#/$defs/nonEmptyString" },
+        "owner": { "$ref": "#/$defs/nonEmptyString" },
+        "status": {
+          "type": "string",
+          "enum": ["open", "answered", "deferred", "not-applicable"]
+        },
+        "resolution": { "$ref": "#/$defs/nonEmptyString" }
+      }
+    },
+    "risk": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["risk", "impact", "mitigation"],
+      "properties": {
+        "risk": { "$ref": "#/$defs/nonEmptyString" },
+        "impact": { "$ref": "#/$defs/nonEmptyString" },
+        "mitigation": { "$ref": "#/$defs/nonEmptyString" }
+      }
+    },
+    "reasonedDecision": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["statement", "rationale"],
+      "properties": {
+        "statement": { "$ref": "#/$defs/nonEmptyString" },
+        "rationale": { "$ref": "#/$defs/nonEmptyString" },
+        "category": {
+          "type": "string",
+          "pattern": "^[a-z0-9][a-z0-9-]*$"
+        }
+      }
+    }
+  }
+}

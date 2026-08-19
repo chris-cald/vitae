@@ -1,0 +1,13 @@
+{
+  "source": {
+    "repository": "https://github.com/calan-co/doc-vader.git",
+    "revision": "efa241842070aa28a31c69a14feeb6dd89fd4500",
+    "license": "ISC"
+  },
+  "contents": {
+    "LICENSE": "92e3a1bcf74ccd415594743884a441b62e7fcf67af8d2490c7b7fd547cda1bbc",
+    "schemas/doc-vader/config.json": "288c6125b248e13940becb506dbc86c87c9089ed9320b799d6bc895bdff25cb9",
+    "schemas/doc-vader/document-type-pack.json": "5e02aa0c3fd115a096bc7a40affb665810ec87524d4077c681cd29f77cb95ef9",
+    "schemas/metadata/base.json": "19d4008d92579ceb5ce7405c2625e82157e8bd8dd72fcd23649e4ee3bb84e795"
+  }
+}

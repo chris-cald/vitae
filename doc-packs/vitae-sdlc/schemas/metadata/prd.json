@@ -1,0 +1,183 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "/vitae.sdlc/metadata/prd",
+  "title": "vitae.sdlc/metadata/prd",
+  "description": "Canonical Doc-Vader metadata contract for Vitae Product Requirements Documents.",
+  "type": "object",
+  "required": [
+    "namespace",
+    "type",
+    "id",
+    "status",
+    "title",
+    "created",
+    "owners",
+    "maturity",
+    "complexity",
+    "productArea",
+    "llm"
+  ],
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "$content_schema": {
+      "type": "string"
+    },
+    "namespace": {
+      "const": "vitae.sdlc"
+    },
+    "type": {
+      "const": "prd"
+    },
+    "id": {
+      "$ref": "/vitae.sdlc/metadata/common#/$defs/docId"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "reviewing",
+        "approved",
+        "implementing",
+        "launched",
+        "deprecated",
+        "superseded"
+      ]
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1
+    },
+    "created": {
+      "$ref": "/vitae.sdlc/metadata/common#/$defs/isoDate"
+    },
+    "lastUpdated": {
+      "$ref": "/vitae.sdlc/metadata/common#/$defs/isoDate"
+    },
+    "targetRelease": {
+      "type": "string",
+      "minLength": 1
+    },
+    "owners": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "/vitae.sdlc/metadata/common#/$defs/owner"
+      }
+    },
+    "maturity": {
+      "$ref": "/vitae.sdlc/metadata/common#/$defs/maturity"
+    },
+    "complexity": {
+      "$ref": "/vitae.sdlc/metadata/common#/$defs/complexity"
+    },
+    "productArea": {
+      "type": "string",
+      "enum": [
+        "career-workspace",
+        "resume-ingestion",
+        "job-ingestion",
+        "fit-analysis",
+        "recommendations",
+        "document-generation",
+        "application-tracking",
+        "workflow-orchestration",
+        "semantic-graph",
+        "platform",
+        "documentation"
+      ]
+    },
+    "primaryUsers": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "candidate",
+          "career-coach",
+          "placement-professional",
+          "reviewer",
+          "developer",
+          "agent"
+        ]
+      },
+      "uniqueItems": true
+    },
+    "problemRefs": {
+      "type": "array",
+      "items": {
+        "$ref": "/vitae.sdlc/metadata/common#/$defs/link"
+      }
+    },
+    "relatedAdrs": {
+      "type": "array",
+      "items": {
+        "$ref": "/vitae.sdlc/metadata/common#/$defs/docId"
+      },
+      "uniqueItems": true
+    },
+    "backlogItems": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "uniqueItems": true
+    },
+    "successMetricIds": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^[a-z0-9][a-z0-9-]*$"
+      },
+      "uniqueItems": true
+    },
+    "links": {
+      "type": "array",
+      "items": {
+        "$ref": "/vitae.sdlc/metadata/common#/$defs/link"
+      }
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^[a-z0-9][a-z0-9-]*$"
+      },
+      "uniqueItems": true
+    },
+    "llm": {
+      "$ref": "/vitae.sdlc/metadata/common#/$defs/llmSummary"
+    }
+  },
+  "allOf": [
+    { "$ref": "/metadata/base" },
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "superseded"
+          }
+        },
+        "required": ["status"]
+      },
+      "then": {
+        "required": ["links"]
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "maturity": {
+            "const": "full"
+          }
+        },
+        "required": ["maturity"]
+      },
+      "then": {
+        "required": ["primaryUsers", "successMetricIds"]
+      }
+    }
+  ],
+  "unevaluatedProperties": false
+}

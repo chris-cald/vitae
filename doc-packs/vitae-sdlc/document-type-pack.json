@@ -1,0 +1,30 @@
+{
+  "schemaVersion": "doc-vader/document-type-pack/v1",
+  "name": "Vitae SDLC Documents",
+  "namespace": "vitae.sdlc",
+  "documentTypes": [
+    {
+      "type": "adr",
+      "metadataSchema": "schemas/metadata/adr.json",
+      "contentSchema": "schemas/content/adr.json"
+    },
+    {
+      "type": "prd",
+      "metadataSchema": "schemas/metadata/prd.json",
+      "contentSchema": "schemas/content/prd.json"
+    }
+  ],
+  "templates": [
+    {
+      "path": "templates/adr.md",
+      "type": "adr"
+    },
+    {
+      "path": "templates/prd.md",
+      "type": "prd"
+    }
+  ],
+  "configDefaults": {
+    "namespace": "vitae.sdlc"
+  }
+}
