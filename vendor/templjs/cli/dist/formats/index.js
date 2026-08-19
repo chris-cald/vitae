@@ -1,0 +1,79 @@
+/**
+ * Format detection and parser factory
+ */
+import { extname } from 'path';
+import { JsonParser } from './json-parser.js';
+import { YamlParser } from './yaml-parser.js';
+import { TomlParser } from './toml-parser.js';
+import { XmlParser } from './xml-parser.js';
+import { SUPPORTED_EXTENSIONS } from './types.js';
+export { SUPPORTED_EXTENSIONS };
+export { JsonParser } from './json-parser.js';
+export { YamlParser } from './yaml-parser.js';
+export { TomlParser } from './toml-parser.js';
+export { XmlParser } from './xml-parser.js';
+/**
+ * Detect format from file path extension
+ * @param filePath File path to detect format from
+ * @returns Detected format or null if not recognized
+ */
+export function detectFormat(filePath) {
+    const ext = extname(filePath).toLowerCase();
+    return SUPPORTED_EXTENSIONS[ext] || null;
+}
+/**
+ * Get parser for detected format
+ * @param format Format type
+ * @returns Parser instance for the format
+ */
+export function getParser(format) {
+    switch (format) {
+        case 'json':
+            return new JsonParser();
+        case 'yaml':
+            return new YamlParser();
+        case 'toml':
+            return new TomlParser();
+        case 'xml':
+            throw new Error('XML parsing is only supported via parseDataAsync (async API).');
+        default:
+            throw new Error(`Unsupported format: ${format}`);
+    }
+}
+/**
+ * Parse content with auto-detection from file path
+ * @param content Content to parse
+ * @param filePath File path for format detection
+ * @returns Parsed data
+ */
+export function parseData(content, filePath) {
+    const format = detectFormat(filePath);
+    if (!format) {
+        throw new Error(`Unable to detect format from file path: ${filePath}. Supported formats: .json, .yaml, .yml, .toml, .xml`);
+    }
+    if (format === 'xml') {
+        throw new Error('XML parsing is asynchronous. Use parseDataAsync(content, filePath) for .xml inputs.');
+    }
+    const parser = getParser(format);
+    return parser.parse(content);
+}
+/**
+ * Parse content with async support for XML
+ * @param content Content to parse
+ * @param filePath File path for format detection (use "-" for stdin, defaults to JSON)
+ * @returns Promise resolving to parsed data
+ */
+export async function parseDataAsync(content, filePath) {
+    // Default to JSON for stdin
+    const format = filePath === '-' ? 'json' : detectFormat(filePath);
+    if (!format) {
+        throw new Error(`Unable to detect format from file path: ${filePath}. Supported formats: .json, .yaml, .yml, .toml, .xml`);
+    }
+    if (format === 'xml') {
+        const parser = new XmlParser();
+        return parser.parseAsync(content);
+    }
+    const parser = getParser(format);
+    return parser.parse(content);
+}
+//# sourceMappingURL=index.js.map

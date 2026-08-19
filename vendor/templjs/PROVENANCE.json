@@ -1,0 +1,25 @@
+{
+  "source": {
+    "repository": "https://github.com/templjs/templ.js.git",
+    "revision": "1f69697f5908920c0a4a0f2d1dbb4074e9910f9a",
+    "license": "Apache-2.0"
+  },
+  "packages": [
+    {
+      "name": "@templjs/core",
+      "version": "0.1.0",
+      "sourcePath": "src/packages/core",
+      "contents": ["dist", "package.json", "package-lock.json"]
+    },
+    {
+      "name": "@templjs/cli",
+      "version": "0.1.0",
+      "sourcePath": "src/packages/cli",
+      "contents": ["dist", "package.json", "package-lock.json"]
+    }
+  ],
+  "licenseFiles": {
+    "LICENSE": "c1cb9901648712c7e7b784a62c0dca84e00e67bfc4745ed4c9869028d0298f59",
+    "NOTICE": "b79f32f83255f49bca4889ef9456f18b6408f736afcff3458c7e910c07bd6c3c"
+  }
+}

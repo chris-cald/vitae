@@ -1,0 +1,63 @@
+/**
+ * Query Engine Type Definitions
+ *
+ * Defines interfaces for function signatures, query metadata, and filter operations.
+ */
+/**
+ * Represents a parameter for a function in the query engine.
+ */
+export interface FunctionParameter {
+    name: string;
+    type: string;
+    required: boolean;
+    variadic?: boolean;
+    description: string;
+    examples?: string[];
+}
+/**
+ * Represents the signature of a registered function.
+ */
+export interface FunctionSignature {
+    name: string;
+    category: 'string' | 'number' | 'datetime' | 'array' | 'object' | 'utility';
+    description: string;
+    parameters: FunctionParameter[];
+    returnType: string;
+    examples: string[];
+}
+/**
+ * Type information for a variable or value.
+ */
+export interface TypeInfo {
+    type: string;
+    properties?: Record<string, TypeInfo>;
+    items?: TypeInfo;
+    description?: string;
+}
+/**
+ * Metadata about available queries, functions, and variables.
+ */
+export interface QueryMetadata {
+    functions: Map<string, FunctionSignature[]>;
+    variables: Map<string, TypeInfo>;
+}
+/**
+ * A filter/function that can be applied to values in the query engine.
+ */
+export type FilterFunction = (value: any, ...args: any[]) => any;
+/**
+ * Options for query execution.
+ */
+export interface QueryOptions {
+    strict?: boolean;
+    defaultValue?: any;
+    maxDepth?: number;
+}
+/**
+ * Result of a query operation.
+ */
+export interface QueryResult {
+    value: any;
+    error?: string;
+    isUndefined: boolean;
+}

@@ -1,0 +1,883 @@
+/**
+ * Chevrotain-based parser that converts tokens into an Abstract Syntax Tree
+ */
+import { TokenType } from '../lexer/types.js';
+import { parseExpressionWithPriorityList } from './parsers.js';
+/**
+ * Parser for converting token stream into AST
+ * Handles statements (if, for, set, block) and expressions
+ */
+export class TemplateParser {
+    tokens;
+    position = 0;
+    errors = [];
+    constructor(tokens) {
+        this.tokens = tokens;
+    }
+    /**
+     * Parse the token stream into an AST
+     */
+    parse() {
+        this.position = 0;
+        this.errors = [];
+        const children = [];
+        while (!this.isAtEnd()) {
+            const token = this.peek();
+            if (!token) {
+                // Defensive recovery for sparse token arrays: advance so parsing cannot stall.
+                this.position++;
+                continue;
+            }
+            if (token.type === TokenType.TEXT) {
+                children.push(this.parseText());
+            }
+            else if (token.type === TokenType.STATEMENT) {
+                const startPosition = this.position;
+                const node = this.parseStatement();
+                if (node) {
+                    children.push(node);
+                }
+                else if (this.position === startPosition) {
+                    // Defensive fallback if a statement parser returns null without consuming.
+                    this.position++;
+                }
+            }
+            else if (token.type === TokenType.EXPRESSION) {
+                children.push(this.parseExpressionStatement());
+            }
+            else if (token.type === TokenType.COMMENT) {
+                // Skip comments
+                this.advance();
+            }
+        }
+        const firstToken = this.tokens[0];
+        const lastToken = this.tokens[this.tokens.length - 1];
+        const template = {
+            type: 'template',
+            children,
+            start: firstToken?.start || { line: 1, column: 0 },
+            end: lastToken?.end || { line: 1, column: 0 },
+        };
+        return {
+            ast: template,
+            errors: this.errors,
+        };
+    }
+    /**
+     * Parse a text node
+     */
+    parseText() {
+        const token = this.advance();
+        return {
+            type: 'text',
+            value: token.content,
+            start: token.start,
+            end: token.end,
+            raw: token.content,
+        };
+    }
+    /**
+     * Parse a statement (if, for, set, block, etc.)
+     */
+    parseStatement() {
+        const token = this.peek();
+        if (!token || token.type !== TokenType.STATEMENT)
+            return null;
+        const content = this.extractStatementContent(token).content;
+        if (content.match(/^if\s+/)) {
+            return this.parseIfStatement();
+        }
+        else if (content.match(/^for\s+/)) {
+            return this.parseForStatement();
+        }
+        else if (content.match(/^set\s+/)) {
+            return this.parseSetStatement();
+        }
+        else if (content.match(/^block\s+/)) {
+            return this.parseBlockStatement();
+        }
+        else {
+            // Unknown statement - skip it
+            return this.parseErrorStatement('Unknown statement type');
+        }
+    }
+    /**
+     * Parse an if/else statement
+     * Syntax: {% if condition %}...{% else %}...{% endif %}
+     */
+    parseIfStatement() {
+        const startToken = this.peek();
+        if (!startToken)
+            throw new Error('Expected statement token');
+        const content = this.extractStatementContent(startToken).content;
+        const conditionMatch = content.match(/^if\s+(.+?)$/is);
+        if (!conditionMatch) {
+            this.addError('lexical', 'Invalid if statement', startToken.start, 'Did you forget to close the {% if %} block with {% endif %}?');
+            this.advance();
+            return {
+                type: 'if',
+                condition: this.createErrorExpression('Invalid condition'),
+                body: [],
+                start: startToken.start,
+                end: startToken.end,
+            };
+        }
+        const condition = this.parseCondition(conditionMatch[1].trim());
+        this.advance();
+        const body = this.parseStatementBody(['else', 'endif']);
+        let elseBody;
+        // Check for else clause
+        const nextToken = this.peek();
+        if (nextToken &&
+            nextToken.type === TokenType.STATEMENT &&
+            this.extractStatementContent(nextToken).content.startsWith('else')) {
+            this.advance();
+            elseBody = this.parseStatementBody(['endif']);
+        }
+        // Consume endif
+        const endToken = this.peek();
+        if (endToken &&
+            endToken.type === TokenType.STATEMENT &&
+            this.extractStatementContent(endToken).content.startsWith('endif')) {
+            this.advance();
+        }
+        else {
+            // Missing endif: emit recovery error
+            this.addError('parse', 'Unclosed if block: missing {% endif %}', endToken?.start || (body.length > 0 ? body[body.length - 1].end : startToken.end), 'Did you forget to close the {% if %} block with {% endif %}?');
+        }
+        return {
+            type: 'if',
+            condition,
+            body,
+            elseBody,
+            start: startToken.start,
+            end: endToken?.end || startToken.end,
+        };
+    }
+    /**
+     * Parse a for loop
+     * Syntax: {% for item in items %}...{% endfor %}
+     * or {% for key, value in object %}...{% endfor %}
+     */
+    parseForStatement() {
+        const startToken = this.peek();
+        if (!startToken)
+            throw new Error('Expected statement token');
+        const content = this.extractStatementContent(startToken).content;
+        const match = content.match(/^for\s+([a-zA-Z_]\w*)(?:\s*,\s*([a-zA-Z_]\w*))?\s+in\s+(.+?)$/);
+        if (!match) {
+            this.addError('lexical', 'Invalid for statement syntax', startToken.start, 'Did you forget to close the {% for %} block with {% endfor %}?');
+            this.advance();
+            return this.createErrorForNode(startToken);
+        }
+        const iterator = match[1];
+        const valueIterator = match[2];
+        const iterableStr = match[3].trim();
+        const iterable = this.parseExpression(iterableStr);
+        this.advance();
+        const body = this.parseStatementBody(['endfor']);
+        const endToken = this.peek();
+        if (endToken &&
+            endToken.type === TokenType.STATEMENT &&
+            this.extractStatementContent(endToken).content.startsWith('endfor')) {
+            this.advance();
+        }
+        else {
+            // Missing endfor: emit recovery error
+            this.addError('parse', 'Unclosed for block: missing {% endfor %}', endToken?.start || (body.length > 0 ? body[body.length - 1].end : startToken.end), 'Did you forget to close the {% for %} block with {% endfor %}?');
+        }
+        return {
+            type: 'for',
+            iterator,
+            valueIterator,
+            iterable,
+            body,
+            start: startToken.start,
+            end: endToken?.end || startToken.end,
+        };
+    }
+    /**
+     * Parse a set statement
+     * Syntax: {% set x = value %}
+     */
+    parseSetStatement() {
+        const startToken = this.peek();
+        if (!startToken)
+            throw new Error('Expected statement token');
+        const content = this.extractStatementContent(startToken).content;
+        const match = content.match(/^set\s+(\w+)\s*=\s*(.+?)$/);
+        if (!match) {
+            this.addError('lexical', 'Invalid set statement syntax', startToken.start, 'Check your {% set %} statement syntax. Example: {% set x = value %}');
+            this.advance();
+            return this.createErrorSetNode(startToken);
+        }
+        const name = match[1];
+        const valueStr = match[2].trim();
+        const value = this.parseExpression(valueStr);
+        this.advance();
+        return {
+            type: 'set',
+            name,
+            value,
+            start: startToken.start,
+            end: startToken.end,
+        };
+    }
+    /**
+     * Parse a block definition
+     * Syntax: {% block name %}...{% endblock %}
+     */
+    parseBlockStatement() {
+        const startToken = this.peek();
+        if (!startToken)
+            throw new Error('Expected statement token');
+        const content = this.extractStatementContent(startToken).content;
+        const match = content.match(/^block\s+(\w+)$/);
+        if (!match) {
+            this.addError('lexical', 'Invalid block statement syntax', startToken.start, 'Did you forget to close the {% block %} with {% endblock %}?');
+            this.advance();
+            return this.createErrorBlockNode(startToken);
+        }
+        const name = match[1];
+        this.advance();
+        const body = this.parseStatementBody(['endblock']);
+        const endToken = this.peek();
+        if (endToken &&
+            endToken.type === TokenType.STATEMENT &&
+            this.extractStatementContent(endToken).content.startsWith('endblock')) {
+            this.advance();
+        }
+        else {
+            // Missing endblock: emit recovery error
+            this.addError('parse', 'Unclosed block: missing {% endblock %}', endToken?.start || (body.length > 0 ? body[body.length - 1].end : startToken.end), 'Did you forget to close the {% block %} with {% endblock %}?');
+        }
+        return {
+            type: 'block',
+            name,
+            body,
+            start: startToken.start,
+            end: endToken?.end || startToken.end,
+        };
+    }
+    /**
+     * Parse an expression statement {{ ... }}
+     */
+    parseExpressionStatement() {
+        const token = this.advance();
+        const content = this.extractExpressionContent(token).content;
+        const value = this.parseExpression(content);
+        return {
+            type: 'expression_statement',
+            value,
+            start: token.start,
+            end: token.end,
+        };
+    }
+    /**
+     * Parse body of a statement until a closing keyword
+     */
+    parseStatementBody(closeKeywords) {
+        const body = [];
+        while (!this.isAtEnd()) {
+            const token = this.peek();
+            if (!token)
+                break;
+            // Check if we've reached a closing keyword
+            if (token.type === TokenType.STATEMENT) {
+                const stmtContent = this.extractStatementContent(token).content;
+                if (closeKeywords.some((kw) => stmtContent.startsWith(kw))) {
+                    break;
+                }
+            }
+            if (token.type === TokenType.TEXT) {
+                body.push(this.parseText());
+            }
+            else if (token.type === TokenType.STATEMENT) {
+                const startPosition = this.position;
+                const node = this.parseStatement();
+                if (node) {
+                    body.push(node);
+                }
+                else if (this.position === startPosition) {
+                    // Defensive fallback if a nested statement parser returns null without consuming.
+                    this.position++;
+                }
+            }
+            else if (token.type === TokenType.EXPRESSION) {
+                body.push(this.parseExpressionStatement());
+            }
+            else if (token.type === TokenType.COMMENT) {
+                this.advance();
+            }
+        }
+        return body;
+    }
+    /**
+     * Parse a condition expression (for if statements)
+     */
+    parseCondition(conditionStr) {
+        return this.parseExpression(conditionStr);
+    }
+    /**
+     * Parse an expression string into an ExpressionNode
+     * Supports: variables, literals, filters, function calls, operators
+     */
+    parseExpression(expr) {
+        expr = expr.trim();
+        // Handle empty expression
+        if (!expr) {
+            return this.createErrorExpression('Empty expression');
+        }
+        return parseExpressionWithPriorityList(expr, {
+            parseExpression: (value) => this.parseExpression(value),
+            parseLiteral: (value) => this.parseLiteral(value),
+            parseFilterExpression: (value) => this.parseFilterExpression(value),
+            parseVariable: (value) => this.parseVariable(value),
+            parseObjectProperties: (inner) => this.parseObjectProperties(inner),
+            splitTopLevel: (value, delimiter) => this.splitTopLevel(value, delimiter),
+            isVariableStart: (char) => this.isVariableStart(char),
+            createErrorExpression: (message) => this.createErrorExpression(message),
+        });
+    }
+    /**
+     * Parse a filter expression with pipes
+     */
+    parseFilterExpression(expr) {
+        const parts = this.splitTopLevel(expr, '|');
+        const sourceStr = parts[0].trim();
+        const source = this.parseExpression(sourceStr);
+        const filters = parts.slice(1).map((filterStr) => {
+            filterStr = filterStr.trim();
+            const match = filterStr.match(/^(\w+)(?:\(([^)]*)\))?$/);
+            if (!match) {
+                return { name: filterStr, args: [] };
+            }
+            const name = match[1];
+            const argsStr = match[2];
+            const args = argsStr
+                ? this.splitTopLevel(argsStr, ',').map((a) => this.parseExpression(a.trim()))
+                : [];
+            return { name, args };
+        });
+        return {
+            type: 'filter',
+            source,
+            filters,
+            start: { line: 1, column: 0 },
+            end: { line: 1, column: expr.length },
+        };
+    }
+    /**
+     * Parse a variable reference with path (properties and indices)
+     */
+    parseVariable(expr) {
+        expr = expr.trim();
+        // Check if it's a function call
+        const funcMatch = expr.match(/^(\w+)\s*\(([^)]*)\)$/);
+        if (funcMatch) {
+            const name = funcMatch[1];
+            const argsStr = funcMatch[2];
+            const args = argsStr
+                ? this.splitTopLevel(argsStr, ',').map((a) => this.parseExpression(a.trim()))
+                : [];
+            return {
+                type: 'function_call',
+                name,
+                args,
+                start: { line: 1, column: 0 },
+                end: { line: 1, column: expr.length },
+            };
+        }
+        // Parse variable with path
+        const pathMatch = expr.match(/^([a-zA-Z_]\w*)(.*)$/);
+        if (!pathMatch) {
+            return this.createErrorVariable(expr);
+        }
+        const name = pathMatch[1];
+        const pathStr = pathMatch[2];
+        const path = this.parsePath(pathStr);
+        // Check if the last segment is a function call
+        if (path.length > 0 && path[path.length - 1].type === 'property') {
+            const lastProp = path[path.length - 1].value;
+            const remaining = pathStr.substring(pathStr.lastIndexOf(lastProp) + lastProp.length);
+            if (remaining.startsWith('(')) {
+                const funcMatch = remaining.match(/^\(([^)]*)\)/);
+                if (funcMatch) {
+                    const argsStr = funcMatch[1];
+                    const args = argsStr
+                        ? this.splitTopLevel(argsStr, ',').map((a) => this.parseExpression(a.trim()))
+                        : [];
+                    // Build object expression for method call
+                    const baseObject = {
+                        type: 'variable',
+                        name,
+                        path: path.slice(0, -1),
+                        start: { line: 1, column: 0 },
+                        end: { line: 1, column: 0 },
+                    };
+                    return {
+                        type: 'function_call',
+                        name: lastProp,
+                        args,
+                        object: path.length > 1 ? baseObject : undefined,
+                        start: { line: 1, column: 0 },
+                        end: { line: 1, column: expr.length },
+                    };
+                }
+            }
+        }
+        return {
+            type: 'variable',
+            name,
+            path,
+            start: { line: 1, column: 0 },
+            end: { line: 1, column: expr.length },
+        };
+    }
+    /**
+     * Parse the path part of a variable (properties and indices)
+     */
+    parsePath(pathStr) {
+        const path = [];
+        let i = 0;
+        while (i < pathStr.length) {
+            if (pathStr[i] === '.') {
+                // Property access
+                i++;
+                const propMatch = pathStr.substring(i).match(/^([a-zA-Z_]\w*)/);
+                if (propMatch) {
+                    path.push({ type: 'property', value: propMatch[1] });
+                    i += propMatch[1].length;
+                }
+            }
+            else if (pathStr[i] === '[') {
+                // Index access
+                const endBracket = pathStr.indexOf(']', i);
+                if (endBracket !== -1) {
+                    const indexStr = pathStr.substring(i + 1, endBracket).trim();
+                    const isQuoted = (indexStr.startsWith('"') && indexStr.endsWith('"')) ||
+                        (indexStr.startsWith("'") && indexStr.endsWith("'"));
+                    if (isQuoted) {
+                        // String index
+                        path.push({ type: 'index', value: indexStr.substring(1, indexStr.length - 1) });
+                    }
+                    else {
+                        // Expression index
+                        path.push({ type: 'index', value: this.parseExpression(indexStr) });
+                    }
+                    i = endBracket + 1;
+                }
+                else {
+                    // Malformed index access (missing ']'): consume the token to avoid infinite loops.
+                    i++;
+                }
+            }
+            else {
+                i++;
+            }
+        }
+        return path;
+    }
+    /**
+     * Parse literal values (strings, numbers, booleans, null)
+     */
+    parseLiteral(expr) {
+        expr = expr.trim();
+        // String literals
+        if ((expr.startsWith('"') && expr.endsWith('"')) ||
+            (expr.startsWith("'") && expr.endsWith("'"))) {
+            const value = expr.substring(1, expr.length - 1);
+            return {
+                type: 'literal',
+                valueType: 'string',
+                value,
+                start: { line: 1, column: 0 },
+                end: { line: 1, column: expr.length },
+            };
+        }
+        // Number literals
+        if (/^-?\d+(\.\d+)?$/.test(expr)) {
+            const value = expr.includes('.') ? parseFloat(expr) : parseInt(expr, 10);
+            return {
+                type: 'literal',
+                valueType: 'number',
+                value,
+                start: { line: 1, column: 0 },
+                end: { line: 1, column: expr.length },
+            };
+        }
+        // Boolean literals
+        if (expr === 'true') {
+            return {
+                type: 'literal',
+                valueType: 'boolean',
+                value: true,
+                start: { line: 1, column: 0 },
+                end: { line: 1, column: expr.length },
+            };
+        }
+        if (expr === 'false') {
+            return {
+                type: 'literal',
+                valueType: 'boolean',
+                value: false,
+                start: { line: 1, column: 0 },
+                end: { line: 1, column: expr.length },
+            };
+        }
+        // Null literal
+        if (expr === 'null') {
+            return {
+                type: 'literal',
+                valueType: 'null',
+                value: null,
+                start: { line: 1, column: 0 },
+                end: { line: 1, column: expr.length },
+            };
+        }
+        return null;
+    }
+    /**
+     * Parse object properties
+     */
+    parseObjectProperties(inner) {
+        if (!inner.trim())
+            return [];
+        const pairs = this.splitTopLevel(inner, ',');
+        const properties = [];
+        for (const pair of pairs) {
+            const match = pair.match(/^\s*([a-zA-Z_]\w*)\s*:\s*(.+)$/);
+            if (match) {
+                const key = match[1];
+                const value = this.parseExpression(match[2].trim());
+                properties.push({ key, value });
+            }
+        }
+        return properties;
+    }
+    /**
+     * Split string by delimiter respecting nested structures
+     */
+    splitTopLevel(str, delimiter) {
+        const parts = [];
+        let current = '';
+        let depth = 0;
+        let inSingleQuote = false;
+        let inDoubleQuote = false;
+        let inTemplateString = false;
+        let inLineComment = false;
+        let inBlockComment = false;
+        let escaped = false;
+        for (let i = 0; i < str.length; i++) {
+            const char = str[i];
+            if (escaped) {
+                current += char;
+                escaped = false;
+                continue;
+            }
+            if (inLineComment) {
+                current += char;
+                if (char === '\n') {
+                    inLineComment = false;
+                }
+                continue;
+            }
+            if (inBlockComment) {
+                current += char;
+                if (char === '*' && str[i + 1] === '/') {
+                    current += '/';
+                    i++;
+                    inBlockComment = false;
+                }
+                continue;
+            }
+            if ((inSingleQuote || inDoubleQuote || inTemplateString) && char === '\\') {
+                current += char;
+                escaped = true;
+                continue;
+            }
+            if (!inSingleQuote && !inDoubleQuote && !inTemplateString && char === '/') {
+                const nextChar = str[i + 1];
+                if (nextChar === '/') {
+                    current += '//';
+                    i++;
+                    inLineComment = true;
+                    continue;
+                }
+                if (nextChar === '*') {
+                    current += '/*';
+                    i++;
+                    inBlockComment = true;
+                    continue;
+                }
+            }
+            if (!inDoubleQuote && !inTemplateString && char === "'") {
+                inSingleQuote = !inSingleQuote;
+                current += char;
+                continue;
+            }
+            if (!inSingleQuote && !inTemplateString && char === '"') {
+                inDoubleQuote = !inDoubleQuote;
+                current += char;
+                continue;
+            }
+            if (!inSingleQuote && !inDoubleQuote && char === '`') {
+                inTemplateString = !inTemplateString;
+                current += char;
+                continue;
+            }
+            if (!inSingleQuote && !inDoubleQuote && !inTemplateString) {
+                if (char === '(' || char === '[' || char === '{')
+                    depth++;
+                if (char === ')' || char === ']' || char === '}')
+                    depth--;
+            }
+            if (!inSingleQuote &&
+                !inDoubleQuote &&
+                !inTemplateString &&
+                depth === 0 &&
+                char === delimiter) {
+                parts.push(current);
+                current = '';
+            }
+            else {
+                current += char;
+            }
+        }
+        if (current)
+            parts.push(current);
+        return parts;
+    }
+    /**
+     * Check if character can start a variable name
+     */
+    isVariableStart(char) {
+        return /[a-zA-Z_]/.test(char);
+    }
+    /**
+     * Extract statement content between delimiters.
+     *
+     * Callers must provide delimiter information either via token metadata
+     * (`delimiterStart`/`delimiterEnd`) or through `delimiters`.
+     *
+     * @param tokenOrContent - Statement token-like input or raw statement content.
+     * @param delimiters - Optional explicit delimiter configuration used when input metadata is missing.
+     * @returns Extracted statement text and content bounds relative to token.content start.
+     */
+    extractStatementContent(tokenOrContent, delimiters) {
+        return extractStatementContent(tokenOrContent, delimiters);
+    }
+    /**
+     * Extract expression content between delimiters.
+     *
+     * Callers must provide delimiter information either via token metadata
+     * (`delimiterStart`/`delimiterEnd`) or through `delimiters`.
+     *
+     * @param tokenOrContent - Expression token-like input or raw expression content.
+     * @param delimiters - Optional explicit delimiter configuration used when input metadata is missing.
+     * @returns Extracted expression text and content bounds relative to token.content start.
+     */
+    extractExpressionContent(tokenOrContent, delimiters) {
+        return extractExpressionContent(tokenOrContent, delimiters);
+    }
+    /**
+     * Parse an error statement
+     */
+    parseErrorStatement(message) {
+        const token = this.advance();
+        this.addError('lexical', message, token.start, 'Check the statement syntax or delimiters.');
+        return {
+            type: 'error',
+            message,
+            recovered: false,
+            start: token.start,
+            end: token.end,
+        };
+    }
+    /**
+     * Create an error expression
+     */
+    createErrorExpression(message) {
+        return {
+            type: 'error',
+            message,
+            recovered: true,
+            start: { line: 1, column: 0 },
+            end: { line: 1, column: 0 },
+        };
+    }
+    /**
+     * Create an error variable node
+     */
+    createErrorVariable(expr) {
+        return {
+            type: 'variable',
+            name: expr,
+            path: [],
+            start: { line: 1, column: 0 },
+            end: { line: 1, column: expr.length },
+        };
+    }
+    /**
+     * Create an error for node
+     */
+    createErrorForNode(token) {
+        return {
+            type: 'for',
+            iterator: '',
+            valueIterator: undefined,
+            iterable: this.createErrorExpression('Invalid for statement'),
+            body: [],
+            start: token.start,
+            end: token.end,
+        };
+    }
+    /**
+     * Create an error set node
+     */
+    createErrorSetNode(token) {
+        return {
+            type: 'set',
+            name: '',
+            value: this.createErrorExpression('Invalid set statement'),
+            start: token.start,
+            end: token.end,
+        };
+    }
+    /**
+     * Create an error block node
+     */
+    createErrorBlockNode(token) {
+        return {
+            type: 'block',
+            name: '',
+            body: [],
+            start: token.start,
+            end: token.end,
+        };
+    }
+    /**
+     * Add an error to the errors list
+     */
+    addError(type, message, location, suggestion) {
+        this.errors.push({
+            type,
+            message,
+            location,
+            suggestion,
+        });
+    }
+    /**
+     * Get current token without advancing
+     */
+    peek(offset = 0) {
+        const index = this.position + offset;
+        if (index >= this.tokens.length)
+            return null;
+        return this.tokens[index];
+    }
+    /**
+     * Advance to next token and return current
+     */
+    advance() {
+        const token = this.tokens[this.position];
+        this.position++;
+        return token;
+    }
+    /**
+     * Check if at end of tokens
+     */
+    isAtEnd() {
+        return this.position >= this.tokens.length;
+    }
+}
+/**
+ * Parse tokens into an AST
+ * @param tokens - Array of tokens from the lexer
+ * @returns Parse result containing AST and any errors
+ */
+export function parse(tokens) {
+    const parser = new TemplateParser(tokens);
+    return parser.parse();
+}
+// ---------------------------------------------------------------------------
+// Module-level implementation shared by standalone functions and class methods
+// ---------------------------------------------------------------------------
+function extractContentWithDelimiters(tokenOrContent, delimiters, _extractorName) {
+    // Use flat string operations instead of regex to avoid ReDoS
+    const token = typeof tokenOrContent === 'string'
+        ? { content: tokenOrContent, delimiterStart: undefined, delimiterEnd: undefined }
+        : tokenOrContent;
+    const result = typeof token.content === 'string' ? token.content : '';
+    const startDelimiter = token.delimiterStart ?? delimiters?.start;
+    const endDelimiter = token.delimiterEnd ?? delimiters?.end;
+    if (!startDelimiter || !endDelimiter) {
+        const trimmedStart = result.trimStart();
+        const leadingWhitespace = result.length - trimmedStart.length;
+        const trailingWhitespace = trimmedStart.length - trimmedStart.trimEnd().length;
+        const contentStart = leadingWhitespace;
+        const contentEnd = result.length - trailingWhitespace;
+        return {
+            content: result.substring(contentStart, contentEnd),
+            contentStart,
+            contentEnd,
+        };
+    }
+    // Require whitespace after the leading '-' and before the trailing '-' so
+    // that '{{-1}}' is NOT treated as trim-left + expression '1' and
+    // '{{ val-}}' is NOT treated as trim-right.  Trim markers activate only
+    // when the dash is adjacent to whitespace: '{{- expr -}}'.
+    const startsWithTrimmedDelimiter = result.startsWith(`${startDelimiter}-`) &&
+        /[ \t\r\n]/.test(result[startDelimiter.length + 1] ?? '');
+    const endsWithTrimmedDelimiter = result.endsWith(`-${endDelimiter}`) &&
+        /[ \t\r\n]/.test(result[result.length - endDelimiter.length - 2] ?? '');
+    // When the content does not start and end with the resolved delimiters,
+    // hasWrappedDelimiters is false and the entire string is treated as the
+    // inner content (innerStart=0, innerEnd=result.length).  Only leading/
+    // trailing whitespace is removed — no delimiter characters are stripped.
+    // This is intentional fallback behaviour for pre-processed tokens, partial
+    // inputs, or mismatched delimiters; callers should expect the string to be
+    // returned intact (trimmed).  If different extraction semantics are needed,
+    // adjust the hasWrappedDelimiters condition or the innerStart/innerEnd
+    // derivations below.
+    const hasWrappedDelimiters = (result.startsWith(startDelimiter) || startsWithTrimmedDelimiter) &&
+        (result.endsWith(endDelimiter) || endsWithTrimmedDelimiter);
+    const innerStart = hasWrappedDelimiters
+        ? startDelimiter.length + (startsWithTrimmedDelimiter ? 1 : 0)
+        : 0;
+    const innerEnd = hasWrappedDelimiters
+        ? result.length - endDelimiter.length - (endsWithTrimmedDelimiter ? 1 : 0)
+        : result.length;
+    const inner = result.substring(innerStart, innerEnd);
+    const trimmedStart = inner.trimStart();
+    const leadingWhitespace = inner.length - trimmedStart.length;
+    const trailingWhitespace = trimmedStart.length - trimmedStart.trimEnd().length;
+    const contentStart = innerStart + leadingWhitespace;
+    const contentEnd = innerEnd - trailingWhitespace;
+    return {
+        content: result.substring(contentStart, contentEnd),
+        contentStart,
+        contentEnd,
+    };
+}
+/**
+ * Extract statement content between delimiters without instantiating TemplateParser.
+ *
+ * @param tokenOrContent - Statement token-like input or raw statement content.
+ * @param delimiters - Explicit delimiter configuration; required when token metadata is absent.
+ * @returns Extracted statement text and content bounds relative to token.content start.
+ */
+export function extractStatementContent(tokenOrContent, delimiters) {
+    return extractContentWithDelimiters(tokenOrContent, delimiters, 'extractStatementContent');
+}
+/**
+ * Extract expression content between delimiters without instantiating TemplateParser.
+ *
+ * @param tokenOrContent - Expression token-like input or raw expression content.
+ * @param delimiters - Explicit delimiter configuration; required when token metadata is absent.
+ * @returns Extracted expression text and content bounds relative to token.content start.
+ */
+export function extractExpressionContent(tokenOrContent, delimiters) {
+    return extractContentWithDelimiters(tokenOrContent, delimiters, 'extractExpressionContent');
+}
+//# sourceMappingURL=parser.js.map

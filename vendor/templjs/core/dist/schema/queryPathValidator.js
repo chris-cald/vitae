@@ -1,0 +1,188 @@
+/**
+ * Query path validation utilities
+ */
+function decodeJsonPointerSegment(segment) {
+    const unescaped = segment.replace(/~1/g, '/').replace(/~0/g, '~');
+    try {
+        return decodeURIComponent(unescaped);
+    }
+    catch {
+        return unescaped;
+    }
+}
+function resolveLocalRef(rootSchema, ref) {
+    if (ref === '#') {
+        return rootSchema;
+    }
+    if (!ref.startsWith('#/')) {
+        return undefined;
+    }
+    const segments = ref
+        .slice(2)
+        .split('/')
+        .map((segment) => decodeJsonPointerSegment(segment));
+    let current = rootSchema;
+    for (const segment of segments) {
+        if (!current ||
+            typeof current !== 'object' ||
+            !(segment in current)) {
+            return undefined;
+        }
+        current = current[segment];
+    }
+    return current && typeof current === 'object' && !Array.isArray(current)
+        ? current
+        : undefined;
+}
+function extractPathsInternal(schema, prefix, rootSchema, activeRefs) {
+    const paths = new Set();
+    if (!schema || typeof schema !== 'object') {
+        return paths;
+    }
+    if (prefix) {
+        paths.add(prefix);
+    }
+    if (schema.$ref) {
+        const resolved = resolveLocalRef(rootSchema, schema.$ref);
+        if (!resolved || activeRefs.has(schema.$ref)) {
+            return paths;
+        }
+        const nextActiveRefs = new Set(activeRefs);
+        nextActiveRefs.add(schema.$ref);
+        const referencedPaths = extractPathsInternal(resolved, prefix, rootSchema, nextActiveRefs);
+        for (const path of referencedPaths) {
+            paths.add(path);
+        }
+        return paths;
+    }
+    if (schema.type === 'object' && schema.properties) {
+        for (const [key, subSchema] of Object.entries(schema.properties)) {
+            const newPrefix = prefix ? `${prefix}.${key}` : key;
+            const subPaths = extractPathsInternal(subSchema, newPrefix, rootSchema, activeRefs);
+            for (const path of subPaths) {
+                paths.add(path);
+            }
+        }
+    }
+    if (schema.type === 'array' && schema.items) {
+        const itemsSchema = Array.isArray(schema.items) ? schema.items[0] : schema.items;
+        if (itemsSchema) {
+            const arrayPrefix = prefix ? `${prefix}[0]` : '[0]';
+            paths.add(arrayPrefix);
+            const subPaths = extractPathsInternal(itemsSchema, arrayPrefix, rootSchema, activeRefs);
+            for (const path of subPaths) {
+                paths.add(path);
+            }
+        }
+    }
+    const combinators = [schema.allOf, schema.anyOf, schema.oneOf].filter(Boolean);
+    for (const combinator of combinators) {
+        if (Array.isArray(combinator)) {
+            for (const subSchema of combinator) {
+                const subPaths = extractPathsInternal(subSchema, prefix, rootSchema, activeRefs);
+                for (const path of subPaths) {
+                    paths.add(path);
+                }
+            }
+        }
+    }
+    return paths;
+}
+/**
+ * Extract all valid paths from a JSON Schema
+ * @param schema - JSON Schema object
+ * @param prefix - Current path prefix for recursion
+ * @returns Set of valid dot-notation paths
+ */
+export function extractPaths(schema, prefix = '') {
+    return extractPathsInternal(schema, prefix, schema, new Set());
+}
+/**
+ * Calculate Levenshtein distance between two strings
+ * @param a - First string
+ * @param b - Second string
+ * @returns Edit distance between strings
+ */
+export function levenshteinDistance(a, b) {
+    if (a.length === 0)
+        return b.length;
+    if (b.length === 0)
+        return a.length;
+    const matrix = [];
+    // Initialize matrix
+    for (let i = 0; i <= b.length; i++) {
+        matrix[i] = [i];
+    }
+    for (let j = 0; j <= a.length; j++) {
+        matrix[0][j] = j;
+    }
+    // Fill matrix
+    for (let i = 1; i <= b.length; i++) {
+        for (let j = 1; j <= a.length; j++) {
+            if (b.charAt(i - 1) === a.charAt(j - 1)) {
+                matrix[i][j] = matrix[i - 1][j - 1];
+            }
+            else {
+                matrix[i][j] = Math.min(matrix[i - 1][j - 1] + 1, // substitution
+                matrix[i][j - 1] + 1, // insertion
+                matrix[i - 1][j] + 1 // deletion
+                );
+            }
+        }
+    }
+    return matrix[b.length][a.length];
+}
+/**
+ * Find similar paths using fuzzy matching
+ * @param input - Input path to match
+ * @param validPaths - Set of valid paths
+ * @param maxDistance - Maximum Levenshtein distance (default: 2)
+ * @param maxResults - Maximum number of suggestions (default: 3)
+ * @returns Array of suggested paths sorted by similarity
+ */
+export function fuzzyMatch(input, validPaths, maxDistance = 2, maxResults = 3) {
+    const suggestions = [];
+    for (const path of validPaths) {
+        const distance = levenshteinDistance(input, path);
+        if (distance <= maxDistance) {
+            suggestions.push({ path, distance });
+        }
+    }
+    // Sort by distance (closest first) and limit results
+    suggestions.sort((a, b) => a.distance - b.distance);
+    return suggestions.slice(0, maxResults).map((s) => s.path);
+}
+/**
+ * Normalize path for comparison (handle array indices)
+ * @param path - Path to normalize
+ * @returns Normalized path
+ */
+export function normalizePath(path) {
+    // Replace [0], [1], etc. with [0] for pattern matching
+    return path.replace(/\[\d+\]/g, '[0]');
+}
+/**
+ * Check if a path matches a schema pattern
+ * @param path - Path to check
+ * @param validPaths - Set of valid paths
+ * @returns True if path is valid
+ */
+export function isValidPath(path, validPaths) {
+    // Direct match
+    if (validPaths.has(path)) {
+        return true;
+    }
+    // Normalize and check (for array indices)
+    const normalized = normalizePath(path);
+    if (validPaths.has(normalized)) {
+        return true;
+    }
+    // Check if any valid path is a prefix of the input (for partial paths)
+    for (const validPath of validPaths) {
+        if (normalized === normalizePath(validPath)) {
+            return true;
+        }
+    }
+    return false;
+}
+//# sourceMappingURL=queryPathValidator.js.map
