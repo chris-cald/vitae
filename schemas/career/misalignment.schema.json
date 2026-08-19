@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://vitae.local/schemas/career/misalignment.schema.json",
+  "title": "Vitae Misalignment",
+  "description": "Canonical, persistence-neutral misalignment record.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "kind",
+    "fitAnalysisId",
+    "requirementId",
+    "category"
+  ],
+  "properties": {
+    "id": {
+      "$ref": "https://vitae.local/schemas/career/common.schema.json#/$defs/entityId"
+    },
+    "kind": {
+      "const": "misalignment"
+    },
+    "fitAnalysisId": {
+      "$ref": "https://vitae.local/schemas/career/common.schema.json#/$defs/entityId"
+    },
+    "requirementId": {
+      "$ref": "https://vitae.local/schemas/career/common.schema.json#/$defs/entityId"
+    },
+    "category": {
+      "enum": [
+        "harvest",
+        "cull",
+        "prime",
+        "substantiate"
+      ]
+    },
+    "explanation": {
+      "type": "string",
+      "minLength": 1
+    }
+  }
+}

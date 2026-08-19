@@ -1,0 +1,10 @@
+{# Default templjs rendering for a provisional career observation. #}
+# Seed
+
+{{ statement }}
+
+- **ID:** `{{ id }}`
+- **Status:** {{ status | default('harvested') }}
+{%- for sourceRef in sourceRefs %}
+- **Source:** {{ sourceRef.uri }}
+{%- endfor %}

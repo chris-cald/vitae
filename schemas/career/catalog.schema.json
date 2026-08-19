@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://vitae.local/schemas/career/catalog.schema.json",
+  "title": "Vitae Catalog",
+  "description": "Canonical, persistence-neutral catalog record.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "kind",
+    "profileId",
+    "title"
+  ],
+  "properties": {
+    "id": {
+      "$ref": "https://vitae.local/schemas/career/common.schema.json#/$defs/entityId"
+    },
+    "kind": {
+      "const": "catalog"
+    },
+    "profileId": {
+      "$ref": "https://vitae.local/schemas/career/common.schema.json#/$defs/entityId"
+    },
+    "title": {
+      "$ref": "https://vitae.local/schemas/career/common.schema.json#/$defs/nonEmptyString"
+    },
+    "catalogAssetIds": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "$ref": "https://vitae.local/schemas/career/common.schema.json#/$defs/entityId"
+      }
+    }
+  }
+}

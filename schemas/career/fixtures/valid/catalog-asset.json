@@ -1,0 +1,13 @@
+{
+  "id": "catalog-asset-platform-reliability",
+  "kind": "catalog-asset",
+  "catalogId": "catalog-career-assets",
+  "title": "Platform reliability leadership",
+  "summary": "Substantiated leadership evidence for a platform migration.",
+  "sourceRefs": [
+    {
+      "uri": "vault://career/book-of-work/platform-migration-retrospective",
+      "locator": "#outcomes"
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "id": "source-platform-retrospective",
+  "kind": "source-asset",
+  "title": "Platform migration retrospective",
+  "sourceType": "document",
+  "summary": "A retrospective describing the candidate's role in a platform migration.",
+  "sourceRef": {
+    "uri": "vault://career/book-of-work/platform-migration-retrospective",
+    "locator": "#outcomes"
+  },
+  "capturedAt": "2026-08-05T12:00:00Z"
+}

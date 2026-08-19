@@ -1,0 +1,9 @@
+{# Default templjs rendering for a target fit analysis. #}
+# Fit analysis
+
+- **ID:** `{{ id }}`
+- **Profile:** `{{ profileId }}`
+- **Target:** `{{ targetId }}`
+{%- if score !== undefined %}
+- **Score:** {{ score }}
+{%- endif %}

@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://vitae.local/schemas/career/target.schema.json",
+  "title": "Vitae Target",
+  "description": "Canonical, persistence-neutral target record.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "kind",
+    "title"
+  ],
+  "properties": {
+    "id": {
+      "$ref": "https://vitae.local/schemas/career/common.schema.json#/$defs/entityId"
+    },
+    "kind": {
+      "const": "target"
+    },
+    "title": {
+      "$ref": "https://vitae.local/schemas/career/common.schema.json#/$defs/nonEmptyString"
+    },
+    "organization": {
+      "type": "string",
+      "minLength": 1
+    },
+    "requirementIds": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "$ref": "https://vitae.local/schemas/career/common.schema.json#/$defs/entityId"
+      }
+    },
+    "sourceRef": {
+      "$ref": "https://vitae.local/schemas/career/common.schema.json#/$defs/sourceRef"
+    }
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "id": "seed-anonymized-targeting-insight",
+  "kind": "seed",
+  "statement": "Anonymized role-targeting insight derived from a projection and linked career evidence.",
+  "status": "incubating",
+  "quality": "weak",
+  "incubationMode": "fidelity",
+  "maturesTo": ["catalog-asset"],
+  "obsidianProvenance": "vault://career-knowledge/projections/anonymized-role-projection",
+  "sourceRefs": [
+    {
+      "uri": "vault://career-knowledge/projections/anonymized-role-projection"
+    }
+  ]
+}

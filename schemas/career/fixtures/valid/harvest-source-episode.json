@@ -1,0 +1,9 @@
+{
+  "id": "source-anonymized-episode",
+  "kind": "source-asset",
+  "title": "Anonymized delivery episode",
+  "sourceType": "note",
+  "sourceRef": {
+    "uri": "vault://career-knowledge/catalog/episodes/anonymized-delivery-episode"
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://vitae.local/schemas/career/fit-analysis.schema.json",
+  "title": "Vitae Fit analysis",
+  "description": "Canonical, persistence-neutral fit analysis record.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "kind",
+    "profileId",
+    "targetId"
+  ],
+  "properties": {
+    "id": {
+      "$ref": "https://vitae.local/schemas/career/common.schema.json#/$defs/entityId"
+    },
+    "kind": {
+      "const": "fit-analysis"
+    },
+    "profileId": {
+      "$ref": "https://vitae.local/schemas/career/common.schema.json#/$defs/entityId"
+    },
+    "targetId": {
+      "$ref": "https://vitae.local/schemas/career/common.schema.json#/$defs/entityId"
+    },
+    "score": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    },
+    "requirementMappingIds": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "$ref": "https://vitae.local/schemas/career/common.schema.json#/$defs/entityId"
+      }
+    }
+  }
+}

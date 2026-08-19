@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://vitae.local/schemas/career/relationship.schema.json",
+  "title": "Vitae Relationship",
+  "description": "Canonical, persistence-neutral relationship record.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "kind",
+    "fromId",
+    "toId",
+    "relationshipType"
+  ],
+  "properties": {
+    "id": {
+      "$ref": "https://vitae.local/schemas/career/common.schema.json#/$defs/entityId"
+    },
+    "kind": {
+      "const": "relationship"
+    },
+    "fromId": {
+      "$ref": "https://vitae.local/schemas/career/common.schema.json#/$defs/entityId"
+    },
+    "toId": {
+      "$ref": "https://vitae.local/schemas/career/common.schema.json#/$defs/entityId"
+    },
+    "relationshipType": {
+      "enum": [
+        "contains",
+        "targets",
+        "evidences",
+        "matches",
+        "derived-from",
+        "used-document",
+        "submitted-to",
+        "requires-confirmation"
+      ]
+    }
+  }
+}

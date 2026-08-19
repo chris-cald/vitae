@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://vitae.local/schemas/career/source-ref.schema.json",
+  "title": "Vitae Source reference",
+  "description": "Canonical, persistence-neutral source reference record.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "uri"
+  ],
+  "properties": {
+    "uri": {
+      "type": "string",
+      "format": "uri-reference",
+      "minLength": 1
+    },
+    "locator": {
+      "type": "string",
+      "minLength": 1
+    },
+    "contentDigest": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9_-]+:[A-Fa-f0-9]{32,128}$"
+    }
+  }
+}

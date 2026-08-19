@@ -1,0 +1,17 @@
+{# Default templjs rendering for a source-backed cover letter. #}
+# Cover letter
+
+- **ID:** `{{ id }}`
+- **Target:** `{{ targetId }}`
+- **Human confirmation required:** {{ needsHumanConfirmation | default(false) }}
+
+## Sources
+{%- for sourceRef in sourceRefs %}
+- {{ sourceRef.uri }}{%- if sourceRef.locator %} — {{ sourceRef.locator }}{%- endif %}
+{%- endfor %}
+{%- if body %}
+
+## Draft
+
+{{ body }}
+{%- endif %}

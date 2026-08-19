@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://vitae.local/schemas/career/workflow-run.schema.json",
+  "title": "Vitae Workflow run",
+  "description": "Canonical, persistence-neutral workflow run record.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "kind",
+    "workflowId",
+    "status",
+    "startedAt"
+  ],
+  "properties": {
+    "id": {
+      "$ref": "https://vitae.local/schemas/career/common.schema.json#/$defs/entityId"
+    },
+    "kind": {
+      "const": "workflow-run"
+    },
+    "workflowId": {
+      "$ref": "https://vitae.local/schemas/career/common.schema.json#/$defs/entityId"
+    },
+    "status": {
+      "enum": [
+        "pending",
+        "running",
+        "completed",
+        "failed",
+        "cancelled"
+      ]
+    },
+    "startedAt": {
+      "$ref": "https://vitae.local/schemas/career/common.schema.json#/$defs/isoDateTime"
+    },
+    "completedAt": {
+      "$ref": "https://vitae.local/schemas/career/common.schema.json#/$defs/isoDateTime"
+    }
+  }
+}

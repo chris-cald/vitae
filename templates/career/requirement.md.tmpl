@@ -1,0 +1,8 @@
+{# Default templjs rendering for a target requirement. #}
+# Requirement
+
+{{ statement }}
+
+- **ID:** `{{ id }}`
+- **Target:** `{{ targetId }}`
+- **Priority:** {{ priority | default('unknown') }}

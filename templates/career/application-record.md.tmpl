@@ -1,0 +1,12 @@
+{# Default templjs rendering for a material application event. #}
+# {{ recordType }}
+
+> Application record
+
+- **ID:** `{{ id }}`
+- **Application:** `{{ applicationId }}`
+- **Occurred:** {{ occurredAt }}
+{%- if note %}
+
+{{ note }}
+{%- endif %}

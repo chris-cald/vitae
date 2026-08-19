@@ -1,0 +1,12 @@
+{# Default templjs rendering for a source-backed deliverable. #}
+# {{ title }}
+
+> Deliverable: {{ deliverableType }}
+
+- **ID:** `{{ id }}`
+- **Human confirmation required:** {{ needsHumanConfirmation | default(false) }}
+
+## Sources
+{%- for sourceRef in sourceRefs %}
+- {{ sourceRef.uri }}{%- if sourceRef.locator %} — {{ sourceRef.locator }}{%- endif %}
+{%- endfor %}

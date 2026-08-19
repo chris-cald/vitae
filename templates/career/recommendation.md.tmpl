@@ -1,0 +1,11 @@
+{# Default templjs rendering for an actionable recommendation. #}
+# Recommendation
+
+{{ action }}
+
+- **ID:** `{{ id }}`
+- **Misalignment:** `{{ misalignmentId }}`
+{%- if rationale %}
+
+{{ rationale }}
+{%- endif %}

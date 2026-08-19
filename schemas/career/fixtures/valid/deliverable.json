@@ -1,0 +1,12 @@
+{
+  "id": "deliverable-targeted-resume",
+  "kind": "deliverable",
+  "deliverableType": "resume-variant",
+  "title": "Staff Platform Engineer resume",
+  "needsHumanConfirmation": true,
+  "sourceRefs": [
+    {
+      "uri": "vault://career/catalog/platform-reliability-leadership"
+    }
+  ]
+}

@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://vitae.local/schemas/career/requirement.schema.json",
+  "title": "Vitae Requirement",
+  "description": "Canonical, persistence-neutral requirement record.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "kind",
+    "targetId",
+    "statement"
+  ],
+  "properties": {
+    "id": {
+      "$ref": "https://vitae.local/schemas/career/common.schema.json#/$defs/entityId"
+    },
+    "kind": {
+      "const": "requirement"
+    },
+    "targetId": {
+      "$ref": "https://vitae.local/schemas/career/common.schema.json#/$defs/entityId"
+    },
+    "statement": {
+      "$ref": "https://vitae.local/schemas/career/common.schema.json#/$defs/nonEmptyString"
+    },
+    "priority": {
+      "enum": [
+        "must",
+        "should",
+        "could",
+        "unknown"
+      ]
+    },
+    "sourceRef": {
+      "$ref": "https://vitae.local/schemas/career/common.schema.json#/$defs/sourceRef"
+    }
+  }
+}

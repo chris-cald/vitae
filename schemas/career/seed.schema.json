@@ -1,0 +1,62 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://vitae.local/schemas/career/seed.schema.json",
+  "title": "Vitae Seed",
+  "description": "Canonical, persistence-neutral seed record.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "kind",
+    "statement",
+    "sourceRefs"
+  ],
+  "properties": {
+    "id": {
+      "$ref": "https://vitae.local/schemas/career/common.schema.json#/$defs/entityId"
+    },
+    "kind": {
+      "const": "seed"
+    },
+    "statement": {
+      "$ref": "https://vitae.local/schemas/career/common.schema.json#/$defs/nonEmptyString"
+    },
+    "sourceRefs": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "https://vitae.local/schemas/career/common.schema.json#/$defs/sourceRef"
+      }
+    },
+    "status": {
+      "enum": [
+        "incubating",
+        "parked",
+        "culled",
+        "merged",
+        "split",
+        "primed",
+        "substantiated",
+        "promoted"
+      ]
+    },
+    "quality": {
+      "enum": ["weak", "emerging", "strong"]
+    },
+    "incubationMode": {
+      "enum": ["granularity", "growth-opportunity", "fidelity"]
+    },
+    "maturesTo": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "enum": ["catalog-asset", "merged-seed", "split-seed", "discarded"]
+      }
+    },
+    "obsidianProvenance": {
+      "$ref": "https://vitae.local/schemas/career/common.schema.json#/$defs/nonEmptyString",
+      "description": "Adapter-only provenance retained from an Obsidian Seed; canonical evidence remains sourceRefs."
+    }
+  }
+}

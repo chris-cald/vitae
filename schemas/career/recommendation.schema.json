@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://vitae.local/schemas/career/recommendation.schema.json",
+  "title": "Vitae Recommendation",
+  "description": "Canonical, persistence-neutral recommendation record.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "kind",
+    "misalignmentId",
+    "action"
+  ],
+  "properties": {
+    "id": {
+      "$ref": "https://vitae.local/schemas/career/common.schema.json#/$defs/entityId"
+    },
+    "kind": {
+      "const": "recommendation"
+    },
+    "misalignmentId": {
+      "$ref": "https://vitae.local/schemas/career/common.schema.json#/$defs/entityId"
+    },
+    "action": {
+      "$ref": "https://vitae.local/schemas/career/common.schema.json#/$defs/nonEmptyString"
+    },
+    "rationale": {
+      "type": "string",
+      "minLength": 1
+    },
+    "sourceRefs": {
+      "type": "array",
+      "items": {
+        "$ref": "https://vitae.local/schemas/career/common.schema.json#/$defs/sourceRef"
+      }
+    }
+  }
+}

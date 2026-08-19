@@ -1,0 +1,15 @@
+{
+  "id": "seed-anonymized-delivery-outcome",
+  "kind": "seed",
+  "statement": "Anonymized evidence of improving delivery reliability through cross-functional coordination.",
+  "status": "incubating",
+  "quality": "emerging",
+  "incubationMode": "growth-opportunity",
+  "maturesTo": ["catalog-asset"],
+  "obsidianProvenance": "vault://career-knowledge/catalog/episodes/anonymized-delivery-episode",
+  "sourceRefs": [
+    {
+      "uri": "vault://career-knowledge/catalog/episodes/anonymized-delivery-episode"
+    }
+  ]
+}

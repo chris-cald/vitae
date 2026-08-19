@@ -1,0 +1,174 @@
+{
+  "schemaVersion": "vitae/career-contract/v1",
+  "description": "Registry of canonical, persistence-neutral career records and their default templjs renderings.",
+  "types": [
+    {
+      "kind": "profile",
+      "schema": "profile.schema.json",
+      "template": "templates/career/profile.md.tmpl",
+      "templateBindings": [
+        "displayName"
+      ]
+    },
+    {
+      "kind": "book-of-work",
+      "schema": "book-of-work.schema.json",
+      "template": "templates/career/book-of-work.md.tmpl",
+      "templateBindings": [
+        "title"
+      ]
+    },
+    {
+      "kind": "source-asset",
+      "schema": "source-asset.schema.json",
+      "template": "templates/career/source-asset.md.tmpl",
+      "templateBindings": [
+        "title"
+      ]
+    },
+    {
+      "kind": "seed",
+      "schema": "seed.schema.json",
+      "template": "templates/career/seed.md.tmpl",
+      "templateBindings": [
+        "statement"
+      ]
+    },
+    {
+      "kind": "catalog",
+      "schema": "catalog.schema.json",
+      "template": "templates/career/catalog.md.tmpl",
+      "templateBindings": [
+        "title"
+      ]
+    },
+    {
+      "kind": "catalog-asset",
+      "schema": "catalog-asset.schema.json",
+      "template": "templates/career/catalog-asset.md.tmpl",
+      "templateBindings": [
+        "title"
+      ]
+    },
+    {
+      "kind": "target",
+      "schema": "target.schema.json",
+      "template": "templates/career/target.md.tmpl",
+      "templateBindings": [
+        "title"
+      ]
+    },
+    {
+      "kind": "requirement",
+      "schema": "requirement.schema.json",
+      "template": "templates/career/requirement.md.tmpl",
+      "templateBindings": [
+        "statement"
+      ]
+    },
+    {
+      "kind": "fit-analysis",
+      "schema": "fit-analysis.schema.json",
+      "template": "templates/career/fit-analysis.md.tmpl",
+      "templateBindings": [
+        "profileId"
+      ]
+    },
+    {
+      "kind": "misalignment",
+      "schema": "misalignment.schema.json",
+      "template": "templates/career/misalignment.md.tmpl",
+      "templateBindings": [
+        "category"
+      ]
+    },
+    {
+      "kind": "recommendation",
+      "schema": "recommendation.schema.json",
+      "template": "templates/career/recommendation.md.tmpl",
+      "templateBindings": [
+        "action"
+      ]
+    },
+    {
+      "kind": "deliverable",
+      "schema": "deliverable.schema.json",
+      "template": "templates/career/deliverable.md.tmpl",
+      "templateBindings": [
+        "title"
+      ]
+    },
+    {
+      "kind": "cover-letter",
+      "schema": "cover-letter.schema.json",
+      "template": "templates/career/cover-letter.md.tmpl",
+      "templateBindings": [
+        "targetId"
+      ]
+    },
+    {
+      "kind": "application",
+      "schema": "application.schema.json",
+      "template": "templates/career/application.md.tmpl",
+      "templateBindings": [
+        "targetId"
+      ]
+    },
+    {
+      "kind": "application-record",
+      "schema": "application-record.schema.json",
+      "template": "templates/career/application-record.md.tmpl",
+      "templateBindings": [
+        "recordType"
+      ]
+    },
+    {
+      "kind": "workflow",
+      "schema": "workflow.schema.json",
+      "template": "templates/career/workflow.md.tmpl",
+      "templateBindings": [
+        "name"
+      ]
+    },
+    {
+      "kind": "workflow-run",
+      "schema": "workflow-run.schema.json",
+      "template": "templates/career/workflow-run.md.tmpl",
+      "templateBindings": [
+        "workflowId"
+      ]
+    },
+    {
+      "kind": "projection",
+      "schema": "projection.schema.json",
+      "template": "templates/career/projection.md.tmpl",
+      "templateBindings": [
+        "outputKind"
+      ]
+    },
+    {
+      "kind": "evidence",
+      "schema": "evidence.schema.json",
+      "template": "templates/career/evidence.md.tmpl",
+      "templateBindings": [
+        "claim"
+      ]
+    },
+    {
+      "kind": "relationship",
+      "schema": "relationship.schema.json",
+      "template": "templates/career/relationship.md.tmpl",
+      "templateBindings": [
+        "relationshipType"
+      ]
+    },
+    {
+      "kind": "source-ref",
+      "schema": "source-ref.schema.json",
+      "template": "templates/career/source-ref.md.tmpl",
+      "templateBindings": [
+        "uri"
+      ]
+    }
+  ]
+}

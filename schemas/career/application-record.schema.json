@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://vitae.local/schemas/career/application-record.schema.json",
+  "title": "Vitae Application record",
+  "description": "Canonical, persistence-neutral application record record.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "kind",
+    "applicationId",
+    "recordType",
+    "occurredAt"
+  ],
+  "properties": {
+    "id": {
+      "$ref": "https://vitae.local/schemas/career/common.schema.json#/$defs/entityId"
+    },
+    "kind": {
+      "const": "application-record"
+    },
+    "applicationId": {
+      "$ref": "https://vitae.local/schemas/career/common.schema.json#/$defs/entityId"
+    },
+    "recordType": {
+      "enum": [
+        "submission",
+        "interview",
+        "decision",
+        "follow-up",
+        "material-change"
+      ]
+    },
+    "occurredAt": {
+      "$ref": "https://vitae.local/schemas/career/common.schema.json#/$defs/isoDateTime"
+    },
+    "note": {
+      "type": "string",
+      "minLength": 1
+    }
+  }
+}

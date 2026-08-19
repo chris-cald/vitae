@@ -1,0 +1,12 @@
+{# Default templjs rendering for a career target. #}
+# {{ title }}
+
+> Target
+
+- **ID:** `{{ id }}`
+{%- if organization %}
+- **Organization:** {{ organization }}
+{%- endif %}
+{%- if sourceRef %}
+- **Source:** {{ sourceRef.uri }}
+{%- endif %}

@@ -1,0 +1,14 @@
+{# Default templjs rendering for a reusable career asset. #}
+# {{ title }}
+
+> Catalog asset
+
+- **ID:** `{{ id }}`
+- **Catalog:** `{{ catalogId }}`
+{%- for sourceRef in sourceRefs %}
+- **Source:** {{ sourceRef.uri }}
+{%- endfor %}
+{%- if summary %}
+
+{{ summary }}
+{%- endif %}

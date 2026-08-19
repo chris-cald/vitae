@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://vitae.local/schemas/career/cover-letter.schema.json",
+  "title": "Vitae Cover letter",
+  "description": "Canonical, persistence-neutral cover letter record.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "kind",
+    "targetId",
+    "sourceRefs"
+  ],
+  "properties": {
+    "id": {
+      "$ref": "https://vitae.local/schemas/career/common.schema.json#/$defs/entityId"
+    },
+    "kind": {
+      "const": "cover-letter"
+    },
+    "targetId": {
+      "$ref": "https://vitae.local/schemas/career/common.schema.json#/$defs/entityId"
+    },
+    "sourceRefs": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "https://vitae.local/schemas/career/common.schema.json#/$defs/sourceRef"
+      }
+    },
+    "body": {
+      "type": "string",
+      "minLength": 1
+    },
+    "needsHumanConfirmation": {
+      "type": "boolean"
+    }
+  }
+}

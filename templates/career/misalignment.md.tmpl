@@ -1,0 +1,10 @@
+{# Default templjs rendering for a fit misalignment. #}
+# {{ category }} misalignment
+
+- **ID:** `{{ id }}`
+- **Fit analysis:** `{{ fitAnalysisId }}`
+- **Requirement:** `{{ requirementId }}`
+{%- if explanation %}
+
+{{ explanation }}
+{%- endif %}

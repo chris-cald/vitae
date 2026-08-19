@@ -1,0 +1,20 @@
+{# Default templjs rendering of one provenance-addressable source. #}
+# {{ title }}
+
+> Source asset
+
+- **ID:** `{{ id }}`
+- **Type:** {{ sourceType | default('other') }}
+- **Source:** {{ sourceRef.uri }}
+{%- if sourceRef.locator %}
+- **Location:** {{ sourceRef.locator }}
+{%- endif %}
+{%- if capturedAt %}
+- **Captured:** {{ capturedAt }}
+{%- endif %}
+
+{%- if summary %}
+## Summary
+
+{{ summary }}
+{%- endif %}

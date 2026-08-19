@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://vitae.local/schemas/career/book-of-work.schema.json",
+  "title": "Vitae Book of Work",
+  "description": "Canonical, persistence-neutral book of work record.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "kind",
+    "profileId",
+    "title"
+  ],
+  "properties": {
+    "id": {
+      "$ref": "https://vitae.local/schemas/career/common.schema.json#/$defs/entityId"
+    },
+    "kind": {
+      "const": "book-of-work"
+    },
+    "profileId": {
+      "$ref": "https://vitae.local/schemas/career/common.schema.json#/$defs/entityId"
+    },
+    "title": {
+      "$ref": "https://vitae.local/schemas/career/common.schema.json#/$defs/nonEmptyString"
+    },
+    "sourceAssetIds": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "$ref": "https://vitae.local/schemas/career/common.schema.json#/$defs/entityId"
+      }
+    }
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "id": "target-staff-platform-engineer",
+  "kind": "target",
+  "title": "Staff Platform Engineer",
+  "organization": "Example Systems",
+  "sourceRef": {
+    "uri": "https://jobs.example.test/staff-platform-engineer"
+  }
+}

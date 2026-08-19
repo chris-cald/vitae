@@ -1,0 +1,11 @@
+{# Default templjs rendering for source-backed evidence. #}
+# Evidence
+
+{{ claim }}
+
+- **ID:** `{{ id }}`
+
+## Sources
+{%- for sourceRef in sourceRefs %}
+- {{ sourceRef.uri }}
+{%- endfor %}

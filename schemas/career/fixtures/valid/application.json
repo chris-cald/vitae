@@ -1,0 +1,9 @@
+{
+  "id": "application-example-staff-platform",
+  "kind": "application",
+  "targetId": "target-staff-platform-engineer",
+  "status": "ready",
+  "deliverableIds": [
+    "deliverable-targeted-resume"
+  ]
+}

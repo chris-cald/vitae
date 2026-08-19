@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://vitae.local/schemas/career/application.schema.json",
+  "title": "Vitae Application",
+  "description": "Canonical, persistence-neutral application record.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "kind",
+    "targetId",
+    "status"
+  ],
+  "properties": {
+    "id": {
+      "$ref": "https://vitae.local/schemas/career/common.schema.json#/$defs/entityId"
+    },
+    "kind": {
+      "const": "application"
+    },
+    "targetId": {
+      "$ref": "https://vitae.local/schemas/career/common.schema.json#/$defs/entityId"
+    },
+    "status": {
+      "enum": [
+        "draft",
+        "ready",
+        "submitted",
+        "interviewing",
+        "closed",
+        "withdrawn"
+      ]
+    },
+    "deliverableIds": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "$ref": "https://vitae.local/schemas/career/common.schema.json#/$defs/entityId"
+      }
+    }
+  }
+}

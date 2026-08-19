@@ -1,0 +1,12 @@
+{
+  "id": "seed-platform-reliability",
+  "kind": "seed",
+  "statement": "Led reliability improvements during a platform migration.",
+  "status": "incubating",
+  "sourceRefs": [
+    {
+      "uri": "vault://career/book-of-work/platform-migration-retrospective",
+      "locator": "#outcomes"
+    }
+  ]
+}

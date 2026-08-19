@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://vitae.local/schemas/career/source-asset.schema.json",
+  "title": "Vitae SourceAsset",
+  "description": "A persistence-neutral source from which career claims, Seeds, and deliverables may be substantiated.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["id", "kind", "title", "sourceRef"],
+  "properties": {
+    "id": {
+      "$ref": "https://vitae.local/schemas/career/common.schema.json#/$defs/entityId"
+    },
+    "kind": {
+      "const": "source-asset"
+    },
+    "title": {
+      "$ref": "https://vitae.local/schemas/career/common.schema.json#/$defs/nonEmptyString"
+    },
+    "sourceType": {
+      "enum": ["note", "meeting-minutes", "repository", "publication", "resume", "job-description", "document", "other"]
+    },
+    "summary": {
+      "type": "string",
+      "minLength": 1
+    },
+    "sourceRef": {
+      "$ref": "https://vitae.local/schemas/career/common.schema.json#/$defs/sourceRef"
+    },
+    "capturedAt": {
+      "$ref": "https://vitae.local/schemas/career/common.schema.json#/$defs/isoDateTime"
+    }
+  }
+}
