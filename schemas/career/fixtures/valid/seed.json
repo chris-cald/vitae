@@ -3,6 +3,10 @@
   "kind": "seed",
   "statement": "Led reliability improvements during a platform migration.",
   "status": "incubating",
+  "harvestRationale": "An adjacent source surfaced an unsubstantiated reusable topic, not a mature claim.",
+  "promotionCriteria": [
+    "Verify the claim against at least one source asset and define a reusable scope."
+  ],
   "sourceRefs": [
     {
       "uri": "vault://career/book-of-work/platform-migration-retrospective",

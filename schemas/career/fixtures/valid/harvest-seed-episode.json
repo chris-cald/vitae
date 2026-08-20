@@ -2,10 +2,16 @@
   "id": "seed-anonymized-delivery-outcome",
   "kind": "seed",
   "statement": "Anonymized evidence of improving delivery reliability through cross-functional coordination.",
+  "harvestRationale": "The source identifies an adjacent delivery outcome whose scope and metrics still need substantiation.",
   "status": "incubating",
+  "harvestRationale": "A confirmed episode exposed an adjacent topic that lacks independently substantiated scope.",
   "quality": "emerging",
   "incubationMode": "growth-opportunity",
-  "maturesTo": ["catalog-asset"],
+  "maturesTo": ["episode"],
+  "promotionCriteria": [
+    "Confirm a bounded outcome with a specific source locator.",
+    "Establish a reusable episode scope without unsupported metrics."
+  ],
   "obsidianProvenance": "vault://career-knowledge/catalog/episodes/anonymized-delivery-episode",
   "sourceRefs": [
     {

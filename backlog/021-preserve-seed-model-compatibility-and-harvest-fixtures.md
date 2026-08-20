@@ -5,8 +5,8 @@ summary: Capture the existing Obsidian Seed structure as the MVP Seed contract a
 type: work-item
 subtype: story
 lifecycle: active
-status: proposed
-status_reason: blocked
+status: ready
+status_reason: dependencies-cleared
 priority: high
 estimated: 4
 links:
@@ -32,11 +32,11 @@ Seeds are raw or promising candidate material outside the Catalog. They should n
 
 ## Tasks
 
-- [ ] Extract or document the existing Obsidian Seed metadata and content structure.
-- [ ] Define the MVP Seed schema or fixture shape aligned to `wi-020`.
-- [ ] Create at least two Book of Work SourceAsset fixtures that harvest into Seeds.
-- [ ] Define allowed Seed dispositions such as parked, culled, merged, split, primed, substantiated, or promoted.
-- [ ] Document what evidence or metadata is required before a Seed can promote to CatalogAsset.
+- [x] Extract or document the existing Obsidian Seed metadata and content structure.
+- [x] Define the MVP Seed schema or fixture shape aligned to `wi-020`.
+- [x] Create at least two Book of Work SourceAsset fixtures that harvest into Seeds.
+- [x] Define allowed Seed dispositions such as parked, culled, merged, split, primed, substantiated, or promoted.
+- [x] Document what evidence or metadata is required before a Seed can promote to CatalogAsset.
 
 ## Deliverables
 

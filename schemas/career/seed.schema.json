@@ -9,7 +9,9 @@
     "id",
     "kind",
     "statement",
-    "sourceRefs"
+    "sourceRefs",
+    "harvestRationale",
+    "promotionCriteria"
   ],
   "properties": {
     "id": {
@@ -37,11 +39,12 @@
         "split",
         "primed",
         "substantiated",
-        "promoted"
+        "promoted",
+        "rejected"
       ]
     },
     "quality": {
-      "enum": ["weak", "emerging", "strong"]
+      "enum": ["weak", "emerging", "rooted"]
     },
     "incubationMode": {
       "enum": ["granularity", "growth-opportunity", "fidelity"]
@@ -51,7 +54,19 @@
       "minItems": 1,
       "uniqueItems": true,
       "items": {
-        "enum": ["catalog-asset", "merged-seed", "split-seed", "discarded"]
+        "enum": ["episode", "projection", "technology", "domain", "boundary"]
+      }
+    },
+    "harvestRationale": {
+      "$ref": "https://vitae.local/schemas/career/common.schema.json#/$defs/nonEmptyString",
+      "description": "Why an adjacent source surfaced a distinct, not-yet-substantiated Seed candidate."
+    },
+    "promotionCriteria": {
+      "type": "array",
+      "description": "Observable evidence conditions that must be met before a Seed can promote.",
+      "minItems": 1,
+      "items": {
+        "$ref": "https://vitae.local/schemas/career/common.schema.json#/$defs/nonEmptyString"
       }
     },
     "obsidianProvenance": {

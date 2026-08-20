@@ -105,9 +105,27 @@ test('anonymized Obsidian Seed fixtures preserve vault metadata and harvest prov
   for (const [index, seed] of seeds.entries()) {
     assert.equal(validateSeed(seed), true, JSON.stringify(validateSeed.errors, null, 2));
     assert.equal(seed.status, 'incubating');
+    assert.ok(seed.promotionCriteria.length > 0, 'Each Seed must state qualifying promotion criteria');
+    assert.match(seed.harvestRationale, /adjacent/i, 'A Seed must identify an adjacent, unsubstantiated topic rather than reuse a mature artifact');
     assert.equal(seed.sourceRefs[0].uri, sourceAssets[index].sourceRef.uri);
     assert.equal(seed.catalogId, undefined, 'Seeds must not be assigned to a Catalog');
   }
+});
+
+test('one SourceAsset can harvest multiple distinct Seed topics', () => {
+  const source = readJson('fixtures/valid/harvest-source-episode.json');
+  const seeds = [
+    readJson('fixtures/valid/harvest-seed-episode.json'),
+    readJson('fixtures/valid/harvest-seed-episode-adjacent-topic.json'),
+  ];
+  const validateSeed = createValidatorFor('seed.schema.json');
+
+  for (const seed of seeds) {
+    assert.equal(validateSeed(seed), true, JSON.stringify(validateSeed.errors, null, 2));
+    assert.equal(seed.sourceRefs[0].uri, source.sourceRef.uri);
+  }
+  assert.notEqual(seeds[0].id, seeds[1].id);
+  assert.notEqual(seeds[0].harvestRationale, seeds[1].harvestRationale);
 });
 
 test('the six core-loop fixtures validate and render through their default templates', () => {

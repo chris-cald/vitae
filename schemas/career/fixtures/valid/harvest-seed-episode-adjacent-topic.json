@@ -1,0 +1,20 @@
+{
+  "id": "seed-anonymized-delivery-boundary",
+  "kind": "seed",
+  "statement": "Anonymized candidate for clarifying the boundary between delivery coordination and operational ownership.",
+  "status": "incubating",
+  "harvestRationale": "The same source reveals a distinct boundary question that needs additional evidence before it can become reusable knowledge.",
+  "quality": "weak",
+  "incubationMode": "granularity",
+  "maturesTo": ["boundary"],
+  "promotionCriteria": [
+    "Identify the decision or responsibility boundary with a specific source locator.",
+    "Confirm the boundary is reusable beyond the original delivery episode."
+  ],
+  "obsidianProvenance": "vault://career-knowledge/catalog/episodes/anonymized-delivery-episode",
+  "sourceRefs": [
+    {
+      "uri": "vault://career-knowledge/catalog/episodes/anonymized-delivery-episode"
+    }
+  ]
+}

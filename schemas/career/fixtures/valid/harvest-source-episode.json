@@ -1,7 +1,7 @@
 {
   "id": "source-anonymized-episode",
   "kind": "source-asset",
-  "title": "Anonymized delivery episode",
+  "title": "Anonymized confirmed episode reviewed for adjacent gaps",
   "sourceType": "note",
   "sourceRef": {
     "uri": "vault://career-knowledge/catalog/episodes/anonymized-delivery-episode"

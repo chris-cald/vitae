@@ -3,9 +3,14 @@
   "kind": "seed",
   "statement": "Anonymized role-targeting insight derived from a projection and linked career evidence.",
   "status": "incubating",
+  "harvestRationale": "A downstream projection exposed an adjacent topic whose underlying evidence is not yet substantiated.",
   "quality": "weak",
   "incubationMode": "fidelity",
-  "maturesTo": ["catalog-asset"],
+  "maturesTo": ["projection"],
+  "promotionCriteria": [
+    "Validate the projection against at least one linked source asset.",
+    "Confirm the target wording does not exceed the evidence boundary."
+  ],
   "obsidianProvenance": "vault://career-knowledge/projections/anonymized-role-projection",
   "sourceRefs": [
     {

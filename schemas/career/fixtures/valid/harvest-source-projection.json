@@ -1,7 +1,7 @@
 {
   "id": "source-anonymized-projection",
   "kind": "source-asset",
-  "title": "Anonymized role projection",
+  "title": "Anonymized downstream projection reviewed for adjacent gaps",
   "sourceType": "note",
   "sourceRef": {
     "uri": "vault://career-knowledge/projections/anonymized-role-projection"
