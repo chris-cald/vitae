@@ -2,8 +2,16 @@
   "id": "catalog-asset-platform-reliability",
   "kind": "catalog-asset",
   "catalogId": "catalog-career-assets",
+  "assetKind": "episode",
+  "confirmationStatus": "validated",
   "title": "Platform reliability leadership",
   "summary": "Substantiated leadership evidence for a platform migration.",
+  "episodeEvidence": {
+    "objective": "Improve service reliability during a platform migration.",
+    "responsibility": "Coordinated the migration work across contributing teams.",
+    "outcome": "Established a documented reliability improvement approach.",
+    "significance": "Demonstrates reusable leadership evidence with bounded scope."
+  },
   "sourceRefs": [
     {
       "uri": "vault://career/book-of-work/platform-migration-retrospective",

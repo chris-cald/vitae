@@ -2,60 +2,28 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://vitae.local/schemas/career/seed.schema.json",
   "title": "Vitae Seed",
-  "description": "Canonical, persistence-neutral seed record.",
+  "description": "Canonical, persistence-neutral provisional record. A Seed is excluded from generation and may promote only into a validated CatalogAsset.",
   "type": "object",
   "additionalProperties": false,
-  "required": [
-    "id",
-    "kind",
-    "statement",
-    "sourceRefs",
-    "harvestRationale",
-    "promotionCriteria"
-  ],
+  "required": ["id", "kind", "statement", "sourceRefs", "harvestRationale", "promotionCriteria"],
   "properties": {
-    "id": {
-      "$ref": "https://vitae.local/schemas/career/common.schema.json#/$defs/entityId"
-    },
-    "kind": {
-      "const": "seed"
-    },
-    "statement": {
-      "$ref": "https://vitae.local/schemas/career/common.schema.json#/$defs/nonEmptyString"
-    },
+    "id": { "$ref": "https://vitae.local/schemas/career/common.schema.json#/$defs/entityId" },
+    "kind": { "const": "seed" },
+    "statement": { "$ref": "https://vitae.local/schemas/career/common.schema.json#/$defs/nonEmptyString" },
     "sourceRefs": {
       "type": "array",
       "minItems": 1,
-      "items": {
-        "$ref": "https://vitae.local/schemas/career/common.schema.json#/$defs/sourceRef"
-      }
+      "items": { "$ref": "https://vitae.local/schemas/career/common.schema.json#/$defs/sourceRef" }
     },
-    "status": {
-      "enum": [
-        "incubating",
-        "parked",
-        "culled",
-        "merged",
-        "split",
-        "primed",
-        "substantiated",
-        "promoted",
-        "rejected"
-      ]
-    },
-    "quality": {
-      "enum": ["weak", "emerging", "rooted"]
-    },
-    "incubationMode": {
-      "enum": ["granularity", "growth-opportunity", "fidelity"]
-    },
+    "status": { "enum": ["incubating", "parked", "culled", "merged", "split", "primed", "substantiated", "promoted", "rejected"] },
+    "quality": { "enum": ["weak", "emerging", "rooted"] },
+    "incubationMode": { "enum": ["granularity", "growth-opportunity", "fidelity"] },
     "maturesTo": {
       "type": "array",
       "minItems": 1,
       "uniqueItems": true,
-      "items": {
-        "enum": ["episode", "projection", "technology", "domain", "boundary"]
-      }
+      "items": { "enum": ["episode", "accomplishment", "capability", "project", "proof", "story", "technology", "domain", "boundary", "other"] },
+      "description": "Possible CatalogAsset assetKind values; Projection is intentionally excluded because it cannot be a Seed promotion target."
     },
     "harvestRationale": {
       "$ref": "https://vitae.local/schemas/career/common.schema.json#/$defs/nonEmptyString",
@@ -63,15 +31,36 @@
     },
     "promotionCriteria": {
       "type": "array",
-      "description": "Observable evidence conditions that must be met before a Seed can promote.",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": { "$ref": "https://vitae.local/schemas/career/common.schema.json#/$defs/nonEmptyString" }
+    },
+    "promotionEvidence": {
+      "type": "array",
       "minItems": 1,
       "items": {
-        "$ref": "https://vitae.local/schemas/career/common.schema.json#/$defs/nonEmptyString"
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["criterion", "sourceRefs"],
+        "properties": {
+          "criterion": { "$ref": "https://vitae.local/schemas/career/common.schema.json#/$defs/nonEmptyString" },
+          "sourceRefs": {
+            "type": "array",
+            "minItems": 1,
+            "items": { "$ref": "https://vitae.local/schemas/career/common.schema.json#/$defs/sourceRef" }
+          }
+        }
       }
     },
     "obsidianProvenance": {
       "$ref": "https://vitae.local/schemas/career/common.schema.json#/$defs/nonEmptyString",
       "description": "Adapter-only provenance retained from an Obsidian Seed; canonical evidence remains sourceRefs."
     }
-  }
+  },
+  "allOf": [
+    {
+      "if": { "properties": { "status": { "enum": ["substantiated", "promoted"] } }, "required": ["status"] },
+      "then": { "required": ["promotionEvidence", "maturesTo"] }
+    }
+  ]
 }

@@ -7,3 +7,8 @@
 {%- if score !== undefined %}
 - **Score:** {{ score }}
 {%- endif %}
+
+## Requirement mappings
+{%- for mapping in requirementMappings %}
+- `{{ mapping.requirementId }}`: {{ mapping.assessment }} — {{ mapping.method }}
+{%- endfor %}

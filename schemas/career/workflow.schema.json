@@ -2,39 +2,71 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://vitae.local/schemas/career/workflow.schema.json",
   "title": "Vitae Workflow",
-  "description": "Canonical, persistence-neutral workflow record.",
+  "description": "Reusable, declarative catalog-distillation workflow definition. It is neither a WorkItem nor an agent orchestration graph.",
   "type": "object",
   "additionalProperties": false,
-  "required": [
-    "id",
-    "kind",
-    "name"
-  ],
+  "required": ["id", "kind", "name", "stages"],
   "properties": {
-    "id": {
-      "$ref": "https://vitae.local/schemas/career/common.schema.json#/$defs/entityId"
-    },
-    "kind": {
-      "const": "workflow"
-    },
-    "name": {
-      "$ref": "https://vitae.local/schemas/career/common.schema.json#/$defs/nonEmptyString"
-    },
-    "inputKinds": {
+    "id": { "$ref": "https://vitae.local/schemas/career/common.schema.json#/$defs/entityId" },
+    "kind": { "const": "workflow" },
+    "name": { "$ref": "https://vitae.local/schemas/career/common.schema.json#/$defs/nonEmptyString" },
+    "inputKinds": { "$ref": "#/$defs/kindList" },
+    "outputKinds": { "$ref": "#/$defs/kindList" },
+    "stages": {
       "type": "array",
+      "minItems": 4,
+      "maxItems": 4,
+      "prefixItems": [
+        { "$ref": "#/$defs/harvestStage" },
+        { "$ref": "#/$defs/cullStage" },
+        { "$ref": "#/$defs/primeStage" },
+        { "$ref": "#/$defs/substantiateStage" }
+      ],
+      "items": false
+    }
+  },
+  "$defs": {
+    "kindList": {
+      "type": "array",
+      "minItems": 1,
       "uniqueItems": true,
-      "items": {
-        "type": "string",
-        "minLength": 1
+      "items": { "enum": ["profile", "book-of-work", "source-asset", "note", "seed", "catalog-asset", "target", "fit-analysis", "misalignment", "recommendation", "evidence", "application"] }
+    },
+    "stage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["verb", "inputKinds", "outputKinds", "executionMode", "humanReview"],
+      "properties": {
+        "verb": { "enum": ["harvest", "cull", "prime", "substantiate"] },
+        "inputKinds": { "$ref": "#/$defs/kindList" },
+        "outputKinds": { "$ref": "#/$defs/kindList" },
+        "executionMode": { "const": "afk", "description": "The stage may prepare its non-final outputs without a human present." },
+        "humanReview": { "enum": ["none", "required-for-destructive-actions", "required-for-publication"] }
       }
     },
-    "outputKinds": {
-      "type": "array",
-      "uniqueItems": true,
-      "items": {
-        "type": "string",
-        "minLength": 1
-      }
+    "harvestStage": {
+      "allOf": [
+        { "$ref": "#/$defs/stage" },
+        { "properties": { "verb": { "const": "harvest" }, "humanReview": { "const": "none" }, "inputKinds": { "items": { "enum": ["source-asset", "note"] } }, "outputKinds": { "items": { "enum": ["seed", "evidence"] } } } }
+      ]
+    },
+    "cullStage": {
+      "allOf": [
+        { "$ref": "#/$defs/stage" },
+        { "properties": { "verb": { "const": "cull" }, "humanReview": { "const": "required-for-destructive-actions" }, "inputKinds": { "items": { "enum": ["seed", "evidence"] } }, "outputKinds": { "items": { "enum": ["seed", "misalignment", "recommendation"] } } } }
+      ]
+    },
+    "primeStage": {
+      "allOf": [
+        { "$ref": "#/$defs/stage" },
+        { "properties": { "verb": { "const": "prime" }, "humanReview": { "const": "none" }, "inputKinds": { "items": { "enum": ["seed", "misalignment"] } }, "outputKinds": { "items": { "enum": ["seed", "misalignment", "recommendation"] } } } }
+      ]
+    },
+    "substantiateStage": {
+      "allOf": [
+        { "$ref": "#/$defs/stage" },
+        { "properties": { "verb": { "const": "substantiate" }, "humanReview": { "const": "required-for-publication" }, "inputKinds": { "items": { "enum": ["seed", "evidence"] } }, "outputKinds": { "items": { "enum": ["evidence", "catalog-asset"] } } } }
+      ]
     }
   }
 }

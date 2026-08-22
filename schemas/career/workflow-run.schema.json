@@ -2,40 +2,137 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://vitae.local/schemas/career/workflow-run.schema.json",
   "title": "Vitae Workflow run",
-  "description": "Canonical, persistence-neutral workflow run record.",
+  "description": "One concrete execution of a Workflow. It records canonical IDs, safe diagnostics, and review decisions; it does not execute an agent graph or create WorkItems.",
   "type": "object",
   "additionalProperties": false,
-  "required": [
-    "id",
-    "kind",
-    "workflowId",
-    "status",
-    "startedAt"
-  ],
+  "required": ["id", "kind", "workflowId", "status", "startedAt", "inputs", "outputs", "diagnostics", "stageStates", "reviewDecisions"],
   "properties": {
-    "id": {
-      "$ref": "https://vitae.local/schemas/career/common.schema.json#/$defs/entityId"
+    "id": { "$ref": "https://vitae.local/schemas/career/common.schema.json#/$defs/entityId" },
+    "kind": { "const": "workflow-run" },
+    "workflowId": { "$ref": "https://vitae.local/schemas/career/common.schema.json#/$defs/entityId" },
+    "status": { "enum": ["pending", "running", "awaiting-human-review", "completed", "failed", "cancelled"] },
+    "startedAt": { "$ref": "https://vitae.local/schemas/career/common.schema.json#/$defs/isoDateTime" },
+    "completedAt": { "$ref": "https://vitae.local/schemas/career/common.schema.json#/$defs/isoDateTime" },
+    "inputs": { "$ref": "#/$defs/inputRecordIds" },
+    "outputs": { "$ref": "#/$defs/outputRecordIds" },
+    "diagnostics": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/diagnostic" }
     },
-    "kind": {
-      "const": "workflow-run"
+    "stageStates": {
+      "type": "array",
+      "minItems": 4,
+      "maxItems": 4,
+      "prefixItems": [
+        { "$ref": "#/$defs/harvestState" },
+        { "$ref": "#/$defs/cullState" },
+        { "$ref": "#/$defs/primeState" },
+        { "$ref": "#/$defs/substantiateState" }
+      ],
+      "items": false
     },
-    "workflowId": {
-      "$ref": "https://vitae.local/schemas/career/common.schema.json#/$defs/entityId"
+    "reviewDecisions": {
+      "type": "array",
+      "minItems": 2,
+      "maxItems": 2,
+      "prefixItems": [
+        { "$ref": "#/$defs/cullReview" },
+        { "$ref": "#/$defs/substantiateReview" }
+      ],
+      "items": false
+    }
+  },
+  "allOf": [
+    {
+      "if": { "properties": { "status": { "const": "completed" } }, "required": ["status"] },
+      "then": { "required": ["completedAt"] }
     },
-    "status": {
-      "enum": [
-        "pending",
-        "running",
-        "completed",
-        "failed",
-        "cancelled"
+    {
+      "if": { "properties": { "outputs": { "properties": { "catalogAssetIds": { "minItems": 1 } }, "required": ["catalogAssetIds"] } }, "required": ["outputs"] },
+      "then": { "properties": { "reviewDecisions": { "contains": { "type": "object", "properties": { "stage": { "const": "substantiate" }, "decision": { "const": "publish-catalog-asset" }, "status": { "const": "approved" } }, "required": ["stage", "decision", "status"] } } } }
+    }
+  ],
+  "$defs": {
+    "idList": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": { "$ref": "https://vitae.local/schemas/career/common.schema.json#/$defs/entityId" }
+    },
+    "inputRecordIds": {
+      "type": "object",
+      "additionalProperties": false,
+      "minProperties": 1,
+      "properties": {
+        "profileIds": { "$ref": "#/$defs/idList" },
+        "bookOfWorkIds": { "$ref": "#/$defs/idList" },
+        "sourceAssetIds": { "$ref": "#/$defs/idList" },
+        "noteIds": { "$ref": "#/$defs/idList" },
+        "seedIds": { "$ref": "#/$defs/idList" },
+        "targetIds": { "$ref": "#/$defs/idList" },
+        "applicationIds": { "$ref": "#/$defs/idList" }
+      }
+    },
+    "outputRecordIds": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["seedIds", "catalogAssetIds", "misalignmentIds", "recommendationIds", "evidenceIds"],
+      "properties": {
+        "seedIds": { "$ref": "#/$defs/idList" },
+        "catalogAssetIds": { "$ref": "#/$defs/idList" },
+        "misalignmentIds": { "$ref": "#/$defs/idList" },
+        "recommendationIds": { "$ref": "#/$defs/idList" },
+        "evidenceIds": { "$ref": "#/$defs/idList" }
+      }
+    },
+    "diagnostic": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["stage", "code", "severity", "recordCount"],
+      "properties": {
+        "stage": { "enum": ["harvest", "cull", "prime", "substantiate"] },
+        "code": { "type": "string", "pattern": "^[a-z][a-z0-9-]*$", "maxLength": 32 },
+        "severity": { "enum": ["info", "warning", "error"] },
+        "recordCount": { "type": "integer", "minimum": 0 },
+        "recordIds": { "$ref": "#/$defs/idList" }
+      }
+    },
+    "stageState": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["stage", "status"],
+      "properties": {
+        "stage": { "enum": ["harvest", "cull", "prime", "substantiate"] },
+        "status": { "enum": ["pending", "running", "awaiting-human-review", "completed", "failed", "skipped"] }
+      }
+    },
+    "harvestState": { "allOf": [{ "$ref": "#/$defs/stageState" }, { "properties": { "stage": { "const": "harvest" } } }] },
+    "cullState": { "allOf": [{ "$ref": "#/$defs/stageState" }, { "properties": { "stage": { "const": "cull" } } }] },
+    "primeState": { "allOf": [{ "$ref": "#/$defs/stageState" }, { "properties": { "stage": { "const": "prime" } } }] },
+    "substantiateState": { "allOf": [{ "$ref": "#/$defs/stageState" }, { "properties": { "stage": { "const": "substantiate" } } }] },
+    "reviewDecision": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["stage", "decision", "status"],
+      "properties": {
+        "stage": { "enum": ["cull", "substantiate"] },
+        "decision": { "type": "string" },
+        "status": { "enum": ["not-required", "pending", "approved", "rejected"] },
+        "reviewedAt": { "$ref": "https://vitae.local/schemas/career/common.schema.json#/$defs/isoDateTime" }
+      }
+    },
+    "cullReview": {
+      "allOf": [
+        { "$ref": "#/$defs/reviewDecision" },
+        { "properties": { "stage": { "const": "cull" }, "decision": { "enum": ["none", "discard", "merge", "split"] } } },
+        { "if": { "properties": { "decision": { "enum": ["discard", "merge", "split"] } }, "required": ["decision"] }, "then": { "properties": { "status": { "const": "approved" } }, "required": ["reviewedAt"] } }
       ]
     },
-    "startedAt": {
-      "$ref": "https://vitae.local/schemas/career/common.schema.json#/$defs/isoDateTime"
-    },
-    "completedAt": {
-      "$ref": "https://vitae.local/schemas/career/common.schema.json#/$defs/isoDateTime"
+    "substantiateReview": {
+      "allOf": [
+        { "$ref": "#/$defs/reviewDecision" },
+        { "properties": { "stage": { "const": "substantiate" }, "decision": { "enum": ["none", "publish-catalog-asset"] } } },
+        { "if": { "properties": { "decision": { "const": "publish-catalog-asset" } }, "required": ["decision"] }, "then": { "properties": { "status": { "const": "approved" } }, "required": ["reviewedAt"] } }
+      ]
     }
   }
 }

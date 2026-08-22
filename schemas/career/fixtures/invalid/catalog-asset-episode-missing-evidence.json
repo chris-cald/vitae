@@ -1,0 +1,11 @@
+{
+  "id": "catalog-asset-incomplete-episode",
+  "kind": "catalog-asset",
+  "catalogId": "catalog-career-assets",
+  "assetKind": "episode",
+  "confirmationStatus": "validated",
+  "title": "Incomplete episode",
+  "sourceRefs": [
+    { "uri": "vault://career/book-of-work/incomplete-episode" }
+  ]
+}

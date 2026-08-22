@@ -44,7 +44,7 @@ tags:
   - mvp
   - adapters
 llm:
-  purpose: Lock the corrected Vitae product model before MVP implementation: canonical domain types first, persistence adapters second, reusable workflow definitions separate from workflow runs, and no in-product work-item abstraction unless proven later.
+  purpose: "Lock the corrected Vitae product model before MVP implementation: canonical domain types first, persistence adapters second, reusable workflow definitions separate from workflow runs, and no in-product work-item abstraction unless proven later."
   canonicalQuestions:
     - What are the canonical Vitae domain types for MVP?
     - How do Obsidian artifacts map into those types?
@@ -82,7 +82,7 @@ How should Vitae define its MVP data and process model so implementation can pro
 - Distinguish reusable process definitions from executions of those definitions.
 - Avoid requiring first-class records for every state change.
 - Avoid introducing in-product work items unless a later use case proves they belong.
-- Keep future integrations with Semantify, Context Graph, templjs, doc-vader, and agent-workflows possible through adapters and contracts.
+- Keep future integrations with Semantify, Context Graph, templjs, doc-vader, and bounded execution substrates possible through adapters and contracts; `agent-workflows` remains code-factory-only tooling, not a Vitae product adapter.
 
 ## Considered Options
 
@@ -126,7 +126,7 @@ Canonical MVP vocabulary:
 - Good: MVP implementation can start from a stable domain language.
 - Good: Obsidian remains useful as a filesystem/Markdown adapter without becoming the product model.
 - Good: Existing Seeds stay outside the Catalog and can keep their refined metadata/content structure.
-- Good: Workflow definitions can later be implemented by agent-workflows without exposing work items as product primitives.
+- Good: Workflow definitions can be durably executed through a direct Vitae-owned Temporal adapter (ADR-0004) without exposing work items as product primitives or making Temporal a domain authority.
 - Good: Records are reserved for durable material events rather than every mutation.
 - Bad: Existing broad backlog items need reconciliation before AFK implementation.
 - Bad: Early implementations must map older Vitae resume/job/analysis models into the new vocabulary.
@@ -168,7 +168,7 @@ Vitae defines product-domain types and uses adapters for persistence. Workflows 
 
 - Good: Matches the refined Obsidian vocabulary while allowing other storage backends.
 - Good: Keeps MVP focused on career value instead of process infrastructure.
-- Good: Leaves room for Semantify, Context Graph, templjs, doc-vader, and agent-workflows to plug in behind contracts.
+- Good: Leaves room for Semantify, Context Graph, templjs, doc-vader, and bounded execution adapters to plug in behind contracts. ADR-0004 selects Temporal for durable product execution; Babysitter remains code-factory tooling and `agent-workflows` is not on the product path.
 - Bad: Requires explicit mapping from current code and Obsidian notes.
 
 ## Implementation Notes
@@ -183,7 +183,7 @@ Vitae defines product-domain types and uses adapters for persistence. Workflows 
 
 - Which exact fields from the existing Obsidian Seed model are mandatory for Vitae MVP?
 - Which existing Vitae backend models can be adapted versus replaced by canonical type projections?
-- What minimal Workflow definition format should MVP use before agent-workflows integration?
+- Which minimal execution adapter fields are necessary after the Temporal privacy boundary is proven?
 
 ## Related Work
 
@@ -191,3 +191,4 @@ Vitae defines product-domain types and uses adapters for persistence. Workflows 
 - `docs/prd/career-workflow-platform-boundaries.md`
 - `docs/adr/0001-vitae-system-boundaries.md`
 - `docs/adr/0002-career-graph-and-provenance.md`
+- `docs/adr/0004-adopt-privacy-safe-temporal-execution-substrate.md`

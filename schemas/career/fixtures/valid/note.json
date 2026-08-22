@@ -1,0 +1,10 @@
+{
+  "id": "note-example-staff-platform-follow-up",
+  "kind": "note",
+  "subjectRefs": ["application-example-staff-platform"],
+  "noteType": "follow-up",
+  "content": "Captured follow-up status for the example application.",
+  "recordedAt": "2026-08-05T12:00:00Z",
+  "privacy": { "classification": "private" },
+  "retention": { "disposition": "review" }
+}

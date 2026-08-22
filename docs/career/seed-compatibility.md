@@ -10,7 +10,7 @@ This contract is derived from the local Career Knowledge `Seeds/README.md` and a
 | `status: incubating` | `status: incubating` | Active default. Terminal vault states `promoted` and `rejected` are retained. |
 | `quality: weak \| emerging \| rooted` | `quality` | Preserve vocabulary exactly. |
 | `incubation_mode` | `incubationMode` | Preserve `growth-opportunity`, `fidelity`, or `granularity`. |
-| `matures_to` | `maturesTo` | Preserve one or more possible mature forms: Episode, Projection, Technology, Domain, or Boundary. |
+| `matures_to` | `maturesTo` | Preserve possible `CatalogAsset.assetKind` targets such as Episode, Technology, Domain, or Boundary. Projection is excluded because it is downstream communication, not a promotion target. |
 | `provenance` | `obsidianProvenance` + `sourceRefs` | Adapter history remains separate; canonical source references are required for use outside the vault. |
 | `## Promotion Criteria` | `promotionCriteria` | Every Seed requires one or more observable qualifying conditions. |
 | Adjacent gap discovered while reviewing a mature artifact | `harvestRationale` | A mature Episode or downstream Projection may surface a Seed only by identifying a separate, unsubstantiated topic. |
@@ -21,9 +21,9 @@ A SourceAsset may yield zero, one, or many transient topics. In a given iteratio
 
 ## Promotion rule
 
-An Episode is a confirmed, substantiated `CatalogAsset`; a Projection is downstream from that asset. Neither is a Seed input or a promotable Seed target. They may be cited only when review of that mature artifact surfaces a **separate, adjacent, unsubstantiated** topic, recorded in `harvestRationale`.
+An Episode is a confirmed, substantiated `CatalogAsset`; a Projection is downstream from that asset. An Episode source or a Projection may be cited only when review surfaces a **separate, adjacent, unsubstantiated** topic, recorded in `harvestRationale`.
 
-A Seed may promote only when **every** declared `promotionCriteria` condition is met, its `sourceRefs` identify supporting SourceAssets, and the resulting artifact has a bounded mature form. Promotion creates the mature canonical artifact; it does not make the Seed itself usable in generation.
+A Seed may promote only when **every** declared `promotionCriteria` condition has corresponding source-backed `promotionEvidence`, its `sourceRefs` identify supporting SourceAssets, and the result is a validated `CatalogAsset` whose `assetKind` is declared in `maturesTo`. Promotion creates the mature canonical artifact; it does not make the Seed itself usable in generation. A Seed may never promote directly to a Projection.
 
 Seeds never enter a Catalog. They remain excluded from resume, cover-letter, and application generation until their mature artifact is substantiated. Terminal `promoted` and `rejected` Seeds are archived in the Obsidian adapter while retained as process history.
 
@@ -39,4 +39,4 @@ Seeds never enter a Catalog. They remain excluded from resume, cover-letter, and
 
 ## Open questions
 
-None block the current contract. A later adapter implementation must decide how a multi-target `maturesTo` list selects the single artifact created at promotion time; that is a workflow-run decision, not a Seed-schema ambiguity.
+None block the current contract. A later workflow implementation must decide how a multi-target `maturesTo` list selects the single validated CatalogAsset created at promotion time; that is a workflow-run decision, not a Seed-schema ambiguity.

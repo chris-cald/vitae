@@ -39,6 +39,43 @@
           "description": "Optional algorithm-prefixed digest used to detect source drift without storing raw content."
         }
       }
+    },
+    "deliverableContentBlock": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "blockType", "text"],
+      "properties": {
+        "id": { "$ref": "#/$defs/entityId" },
+        "blockType": { "enum": ["opening", "summary", "body", "bullet", "closing", "other"] },
+        "text": { "$ref": "#/$defs/nonEmptyString" },
+        "catalogAssetIds": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/entityId" }
+        },
+        "projectionIds": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/entityId" }
+        },
+        "sourceRefs": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/sourceRef" }
+        },
+        "needsHumanConfirmation": { "type": "boolean" }
+      },
+      "anyOf": [
+        { "required": ["catalogAssetIds"] },
+        { "required": ["projectionIds"] },
+        { "required": ["sourceRefs"] },
+        {
+          "properties": { "needsHumanConfirmation": { "const": true } },
+          "required": ["needsHumanConfirmation"]
+        }
+      ]
     }
   }
 }

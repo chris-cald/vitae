@@ -3,7 +3,13 @@
   "kind": "application",
   "targetId": "target-staff-platform-engineer",
   "status": "ready",
-  "deliverableIds": [
-    "deliverable-targeted-resume"
-  ]
+  "bundle": {
+    "id": "bundle-example-staff-platform",
+    "manifestSourceRef": {
+      "uri": "vault://career/deliverables/manifests/example-staff-platform"
+    },
+    "materialCategories": ["generated", "communications", "career-knowledge-used", "claims-needing-validation"]
+  },
+  "deliverableIds": ["deliverable-targeted-resume", "cover-letter-example-staff-platform"],
+  "noteIds": ["note-example-staff-platform-follow-up"]
 }

@@ -1,6 +1,23 @@
-{# Default templjs rendering for a reusable workflow definition. #}
+{# Default templjs rendering for a reusable catalog-distillation definition. #}
 # {{ name }}
 
-> Workflow
+> Workflow definition — not a WorkItem or agent orchestration graph.
 
 - **ID:** `{{ id }}`
+{%- if inputKinds %}
+- **Input kinds:** {{ inputKinds | join(', ') }}
+{%- endif %}
+{%- if outputKinds %}
+- **Output kinds:** {{ outputKinds | join(', ') }}
+{%- endif %}
+
+## Ordered stages
+{%- for stage in stages %}
+
+### {{ stage.verb }}
+
+- **Inputs:** {{ stage.inputKinds | join(', ') }}
+- **Outputs:** {{ stage.outputKinds | join(', ') }}
+- **AFK preparation:** {{ stage.executionMode }}
+- **Human review:** {{ stage.humanReview }}
+{%- endfor %}

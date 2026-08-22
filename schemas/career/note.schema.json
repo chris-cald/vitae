@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://vitae.local/schemas/career/note.schema.json",
+  "title": "Vitae Note",
+  "description": "A durable discovered detail about one or more canonical subjects. Notes are not evidence and do not themselves grant generation authority.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["id", "kind", "subjectRefs", "noteType", "content", "recordedAt", "privacy", "retention"],
+  "properties": {
+    "id": { "$ref": "https://vitae.local/schemas/career/common.schema.json#/$defs/entityId" },
+    "kind": { "const": "note" },
+    "subjectRefs": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": { "$ref": "https://vitae.local/schemas/career/common.schema.json#/$defs/entityId" },
+      "description": "Canonical subjects that this discovered detail concerns."
+    },
+    "noteType": {
+      "enum": ["observation", "interaction", "communication", "interview", "follow-up"]
+    },
+    "content": { "$ref": "https://vitae.local/schemas/career/common.schema.json#/$defs/nonEmptyString" },
+    "recordedAt": { "$ref": "https://vitae.local/schemas/career/common.schema.json#/$defs/isoDateTime" },
+    "observedAt": { "$ref": "https://vitae.local/schemas/career/common.schema.json#/$defs/isoDateTime" },
+    "sourceRefs": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": { "$ref": "https://vitae.local/schemas/career/common.schema.json#/$defs/sourceRef" }
+    },
+    "relatedRecordIds": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": { "$ref": "https://vitae.local/schemas/career/common.schema.json#/$defs/entityId" }
+    },
+    "privacy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["classification"],
+      "properties": {
+        "classification": { "enum": ["private", "restricted"] }
+      }
+    },
+    "retention": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["disposition"],
+      "properties": {
+        "disposition": { "enum": ["retain", "review", "delete"] },
+        "reviewAt": { "$ref": "https://vitae.local/schemas/career/common.schema.json#/$defs/isoDateTime" }
+      }
+    }
+  }
+}

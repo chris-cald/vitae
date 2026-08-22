@@ -1,0 +1,19 @@
+{
+  "id": "deliverable-unsupported-block",
+  "kind": "deliverable",
+  "applicationId": "application-example-staff-platform",
+  "bundleId": "bundle-example-staff-platform",
+  "deliverableType": "resume-variant",
+  "materialCategory": "generated",
+  "title": "Unsupported resume draft",
+  "sourceRefs": [
+    { "uri": "vault://career/catalog/platform-reliability-leadership" }
+  ],
+  "contentBlocks": [
+    {
+      "id": "block-unsupported",
+      "blockType": "bullet",
+      "text": "This claim has no source, canonical record, or confirmation flag."
+    }
+  ]
+}

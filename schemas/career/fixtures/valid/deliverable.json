@@ -1,12 +1,44 @@
 {
   "id": "deliverable-targeted-resume",
   "kind": "deliverable",
+  "applicationId": "application-example-staff-platform",
+  "bundleId": "bundle-example-staff-platform",
   "deliverableType": "resume-variant",
+  "materialCategory": "generated",
   "title": "Staff Platform Engineer resume",
-  "needsHumanConfirmation": true,
   "sourceRefs": [
     {
       "uri": "vault://career/catalog/platform-reliability-leadership"
     }
-  ]
+  ],
+  "catalogAssetIds": ["catalog-asset-platform-reliability"],
+  "contentBlocks": [
+    {
+      "id": "block-resume-summary",
+      "blockType": "summary",
+      "text": "Source-backed platform reliability leadership summary.",
+      "catalogAssetIds": ["catalog-asset-platform-reliability"]
+    },
+    {
+      "id": "block-resume-projection",
+      "blockType": "bullet",
+      "text": "Reusable positioning has been reviewed for this role.",
+      "projectionIds": ["projection-platform-reliability-positioning"]
+    },
+    {
+      "id": "block-resume-source",
+      "blockType": "bullet",
+      "text": "Source-located detail retained for validation.",
+      "sourceRefs": [
+        { "uri": "vault://career/sources/platform-reliability", "locator": "#validated-detail" }
+      ]
+    },
+    {
+      "id": "block-resume-review",
+      "blockType": "bullet",
+      "text": "Draft wording pending candidate review.",
+      "needsHumanConfirmation": true
+    }
+  ],
+  "needsHumanConfirmation": true
 }

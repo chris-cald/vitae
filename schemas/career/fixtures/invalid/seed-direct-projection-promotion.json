@@ -1,0 +1,16 @@
+{
+  "id": "seed-direct-projection-target",
+  "kind": "seed",
+  "statement": "A Seed must not promote directly to a Projection.",
+  "status": "substantiated",
+  "harvestRationale": "This fixture proves a downstream projection cannot be the first substantiation.",
+  "maturesTo": ["projection"],
+  "promotionCriteria": ["Confirm source support."],
+  "promotionEvidence": [
+    {
+      "criterion": "Confirm source support.",
+      "sourceRefs": [{ "uri": "vault://career/book-of-work/anonymous" }]
+    }
+  ],
+  "sourceRefs": [{ "uri": "vault://career/book-of-work/anonymous" }]
+}

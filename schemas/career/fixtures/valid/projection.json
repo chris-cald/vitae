@@ -1,0 +1,11 @@
+{
+  "id": "projection-platform-reliability-summary",
+  "kind": "projection",
+  "derivedFromCatalogAssetIds": ["catalog-asset-platform-reliability"],
+  "inputRef": {
+    "uri": "template://career/platform-reliability-summary"
+  },
+  "outputKind": "role-summary",
+  "method": "Source-bounded communication projection",
+  "confidence": 0.8
+}

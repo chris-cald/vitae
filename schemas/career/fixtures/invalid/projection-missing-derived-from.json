@@ -1,0 +1,7 @@
+{
+  "id": "projection-without-catalog-derivation",
+  "kind": "projection",
+  "inputRef": { "uri": "template://career/unsupported" },
+  "outputKind": "role-summary",
+  "method": "Unsupported projection"
+}

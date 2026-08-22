@@ -6,7 +6,10 @@
 - **ID:** `{{ id }}`
 - **Application:** `{{ applicationId }}`
 - **Occurred:** {{ occurredAt }}
-{%- if note %}
+{%- if noteIds %}
 
-{{ note }}
+## Linked notes
+{%- for noteId in noteIds %}
+- `{{ noteId }}`
+{%- endfor %}
 {%- endif %}

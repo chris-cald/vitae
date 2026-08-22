@@ -1,0 +1,28 @@
+{
+  "id": "workflow-run-catalog-distillation-invalid-stage-order",
+  "kind": "workflow-run",
+  "workflowId": "workflow-catalog-distillation",
+  "status": "running",
+  "startedAt": "2026-08-20T12:00:00Z",
+  "inputs": {
+    "sourceAssetIds": ["source-asset-platform-migration-retrospective"]
+  },
+  "outputs": {
+    "seedIds": [],
+    "catalogAssetIds": [],
+    "misalignmentIds": [],
+    "recommendationIds": [],
+    "evidenceIds": []
+  },
+  "diagnostics": [],
+  "stageStates": [
+    { "stage": "cull", "status": "pending" },
+    { "stage": "harvest", "status": "running" },
+    { "stage": "prime", "status": "pending" },
+    { "stage": "substantiate", "status": "pending" }
+  ],
+  "reviewDecisions": [
+    { "stage": "cull", "decision": "none", "status": "not-required" },
+    { "stage": "substantiate", "decision": "none", "status": "not-required" }
+  ]
+}

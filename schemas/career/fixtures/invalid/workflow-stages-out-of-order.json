@@ -1,0 +1,11 @@
+{
+  "id": "workflow-catalog-distillation-invalid-order",
+  "kind": "workflow",
+  "name": "Invalid catalog distillation order",
+  "stages": [
+    { "verb": "cull", "inputKinds": ["seed"], "outputKinds": ["misalignment"], "executionMode": "afk", "humanReview": "required-for-destructive-actions" },
+    { "verb": "harvest", "inputKinds": ["source-asset"], "outputKinds": ["seed"], "executionMode": "afk", "humanReview": "none" },
+    { "verb": "prime", "inputKinds": ["seed"], "outputKinds": ["recommendation"], "executionMode": "afk", "humanReview": "none" },
+    { "verb": "substantiate", "inputKinds": ["seed"], "outputKinds": ["evidence", "catalog-asset"], "executionMode": "afk", "humanReview": "required-for-publication" }
+  ]
+}

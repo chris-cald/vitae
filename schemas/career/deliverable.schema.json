@@ -2,45 +2,38 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://vitae.local/schemas/career/deliverable.schema.json",
   "title": "Vitae Deliverable",
-  "description": "Canonical, persistence-neutral deliverable record.",
+  "description": "Canonical application-bound deliverable. Every content block is source/canonical-ID-backed or explicitly awaits human confirmation.",
   "type": "object",
   "additionalProperties": false,
-  "required": [
-    "id",
-    "kind",
-    "deliverableType",
-    "title",
-    "sourceRefs"
-  ],
+  "required": ["id", "kind", "applicationId", "bundleId", "deliverableType", "materialCategory", "title", "sourceRefs", "contentBlocks"],
   "properties": {
-    "id": {
-      "$ref": "https://vitae.local/schemas/career/common.schema.json#/$defs/entityId"
-    },
-    "kind": {
-      "const": "deliverable"
-    },
-    "deliverableType": {
-      "enum": [
-        "resume-variant",
-        "cover-letter",
-        "recruiter-brief",
-        "application-packet",
-        "prompt-bundle",
-        "other"
-      ]
-    },
-    "title": {
-      "$ref": "https://vitae.local/schemas/career/common.schema.json#/$defs/nonEmptyString"
-    },
+    "id": { "$ref": "https://vitae.local/schemas/career/common.schema.json#/$defs/entityId" },
+    "kind": { "const": "deliverable" },
+    "applicationId": { "$ref": "https://vitae.local/schemas/career/common.schema.json#/$defs/entityId" },
+    "bundleId": { "$ref": "https://vitae.local/schemas/career/common.schema.json#/$defs/entityId" },
+    "deliverableType": { "enum": ["resume-variant", "recruiter-brief", "application-packet", "prompt-bundle", "other"] },
+    "materialCategory": { "enum": ["generated", "submitted", "process", "history", "communications", "career-knowledge-used", "claims-needing-validation"] },
+    "title": { "$ref": "https://vitae.local/schemas/career/common.schema.json#/$defs/nonEmptyString" },
     "sourceRefs": {
       "type": "array",
       "minItems": 1,
-      "items": {
-        "$ref": "https://vitae.local/schemas/career/common.schema.json#/$defs/sourceRef"
-      }
+      "items": { "$ref": "https://vitae.local/schemas/career/common.schema.json#/$defs/sourceRef" }
     },
-    "needsHumanConfirmation": {
-      "type": "boolean"
-    }
+    "catalogAssetIds": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": { "$ref": "https://vitae.local/schemas/career/common.schema.json#/$defs/entityId" }
+    },
+    "projectionIds": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": { "$ref": "https://vitae.local/schemas/career/common.schema.json#/$defs/entityId" }
+    },
+    "contentBlocks": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "https://vitae.local/schemas/career/common.schema.json#/$defs/deliverableContentBlock" }
+    },
+    "needsHumanConfirmation": { "type": "boolean" }
   }
 }

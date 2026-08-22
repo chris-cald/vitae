@@ -1,0 +1,8 @@
+{
+  "id": "application-record-with-embedded-note",
+  "kind": "application-record",
+  "applicationId": "application-example-staff-platform",
+  "recordType": "follow-up",
+  "occurredAt": "2026-08-05T12:00:00Z",
+  "note": "Potentially sensitive note prose must be retained by a linked Note."
+}

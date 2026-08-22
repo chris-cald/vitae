@@ -2,41 +2,20 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://vitae.local/schemas/career/application-record.schema.json",
   "title": "Vitae Application record",
-  "description": "Canonical, persistence-neutral application record record.",
+  "description": "Canonical, persistence-neutral material application event. Note content is retained in linked canonical Notes, not embedded prose.",
   "type": "object",
   "additionalProperties": false,
-  "required": [
-    "id",
-    "kind",
-    "applicationId",
-    "recordType",
-    "occurredAt"
-  ],
+  "required": ["id", "kind", "applicationId", "recordType", "occurredAt"],
   "properties": {
-    "id": {
-      "$ref": "https://vitae.local/schemas/career/common.schema.json#/$defs/entityId"
-    },
-    "kind": {
-      "const": "application-record"
-    },
-    "applicationId": {
-      "$ref": "https://vitae.local/schemas/career/common.schema.json#/$defs/entityId"
-    },
-    "recordType": {
-      "enum": [
-        "submission",
-        "interview",
-        "decision",
-        "follow-up",
-        "material-change"
-      ]
-    },
-    "occurredAt": {
-      "$ref": "https://vitae.local/schemas/career/common.schema.json#/$defs/isoDateTime"
-    },
-    "note": {
-      "type": "string",
-      "minLength": 1
+    "id": { "$ref": "https://vitae.local/schemas/career/common.schema.json#/$defs/entityId" },
+    "kind": { "const": "application-record" },
+    "applicationId": { "$ref": "https://vitae.local/schemas/career/common.schema.json#/$defs/entityId" },
+    "recordType": { "enum": ["submission", "interview", "decision", "follow-up", "material-change"] },
+    "occurredAt": { "$ref": "https://vitae.local/schemas/career/common.schema.json#/$defs/isoDateTime" },
+    "noteIds": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": { "$ref": "https://vitae.local/schemas/career/common.schema.json#/$defs/entityId" }
     }
   }
 }

@@ -2,39 +2,52 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://vitae.local/schemas/career/catalog-asset.schema.json",
   "title": "Vitae Catalog asset",
-  "description": "Canonical, persistence-neutral catalog asset record.",
+  "description": "Canonical, persistence-neutral, validated reusable career asset. An Episode is a CatalogAsset with assetKind: episode.",
   "type": "object",
   "additionalProperties": false,
   "required": [
     "id",
     "kind",
     "catalogId",
+    "assetKind",
+    "confirmationStatus",
     "title",
     "sourceRefs"
   ],
   "properties": {
-    "id": {
-      "$ref": "https://vitae.local/schemas/career/common.schema.json#/$defs/entityId"
+    "id": { "$ref": "https://vitae.local/schemas/career/common.schema.json#/$defs/entityId" },
+    "kind": { "const": "catalog-asset" },
+    "catalogId": { "$ref": "https://vitae.local/schemas/career/common.schema.json#/$defs/entityId" },
+    "assetKind": {
+      "enum": ["episode", "accomplishment", "capability", "project", "proof", "story", "technology", "domain", "boundary", "other"]
     },
-    "kind": {
-      "const": "catalog-asset"
+    "confirmationStatus": {
+      "const": "validated",
+      "description": "CatalogAssets are confirmed before becoming reusable or generation-eligible."
     },
-    "catalogId": {
-      "$ref": "https://vitae.local/schemas/career/common.schema.json#/$defs/entityId"
-    },
-    "title": {
-      "$ref": "https://vitae.local/schemas/career/common.schema.json#/$defs/nonEmptyString"
-    },
+    "title": { "$ref": "https://vitae.local/schemas/career/common.schema.json#/$defs/nonEmptyString" },
     "sourceRefs": {
       "type": "array",
       "minItems": 1,
-      "items": {
-        "$ref": "https://vitae.local/schemas/career/common.schema.json#/$defs/sourceRef"
-      }
+      "items": { "$ref": "https://vitae.local/schemas/career/common.schema.json#/$defs/sourceRef" }
     },
-    "summary": {
-      "type": "string",
-      "minLength": 1
+    "summary": { "type": "string", "minLength": 1 },
+    "episodeEvidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["objective", "responsibility", "outcome", "significance"],
+      "properties": {
+        "objective": { "$ref": "https://vitae.local/schemas/career/common.schema.json#/$defs/nonEmptyString" },
+        "responsibility": { "$ref": "https://vitae.local/schemas/career/common.schema.json#/$defs/nonEmptyString" },
+        "outcome": { "$ref": "https://vitae.local/schemas/career/common.schema.json#/$defs/nonEmptyString" },
+        "significance": { "$ref": "https://vitae.local/schemas/career/common.schema.json#/$defs/nonEmptyString" }
+      }
     }
-  }
+  },
+  "allOf": [
+    {
+      "if": { "properties": { "assetKind": { "const": "episode" } }, "required": ["assetKind"] },
+      "then": { "required": ["episodeEvidence"] }
+    }
+  ]
 }

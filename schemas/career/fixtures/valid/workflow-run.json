@@ -1,0 +1,43 @@
+{
+  "id": "workflow-run-catalog-distillation-example",
+  "kind": "workflow-run",
+  "workflowId": "workflow-catalog-distillation",
+  "status": "completed",
+  "startedAt": "2026-08-20T12:00:00Z",
+  "completedAt": "2026-08-20T12:05:00Z",
+  "inputs": {
+    "profileIds": ["profile-career-example"],
+    "bookOfWorkIds": ["book-of-work-career-example"],
+    "sourceAssetIds": ["source-asset-platform-migration-retrospective"],
+    "noteIds": ["note-example-staff-platform-follow-up"],
+    "seedIds": ["seed-ready-platform-reliability"],
+    "targetIds": ["target-staff-platform-engineer"],
+    "applicationIds": ["application-example-staff-platform"]
+  },
+  "outputs": {
+    "seedIds": ["seed-platform-reliability"],
+    "catalogAssetIds": ["catalog-asset-platform-reliability"],
+    "misalignmentIds": ["misalignment-example-platform-reliability"],
+    "recommendationIds": ["recommendation-example-platform-reliability"],
+    "evidenceIds": ["evidence-example-platform-reliability"]
+  },
+  "diagnostics": [
+    {
+      "stage": "harvest",
+      "code": "harvested-candidate-count",
+      "severity": "info",
+      "recordCount": 1,
+      "recordIds": ["seed-platform-reliability"]
+    }
+  ],
+  "stageStates": [
+    { "stage": "harvest", "status": "completed" },
+    { "stage": "cull", "status": "completed" },
+    { "stage": "prime", "status": "completed" },
+    { "stage": "substantiate", "status": "completed" }
+  ],
+  "reviewDecisions": [
+    { "stage": "cull", "decision": "none", "status": "not-required" },
+    { "stage": "substantiate", "decision": "publish-catalog-asset", "status": "approved", "reviewedAt": "2026-08-20T12:04:00Z" }
+  ]
+}

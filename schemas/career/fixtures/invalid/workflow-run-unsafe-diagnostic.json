@@ -1,0 +1,34 @@
+{
+  "id": "workflow-run-unsafe-diagnostic",
+  "kind": "workflow-run",
+  "workflowId": "workflow-catalog-distillation",
+  "status": "running",
+  "startedAt": "2026-08-20T12:00:00Z",
+  "inputs": { "sourceAssetIds": ["source-asset-platform-migration-retrospective"] },
+  "outputs": {
+    "seedIds": [],
+    "catalogAssetIds": [],
+    "misalignmentIds": [],
+    "recommendationIds": [],
+    "evidenceIds": []
+  },
+  "diagnostics": [
+    {
+      "stage": "harvest",
+      "code": "unsafe-diagnostic",
+      "severity": "warning",
+      "recordCount": 1,
+      "message": "Raw source document content must not be retained here."
+    }
+  ],
+  "stageStates": [
+    { "stage": "harvest", "status": "running" },
+    { "stage": "cull", "status": "pending" },
+    { "stage": "prime", "status": "pending" },
+    { "stage": "substantiate", "status": "pending" }
+  ],
+  "reviewDecisions": [
+    { "stage": "cull", "decision": "none", "status": "not-required" },
+    { "stage": "substantiate", "decision": "none", "status": "not-required" }
+  ]
+}

@@ -1,7 +1,74 @@
-{# Default templjs rendering for one workflow execution. #}
+{# Default templjs rendering for one catalog-distillation execution. #}
 # Workflow run
 
 - **ID:** `{{ id }}`
 - **Workflow:** `{{ workflowId }}`
 - **Status:** {{ status }}
 - **Started:** {{ startedAt }}
+{%- if completedAt %}
+- **Completed:** {{ completedAt }}
+{%- endif %}
+
+## Inputs
+{%- if inputs.profileIds %}
+{%- for profileId in inputs.profileIds %}
+- Profile: `{{ profileId }}`
+{%- endfor %}
+{%- endif %}
+{%- if inputs.bookOfWorkIds %}
+{%- for bookOfWorkId in inputs.bookOfWorkIds %}
+- Book of Work: `{{ bookOfWorkId }}`
+{%- endfor %}
+{%- endif %}
+{%- if inputs.sourceAssetIds %}
+{%- for sourceAssetId in inputs.sourceAssetIds %}
+- Source asset: `{{ sourceAssetId }}`
+{%- endfor %}
+{%- endif %}
+{%- if inputs.noteIds %}
+{%- for noteId in inputs.noteIds %}
+- Note: `{{ noteId }}`
+{%- endfor %}
+{%- endif %}
+{%- if inputs.seedIds %}
+{%- for seedId in inputs.seedIds %}
+- Seed: `{{ seedId }}`
+{%- endfor %}
+{%- endif %}
+{%- if inputs.targetIds %}
+{%- for targetId in inputs.targetIds %}
+- Target: `{{ targetId }}`
+{%- endfor %}
+{%- endif %}
+{%- if inputs.applicationIds %}
+{%- for applicationId in inputs.applicationIds %}
+- Application: `{{ applicationId }}`
+{%- endfor %}
+{%- endif %}
+
+## Outputs
+{%- for seedId in outputs.seedIds %}
+- Seed: `{{ seedId }}`
+{%- endfor %}
+{%- for catalogAssetId in outputs.catalogAssetIds %}
+- Catalog asset: `{{ catalogAssetId }}`
+{%- endfor %}
+{%- for evidenceId in outputs.evidenceIds %}
+- Evidence: `{{ evidenceId }}`
+{%- endfor %}
+{%- for misalignmentId in outputs.misalignmentIds %}
+- Misalignment: `{{ misalignmentId }}`
+{%- endfor %}
+{%- for recommendationId in outputs.recommendationIds %}
+- Recommendation: `{{ recommendationId }}`
+{%- endfor %}
+
+## Human review
+{%- for review in reviewDecisions %}
+- {{ review.stage }}: {{ review.decision }} — {{ review.status }}
+{%- endfor %}
+
+## Safe diagnostics
+{%- for diagnostic in diagnostics %}
+- {{ diagnostic.stage }} / {{ diagnostic.code }}: {{ diagnostic.severity }} ({{ diagnostic.recordCount }} records)
+{%- endfor %}

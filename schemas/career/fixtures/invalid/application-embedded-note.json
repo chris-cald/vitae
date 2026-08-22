@@ -1,0 +1,12 @@
+{
+  "id": "application-with-embedded-note",
+  "kind": "application",
+  "targetId": "target-staff-platform-engineer",
+  "status": "draft",
+  "bundle": {
+    "id": "bundle-example-staff-platform",
+    "manifestSourceRef": { "uri": "vault://career/deliverables/manifests/example-staff-platform" },
+    "materialCategories": ["process"]
+  },
+  "note": "Potentially sensitive application note must be retained in a linked Note."
+}

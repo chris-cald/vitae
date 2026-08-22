@@ -1,0 +1,28 @@
+{
+  "id": "fit-example-staff-platform",
+  "kind": "fit-analysis",
+  "profileId": "profile-example-candidate",
+  "targetId": "target-staff-platform-engineer",
+  "score": 0.7,
+  "requirementMappings": [
+    {
+      "requirementId": "requirement-platform-reliability",
+      "assessment": "matched",
+      "catalogAssetIds": ["catalog-asset-platform-reliability"],
+      "sourceRefs": [
+        {
+          "uri": "vault://career/book-of-work/platform-migration-retrospective",
+          "locator": "#outcomes"
+        }
+      ],
+      "method": "Source-bounded requirement comparison",
+      "confidence": 0.8
+    },
+    {
+      "requirementId": "requirement-domain-depth",
+      "assessment": "gap",
+      "method": "No validated CatalogAsset identified",
+      "needsHumanConfirmation": true
+    }
+  ]
+}

@@ -1,0 +1,37 @@
+{
+  "id": "workflow-catalog-distillation",
+  "kind": "workflow",
+  "name": "Catalog distillation",
+  "inputKinds": ["source-asset", "note", "seed"],
+  "outputKinds": ["seed", "misalignment", "recommendation", "evidence", "catalog-asset"],
+  "stages": [
+    {
+      "verb": "harvest",
+      "inputKinds": ["source-asset", "note"],
+      "outputKinds": ["seed", "evidence"],
+      "executionMode": "afk",
+      "humanReview": "none"
+    },
+    {
+      "verb": "cull",
+      "inputKinds": ["seed", "evidence"],
+      "outputKinds": ["seed", "misalignment"],
+      "executionMode": "afk",
+      "humanReview": "required-for-destructive-actions"
+    },
+    {
+      "verb": "prime",
+      "inputKinds": ["seed", "misalignment"],
+      "outputKinds": ["seed", "recommendation"],
+      "executionMode": "afk",
+      "humanReview": "none"
+    },
+    {
+      "verb": "substantiate",
+      "inputKinds": ["seed", "evidence"],
+      "outputKinds": ["evidence", "catalog-asset"],
+      "executionMode": "afk",
+      "humanReview": "required-for-publication"
+    }
+  ]
+}

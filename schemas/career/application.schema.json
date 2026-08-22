@@ -2,41 +2,40 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://vitae.local/schemas/career/application.schema.json",
   "title": "Vitae Application",
-  "description": "Canonical, persistence-neutral application record.",
+  "description": "Canonical, persistence-neutral tracked pursuit with an adapter-backed material bundle. Notes are linked canonical Note records, never embedded prose.",
   "type": "object",
   "additionalProperties": false,
-  "required": [
-    "id",
-    "kind",
-    "targetId",
-    "status"
-  ],
+  "required": ["id", "kind", "targetId", "status", "bundle"],
   "properties": {
-    "id": {
-      "$ref": "https://vitae.local/schemas/career/common.schema.json#/$defs/entityId"
-    },
-    "kind": {
-      "const": "application"
-    },
-    "targetId": {
-      "$ref": "https://vitae.local/schemas/career/common.schema.json#/$defs/entityId"
-    },
-    "status": {
-      "enum": [
-        "draft",
-        "ready",
-        "submitted",
-        "interviewing",
-        "closed",
-        "withdrawn"
-      ]
+    "id": { "$ref": "https://vitae.local/schemas/career/common.schema.json#/$defs/entityId" },
+    "kind": { "const": "application" },
+    "targetId": { "$ref": "https://vitae.local/schemas/career/common.schema.json#/$defs/entityId" },
+    "status": { "enum": ["draft", "ready", "submitted", "interviewing", "closed", "withdrawn"] },
+    "bundle": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "manifestSourceRef", "materialCategories"],
+      "properties": {
+        "id": { "$ref": "https://vitae.local/schemas/career/common.schema.json#/$defs/entityId" },
+        "manifestSourceRef": { "$ref": "https://vitae.local/schemas/career/common.schema.json#/$defs/sourceRef" },
+        "materialCategories": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "enum": ["generated", "submitted", "process", "history", "communications", "career-knowledge-used", "claims-needing-validation"] }
+        }
+      }
     },
     "deliverableIds": {
       "type": "array",
       "uniqueItems": true,
-      "items": {
-        "$ref": "https://vitae.local/schemas/career/common.schema.json#/$defs/entityId"
-      }
+      "items": { "$ref": "https://vitae.local/schemas/career/common.schema.json#/$defs/entityId" }
+    },
+    "noteIds": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": { "$ref": "https://vitae.local/schemas/career/common.schema.json#/$defs/entityId" },
+      "description": "References to canonical Notes; canonical Application records do not embed note prose."
     }
   }
 }

@@ -92,7 +92,9 @@ Boundary ownership:
 - **Context Graph:** graph primitives, provenance-preserving snapshots, provider-scoped writes, deterministic query, and traceability substrate.
 - **templjs:** structured content extraction, validation, and rendering for resume variants, cover letters, reports, and prompt/context bundles.
 - **doc-vader:** documentation organization, lifecycle governance, Work Orders, evidence records, readiness/closure checks, and validation gates.
-- **agent-workflows:** deterministic and reasoning-based workflow execution, claims, run records, review gates, fan-out/fan-in, and resumability.
+- **agent-workflows:** historical code-factory/workflow tooling; not on the Vitae product execution path.
+- **Temporal (per [ADR-0004](0004-adopt-privacy-safe-temporal-execution-substrate.md)):** durable execution mechanics behind a direct Vitae-owned adapter; it does not own product-domain policy, canonical records, or WorkItems.
+- **Babysitter:** deterministic engineering/code-factory workflow execution; not a Vitae product runtime.
 
 ## Consequences
 
@@ -160,5 +162,6 @@ The team continues building and formalizes boundaries later.
 
 - `docs/prd/career-workflow-platform-boundaries.md`
 - `docs/adr/0002-career-graph-and-provenance.md`
+- `docs/adr/0004-adopt-privacy-safe-temporal-execution-substrate.md`
 - `docs/documentation-standards.md`
 

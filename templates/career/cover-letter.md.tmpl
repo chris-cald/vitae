@@ -2,16 +2,43 @@
 # Cover letter
 
 - **ID:** `{{ id }}`
+- **Application:** `{{ applicationId }}`
 - **Target:** `{{ targetId }}`
+- **Bundle:** `{{ bundleId }}`
 - **Human confirmation required:** {{ needsHumanConfirmation | default(false) }}
 
 ## Sources
 {%- for sourceRef in sourceRefs %}
 - {{ sourceRef.uri }}{%- if sourceRef.locator %} — {{ sourceRef.locator }}{%- endif %}
 {%- endfor %}
-{%- if body %}
 
 ## Draft
+{%- for block in contentBlocks %}
 
-{{ body }}
+{{ block.text }}
+{%- if block.catalogAssetIds %}
+
+**Support**
+{%- for catalogAssetId in block.catalogAssetIds %}
+- Catalog asset: `{{ catalogAssetId }}`
+{%- endfor %}
 {%- endif %}
+{%- if block.projectionIds %}
+
+**Support**
+{%- for projectionId in block.projectionIds %}
+- Projection: `{{ projectionId }}`
+{%- endfor %}
+{%- endif %}
+{%- if block.sourceRefs %}
+
+**Support**
+{%- for sourceRef in block.sourceRefs %}
+- Source: {{ sourceRef.uri }}{%- if sourceRef.locator %} — {{ sourceRef.locator }}{%- endif %}
+{%- endfor %}
+{%- endif %}
+{%- if block.needsHumanConfirmation %}
+
+> Requires human confirmation.
+{%- endif %}
+{%- endfor %}

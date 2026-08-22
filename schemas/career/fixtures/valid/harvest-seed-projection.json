@@ -1,14 +1,14 @@
 {
   "id": "seed-anonymized-targeting-insight",
   "kind": "seed",
-  "statement": "Anonymized role-targeting insight derived from a projection and linked career evidence.",
+  "statement": "Anonymized role-targeting insight surfaced while reviewing a projection and linked career evidence.",
   "status": "incubating",
   "harvestRationale": "A downstream projection exposed an adjacent topic whose underlying evidence is not yet substantiated.",
   "quality": "weak",
   "incubationMode": "fidelity",
-  "maturesTo": ["projection"],
+  "maturesTo": ["capability"],
   "promotionCriteria": [
-    "Validate the projection against at least one linked source asset.",
+    "Validate the topic against at least one linked source asset.",
     "Confirm the target wording does not exceed the evidence boundary."
   ],
   "obsidianProvenance": "vault://career-knowledge/projections/anonymized-role-projection",

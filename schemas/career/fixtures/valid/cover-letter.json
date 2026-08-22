@@ -1,0 +1,43 @@
+{
+  "id": "cover-letter-example-staff-platform",
+  "kind": "cover-letter",
+  "applicationId": "application-example-staff-platform",
+  "bundleId": "bundle-example-staff-platform",
+  "targetId": "target-staff-platform-engineer",
+  "materialCategory": "communications",
+  "sourceRefs": [
+    {
+      "uri": "vault://career/catalog/platform-reliability-leadership"
+    }
+  ],
+  "catalogAssetIds": ["catalog-asset-platform-reliability"],
+  "contentBlocks": [
+    {
+      "id": "block-cover-letter-opening",
+      "blockType": "opening",
+      "text": "I am writing to express interest in the platform role.",
+      "needsHumanConfirmation": true
+    },
+    {
+      "id": "block-cover-letter-evidence",
+      "blockType": "body",
+      "text": "My background includes source-backed platform reliability leadership.",
+      "catalogAssetIds": ["catalog-asset-platform-reliability"]
+    },
+    {
+      "id": "block-cover-letter-projection",
+      "blockType": "body",
+      "text": "The reusable positioning is adapted to this role.",
+      "projectionIds": ["projection-platform-reliability-positioning"]
+    },
+    {
+      "id": "block-cover-letter-source",
+      "blockType": "body",
+      "text": "A source-located detail remains available for review.",
+      "sourceRefs": [
+        { "uri": "vault://career/sources/platform-reliability", "locator": "#validated-detail" }
+      ]
+    }
+  ],
+  "needsHumanConfirmation": true
+}

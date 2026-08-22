@@ -1,0 +1,37 @@
+{
+  "id": "seed-ready-platform-reliability",
+  "kind": "seed",
+  "statement": "A bounded platform reliability leadership episode is ready for promotion.",
+  "status": "substantiated",
+  "harvestRationale": "The topic was held outside the Catalog until its scope and source evidence were confirmed.",
+  "maturesTo": ["episode"],
+  "promotionCriteria": [
+    "Confirm a bounded outcome with a specific source locator.",
+    "Establish a reusable episode scope without unsupported metrics."
+  ],
+  "promotionEvidence": [
+    {
+      "criterion": "Confirm a bounded outcome with a specific source locator.",
+      "sourceRefs": [
+        {
+          "uri": "vault://career/book-of-work/platform-migration-retrospective",
+          "locator": "#outcomes"
+        }
+      ]
+    },
+    {
+      "criterion": "Establish a reusable episode scope without unsupported metrics.",
+      "sourceRefs": [
+        {
+          "uri": "vault://career/book-of-work/platform-migration-retrospective",
+          "locator": "#scope"
+        }
+      ]
+    }
+  ],
+  "sourceRefs": [
+    {
+      "uri": "vault://career/book-of-work/platform-migration-retrospective"
+    }
+  ]
+}

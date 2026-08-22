@@ -5,8 +5,8 @@ summary: Capture the existing Obsidian Seed structure as the MVP Seed contract a
 type: work-item
 subtype: story
 lifecycle: active
-status: ready
-status_reason: dependencies-cleared
+status: completed
+status_reason: completed
 priority: high
 estimated: 4
 links:
@@ -46,10 +46,14 @@ Seeds are raw or promising candidate material outside the Catalog. They should n
 
 ## Acceptance Criteria
 
-- [ ] Seed examples conform to the existing Obsidian model or explicitly document accepted differences.
-- [ ] Seeds remain outside the Catalog in all examples.
-- [ ] Harvest fixtures preserve source references back to SourceAssets.
-- [ ] Promotion criteria are explicit enough for a later implementation slice.
+- [x] Seed examples conform to the existing Obsidian model or explicitly document accepted differences.
+- [x] Seeds remain outside the Catalog in all examples.
+- [x] Harvest fixtures preserve source references back to SourceAssets.
+- [x] Promotion criteria are explicit enough for a later implementation slice.
+
+## Completion notes
+
+The reconciliation contract now requires source-backed `promotionEvidence` for every declared criterion and permits promotion only to a validated `CatalogAsset`; direct Seed-to-Projection promotion is prohibited. This completes the schema/document/fixture prerequisite only. It does not implement the WI-022 runtime workflow.
 
 ## Relationships
 

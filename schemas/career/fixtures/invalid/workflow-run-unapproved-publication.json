@@ -1,0 +1,26 @@
+{
+  "id": "workflow-run-unapproved-publication",
+  "kind": "workflow-run",
+  "workflowId": "workflow-catalog-distillation",
+  "status": "awaiting-human-review",
+  "startedAt": "2026-08-20T12:00:00Z",
+  "inputs": { "seedIds": ["seed-platform-reliability"] },
+  "outputs": {
+    "seedIds": ["seed-platform-reliability"],
+    "catalogAssetIds": ["catalog-asset-platform-reliability"],
+    "misalignmentIds": [],
+    "recommendationIds": [],
+    "evidenceIds": ["evidence-example-platform-reliability"]
+  },
+  "diagnostics": [],
+  "stageStates": [
+    { "stage": "harvest", "status": "completed" },
+    { "stage": "cull", "status": "completed" },
+    { "stage": "prime", "status": "completed" },
+    { "stage": "substantiate", "status": "awaiting-human-review" }
+  ],
+  "reviewDecisions": [
+    { "stage": "cull", "decision": "none", "status": "not-required" },
+    { "stage": "substantiate", "decision": "publish-catalog-asset", "status": "pending" }
+  ]
+}

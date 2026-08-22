@@ -1,7 +1,7 @@
-{# Default templjs rendering for a reusable career asset. #}
+{# Default templjs rendering for a validated reusable career asset. #}
 # {{ title }}
 
-> Catalog asset
+> Catalog asset: {{ assetKind }} ({{ confirmationStatus }})
 
 - **ID:** `{{ id }}`
 - **Catalog:** `{{ catalogId }}`
@@ -11,4 +11,13 @@
 {%- if summary %}
 
 {{ summary }}
+{%- endif %}
+{%- if episodeEvidence %}
+
+## Episode evidence
+
+- **Objective:** {{ episodeEvidence.objective }}
+- **Responsibility:** {{ episodeEvidence.responsibility }}
+- **Outcome:** {{ episodeEvidence.outcome }}
+- **Significance:** {{ episodeEvidence.significance }}
 {%- endif %}

@@ -1,6 +1,20 @@
-{# Default templjs rendering for an application. #}
+{# Default templjs rendering for an application and its manifest-backed bundle. #}
 # Application
 
 - **ID:** `{{ id }}`
 - **Target:** `{{ targetId }}`
 - **Status:** {{ status }}
+- **Bundle:** `{{ bundle.id }}`
+- **Manifest:** {{ bundle.manifestSourceRef.uri }}
+
+## Material categories
+{%- for category in bundle.materialCategories %}
+- {{ category }}
+{%- endfor %}
+{%- if noteIds %}
+
+## Linked notes
+{%- for noteId in noteIds %}
+- `{{ noteId }}`
+{%- endfor %}
+{%- endif %}

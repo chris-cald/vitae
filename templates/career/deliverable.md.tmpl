@@ -1,12 +1,48 @@
-{# Default templjs rendering for a source-backed deliverable. #}
+{# Default templjs rendering for a source-backed application deliverable. #}
 # {{ title }}
 
 > Deliverable: {{ deliverableType }}
 
 - **ID:** `{{ id }}`
+- **Application:** `{{ applicationId }}`
+- **Bundle:** `{{ bundleId }}`
+- **Material category:** {{ materialCategory }}
 - **Human confirmation required:** {{ needsHumanConfirmation | default(false) }}
 
 ## Sources
 {%- for sourceRef in sourceRefs %}
 - {{ sourceRef.uri }}{%- if sourceRef.locator %} — {{ sourceRef.locator }}{%- endif %}
+{%- endfor %}
+
+## Content blocks
+{%- for block in contentBlocks %}
+
+### {{ block.blockType }}
+
+{{ block.text }}
+{%- if block.catalogAssetIds %}
+
+**Support**
+{%- for catalogAssetId in block.catalogAssetIds %}
+- Catalog asset: `{{ catalogAssetId }}`
+{%- endfor %}
+{%- endif %}
+{%- if block.projectionIds %}
+
+**Support**
+{%- for projectionId in block.projectionIds %}
+- Projection: `{{ projectionId }}`
+{%- endfor %}
+{%- endif %}
+{%- if block.sourceRefs %}
+
+**Support**
+{%- for sourceRef in block.sourceRefs %}
+- Source: {{ sourceRef.uri }}{%- if sourceRef.locator %} — {{ sourceRef.locator }}{%- endif %}
+{%- endfor %}
+{%- endif %}
+{%- if block.needsHumanConfirmation %}
+
+> Requires human confirmation.
+{%- endif %}
 {%- endfor %}

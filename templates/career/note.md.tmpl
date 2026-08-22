@@ -1,0 +1,29 @@
+{# Default templjs rendering for a durable discovered detail. #}
+# {{ noteType }} note
+
+- **ID:** `{{ id }}`
+- **Recorded:** {{ recordedAt }}
+- **Privacy:** {{ privacy.classification }}
+- **Retention:** {{ retention.disposition }}
+
+## Detail
+{{ content }}
+
+## Subjects
+{%- for subjectRef in subjectRefs %}
+- `{{ subjectRef }}`
+{%- endfor %}
+{%- if sourceRefs %}
+
+## Sources
+{%- for sourceRef in sourceRefs %}
+- {{ sourceRef.uri }}{%- if sourceRef.locator %} — {{ sourceRef.locator }}{%- endif %}
+{%- endfor %}
+{%- endif %}
+{%- if relatedRecordIds %}
+
+## Related records
+{%- for relatedRecordId in relatedRecordIds %}
+- `{{ relatedRecordId }}`
+{%- endfor %}
+{%- endif %}
