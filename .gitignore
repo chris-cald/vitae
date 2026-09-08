@@ -58,3 +58,4 @@ backend/lorem_1800_tokens.txt
 
 # Ignore local files
 local_settings.py
+.pi
