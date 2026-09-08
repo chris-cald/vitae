@@ -4,8 +4,8 @@ title: Build Runtime Execution Adapter and PII-Safe Payload Contract
 type: work-item
 subtype: story
 lifecycle: active
-status: proposed
-status_reason: planned
+status: closed
+status_reason: development-contract-complete
 priority: high
 estimated: 3
 links:
@@ -42,10 +42,10 @@ This is a child of WI-027. It implements ADR-0004’s direct Vitae-owned Tempora
 
 ## Acceptance Criteria
 
-- [ ] The stated goal is delivered without granting Temporal canonical domain, scoring, promotion, or WorkItem authority.
-- [ ] Every Temporal-facing value is allowlisted, minimal, and free of raw resume/JD/prompt/completion/secret/reviewer content.
-- [ ] Failure, retry, cancellation, and authorization behavior is tested where this slice creates execution behavior.
-- [ ] The child’s dependencies and epic roll-up remain valid in Doc-Vader.
+- [x] The stated goal is delivered without granting Temporal canonical domain, scoring, promotion, or WorkItem authority.
+- [x] Every Temporal-facing value is allowlisted, minimal, and free of raw resume/JD/prompt/completion/secret/reviewer content.
+- [x] Failure, retry, cancellation, and authorization behavior is tested where this slice creates execution behavior.
+- [x] The child’s dependencies and epic roll-up remain valid in Doc-Vader.
 
 ## Test and Evidence
 
@@ -56,6 +56,12 @@ This is a child of WI-027. It implements ADR-0004’s direct Vitae-owned Tempora
 
 - No SDK deployment, worker process, or domain-policy implementation.
 - No Babysitter or `agent-workflows` product-path integration.
+
+## Completion notes
+
+- `backend/src/services/runtime_execution_contract.py` defines an in-process, dependency-free contract only. It has no Temporal SDK, HTTP, ORM, database, LiteLLM, worker, or deployment integration.
+- `backend/tests/test_runtime_execution_contract.py` verifies allowlisted opaque command serialization, forbidden-field rejection, identifier validation, safe Activity-result taxonomy, payload limits, and exception-text redaction using synthetic values.
+- WI-028's user-provisional approval authorizes this development-only contract work. Production remains blocked by the role-specific review and WI-040 gates.
 
 ## Relationships
 

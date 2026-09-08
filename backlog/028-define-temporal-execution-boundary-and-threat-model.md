@@ -4,8 +4,8 @@ title: Define Temporal Execution Boundary and Threat Model
 type: work-item
 subtype: story
 lifecycle: active
-status: proposed
-status_reason: planned
+status: closed
+status_reason: development-only-provisional-approval
 priority: high
 estimated: 3
 links:
@@ -44,11 +44,11 @@ Temporal durability is useful only if domain policy remains in Vitae and all Tem
 
 ## Acceptance Criteria
 
-- [ ] The design explicitly assigns domain/policy authority to Vitae and execution mechanics to Temporal.
-- [ ] Every Temporal-adjacent data surface has an allowlist and raw-content denylist.
-- [ ] Stop conditions cover raw resume/JD/prompt/completion/secret/reviewer prose exposure.
-- [ ] Cloud-versus-self-hosted evaluation criteria are documented without selecting a provider.
-- [ ] Security and operations review evidence is attached or the item remains blocked.
+- [x] The design explicitly assigns domain/policy authority to Vitae and execution mechanics to Temporal.
+- [x] Every Temporal-adjacent data surface has an allowlist and raw-content denylist.
+- [x] Stop conditions cover raw resume/JD/prompt/completion/secret/reviewer prose exposure.
+- [x] Cloud-versus-self-hosted evaluation criteria are documented without selecting a provider.
+- [x] Security and operations review evidence is attached or the item remains blocked.
 
 ## Test and Evidence
 
@@ -60,6 +60,11 @@ Temporal durability is useful only if domain policy remains in Vitae and all Tem
 
 - No Temporal deployment, SDK installation, worker, or product endpoint.
 - No provider selection.
+
+## Completion notes
+
+- `docs/career/temporal-execution-threat-model.md` supplies the synthetic-only data-flow, payload allowlist/denylist, stop conditions, operational controls, Cloud/self-host evidence checklist, static test plan, and pending review record.
+- The user explicitly provided a **development-only provisional approval** for the security/privacy, backend/service, operations, and decision-owner review areas on 2026-08-20. This closes WI-028 only for non-production contract work. Production deployment remains blocked pending role-specific, dated review evidence and the WI-040 adoption decision.
 
 ## Relationships
 

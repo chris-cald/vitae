@@ -33,6 +33,9 @@ links:
   - label: Temporal execution plan
     href: ../career/temporal-adoption-execution-plan.md
     relationship: implements
+  - label: Temporal execution boundary and threat model
+    href: ../career/temporal-execution-threat-model.md
+    relationship: implements
   - label: Temporal documentation
     href: https://docs.temporal.io/workflows
     relationship: source
@@ -152,3 +155,4 @@ This ADR directly amends the execution portions of ADR-0001 and ADR-0003. Their 
 - `backlog/027-adopt-privacy-safe-durable-temporal-execution.md`
 - `backlog/028-define-temporal-execution-boundary-and-threat-model.md`
 - `docs/career/temporal-adoption-execution-plan.md`
+- `docs/career/temporal-execution-threat-model.md`
