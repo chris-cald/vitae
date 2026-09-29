@@ -5,8 +5,8 @@ summary: Add or prototype lightweight Application tracking that links Target, De
 type: work-item
 subtype: story
 lifecycle: active
-status: proposed
-status_reason: blocked
+status: completed
+status_reason: accepted
 priority: medium
 estimated: 5
 links:
@@ -32,12 +32,12 @@ Application tracking is in scope for MVP, but it should remain lightweight. Dura
 
 ## Tasks
 
-- [ ] Define the MVP Application shape and required links to Profile, Target, Deliverables, FitAnalysis, and notes.
-- [ ] Define ApplicationRecord subtypes and the durable-record threshold.
-- [ ] Create or implement one Application fixture or flow using outputs from `wi-025`.
-- [ ] Support material status updates and notes without modeling every change as a record.
-- [ ] Link outcome or follow-up records back to the Application.
-- [ ] Add focused validation or fixtures demonstrating the complete MVP loop.
+- [x] Define the MVP Application shape and required links to Profile, Target, Deliverables, FitAnalysis, and notes.
+- [x] Define ApplicationRecord subtypes and the durable-record threshold.
+- [x] Create or implement one Application fixture or flow using outputs from `wi-025`.
+- [x] Support material status updates and notes without modeling every change as a record.
+- [x] Link outcome or follow-up records back to the Application.
+- [x] Add focused validation or fixtures demonstrating the complete MVP loop.
 
 ## Deliverables
 
@@ -47,10 +47,15 @@ Application tracking is in scope for MVP, but it should remain lightweight. Dura
 
 ## Acceptance Criteria
 
-- [ ] One Application links Target, Deliverables, FitAnalysis, and material notes or records.
-- [ ] Durable records are created only for material events defined by ADR-0003.
-- [ ] Routine edits or internal state changes are not forced into user-facing records.
-- [ ] The end-to-end MVP loop can be reviewed from source material to application outcome.
+- [x] One Application links Target, Deliverables, FitAnalysis, and material notes or records.
+- [x] Durable records are created only for material events defined by ADR-0003.
+- [x] Routine edits or internal state changes are not forced into user-facing records.
+- [x] The end-to-end MVP loop can be reviewed from source material to application outcome.
+
+## Completion notes
+
+- The MVP UAT demo links one Application to its Target, Deliverables, and ApplicationRecord fixture.
+- Focused validation lives in `backend/tests/test_mvp_application_loop_service.py` and API smoke coverage in `backend/tests/test_mvp_application_loop_api.py`.
 
 ## Relationships
 
