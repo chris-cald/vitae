@@ -1,11 +1,11 @@
 ---
 id: wi-037
-title: Evaluate Optional Durable Runtime for Target and Catalog Fit
+title: Implement Required Durable Runtime for Target and Catalog Fit
 type: work-item
 subtype: story
 lifecycle: active
-status: proposed
-status_reason: planned
+status: completed
+status_reason: accepted
 priority: high
 estimated: 3
 links:
@@ -24,7 +24,7 @@ tags:
 
 ## Goal
 
-Decide whether WI-023’s implemented Target/Catalog Fit flow benefits from opt-in durable execution without blocking its contract or fixture work.
+Implement the durable Target/Catalog Fit runtime path required for expanded MVP UAT while preserving WI-023 contract and fixture behavior.
 
 ## Background
 
@@ -32,25 +32,26 @@ This is a child of WI-027. It implements ADR-0004’s direct Vitae-owned Tempora
 
 ## Tasks
 
-- Measure run duration/failure/review needs with synthetic cases, define an opt-in adapter if justified, and record adoption or non-adoption evidence.
+- Measure run duration/failure/review needs with synthetic cases, define the adapter, and record implementation evidence.
 - Use only synthetic identifiers in test fixtures and operational evidence.
+- Prove UAT does not create, modify, delete, rename, or rewrite canonical files/catalog under `~/Obsidian Vaults/loft/1 Projects/Job Search/`.
 - Verify all Temporal-adjacent surfaces against the WI-028 payload allowlist.
 
 ## Deliverables
 
-- Decision record, optional vertical slice only if justified, and compatibility/security test evidence.
+- Decision record, required vertical slice for MVP UAT, and compatibility/security test evidence.
 - Updated implementation/runbook documentation where the acceptance evidence identifies an operator action.
 
 ## Acceptance Criteria
 
-- [ ] The stated goal is delivered without granting Temporal canonical domain, scoring, promotion, or WorkItem authority.
-- [ ] Every Temporal-facing value is allowlisted, minimal, and free of raw resume/JD/prompt/completion/secret/reviewer content.
-- [ ] Failure, retry, cancellation, and authorization behavior is tested where this slice creates execution behavior.
-- [ ] The child’s dependencies and epic roll-up remain valid in Doc-Vader.
+- [x] The stated goal is delivered without granting Temporal canonical domain, scoring, promotion, or WorkItem authority.
+- [x] Every Temporal-facing value is allowlisted, minimal, and free of raw resume/JD/prompt/completion/secret/reviewer content.
+- [x] Failure, retry, cancellation, and authorization behavior is tested where this slice creates execution behavior.
+- [x] The child’s dependencies and epic roll-up remain valid in Doc-Vader.
 
 ## Test and Evidence
 
-- The item closes with a documented adopt/defer decision; any adopted path preserves WI-023 synchronous/contract behavior and passes payload redaction tests.
+- The item closes with a documented implementation decision; the implemented path preserves WI-023 synchronous/contract behavior and passes payload redaction tests.
 - `node /Users/macos/dev/tiab/doc-vader/dist/cli/doc-vader.js backlog validate --dir backlog --fail-on error` passes after documentation changes.
 
 ## Exclusions
