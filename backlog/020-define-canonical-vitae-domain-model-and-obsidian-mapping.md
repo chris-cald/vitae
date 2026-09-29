@@ -5,8 +5,8 @@ summary: Define MVP canonical Vitae domain types and map existing Obsidian Caree
 type: work-item
 subtype: story
 lifecycle: active
-status: ready
-status_reason: auto
+status: completed
+status_reason: accepted
 priority: critical
 estimated: 5
 links:
@@ -48,12 +48,12 @@ Vitae should model structured data and metadata independently of persistence. Ob
 
 ## Acceptance Criteria
 
-- [ ] Seeds are outside the Catalog and preserve compatibility with the existing Obsidian Seed model or document explicit reconciliation decisions.
-- [ ] The model uses `CatalogAsset` and avoids `CatalogItem` in new MVP contracts.
-- [ ] Obsidian syntax is represented as adapter data through `SourceRef` and metadata, not product authority.
-- [ ] WorkItem is not introduced as an in-product canonical type.
-- [ ] The model explains when a durable record is required and when ordinary state is enough.
-- [ ] Follow-up implementation items can proceed without reopening core vocabulary decisions.
+- [x] Seeds are outside the Catalog and preserve compatibility with the existing Obsidian Seed model or document explicit reconciliation decisions.
+- [x] The model uses `CatalogAsset` and avoids `CatalogItem` in new MVP contracts.
+- [x] Obsidian syntax is represented as adapter data through `SourceRef` and metadata, not product authority.
+- [x] WorkItem is not introduced as an in-product canonical type.
+- [x] The model explains when a durable record is required and when ordinary state is enough.
+- [x] Follow-up implementation items can proceed without reopening core vocabulary decisions.
 
 ## Implementation Notes
 
