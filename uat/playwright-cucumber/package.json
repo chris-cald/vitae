@@ -1,0 +1,13 @@
+{
+  "name": "vitae-expanded-uat",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "uat": "cucumber-js features/**/*.feature --import steps/**/*.mjs",
+    "check": "node --check steps/mvp-expanded-uat.steps.mjs"
+  },
+  "devDependencies": {
+    "@cucumber/cucumber": "^11.1.1",
+    "playwright": "^1.49.1"
+  }
+}
