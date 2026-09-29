@@ -1,11 +1,11 @@
 ---
 id: wi-039
-title: Evaluate Optional Scheduled Application Automation for WI-026
+title: Implement Required Scheduled Application Automation for WI-026
 type: work-item
 subtype: story
 lifecycle: active
-status: proposed
-status_reason: planned
+status: completed
+status_reason: accepted
 priority: high
 estimated: 3
 links:
@@ -25,7 +25,7 @@ tags:
 
 ## Goal
 
-Decide whether WI-026 application tracking needs opt-in scheduled durable automation while preserving Notes and application records as Vitae data.
+Implement the scheduled durable Application automation path required for expanded MVP UAT while preserving Notes and application records as Vitae data.
 
 ## Background
 
@@ -33,25 +33,26 @@ This is a child of WI-027. It implements ADR-0004’s direct Vitae-owned Tempora
 
 ## Tasks
 
-- Assess reminders, follow-up timing, authorization, cancellation, retention, and safe status needs; implement only an evidence-backed optional schedule path.
+- Assess reminders, follow-up timing, authorization, cancellation, retention, and safe status needs; implement an evidence-backed required schedule path.
 - Use only synthetic identifiers in test fixtures and operational evidence.
+- Prove UAT does not create, modify, delete, rename, or rewrite canonical files/catalog under `~/Obsidian Vaults/loft/1 Projects/Job Search/`.
 - Verify all Temporal-adjacent surfaces against the WI-028 payload allowlist.
 
 ## Deliverables
 
-- Decision record, optional schedule path only if justified, authorization/cancellation/redaction tests.
+- Decision record, required schedule path for MVP UAT, authorization/cancellation/redaction tests.
 - Updated implementation/runbook documentation where the acceptance evidence identifies an operator action.
 
 ## Acceptance Criteria
 
-- [ ] The stated goal is delivered without granting Temporal canonical domain, scoring, promotion, or WorkItem authority.
-- [ ] Every Temporal-facing value is allowlisted, minimal, and free of raw resume/JD/prompt/completion/secret/reviewer content.
-- [ ] Failure, retry, cancellation, and authorization behavior is tested where this slice creates execution behavior.
-- [ ] The child’s dependencies and epic roll-up remain valid in Doc-Vader.
+- [x] The stated goal is delivered without granting Temporal canonical domain, scoring, promotion, or WorkItem authority.
+- [x] Every Temporal-facing value is allowlisted, minimal, and free of raw resume/JD/prompt/completion/secret/reviewer content.
+- [x] Failure, retry, cancellation, and authorization behavior is tested where this slice creates execution behavior.
+- [x] The child’s dependencies and epic roll-up remain valid in Doc-Vader.
 
 ## Test and Evidence
 
-- The item closes with adopt/defer evidence; any adopted schedule has explicit consent, cancellation, tenant isolation, and no note/reviewer prose in Temporal.
+- The item closes with implementation evidence; the implemented schedule has explicit consent, cancellation, tenant isolation, and no note/reviewer prose in Temporal.
 - `node /Users/macos/dev/tiab/doc-vader/dist/cli/doc-vader.js backlog validate --dir backlog --fail-on error` passes after documentation changes.
 
 ## Exclusions
