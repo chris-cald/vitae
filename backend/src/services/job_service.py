@@ -185,20 +185,25 @@ class JobService:
                 )
                 raise ValueError(f"Job schema at {schema_path} is missing or empty.")
             prompt = PROMPT.format(schema, text)
-            processed_json = call_llm_stub(prompt)
-            processed_json_stripped = strip_code_fence(processed_json)
-            if not processed_json_stripped or processed_json_stripped.strip() == "{}":
-                logging.error(f"LLM returned empty or invalid JSON for job_id={job_id}")
-                raise ValueError(
-                    f"LLM returned empty or invalid JSON for job_id={job_id}"
-                )
-            job_data = json.loads(processed_json_stripped)
+            used_local_fallback = False
+            try:
+                processed_json = call_llm_stub(prompt)
+                processed_json_stripped = strip_code_fence(processed_json)
+                if not processed_json_stripped or processed_json_stripped.strip() == "{}":
+                    logging.error(f"LLM returned empty or invalid JSON for job_id={job_id}")
+                    raise ValueError(
+                        f"LLM returned empty or invalid JSON for job_id={job_id}"
+                    )
+                job_data = json.loads(processed_json_stripped)
+            except Exception:
+                if os.getenv("VITAE_LOCAL_PARSE_FALLBACK") != "1":
+                    raise
+                logger.warning("Using local job parse fallback for job_id=%s", job_id)
+                job_data = self._local_job_fallback(name or "Local UAT Role", text)
+                used_local_fallback = True
 
             # Normalize job_data
             from src.models.job import Job as JobModel
-            from src.services.profile_category_detection import (
-                detect_profile_categories,
-            )
 
             job_fields = set(JobModel.__fields__.keys())
             normalized = {k: v for k, v in job_data.items() if k in job_fields}
@@ -231,23 +236,28 @@ class JobService:
             logger.info(f"Processed job (LLM only) inserted for job_id={job_id}")
 
             # Now try to detect categories and update the processed job
-            try:
-                detected_categories = detect_profile_categories(job_data)
-                normalized["profile_categories"] = detected_categories
-                logger.info(
-                    f"Updating processed job with categories for job_id={job_id}"
-                )
-                async with AsyncSessionLocal() as session:
-                    processed_job = Job(job_id=job_id, name=job_name, **normalized)
-                    await session.merge(processed_job)
-                    await session.commit()
-                logger.info(
-                    f"Processed job updated with categories for job_id={job_id}"
-                )
-            except Exception as cat_e:
-                logger.error("Category detection failed for job_id=%s", job_id)
-                # Do not delete file or processed job; allow for recovery
-                raise
+            if not used_local_fallback:
+                try:
+                    from src.services.profile_category_detection import (
+                        detect_profile_categories,
+                    )
+
+                    detected_categories = detect_profile_categories(job_data)
+                    normalized["profile_categories"] = detected_categories
+                    logger.info(
+                        f"Updating processed job with categories for job_id={job_id}"
+                    )
+                    async with AsyncSessionLocal() as session:
+                        processed_job = Job(job_id=job_id, name=job_name, **normalized)
+                        await session.merge(processed_job)
+                        await session.commit()
+                    logger.info(
+                        f"Processed job updated with categories for job_id={job_id}"
+                    )
+                except Exception:
+                    logger.error("Category detection failed for job_id=%s", job_id)
+                    # Do not delete file or processed job; allow for recovery
+                    raise
             return job_id
         except Exception as exc:
             logger.error("Job processing failed for job_id=%s", job_id)
@@ -269,6 +279,18 @@ class JobService:
                         "Deleted job upload after failed DB commit for job_id=%s", job_id
                     )
             raise
+
+    def _local_job_fallback(self, name: str, text: str) -> dict:
+        # ponytail: local/demo fallback only; real provider remains default outside compose.
+        return {
+            "title": name,
+            "company": "Local UAT",
+            "description": text[:500],
+            "responsibilities": [],
+            "qualifications": [],
+            "skills": [],
+            "profile_categories": {"special_requirements": []},
+        }
 
     def _generate_job_id(self) -> str:
         return str(uuid.uuid4())

@@ -110,13 +110,21 @@ class ResumeService:
 
         try:
             logger.info(f"Calling LLM for resume_id={resume_id}")
-            processed_json = self._call_llm_and_strip(extracted_content)
-            logger.debug(
-                "LLM response received for resume_id=%s, response_length=%s",
-                resume_id,
-                len(processed_json),
-            )
-            parsed_json = json.loads(processed_json)
+            used_local_fallback = False
+            try:
+                processed_json = self._call_llm_and_strip(extracted_content)
+                logger.debug(
+                    "LLM response received for resume_id=%s, response_length=%s",
+                    resume_id,
+                    len(processed_json),
+                )
+                parsed_json = json.loads(processed_json)
+            except Exception:
+                if os.getenv("VITAE_LOCAL_PARSE_FALLBACK") != "1":
+                    raise
+                logger.warning("Using local resume parse fallback for resume_id=%s", resume_id)
+                parsed_json = self._local_resume_fallback(name or filename)
+                used_local_fallback = True
             logger.debug(
                 "Parsed resume JSON for resume_id=%s with top_level_keys=%s",
                 resume_id,
@@ -146,33 +154,34 @@ class ResumeService:
             )
 
             # Now try to detect categories and update the processed resume
-            try:
-                from src.services.profile_category_detection import (
-                    detect_profile_categories,
-                )
+            if not used_local_fallback:
+                try:
+                    from src.services.profile_category_detection import (
+                        detect_profile_categories,
+                    )
 
-                text = ""
-                if parsed_json.get("basics"):
-                    text += str(parsed_json["basics"])
-                if parsed_json.get("work"):
-                    text += str(parsed_json["work"])
-                if parsed_json.get("education"):
-                    text += str(parsed_json["education"])
-                profile_categories = detect_profile_categories({"description": text})
-                parsed_json["profile_categories"] = profile_categories
-                logger.info(
-                    f"Updating processed resume with categories for resume_id={resume_id}"
-                )
-                await self._insert_processed_resume(resume_id, parsed_json, resume_name)
-                logger.info(
-                    f"Processed resume updated with categories for resume_id={resume_id}"
-                )
-            except Exception as cat_e:
-                logger.error(
-                    "Category detection failed for resume_id=%s", resume_id
-                )
-                # Do not delete file or processed resume; allow for recovery
-                raise
+                    text = ""
+                    if parsed_json.get("basics"):
+                        text += str(parsed_json["basics"])
+                    if parsed_json.get("work"):
+                        text += str(parsed_json["work"])
+                    if parsed_json.get("education"):
+                        text += str(parsed_json["education"])
+                    profile_categories = detect_profile_categories({"description": text})
+                    parsed_json["profile_categories"] = profile_categories
+                    logger.info(
+                        f"Updating processed resume with categories for resume_id={resume_id}"
+                    )
+                    await self._insert_processed_resume(resume_id, parsed_json, resume_name)
+                    logger.info(
+                        f"Processed resume updated with categories for resume_id={resume_id}"
+                    )
+                except Exception:
+                    logger.error(
+                        "Category detection failed for resume_id=%s", resume_id
+                    )
+                    # Do not delete file or processed resume; allow for recovery
+                    raise
             return resume_id
         except Exception as e:
             logger.error("Failed to process resume_id=%s", resume_id)
@@ -217,6 +226,14 @@ class ResumeService:
             session.add(resume)
             await session.commit()
             await session.refresh(resume)
+
+    def _local_resume_fallback(self, name: str) -> dict[str, Any]:
+        # ponytail: local/demo fallback only; remove when local model provider is mandatory.
+        return {
+            "basics": {"name": name},
+            "work": [{"summary": "Local parse fallback used."}],
+            "profile_categories": {"special_requirements": []},
+        }
 
     def _call_llm_and_strip(self, extracted_content: str) -> str:
         schema_path = os.path.join(

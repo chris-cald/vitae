@@ -18,6 +18,7 @@ services:
       LLM_MODEL: ${LLM_MODEL:-openai/pi-local}
       LITELLM_API_BASE: ${LITELLM_API_BASE:-http://host.containers.internal:8787/v1}
       LITELLM_API_KEY: ${LITELLM_API_KEY:-local-pi-bridge}
+      VITAE_LOCAL_PARSE_FALLBACK: ${VITAE_LOCAL_PARSE_FALLBACK:-1}
       TEMPORAL_ADDRESS: temporal:7233
       TEMPORAL_NAMESPACE: vitae-dev
       TEMPORAL_TASK_QUEUE: vitae-orchestration

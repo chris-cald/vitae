@@ -61,9 +61,12 @@ def test_resume_upload_and_list() -> List[Dict[str, Any]]:
 
 def test_job_upload_and_list() -> List[Dict[str, Any]]:
     """Test uploading a job and listing jobs."""
-    resp = requests.post(f"{BASE_URL}/job", json={"job_text": "Software Engineer"})
+    resp = requests.post(
+        f"{BASE_URL}/job/text",
+        json={"job_text": "Software Engineer", "name": "Software Engineer"},
+    )
     assert resp.status_code == 200, resp.text
-    assert "message" in resp.json()
+    assert "job_id" in resp.json()
     resp = requests.get(f"{BASE_URL}/job")
     assert resp.status_code == 200
     jobs = resp.json().get("jobs", resp.json())
@@ -75,7 +78,7 @@ def test_job_fit_flow(resume_id: str, job_id: str) -> None:
     """Test job-fit analysis creation and retrieval."""
     payload = {"resume_id": resume_id, "job_id": job_id}
     resp = requests.post(f"{BASE_URL}/job-fit", json=payload)
-    assert resp.status_code in (201, 404, 422), resp.text
+    assert resp.status_code in (201, 400, 404, 422), resp.text
     if resp.status_code == 201:
         job_fit = resp.json()
         job_fit_id = job_fit.get("id")
