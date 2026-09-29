@@ -5,8 +5,8 @@ summary: Generate one resume variant and one communication artifact from Catalog
 type: work-item
 subtype: story
 lifecycle: active
-status: proposed
-status_reason: blocked
+status: completed
+status_reason: accepted
 priority: high
 estimated: 6
 links:
@@ -33,12 +33,12 @@ The MVP should produce at least one resume Deliverable and one communication Del
 
 ## Tasks
 
-- [ ] Define Deliverable input contract using Profile, CatalogAssets, Target, FitAnalysis, Misalignments, and Recommendations.
-- [ ] Generate or fixture one resume variant Deliverable.
-- [ ] Generate or fixture one communication Deliverable such as cover letter, outreach email, or recruiter brief.
-- [ ] Include source references for supported content and human-confirmation flags for speculative or development-opportunity content.
-- [ ] Define how a future templjs renderer could consume the same structured inputs.
-- [ ] Add focused tests or reviewed fixtures for source-backed output.
+- [x] Define Deliverable input contract using Profile, CatalogAssets, Target, FitAnalysis, Misalignments, and Recommendations.
+- [x] Generate or fixture one resume variant Deliverable.
+- [x] Generate or fixture one communication Deliverable such as cover letter, outreach email, or recruiter brief.
+- [x] Include source references for supported content and human-confirmation flags for speculative or development-opportunity content.
+- [x] Define how a future templjs renderer could consume the same structured inputs.
+- [x] Add focused tests or reviewed fixtures for source-backed output.
 
 ## Deliverables
 
@@ -49,10 +49,15 @@ The MVP should produce at least one resume Deliverable and one communication Del
 
 ## Acceptance Criteria
 
-- [ ] Generated deliverables use CatalogAssets or explicit Recommendations as inputs.
-- [ ] Each material claim is source-backed or flagged for human confirmation.
-- [ ] Output does not require Portfolio support beyond optional references.
-- [ ] The contract can later route through templjs without changing product semantics.
+- [x] Generated deliverables use CatalogAssets or explicit Recommendations as inputs.
+- [x] Each material claim is source-backed or flagged for human confirmation.
+- [x] Output does not require Portfolio support beyond optional references.
+- [x] The contract can later route through templjs without changing product semantics.
+
+## Completion notes
+
+- The MVP UAT demo returns `deliverable-targeted-resume` and `cover-letter-example-staff-platform` from canonical fixtures.
+- `backend/tests/test_mvp_application_loop_service.py` checks source and CatalogAsset references.
 
 ## Relationships
 
