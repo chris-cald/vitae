@@ -1,0 +1,68 @@
+services:
+  temporal:
+    image: docker.io/temporalio/server:1.27.2
+    entrypoint: ["temporal"]
+    command: ["server", "start-dev", "--ip", "0.0.0.0", "--namespace", "vitae-dev"]
+    ports:
+      - "7233:7233"
+      - "8233:8233"
+
+  backend:
+    image: localhost/vitae-local_backend:latest
+    build:
+      context: ./backend
+      dockerfile: ../uat/backend-lite.Dockerfile
+    environment:
+      DATABASE_URL: sqlite+aiosqlite:////tmp/vitae-local.db
+      UPLOAD_DIR: .ignore/uploads
+      LLM_MODEL: ${LLM_MODEL:-openai/pi-local}
+      LITELLM_API_BASE: ${LITELLM_API_BASE:-http://host.containers.internal:8787/v1}
+      LITELLM_API_KEY: ${LITELLM_API_KEY:-local-pi-bridge}
+      TEMPORAL_ADDRESS: temporal:7233
+      TEMPORAL_NAMESPACE: vitae-dev
+      TEMPORAL_TASK_QUEUE: vitae-orchestration
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./schemas:/schemas:ro
+      - ${CANONICAL_VAULT_PATH:-./.uat-empty-vault}:/vault/job-search:ro
+    depends_on:
+      - temporal
+
+  worker:
+    image: localhost/vitae-local_backend:latest
+    command:
+      - python
+      - -c
+      - |
+        import asyncio, os
+        from temporalio.client import Client
+        from src.services.temporal_config import TemporalWorkerConfig
+        from src.workers.temporal_worker import build_temporal_worker
+        async def main():
+            client = await Client.connect(os.environ['TEMPORAL_ADDRESS'], namespace=os.environ.get('TEMPORAL_NAMESPACE', 'vitae-dev'))
+            worker = await build_temporal_worker(client, TemporalWorkerConfig.from_env(os.environ))
+            await worker.run()
+        asyncio.run(main())
+    environment:
+      TEMPORAL_ADDRESS: temporal:7233
+      TEMPORAL_NAMESPACE: vitae-dev
+      TEMPORAL_TASK_QUEUE: vitae-orchestration
+    volumes:
+      - ./schemas:/schemas:ro
+    depends_on:
+      - temporal
+      - backend
+
+  frontend:
+    image: localhost/vitae-local_frontend:latest
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    environment:
+      VITE_API_URL: http://localhost:8000
+      VITE_API_PROXY_TARGET: http://backend:8000
+    ports:
+      - "5173:5173"
+    depends_on:
+      - backend
