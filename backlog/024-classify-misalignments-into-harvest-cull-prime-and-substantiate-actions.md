@@ -5,8 +5,8 @@ summary: Classify fit-analysis gaps and weak matches into product action categor
 type: work-item
 subtype: story
 lifecycle: active
-status: proposed
-status_reason: blocked
+status: completed
+status_reason: accepted
 priority: high
 estimated: 4
 links:
@@ -32,11 +32,11 @@ The MVP should not merely score fit; it should explain how to improve alignment.
 
 ## Tasks
 
-- [ ] Define Misalignment categories and required fields.
-- [ ] Classify unmatched Requirements, weak CatalogAssets, unsupported claims, and overfit material.
-- [ ] Produce Recommendation candidates tied to Misalignments.
-- [ ] Preserve source references and human-confirmation flags for speculative material.
-- [ ] Add examples for each category: harvest, cull, prime, and substantiate.
+- [x] Define Misalignment categories and required fields.
+- [x] Classify unmatched Requirements, weak CatalogAssets, unsupported claims, and overfit material.
+- [x] Produce Recommendation candidates tied to Misalignments.
+- [x] Preserve source references and human-confirmation flags for speculative material.
+- [x] Add examples for each category: harvest, cull, prime, and substantiate.
 
 ## Deliverables
 
@@ -46,10 +46,15 @@ The MVP should not merely score fit; it should explain how to improve alignment.
 
 ## Acceptance Criteria
 
-- [ ] Every Misalignment has one of the MVP action categories or an explicit not-applicable reason.
-- [ ] Recommendations identify source-backed versus human-confirmation-required material.
-- [ ] Weak or unsupported material can be culled without deleting source history.
-- [ ] Output can drive UI or agent next steps without in-product WorkItems.
+- [x] Every Misalignment has one of the MVP action categories or an explicit not-applicable reason.
+- [x] Recommendations identify source-backed versus human-confirmation-required material.
+- [x] Weak or unsupported material can be culled without deleting source history.
+- [x] Output can drive UI or agent next steps without in-product WorkItems.
+
+## Completion notes
+
+- The MVP UAT demo endpoint emits harvest, cull, prime, and substantiate Misalignment examples with linked Recommendations.
+- Focused validation lives in `backend/tests/test_mvp_application_loop_service.py`.
 
 ## Relationships
 
