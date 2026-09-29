@@ -5,8 +5,8 @@ summary: Update existing broad planning artifacts so future AFK work follows the
 type: work-item
 subtype: task
 lifecycle: active
-status: ready
-status_reason: auto
+status: completed
+status_reason: accepted
 priority: critical
 estimated: 2
 links:
@@ -45,12 +45,12 @@ Earlier planning created useful PRDs, ADRs, and backlog items, but later decisio
 
 ## Acceptance Criteria
 
-- [ ] Future AFK agents can identify ADR-0003 and the MVP PRD as the canonical scope sources.
-- [ ] Broad or stale backlog items no longer conflict silently with the MVP backlog sequence.
-- [ ] No document claims that in-product WorkItems are an MVP primitive.
-- [ ] No document claims Obsidian or SQL persistence is the product authority model.
-- [ ] `git diff --check` passes.
-- [ ] `pnpm exec dv backlog validate --dir backlog --fail-on error` passes.
+- [x] Future AFK agents can identify ADR-0003 and the MVP PRD as the canonical scope sources.
+- [x] Broad or stale backlog items no longer conflict silently with the MVP backlog sequence.
+- [x] No document claims that in-product WorkItems are an MVP primitive.
+- [x] No document claims Obsidian or SQL persistence is the product authority model.
+- [x] `git diff --check` passes.
+- [x] `dv backlog validate --dir backlog --fail-on error` passes.
 
 ## Implementation Notes
 

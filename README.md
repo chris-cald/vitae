@@ -126,9 +126,10 @@ pytest
 
 # frontend
 cd frontend
-npm run lint
-npm run build
+npm test
 ```
+
+See `docs/uat-readiness.md` for the MVP UAT smoke path and deployment notes.
 
 Some backend tests may require a live backend, model provider, embedding dependencies, or local configuration. If a test is environment-dependent, document that explicitly in the handoff.
 

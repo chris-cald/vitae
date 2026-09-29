@@ -4,7 +4,7 @@ This note completes the planning reconciliation requested by `wi-019`. [ADR-0003
 
 ## Scope notes for earlier planning
 
-- `career-workflow-platform-boundaries.md` remains the long-range platform-boundary PRD. The BookOfWork-to-Application MVP narrows it: integrations are optional contracts, not runtime prerequisites.
+- `career-workflow-platform-boundaries.md` remains the long-range platform-boundary PRD. The expanded BookOfWork-to-Application MVP narrows it: deep external integrations remain deferred, but Temporal-backed durable execution and Book of Work refresh are now runtime prerequisites.
 - ADR-0001 remains the supporting-system ownership decision. “Work Orders” are Doc-Vader governance artifacts, not a Vitae product-domain `WorkItem`.
 - ADR-0002 remains the provenance direction. Its candidate graph nodes and edges are implementation guidance, not a persistence-authoritative product schema; MVP provenance begins with `SourceRef`, `Evidence`, and `Relationship`.
 
@@ -24,4 +24,4 @@ This note completes the planning reconciliation requested by `wi-019`. [ADR-0003
 
 ## Resulting frontier
 
-`wi-020` locks canonical vocabulary, schemas, templates, mappings, and fixtures. It unblocks `wi-021` (seed compatibility) and then `wi-022` (workflow contracts); `wi-023` through `wi-026` retain their existing ordered dependencies.
+`wi-020` through `wi-026` define the canonical model and fixture-backed application loop. Full expanded MVP UAT is not complete until the Temporal runtime slices, multi-application state, Book of Work refresh, live provider/browser evidence, WI-040 readiness gate, and canonical-vault no-write evidence are complete. Deferred roadmap scope still includes typed API contracts, broader scoring/recommendation separation, full portfolio workflows, and user-domain lifecycle governance.
