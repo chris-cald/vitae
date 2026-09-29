@@ -4,8 +4,8 @@ title: Complete Production Hardening and Temporal Adoption Decision
 type: work-item
 subtype: story
 lifecycle: active
-status: proposed
-status_reason: planned
+status: ready
+status_reason: self-hosted-first Temporal decision recorded; live evidence and sign-off remain
 priority: high
 estimated: 5
 links:
@@ -17,9 +17,9 @@ links:
     - '[[034-implement-durable-harvest-runtime-slice]]'
     - '[[035-implement-durable-cull-and-prime-runtime-slice]]'
     - '[[036-implement-substantiation-and-guarded-catalog-publication]]'
-    - '[[037-evaluate-optional-durable-runtime-for-target-and-catalog-fit]]'
-    - '[[038-evaluate-optional-durable-runtime-for-deliverable-generation]]'
-    - '[[039-evaluate-optional-scheduled-application-automation-for-wi-026]]'
+    - '[[037-implement-required-durable-runtime-for-target-and-catalog-fit]]'
+    - '[[038-implement-required-durable-runtime-for-deliverable-generation]]'
+    - '[[039-implement-required-scheduled-application-automation-for-wi-026]]'
   implements:
     - '[[../docs/adr/0004-adopt-privacy-safe-temporal-execution-substrate]]'
 tags:
@@ -30,7 +30,7 @@ tags:
 
 ## Goal
 
-Make the evidence-based production adoption decision, including Temporal Cloud versus self-hosted, only after foundation and runtime-slice evidence is complete.
+Complete the evidence-based production readiness gate for the self-hosted-first Temporal posture, preserving an option to migrate to Temporal Cloud after evidence warrants it.
 
 ## Background
 
@@ -38,14 +38,22 @@ This is a child of WI-027. It implements ADR-0004’s direct Vitae-owned Tempora
 
 ## Tasks
 
-- Review threat model, incident/recovery drills, replay/version tests, backup/retention, observability, capacity/cost, support ownership, and all optional-slice decisions.
+- Review threat model, incident/recovery drills, replay/version tests, backup/retention, observability, capacity/cost, support ownership, and all required MVP runtime-slice evidence.
+- Verify UAT no-write evidence for `~/Obsidian Vaults/loft/1 Projects/Job Search/`.
 - Use only synthetic identifiers in test fixtures and operational evidence.
 - Verify all Temporal-adjacent surfaces against the WI-028 payload allowlist.
 
 ## Deliverables
 
-- Production-readiness report, Cloud/self-hosted decision or explicit deferment, runbooks, acceptance sign-off, and rollback plan.
+- Production-readiness report, self-hosted-first runbooks, Cloud migration criteria, acceptance sign-off, rollback plan, and canonical-vault no-write evidence.
+- UAT artifact bundle containing Temporal history inspection, retry/restart/cancel/human-wait evidence, provider/browser UAT result, and canonical-vault before/after inventory diff.
 - Updated implementation/runbook documentation where the acceptance evidence identifies an operator action.
+
+## Decision
+
+- Start with self-hosted Temporal for MVP/UAT.
+- Preserve a future migration path to Temporal Cloud if operations, reliability, support, data-residency, or cost evidence justifies it.
+- Use the local OpenAI-compatible Pi bridge for synthetic model-provider UAT evidence when external provider credentials are not used.
 
 ## Acceptance Criteria
 
@@ -61,7 +69,8 @@ This is a child of WI-027. It implements ADR-0004’s direct Vitae-owned Tempora
 
 ## Exclusions
 
-- No automatic production rollout or provider selection without explicit decision-owner approval.
+- No automatic production rollout without explicit decision-owner approval.
+- No UAT path may write to the canonical Obsidian vault; use read-only mounts, snapshots, or Vitae test storage.
 - No Babysitter or `agent-workflows` product-path integration.
 
 ## Relationships

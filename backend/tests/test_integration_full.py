@@ -1,5 +1,6 @@
 from typing import List, Dict, Any
 import requests
+import pytest
 import io
 
 """
@@ -9,6 +10,39 @@ Comprehensive integration tests for Vitae backend API endpoints.
 BASE_URL = "http://localhost:8000/api/v1"
 PDF_BYTES = b"%PDF-1.4\n%EOF"
 DOCX_BYTES = b"PK\x03\x04"  # DOCX file header
+
+
+def _backend_available() -> bool:
+    try:
+        requests.get(f"{BASE_URL}/resume", timeout=1)
+        return True
+    except requests.RequestException:
+        return False
+
+
+pytestmark = pytest.mark.skipif(
+    not _backend_available(), reason="live backend not running on localhost:8000"
+)
+
+
+@pytest.fixture
+def resume_id() -> str:
+    resp = requests.get(f"{BASE_URL}/resume", timeout=5)
+    resp.raise_for_status()
+    resumes = resp.json().get("resumes", [])
+    if not resumes:
+        pytest.skip("no live resume fixture available")
+    return str(resumes[0]["resume_id"])
+
+
+@pytest.fixture
+def job_id() -> str:
+    resp = requests.get(f"{BASE_URL}/job", timeout=5)
+    resp.raise_for_status()
+    jobs = resp.json().get("jobs", resp.json())
+    if not jobs:
+        pytest.skip("no live job fixture available")
+    return str(jobs[0]["job_id"])
 
 
 def test_resume_upload_and_list() -> List[Dict[str, Any]]:

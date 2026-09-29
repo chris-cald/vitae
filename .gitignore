@@ -10,6 +10,9 @@ venv/
 .venv/
 ENV/
 .env.*
+!.env.example
+!backend/.env.example
+!frontend/.env.example
 
 # Jupyter Notebooks
 .ipynb_checkpoints
@@ -53,6 +56,7 @@ node_modules/
 .pi-subagents/
 
 # Local data/artifacts
+artifacts/
 backend/testdb
 backend/lorem_1800_tokens.txt
 

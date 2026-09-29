@@ -1,6 +1,20 @@
+import pytest
 import requests
 
 BASE_URL = "http://localhost:8000/api/v1"
+
+
+def _backend_available() -> bool:
+    try:
+        requests.get(f"{BASE_URL}/resume", timeout=1)
+        return True
+    except requests.RequestException:
+        return False
+
+
+pytestmark = pytest.mark.skipif(
+    not _backend_available(), reason="live backend not running on localhost:8000"
+)
 
 
 def test_resume_list():
