@@ -128,7 +128,7 @@ Raw resume/JD text, prompts, model completions, secrets, and reviewer prose must
 | Workflow replay/version evolution | Version-pinned workflow definitions, compatibility tests, and representative-history replay in CI. |
 | Workflow history is not a reporting system | SQLModel read models and a safe RuntimeExecution ledger provide product status/audit views. |
 | Payload/history retention risk | Opaque references, size limits, retention policies, and externally stored encrypted artifacts. |
-| Operational footprint | A readiness gate selects Temporal Cloud versus self-hosting from cost, residency, support, recovery, and operations evidence; this ADR does not preselect either. |
+| Operational footprint | WI-040 starts self-hosted for MVP/UAT and preserves a Temporal Cloud migration option if cost, residency, support, recovery, or operations evidence warrants it. |
 
 ## Consequences
 
@@ -144,7 +144,7 @@ Raw resume/JD text, prompts, model completions, secrets, and reviewer prose must
 - No sensitive content appears in Temporal payloads, histories, metadata, logs, metrics, diagnostics, or fixtures.
 - Every Activity has idempotency/retry evidence and every human decision has Vitae authorization/audit evidence.
 - Canonical guards decide Seed promotion, evidence validity, scoring, and Catalog publication before execution side effects.
-- Temporal Cloud versus self-hosted selection remains blocked until WI-040 acceptance evidence is reviewed.
+- WI-040 starts self-hosted for MVP/UAT; Temporal Cloud migration remains blocked until acceptance evidence justifies it.
 
 ## Supersession
 

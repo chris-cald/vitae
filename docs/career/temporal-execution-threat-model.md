@@ -4,7 +4,7 @@
 
 This is the WI-028 implementation boundary for [ADR-0004](../adr/0004-adopt-privacy-safe-temporal-execution-substrate.md). It applies before a Temporal client, worker, Activity, deployment, or product endpoint exists. It uses synthetic identifiers only.
 
-The boundary has a **development-only provisional approval** from the decision owner for WI-029 contract work. It is not approved for production runtime use. A review failure or any PII stop condition blocks the affected work immediately; production deployment remains blocked until role-specific review evidence and WI-040's adoption decision are complete.
+The boundary has a **development-only provisional approval** from the decision owner for WI-029 contract work. It is approved as the MVP durable-execution boundary. A review failure or any PII stop condition blocks the affected work immediately; production deployment and provider selection remain blocked until role-specific review evidence and WI-040's readiness decision are complete.
 
 ## Authority and trust boundary
 
@@ -23,7 +23,9 @@ flowchart LR
   A -->|opaque execution ID and decision code| T
 ```
 
-No arrow in this diagram carries a resume, job description, prompt, completion, secret, reviewer prose, source locator, or unbounded text. The Temporal service and worker may receive opaque IDs; sensitive retrieval occurs only through Vitae services after authorization.
+No arrow in this diagram carries a resume, job description, prompt, completion, secret, reviewer prose, source locator, vault path, or unbounded text. The Temporal service and worker may receive opaque IDs; sensitive retrieval occurs only through Vitae services after authorization.
+
+UAT must not mutate canonical files or Catalog content under `~/Obsidian Vaults/loft/1 Projects/Job Search/`. Book of Work ingestion and watchers use read-only access or disposable snapshots, and write derived state only to Vitae test storage.
 
 ## Allowlisted execution envelope
 
@@ -89,9 +91,9 @@ The number and exact names of queues, namespace retention settings, and worker d
 - Incident response: contain/disable the path; preserve minimal evidence; assess access and retention surfaces; revoke/rotate secrets; reconcile affected ledger state; remediate with a regression test; obtain security sign-off before recovery. A failed execution must not retry an unsafe side effect until the ledger reconciliation decision is recorded.
 - Recovery evidence before production adoption must prove worker restart, retry, cancellation, human-wait resume, duplicate delivery, replay/version compatibility, and privacy-safe diagnostics using synthetic fixtures.
 
-## Cloud versus self-hosted decision checklist
+## Self-hosted-first decision and Cloud migration checklist
 
-No provider is selected by this document. WI-040 may choose only after decision-owner, security/privacy, and operations evidence addresses every row.
+WI-040 starts with self-hosted Temporal for MVP/UAT. Temporal Cloud remains a migration option if decision-owner, security/privacy, and operations evidence shows it is better for reliability, support, residency, or cost. The rows below are the migration/readiness checklist.
 
 | Criterion | Required evidence |
 | --- | --- |
@@ -132,5 +134,5 @@ WI-029 must add tests before every listed entry point is introduced. Tests const
 ## Completion evidence
 
 - This document is the synthetic-only threat-model, payload contract, operational-control checklist, and static test plan required by WI-028.
-- ADR-0004 remains the architecture decision; this document does not install Temporal, select a provider, or change canonical schemas.
+- ADR-0004 remains the architecture decision; WI-040 records the self-hosted-first Temporal posture with a Cloud migration option.
 - WI-028 is closed for development-only contract work based on the decision-owner provisional approval above. It does not authorize a Temporal deployment, worker, client connection, or production data flow.

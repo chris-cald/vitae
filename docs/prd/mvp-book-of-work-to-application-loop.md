@@ -32,6 +32,18 @@ backlogItems:
   - wi-024
   - wi-025
   - wi-026
+  - wi-027
+  - wi-030
+  - wi-031
+  - wi-032
+  - wi-033
+  - wi-034
+  - wi-035
+  - wi-036
+  - wi-037
+  - wi-038
+  - wi-039
+  - wi-040
 successMetricIds:
   - metric-canonical-model-validated
   - metric-mvp-loop-complete
@@ -67,8 +79,8 @@ llm:
 - **Problem:** Vitae needs a sharply scoped MVP that captures the existing Career Knowledge process without turning the product into a project tracker or persistence-specific Obsidian tool.
 - **Primary user:** Candidates need help turning a messy Book of Work into substantiated career assets and role-specific applications.
 - **Outcome:** The MVP guides a user from Profile and Book of Work ingestion through Catalog distillation, fit analysis, source-backed deliverables, and application tracking.
-- **Scope boundary:** MVP includes canonical data modeling and one end-to-end application loop; background refresh, full portfolio management, and deep external integrations are MVP+1 or later.
-- **Success signal:** A user can create a Profile, ingest SourceAssets, harvest Seeds, promote CatalogAssets, evaluate fit for one Target, generate source-backed Deliverables, and track one Application.
+- **Scope boundary:** MVP includes canonical data modeling, multiple concurrent role/application loops, iterative curation, realtime Book of Work change incorporation, and Temporal-backed durable execution. Full portfolio management and deep external integrations remain later.
+- **Success signal:** A user can create a Profile, ingest SourceAssets, harvest Seeds, promote CatalogAssets, evaluate fit for multiple Targets, generate source-backed Deliverables, track concurrent Applications, and see out-of-band Book of Work changes incorporated without mutating the canonical vault.
 
 ## Status
 
@@ -80,12 +92,14 @@ The current Vitae app supports resume and job-fit analysis, while the existing O
 
 ## Goals
 
-- Define one end-to-end product loop from Book of Work to tracked Application.
+- Define concurrent end-to-end product loops from Book of Work to tracked Applications.
 - Reuse the refined Obsidian domain concepts where they are already stronger than new Vitae terminology.
 - Keep persistence adapters separate from canonical data types.
 - Generate deliverables only from source-backed or explicitly flagged material.
 - Reserve durable records for material user-facing events rather than every state change.
 - Create backlog items that an AFK agent can implement in dependency order.
+- Use Temporal as the MVP durable execution substrate for curation, refresh, human waits, retries, and application automation.
+- Incorporate out-of-band Book of Work changes without mutating canonical Obsidian files or Catalog content under `~/Obsidian Vaults/loft/1 Projects/Job Search/`.
 
 ## Non-Goals
 
@@ -94,6 +108,7 @@ The current Vitae app supports resume and job-fit analysis, while the existing O
 - Do not require a durable record for every edit, autosave, sync update, or internal recalculation.
 - Do not complete full Portfolio publishing or public portfolio management in MVP.
 - Do not require full agent-workflows, doc-vader, templjs, Semantify, or Context Graph integration before the MVP loop exists.
+- Do not use Temporal as a canonical domain store, audit source, or bypass around Vitae authorization.
 - Do not make Obsidian Markdown syntax the product source of truth.
 
 ## Users and Use Cases
@@ -110,6 +125,9 @@ The current Vitae app supports resume and job-fit analysis, while the existing O
 - As a candidate, I want Vitae to compare my Catalog against a target JD or role so that I can see fit and misalignment clearly.
 - As a candidate, I want deliverables generated from substantiated assets so that I do not introduce unsupported claims.
 - As a candidate, I want application tracking for notes, status updates, and material outcomes so that each role pursuit stays connected to its source-backed materials.
+- As a candidate, I want multiple role pursuits active at once so that each JD, fit analysis, deliverable set, and application status stays isolated.
+- As a candidate, I want iterative curation so that harvested material can be culled, primed, substantiated, promoted, and reflected in updated fits and deliverables.
+- As a candidate, I want Vitae to notice out-of-band Book of Work changes in near real time without editing my canonical vault files.
 
 ## Requirements
 
@@ -119,13 +137,17 @@ The current Vitae app supports resume and job-fit analysis, while the existing O
 | REQ-002 | The MVP must treat Obsidian/filesystem syntax as an adapter over structured data and metadata, not as the product model. | Must | Obsidian examples map into canonical objects through `SourceRef`/adapter fields. |
 | REQ-003 | The MVP must keep `Seed` outside the `Catalog` and preserve compatibility with the existing Obsidian Seed model. | Must | Seed fixtures use the existing Seed metadata/content structure or document any reconciled differences. |
 | REQ-004 | The MVP must support the process verbs `harvest`, `cull`, `prime`, and `substantiate`. | Must | Workflow definitions or service contracts include these stages and their outputs. |
-| REQ-005 | The MVP must evaluate fit between a Catalog and one Target JD or role. | Must | Fit output links Requirements to CatalogAssets/Evidence or records Misalignments. |
+| REQ-005 | The MVP must evaluate fit between a Catalog and multiple concurrent Target JDs or roles. | Must | Fit output links each Target's Requirements to CatalogAssets/Evidence or records Misalignments without cross-application bleed. |
 | REQ-006 | The MVP must identify misalignments as harvest opportunities, cull candidates, prime opportunities, or substantiation gaps. | Must | Misalignment output uses these categories and can drive the next user action. |
 | REQ-007 | The MVP must generate at least one resume Deliverable and one communication Deliverable from source-backed material. | Must | Generated outputs include source/provenance references or explicit human-confirmation flags. |
-| REQ-008 | The MVP must track one Application with notes, material status changes, and outcomes. | Must | Application tracking can link Target, Deliverables, ApplicationRecords, and notes. |
+| REQ-008 | The MVP must track multiple concurrent Applications with notes, material status changes, and outcomes. | Must | At least two active Applications link distinct Targets, Deliverables, ApplicationRecords, and notes without cross-contamination. |
 | REQ-009 | Workflow must mean reusable process definition; WorkflowRun must mean one execution of a workflow. | Must | Domain docs and backlog avoid using `work-item` as an in-product primitive. |
 | REQ-010 | Records must be created only for material events, decisions, evidence, feedback, submissions, follow-ups, outcomes, or important notes. | Must | MVP docs define a record threshold and implementation avoids per-state-change record requirements. |
 | REQ-011 | Portfolio and PortfolioAsset must be defined as reusable curated presentation concepts but deferred unless needed by deliverable references. | Should | MVP type registry marks Portfolio support as MVP+1 unless a fixture needs a reference. |
+| REQ-012 | The MVP must support iterative curation after initial ingestion. | Must | UAT demonstrates harvest/cull/prime/substantiate actions changing CatalogAssets and dependent fit/deliverable status. |
+| REQ-013 | The MVP must incorporate out-of-band Book of Work changes in near real time. | Must | A watched source change is detected and either incorporated or marks affected objects stale without manual re-upload. |
+| REQ-014 | Temporal-backed durable execution is required for MVP curation, refresh, waits, retries, and application automation. | Must | Temporal worker/adapter/ledger paths pass retry, cancellation, replay, idempotency, and privacy-boundary tests. |
+| REQ-015 | MVP UAT must not mutate canonical Obsidian files or Catalog content under `~/Obsidian Vaults/loft/1 Projects/Job Search/`. | Must | UAT uses read-only or snapshot input and records no create/modify/delete/rename events under that path. |
 
 ## User Experience Notes
 
@@ -165,21 +187,22 @@ Adapter expectations:
 | ID | Metric | Target | Measurement Method |
 | --- | --- | --- | --- |
 | metric-canonical-model-validated | Canonical model validated against existing Obsidian and Vitae examples | At least one fixture for Seed, SourceAsset, CatalogAsset, Target, Deliverable, and Application maps cleanly | Schema/design review and fixture validation |
-| metric-mvp-loop-complete | One end-to-end MVP loop completes | Profile + BookOfWork to Application tracking works for one role | Focused integration or acceptance scenario |
+| metric-mvp-loop-complete | Concurrent end-to-end MVP loops complete | Profile + BookOfWork to Application tracking works for at least two active roles | Focused integration or acceptance scenario |
+| metric-book-of-work-refresh-safe | Out-of-band Book of Work changes are safely incorporated | A source change updates or stales derived state without mutating the canonical vault | Watcher/Temporal UAT scenario plus no-write evidence |
 | metric-source-backed-deliverables | Generated outputs preserve authenticity | Resume and communication deliverables include source references or confirmation flags | Contract test or reviewed fixture |
 
 ## Assumptions
 
 - The existing Obsidian Career Knowledge model is valuable source material and should be reconciled, not replaced blindly.
 - Candidates value trustworthy, source-backed outputs more than opaque generated text.
-- Early MVP can use fixtures and adapters before full persistence abstraction is complete.
+- Early contract tests can use fixtures, but full MVP UAT requires persisted state, Temporal execution, and read-only/snapshot Book of Work input.
 - Existing resume/job analysis code can be adapted incrementally.
 
 ## Risks and Mitigations
 
 | Risk | Impact | Mitigation |
 | --- | --- | --- |
-| MVP still becomes too broad | AFK implementation stalls | Keep first slices to model mapping, ingestion contract, one target, one deliverable pair, one application |
+| MVP still becomes too broad | AFK implementation stalls | Keep slices thin: durable foundation, concurrent applications, curation loop, read-only watcher, then generation |
 | Obsidian-specific details leak into product model | Large-scale rollout becomes harder | Require adapter mapping and canonical fixtures |
 | Existing backend models conflict with canonical types | Implementation churn | Start with projection/design fixtures before database migrations |
 | Generated deliverables include unsupported claims | User trust and privacy risk | Require source references or human-confirmation flags |
@@ -189,9 +212,10 @@ Adapter expectations:
 
 - Complete the canonical domain model and Obsidian compatibility mapping first.
 - Add implementation slices only after dependencies are explicit in backlog frontmatter.
-- Use focused fixtures before changing persistence.
+- Use focused fixtures before changing persistence, but full UAT requires persisted multi-application state.
 - Treat current broad backlog items as reference until reconciled with this MVP scope.
 - Run documentation/backlog validation before AFK execution starts.
+- Use `GET /api/v1/mvp/application-loop/demo` as a contract smoke path only; full UAT requires Temporal-backed concurrent application, curation, and Book of Work refresh scenarios.
 
 ## Open Questions
 
@@ -212,10 +236,14 @@ Adapter expectations:
 | REQ-005 | wi-023 | Target requirement and fit analysis slice |
 | REQ-006 | wi-024 | Misalignment review categories |
 | REQ-007 | wi-025 | Source-backed deliverable generation |
-| REQ-008 | wi-026 | Lightweight application tracking |
-| REQ-009 | wi-019 | Planning and backlog reconciliation |
-| REQ-010 | wi-020 | Record threshold in canonical model |
+| REQ-008 | wi-026, wi-039 | Concurrent lightweight application tracking and scheduled automation |
+| REQ-009 | wi-019, wi-027 | Planning reconciliation and Temporal workflow boundary |
+| REQ-010 | wi-020, wi-031 | Record threshold and RuntimeExecution ledger |
 | REQ-011 | wi-020 | Portfolio deferred type definition |
+| REQ-012 | wi-034, wi-035, wi-036 | Durable curation runtime slices |
+| REQ-013 | wi-034, wi-040 | Book of Work refresh and readiness evidence |
+| REQ-014 | wi-027, wi-030, wi-031, wi-032, wi-033, wi-037, wi-038, wi-039, wi-040 | Temporal durable execution adoption |
+| REQ-015 | wi-028, wi-034, wi-040 | Canonical vault no-write guardrail |
 
 ## Related Work
 
