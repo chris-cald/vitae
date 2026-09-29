@@ -21,8 +21,8 @@ async def update_job_fit_name(job_fit_id: str, body: JobFitNameUpdate):
     service = JobFitService()
     try:
         await service.update_job_fit_name(job_fit_id, body.name)
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+    except Exception:
+        raise HTTPException(status_code=500, detail="Job-fit update failed.")
     return {"message": "Job-fit name updated."}
 
 
@@ -39,10 +39,10 @@ async def get_skill(job_fit_id: str):
     service = JobFitService()
     try:
         skill = await service.fetch_skill(job_fit_id)
-    except ValueError as e:
-        raise HTTPException(status_code=404, detail=str(e))
-    except Exception as e:
-        raise HTTPException(status_code=400, detail=str(e))
+    except ValueError:
+        raise HTTPException(status_code=404, detail="Job-fit skill not found.")
+    except Exception:
+        raise HTTPException(status_code=400, detail="Job-fit skill fetch failed.")
     return skill
 
 
@@ -69,10 +69,9 @@ async def create_job_fit(req: JobFitCreateRequest):
             profile_categories=req.profile_categories,
         )
     except Exception as e:
-        msg = str(e)
-        if "not found" in msg:
-            raise HTTPException(status_code=404, detail=msg)
-        raise HTTPException(status_code=400, detail=msg)
+        if "not found" in str(e):
+            raise HTTPException(status_code=404, detail="Job-fit dependency not found.")
+        raise HTTPException(status_code=400, detail="Job-fit analysis failed.")
     return job_fit
 
 
@@ -81,8 +80,8 @@ async def get_job_fit(job_fit_id: str):
     service = JobFitService()
     try:
         job_fit = await service.fetch_job_fit(job_fit_id)
-    except ValueError as e:
-        raise HTTPException(status_code=404, detail=str(e))
+    except ValueError:
+        raise HTTPException(status_code=404, detail="Job-fit not found.")
     return job_fit
 
 
@@ -96,8 +95,8 @@ async def delete_job_fit(job_fit_id: str):
     service = JobFitService()
     try:
         await service.delete_job_fit(job_fit_id)
-    except Exception as e:
-        raise HTTPException(status_code=404, detail=str(e))
+    except Exception:
+        raise HTTPException(status_code=404, detail="Job-fit not found.")
     return
 
 
@@ -108,8 +107,8 @@ async def get_job_fit_mapping(job_fit_id: str) -> dict[str, Any]:
     service = JobFitService()
     try:
         mapping = await service.fetch_job_fit_mapping(job_fit_id)
-    except ValueError as e:
-        raise HTTPException(status_code=404, detail=str(e))
+    except ValueError:
+        raise HTTPException(status_code=404, detail="Job-fit mapping not found.")
     return mapping
 
 
@@ -119,8 +118,8 @@ async def get_job_fit_feedback(job_fit_id: str):
     service = JobFitService()
     try:
         feedback = await service.fetch_feedback(job_fit_id)
-    except ValueError as e:
-        raise HTTPException(status_code=404, detail=str(e))
-    except Exception as e:
-        raise HTTPException(status_code=400, detail=str(e))
+    except ValueError:
+        raise HTTPException(status_code=404, detail="Job-fit feedback not found.")
+    except Exception:
+        raise HTTPException(status_code=400, detail="Job-fit feedback fetch failed.")
     return feedback

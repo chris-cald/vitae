@@ -86,7 +86,7 @@ class JobService:
         job_url: Optional[str] = None,
         job_file: Optional["UploadFile"] = None,
         name: Optional[str] = None,
-    ) -> None:
+    ) -> str:
         job_id = self._generate_job_id()
         upload_dir = os.getenv(
             "UPLOAD_DIR", os.path.join(os.path.dirname(__file__), "../uploads")
@@ -97,8 +97,12 @@ class JobService:
         content_type = None
         filename = None
         try:
+            has_url = bool(job_url)
             logger.debug(
-                f"Job input: job_text={bool(job_text)}, job_url={job_url}, job_file={job_file}"
+                "Job input flags: text=%s, url=%s, file=%s",
+                bool(job_text),
+                has_url,
+                bool(job_file),
             )
             if job_text:
                 file_bytes = job_text.encode()
@@ -131,10 +135,13 @@ class JobService:
             file_path = os.path.join(upload_dir, filename)
             with open(file_path, "wb") as f:
                 f.write(file_bytes)
-            abs_path = os.path.abspath(file_path)
             file_exists = os.path.exists(file_path)
             logger.debug(
-                f"Saved file to {file_path} (abs: {abs_path}), exists: {file_exists}, size={len(file_bytes)} bytes, content_type={content_type}"
+                "Saved job upload for job_id=%s, exists=%s, size=%s bytes, content_type=%s",
+                job_id,
+                file_exists,
+                len(file_bytes),
+                content_type,
             )
 
             # Insert RawJob with file_path
@@ -163,7 +170,7 @@ class JobService:
 
             if not text or not text.strip():
                 logging.error(
-                    f"No text extracted from file {file_path}. Aborting LLM call."
+                    "No text extracted for job_id=%s. Aborting LLM call.", job_id
                 )
                 raise ValueError(f"No text extracted from file {file_path}.")
 
@@ -215,7 +222,7 @@ class JobService:
 
             # Store processed job immediately after LLM parsing (without categories)
             logger.info(
-                f"Inserting processed job (LLM only) for job_id={job_id}, name={job_name}"
+                "Inserting processed job for job_id=%s", job_id
             )
             async with AsyncSessionLocal() as session:
                 processed_job = Job(job_id=job_id, name=job_name, **normalized)
@@ -238,14 +245,12 @@ class JobService:
                     f"Processed job updated with categories for job_id={job_id}"
                 )
             except Exception as cat_e:
-                logger.error(f"Category detection failed for job_id={job_id}: {cat_e}")
-                import traceback
-
-                logger.error(traceback.format_exc())
+                logger.error("Category detection failed for job_id=%s", job_id)
                 # Do not delete file or processed job; allow for recovery
                 raise
+            return job_id
         except Exception as exc:
-            logger.error(f"Job processing failed: {exc}")
+            logger.error("Job processing failed for job_id=%s", job_id)
             # Only delete the uploaded file if the RawJob DB record was NOT created
             # (i.e., before 'RawJob DB record created for job_id=...' log)
             # If file_path exists and error occurred before DB commit, delete
@@ -261,7 +266,7 @@ class JobService:
                 if outer and "processed_job" not in outer.f_locals:
                     os.remove(file_path)
                     logger.debug(
-                        f"Deleted file {file_path} due to error before DB commit."
+                        "Deleted job upload after failed DB commit for job_id=%s", job_id
                     )
             raise
 

@@ -5,8 +5,8 @@ summary: Remove or redact prompt, raw response, extracted content, and source-te
 type: work-item
 subtype: task
 lifecycle: active
-status: ready
-status_reason: auto
+status: completed
+status_reason: accepted
 priority: critical
 estimated: 2
 links:
@@ -30,10 +30,10 @@ Vitae handles resumes, job descriptions, prompts, and model responses that can c
 
 ## Tasks
 
-- [ ] Inspect backend model-call, parsing, embedding, and category-detection paths for raw prompt, response, document, or extracted-content logging.
-- [ ] Replace unsafe logs with PII-safe fields such as IDs, counts, provider/model name, duration, status, and bounded error codes.
-- [ ] Add or update focused tests where practical to prevent accidental prompt/response logging.
-- [ ] Document any remaining unavoidable diagnostic surface and why it is safe.
+- [x] Inspect backend model-call, parsing, embedding, and category-detection paths for raw prompt, response, document, or extracted-content logging.
+- [x] Replace unsafe logs with PII-safe fields such as IDs, counts, provider/model name, duration, status, and bounded error codes.
+- [x] Add or update focused tests where practical to prevent accidental prompt/response logging.
+- [x] Document any remaining unavoidable diagnostic surface and why it is safe.
 
 ## Deliverables
 
@@ -43,10 +43,10 @@ Vitae handles resumes, job descriptions, prompts, and model responses that can c
 
 ## Acceptance Criteria
 
-- [ ] No backend logs include raw resumes, job descriptions, prompts, full model responses, or extracted content snippets.
-- [ ] Operational logs still include enough non-sensitive metadata to diagnose failures.
-- [ ] Privacy invariant is covered by a test, lint check, or explicit review checklist.
-- [ ] Relevant backend tests or focused validation pass.
+- [x] No backend logs include raw resumes, job descriptions, prompts, full model responses, or extracted content snippets.
+- [x] Operational logs still include enough non-sensitive metadata to diagnose failures.
+- [x] Privacy invariant is covered by a test, lint check, or explicit review checklist.
+- [x] Relevant backend tests or focused validation pass.
 
 ## Relationships
 

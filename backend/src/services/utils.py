@@ -59,15 +59,19 @@ def call_llm_stub(prompt: str) -> str:
     logger = logging.getLogger(__name__)
 
     model = os.getenv("LLM_MODEL", "gpt-3.5-turbo")
-    import traceback
-
     try:
         from litellm import completion  # pyright: ignore[reportUnknownVariableType]
 
         logger.info("Calling LiteLLM with model=%s and prompt_length=%s", model, len(prompt))
-        response = completion(
-            model=model, messages=[{"role": "user", "content": prompt}]
-        )
+        completion_kwargs = {
+            "model": model,
+            "messages": [{"role": "user", "content": prompt}],
+        }
+        if os.getenv("LITELLM_API_BASE"):
+            completion_kwargs["api_base"] = os.environ["LITELLM_API_BASE"]
+        if os.getenv("LITELLM_API_KEY"):
+            completion_kwargs["api_key"] = os.environ["LITELLM_API_KEY"]
+        response = completion(**completion_kwargs)
         logger.info("LiteLLM response received")
         content: Optional[str] = None
         choices = getattr(response, "choices", None)
@@ -85,7 +89,7 @@ def call_llm_stub(prompt: str) -> str:
             ):
                 content = str(response["choices"][0]["message"]["content"])  # pyright: ignore[reportUnknownArgumentType]
             elif "error" in response:
-                logger.error(f"LiteLLM error response: {response['error']}")
+                logger.error("LiteLLM error response received")
         if content:
             logger.debug("LiteLLM extracted content_length=%s", len(content))
             if not content.strip() or content.strip() == "{}":
@@ -94,9 +98,8 @@ def call_llm_stub(prompt: str) -> str:
             return content  # type: ignore
         logger.warning("LiteLLM response malformed or empty")
         raise ValueError("LiteLLM response malformed or empty.")
-    except Exception as e:
-        logger.error(f"LiteLLM call failed: {e}")
-        logger.error(traceback.format_exc())
+    except Exception:
+        logger.error("LiteLLM call failed")
         raise
 
 

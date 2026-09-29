@@ -7,6 +7,7 @@ from fastapi import (
     Request,
     Query,
     Body,
+    Form,
 )
 from src.services import ResumeService
 from pydantic import BaseModel
@@ -61,10 +62,10 @@ async def create_resume_text(request: Request):
         raise HTTPException(status_code=400, detail="Missing resume_text.")
     service = ResumeService()
     try:
-        await service.process_resume(resume_text, "text/plain", "raw.txt")
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
-    return {"message": "Resume uploaded and processed successfully."}
+        resume_id = await service.process_resume(resume_text, "text/plain", "raw.txt")
+    except Exception:
+        raise HTTPException(status_code=500, detail="Resume processing failed.")
+    return {"resume_id": resume_id, "message": "Resume uploaded and processed successfully."}
 
 
 # 2. POST /resume/file
@@ -72,7 +73,7 @@ async def create_resume_text(request: Request):
     "/file",
     summary="Create a resume from a file (PDF, DOCX, Markdown).",
 )
-async def create_resume_file(file: UploadFile = File(...)):
+async def create_resume_file(file: UploadFile = File(...), name: str | None = Form(None)):
     import logging
 
     logger = logging.getLogger(__name__)
@@ -107,15 +108,12 @@ async def create_resume_file(file: UploadFile = File(...)):
         logger.info(
             "Processing resume upload with content_type=%s", file.content_type
         )
-        await service.process_resume(file_bytes, file.content_type, filename)
+        resume_id = await service.process_resume(file_bytes, file.content_type, filename, name=name)
         logger.info("Resume processed successfully")
-    except Exception as e:
-        import traceback
-
-        logger.error("Error processing resume upload: %s", e)
-        logger.error(traceback.format_exc())
-        raise HTTPException(status_code=500, detail=str(e))
-    return {"message": "Resume uploaded and processed successfully."}
+    except Exception:
+        logger.error("Resume upload processing failed")
+        raise HTTPException(status_code=500, detail="Resume processing failed.")
+    return {"resume_id": resume_id, "message": "Resume uploaded and processed successfully."}
 
 
 # 3. POST /resume/url (if supported)
@@ -130,10 +128,12 @@ async def create_resume_url(input: dict[str, str] = Body(...)):
     # You must implement URL fetching in ResumeService.process_resume if not already supported
     service = ResumeService()
     try:
-        await service.process_resume(resume_url.encode(), "text/url", resume_url)
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
-    return {"message": "Resume uploaded and processed successfully."}
+        resume_id = await service.process_resume(
+            resume_url.encode(), "text/url", "resume-url", name=input.get("name")
+        )
+    except Exception:
+        raise HTTPException(status_code=500, detail="Resume processing failed.")
+    return {"resume_id": resume_id, "message": "Resume uploaded and processed successfully."}
 
 
 # Fetch endpoint for resumes
@@ -175,6 +175,6 @@ async def delete_resume(resume_id: str):
     service = ResumeService()
     try:
         await service.delete_resume(resume_id)
-    except Exception as e:
-        raise HTTPException(status_code=404, detail=str(e))
+    except Exception:
+        raise HTTPException(status_code=404, detail="Resume not found.")
     return

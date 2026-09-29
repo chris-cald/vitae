@@ -18,8 +18,8 @@ def detect_profile_categories(job_data: Dict[str, Any]) -> Dict[str, object]:
     # provider/model is unavailable in local or CI environments.
     try:
         emb_result = embedding_based_category_detection(text)
-    except Exception as exc:
-        logger.warning("Embedding-based category detection unavailable: %s", exc)
+    except Exception:
+        logger.warning("Embedding-based category detection unavailable")
         emb_result = {}
     # Fallback/boost with rule-based
     rule_result = rule_based_category_detection(text)
@@ -77,9 +77,9 @@ def embedding_based_category_detection(text: str) -> Dict[str, Any]:
         cat_embs = [cached_weighted_pool_embeddings(frag)[0] for frag in fragments]
         # Compute cosine similarity
         sims = cosine_similarity(np.array([text_emb]), np.array(cat_embs))[0]
-        logger.info(f"Category: {cat}")
-        for frag, score, name in zip(fragments, sims, value_names[cat]):
-            logger.info(f"  Fragment: {frag}\n    Value: {name}\n    Similarity: {score:.4f}")
+        logger.debug("Category similarity evaluated for category=%s", cat)
+        for score in sims:
+            logger.debug("Category similarity score=%s", round(float(score), 4))
         idx = int(np.argmax(sims))
         if sims[idx] > 0.5:
             detected[cat] = value_names[cat][idx]

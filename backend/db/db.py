@@ -10,7 +10,7 @@ load_dotenv()
 DATABASE_URL = os.getenv("DATABASE_URL", "sqlite+aiosqlite:///./test.db")
 
 
-engine = create_async_engine(DATABASE_URL, echo=True)
+engine = create_async_engine(DATABASE_URL, echo=False)
 AsyncSessionLocal = async_sessionmaker(
     engine,
     class_=AsyncSession,
@@ -24,6 +24,8 @@ if TYPE_CHECKING:
 
 # Create tables using SQLModel metadata
 async def init_db():
+    from src.models import runtime_execution  # noqa: F401
+
     async with engine.begin() as conn:
         await conn.run_sync(SQLModel.metadata.create_all)
 

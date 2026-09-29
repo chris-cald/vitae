@@ -80,15 +80,14 @@ class ResumeService:
         content_type: str,
         filename: str,
         name: Optional[str] = None,
-    ) -> None:
+    ) -> str:
         import logging
-        import traceback
 
         logger = logging.getLogger(__name__)
 
         resume_id = self._generate_resume_id(filename)
         file_path = self._save_file(file_bytes, content_type, resume_id)
-        logger.info(f"Saved file for resume_id={resume_id} at {file_path}")
+        logger.info("Saved resume upload for resume_id=%s", resume_id)
         extracted_content = self._extract_content(file_bytes, content_type)
         logger.debug(
             "Extracted resume content for resume_id=%s, content_length=%s",
@@ -105,10 +104,7 @@ class ResumeService:
             resume_persisted = True
             logger.info(f"Raw resume record inserted for resume_id={resume_id}")
         except Exception as e:
-            logger.error(
-                f"Failed to insert raw resume record for resume_id={resume_id}: {e}"
-            )
-            logger.error(traceback.format_exc())
+            logger.error("Failed to insert raw resume record for resume_id=%s", resume_id)
             self._delete_file_if_exists(file_path)
             raise
 
@@ -142,7 +138,7 @@ class ResumeService:
 
             # Store processed resume immediately after LLM parsing (without categories)
             logger.info(
-                f"Inserting processed resume (LLM only) for resume_id={resume_id}, name={resume_name}"
+                "Inserting processed resume for resume_id=%s", resume_id
             )
             await self._insert_processed_resume(resume_id, parsed_json, resume_name)
             logger.info(
@@ -173,14 +169,13 @@ class ResumeService:
                 )
             except Exception as cat_e:
                 logger.error(
-                    f"Category detection failed for resume_id={resume_id}: {cat_e}"
+                    "Category detection failed for resume_id=%s", resume_id
                 )
-                logger.error(traceback.format_exc())
                 # Do not delete file or processed resume; allow for recovery
                 raise
+            return resume_id
         except Exception as e:
-            logger.error(f"Failed to process resume_id={resume_id}: {e}")
-            logger.error(traceback.format_exc())
+            logger.error("Failed to process resume_id=%s", resume_id)
             if not resume_persisted:
                 self._delete_file_if_exists(file_path)
             raise

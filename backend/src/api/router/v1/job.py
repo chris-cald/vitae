@@ -1,4 +1,4 @@
-from fastapi import APIRouter, HTTPException, UploadFile, File, Request, Query, Body
+from fastapi import APIRouter, HTTPException, UploadFile, File, Form, Query, Body
 from src.services import JobService
 from typing import Any
 from pydantic import BaseModel
@@ -57,8 +57,8 @@ async def update_job_name(job_id: str, body: JobNameUpdate):
     service = JobService()
     try:
         await service.update_job_name(job_id, body.name)
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+    except Exception:
+        raise HTTPException(status_code=500, detail="Job update failed.")
     return {"message": "Job name updated."}
 
 
@@ -70,29 +70,24 @@ async def create_job_url(input: dict[str, Any] = Body(...)):
         raise HTTPException(status_code=400, detail="Missing job_url.")
     service = JobService()
     try:
-        await service.process_job_input(job_url=job_url)
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
-    return {"message": "Job uploaded and processed successfully."}
+        job_id = await service.process_job_input(job_url=job_url, name=input.get("name"))
+    except Exception:
+        raise HTTPException(status_code=500, detail="Job processing failed.")
+    return {"job_id": job_id, "message": "Job uploaded and processed successfully."}
 
 
 # 2. POST /job/text
 @job_router.post("/text", summary="Create a job posting from raw text.")
-async def create_job_text(request: Request):
-    job_text = await request.body()
+async def create_job_text(input: dict[str, Any] = Body(...)):
+    job_text = input.get("job_text")
     if not job_text:
         raise HTTPException(status_code=400, detail="Missing job_text.")
-    # decode bytes or memoryview to string if needed
-    if isinstance(job_text, memoryview):
-        job_text = job_text.tobytes().decode()
-    else:
-        job_text = job_text.decode()
     service = JobService()
     try:
-        await service.process_job_input(job_text=job_text)
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
-    return {"message": "Job uploaded and processed successfully."}
+        job_id = await service.process_job_input(job_text=job_text, name=input.get("name"))
+    except Exception:
+        raise HTTPException(status_code=500, detail="Job processing failed.")
+    return {"job_id": job_id, "message": "Job uploaded and processed successfully."}
 
 
 # 3. POST /job/file
@@ -100,7 +95,7 @@ async def create_job_text(request: Request):
     "/file",
     summary="Create a job posting from a file (PDF, DOCX, Markdown).",
 )
-async def create_job_file(file: UploadFile = File(...)):
+async def create_job_file(file: UploadFile = File(...), name: str | None = Form(None)):
     allowed_content_types = [
         "application/pdf",
         "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
@@ -119,10 +114,10 @@ async def create_job_file(file: UploadFile = File(...)):
         )
     service = JobService()
     try:
-        await service.process_job_input(job_file=file)
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
-    return {"message": "Job uploaded and processed successfully."}
+        job_id = await service.process_job_input(job_file=file, name=name)
+    except Exception:
+        raise HTTPException(status_code=500, detail="Job processing failed.")
+    return {"job_id": job_id, "message": "Job uploaded and processed successfully."}
 
 
 # Fetch endpoint for jobs
@@ -155,6 +150,6 @@ async def delete_job(job_id: str):
     service = JobService()
     try:
         await service.delete_job(job_id)
-    except Exception as e:
-        raise HTTPException(status_code=404, detail=str(e))
+    except Exception:
+        raise HTTPException(status_code=404, detail="Job not found.")
     return
