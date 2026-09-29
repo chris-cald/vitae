@@ -2,5 +2,6 @@
 from .job import Job
 from .resume import Resume
 from .job_fit import JobFit
+from .runtime_execution import RuntimeExecution
 
-__all__ = ["Job", "Resume", "JobFit"]
+__all__ = ["Job", "Resume", "JobFit", "RuntimeExecution"]

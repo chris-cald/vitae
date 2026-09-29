@@ -4,6 +4,8 @@ from src.api.router.v1 import (
     job_router,
     job_fit_router,
     profile_categories_router,
+    mvp_router,
+    runtime_execution_router,
 )
 from db.db import init_db
 from contextlib import asynccontextmanager
@@ -33,3 +35,5 @@ app.include_router(job_fit_router, prefix="/api/v1", tags=["JobFit"])
 app.include_router(
     profile_categories_router, prefix="/api/v1", tags=["ProfileCategories"]
 )
+app.include_router(mvp_router, prefix="/api/v1", tags=["MVP"])
+app.include_router(runtime_execution_router, prefix="/api/v1", tags=["RuntimeExecution"])
