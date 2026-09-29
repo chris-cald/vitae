@@ -5,8 +5,8 @@ summary: Implement or prototype the smallest target-role fit slice by projecting
 type: work-item
 subtype: story
 lifecycle: active
-status: proposed
-status_reason: blocked
+status: completed
+status_reason: accepted
 priority: high
 estimated: 6
 links:
@@ -34,12 +34,12 @@ Vitae's MVP depends on evaluating fit between a structured Catalog and a Target.
 
 ## Tasks
 
-- [ ] Select or create one Target fixture and one Catalog fixture from `wi-020` outputs.
-- [ ] Define Target-to-Requirement projection behavior and diagnostics.
-- [ ] Match Requirements to CatalogAssets and Evidence using a simple, explainable method.
-- [ ] Emit FitAnalysis output with requirement IDs, matched asset/evidence references, confidence or match method, and gaps.
-- [ ] Keep embeddings as optional signal data, not the sole semantic authority.
-- [ ] Add focused validation or fixture tests where practical.
+- [x] Select or create one Target fixture and one Catalog fixture from `wi-020` outputs.
+- [x] Define Target-to-Requirement projection behavior and diagnostics.
+- [x] Match Requirements to CatalogAssets and Evidence using a simple, explainable method.
+- [x] Emit FitAnalysis output with requirement IDs, matched asset/evidence references, confidence or match method, and gaps.
+- [x] Keep embeddings as optional signal data, not the sole semantic authority.
+- [x] Add focused validation or fixture tests where practical.
 
 ## Deliverables
 
@@ -49,11 +49,16 @@ Vitae's MVP depends on evaluating fit between a structured Catalog and a Target.
 
 ## Acceptance Criteria
 
-- [ ] One Target produces structured Requirements.
-- [ ] At least one Requirement links to a CatalogAsset or Evidence reference.
-- [ ] At least one Requirement produces a gap or Misalignment candidate.
-- [ ] Output includes source/provenance references where available.
-- [ ] The implementation does not require full Context Graph persistence.
+- [x] One Target produces structured Requirements.
+- [x] At least one Requirement links to a CatalogAsset or Evidence reference.
+- [x] At least one Requirement produces a gap or Misalignment candidate.
+- [x] Output includes source/provenance references where available.
+- [x] The implementation does not require full Context Graph persistence.
+
+## Completion notes
+
+- `backend/src/services/mvp_application_loop_service.py` and `GET /api/v1/mvp/application-loop/demo` provide the minimal UAT slice.
+- `backend/tests/test_mvp_application_loop_service.py` validates Target, Requirement, FitAnalysis, provenance, and gap output.
 
 ## Relationships
 
