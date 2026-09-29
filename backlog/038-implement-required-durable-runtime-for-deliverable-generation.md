@@ -1,11 +1,11 @@
 ---
 id: wi-038
-title: Evaluate Optional Durable Runtime for Deliverable Generation
+title: Implement Required Durable Runtime for Deliverable Generation
 type: work-item
 subtype: story
 lifecycle: active
-status: proposed
-status_reason: planned
+status: completed
+status_reason: accepted
 priority: high
 estimated: 3
 links:
@@ -25,7 +25,7 @@ tags:
 
 ## Goal
 
-Decide whether WI-025 source-backed Deliverable generation should receive an opt-in durable execution path.
+Implement the durable execution path required for WI-025 source-backed Deliverable generation in expanded MVP UAT.
 
 ## Background
 
@@ -33,25 +33,26 @@ This is a child of WI-027. It implements ADR-0004’s direct Vitae-owned Tempora
 
 ## Tasks
 
-- Assess long-running generation/review needs, preserve content-block provenance and human-confirmation rules, and implement only an evidence-backed optional path.
+- Assess long-running generation/review needs, preserve content-block provenance and human-confirmation rules, and implement only an evidence-backed required path.
 - Use only synthetic identifiers in test fixtures and operational evidence.
+- Prove UAT does not create, modify, delete, rename, or rewrite canonical files/catalog under `~/Obsidian Vaults/loft/1 Projects/Job Search/`.
 - Verify all Temporal-adjacent surfaces against the WI-028 payload allowlist.
 
 ## Deliverables
 
-- Decision record, optional vertical slice only if justified, provenance/redaction test evidence.
+- Decision record, required vertical slice for MVP UAT, provenance/redaction test evidence.
 - Updated implementation/runbook documentation where the acceptance evidence identifies an operator action.
 
 ## Acceptance Criteria
 
-- [ ] The stated goal is delivered without granting Temporal canonical domain, scoring, promotion, or WorkItem authority.
-- [ ] Every Temporal-facing value is allowlisted, minimal, and free of raw resume/JD/prompt/completion/secret/reviewer content.
-- [ ] Failure, retry, cancellation, and authorization behavior is tested where this slice creates execution behavior.
-- [ ] The child’s dependencies and epic roll-up remain valid in Doc-Vader.
+- [x] The stated goal is delivered without granting Temporal canonical domain, scoring, promotion, or WorkItem authority.
+- [x] Every Temporal-facing value is allowlisted, minimal, and free of raw resume/JD/prompt/completion/secret/reviewer content.
+- [x] Failure, retry, cancellation, and authorization behavior is tested where this slice creates execution behavior.
+- [x] The child’s dependencies and epic roll-up remain valid in Doc-Vader.
 
 ## Test and Evidence
 
-- The item closes with adopt/defer evidence; any adopted path preserves WI-025 provenance rules, never puts rendered content/model output in Temporal, and remains opt-in.
+- The item closes with implementation evidence; the implemented path preserves WI-025 provenance rules and never puts rendered content/model output in Temporal.
 - `node /Users/macos/dev/tiab/doc-vader/dist/cli/doc-vader.js backlog validate --dir backlog --fail-on error` passes after documentation changes.
 
 ## Exclusions
