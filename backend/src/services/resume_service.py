@@ -177,11 +177,14 @@ class ResumeService:
                         f"Processed resume updated with categories for resume_id={resume_id}"
                     )
                 except Exception:
-                    logger.error(
-                        "Category detection failed for resume_id=%s", resume_id
-                    )
-                    # Do not delete file or processed resume; allow for recovery
-                    raise
+                    if os.getenv("VITAE_LOCAL_PARSE_FALLBACK") == "1":
+                        logger.warning("Skipping local resume category detection for resume_id=%s", resume_id)
+                    else:
+                        logger.error(
+                            "Category detection failed for resume_id=%s", resume_id
+                        )
+                        # Do not delete file or processed resume; allow for recovery
+                        raise
             return resume_id
         except Exception as e:
             logger.error("Failed to process resume_id=%s", resume_id)

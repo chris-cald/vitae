@@ -255,9 +255,12 @@ class JobService:
                         f"Processed job updated with categories for job_id={job_id}"
                     )
                 except Exception:
-                    logger.error("Category detection failed for job_id=%s", job_id)
-                    # Do not delete file or processed job; allow for recovery
-                    raise
+                    if os.getenv("VITAE_LOCAL_PARSE_FALLBACK") == "1":
+                        logger.warning("Skipping local job category detection for job_id=%s", job_id)
+                    else:
+                        logger.error("Category detection failed for job_id=%s", job_id)
+                        # Do not delete file or processed job; allow for recovery
+                        raise
             return job_id
         except Exception as exc:
             logger.error("Job processing failed for job_id=%s", job_id)

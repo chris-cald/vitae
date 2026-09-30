@@ -1,4 +1,19 @@
 services:
+  pi-bridge:
+    image: localhost/vitae-local_pi-bridge:latest
+    build:
+      context: .
+      dockerfile: uat/pi-bridge.Dockerfile
+    environment:
+      PI_BRIDGE_API_KEY: ${PI_BRIDGE_API_KEY:-local-pi-bridge}
+      PI_BRIDGE_MODEL: ${PI_BRIDGE_MODEL:-}
+      PI_BRIDGE_PROVIDER: ${PI_BRIDGE_PROVIDER:-}
+      PI_BRIDGE_TIMEOUT_SECONDS: ${PI_BRIDGE_TIMEOUT_SECONDS:-120}
+    ports:
+      - "8787:8787"
+    volumes:
+      - ${HOME}/.pi:/root/.pi
+
   temporal:
     image: docker.io/temporalio/server:1.27.2
     entrypoint: ["temporal"]
@@ -16,7 +31,7 @@ services:
       DATABASE_URL: sqlite+aiosqlite:////tmp/vitae-local.db
       UPLOAD_DIR: .ignore/uploads
       LLM_MODEL: ${LLM_MODEL:-openai/pi-local}
-      LITELLM_API_BASE: ${LITELLM_API_BASE:-http://host.containers.internal:8787/v1}
+      LITELLM_API_BASE: ${LITELLM_API_BASE:-http://pi-bridge:8787/v1}
       LITELLM_API_KEY: ${LITELLM_API_KEY:-local-pi-bridge}
       VITAE_LOCAL_PARSE_FALLBACK: ${VITAE_LOCAL_PARSE_FALLBACK:-1}
       TEMPORAL_ADDRESS: temporal:7233
@@ -28,6 +43,7 @@ services:
       - ./schemas:/schemas:ro
       - ${CANONICAL_VAULT_PATH:-./.uat-empty-vault}:/vault/job-search:ro
     depends_on:
+      - pi-bridge
       - temporal
 
   worker:

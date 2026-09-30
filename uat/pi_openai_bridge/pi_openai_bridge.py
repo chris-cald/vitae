@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import os
+import logging
 import subprocess
 import time
 import uuid
@@ -23,6 +24,7 @@ class ChatCompletionRequest(BaseModel):
     stream: bool = False
 
 
+logger = logging.getLogger(__name__)
 app = FastAPI(title="Vitae local Pi OpenAI bridge")
 
 
@@ -40,7 +42,14 @@ def chat_completions(
     if request.stream:
         raise HTTPException(status_code=400, detail="streaming-not-supported")
 
-    content = run_pi(build_prompt(request.messages))
+    try:
+        content = run_pi(build_prompt(request.messages))
+    except subprocess.TimeoutExpired:
+        logger.error("Pi bridge model call timed out")
+        raise HTTPException(status_code=503, detail="pi-bridge-timeout")
+    except subprocess.CalledProcessError:
+        logger.error("Pi bridge model call failed")
+        raise HTTPException(status_code=503, detail="pi-bridge-call-failed")
     return {
         "id": f"chatcmpl-{uuid.uuid4()}",
         "object": "chat.completion",
@@ -72,6 +81,8 @@ def run_pi(prompt: str) -> str:
     ]
     if os.getenv("PI_BRIDGE_MODEL"):
         command[1:1] = ["--model", os.environ["PI_BRIDGE_MODEL"]]
+    if os.getenv("PI_BRIDGE_PROVIDER"):
+        command[1:1] = ["--provider", os.environ["PI_BRIDGE_PROVIDER"]]
 
     result = subprocess.run(
         [*command, "--", prompt],
