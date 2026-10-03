@@ -1,11 +1,24 @@
 import pytest
 
 from src.services.runtime_execution_adapter import TEMPORAL_WORKFLOW_NAME
+from src.workflows import runtime_workflow as runtime_workflow_module
 from src.workflows.runtime_workflow import VitaeRuntimeWorkflow, WORKFLOW_NAME
 
 
+class _WorkflowShim:
+    async def wait_condition(self, condition):
+        if not condition():
+            raise RuntimeError("workflow-decision-required")
+
+    async def execute_activity(self, fn, payload, **kwargs):
+        del kwargs
+        return await fn(payload)
+
+
 @pytest.mark.asyncio
-async def test_runtime_workflow_name_matches_adapter_and_waits_for_decision():
+async def test_runtime_workflow_name_matches_adapter_and_waits_for_decision(monkeypatch):
+    monkeypatch.setattr(runtime_workflow_module, "workflow", _WorkflowShim())
+
     workflow = VitaeRuntimeWorkflow()
     await workflow.runtime_decision({"decisionCode": "approve"})
 

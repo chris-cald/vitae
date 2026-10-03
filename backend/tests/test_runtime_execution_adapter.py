@@ -2,7 +2,8 @@ from datetime import datetime, timezone
 
 import pytest
 
-from src.services.runtime_execution_adapter import TemporalExecutionAdapter
+from src.services.runtime_execution_adapter import LocalTemporalAdapter, TemporalExecutionAdapter
+from src.services.runtime_execution_service import build_runtime_execution_service
 from src.services.runtime_execution_contract import ExecutionCommand
 from src.services.temporal_config import TemporalWorkerConfig
 
@@ -16,6 +17,7 @@ def command(**overrides):
         "tenant_key": f"tenant_{IDENTIFIER_SUFFIX}",
         "workflow_definition_id": f"workflow_{IDENTIFIER_SUFFIX}",
         "workflow_version": "v1",
+        "workflow_type": "target-catalog-fit",
         "workflow_run_id": f"workflowrun_{IDENTIFIER_SUFFIX}",
         "correlation_id": f"corr_{IDENTIFIER_SUFFIX}",
         "idempotency_key": f"idem_{IDENTIFIER_SUFFIX}",
@@ -52,6 +54,40 @@ class FakeTemporalClient:
 
 
 @pytest.mark.asyncio
+async def test_runtime_service_uses_local_adapter_without_temporal_address():
+    service = await build_runtime_execution_service({})
+
+    assert isinstance(service.adapter, LocalTemporalAdapter)
+
+
+@pytest.mark.asyncio
+async def test_runtime_service_uses_temporal_adapter_when_configured(monkeypatch):
+    adapter = object()
+    seen = {}
+
+    async def fake_connect_temporal_adapter(config):
+        seen["config"] = config
+        return adapter
+
+    monkeypatch.setattr(
+        "src.services.runtime_execution_service.connect_temporal_adapter",
+        fake_connect_temporal_adapter,
+    )
+
+    service = await build_runtime_execution_service(
+        {
+            "TEMPORAL_ADDRESS": "localhost:7233",
+            "TEMPORAL_NAMESPACE": "vitae-dev",
+            "TEMPORAL_TASK_QUEUE": "vitae-orchestration",
+        }
+    )
+
+    assert service.adapter is adapter
+    assert seen["config"].address == "localhost:7233"
+    assert seen["config"].task_queue == "vitae-orchestration"
+
+
+@pytest.mark.asyncio
 async def test_temporal_adapter_starts_workflow_with_safe_payload_only():
     client = FakeTemporalClient()
     adapter = TemporalExecutionAdapter(
@@ -69,6 +105,7 @@ async def test_temporal_adapter_starts_workflow_with_safe_payload_only():
             "task_queue": "vitae-orchestration",
         }
     ]
+    assert payload["workflowType"] == "target-catalog-fit"
     assert "tenantKey" in payload
     assert "resume" not in str(payload).lower()
 

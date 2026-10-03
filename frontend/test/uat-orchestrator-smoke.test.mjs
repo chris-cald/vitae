@@ -16,5 +16,24 @@ test('local UAT orchestrator has CI-friendly phases and artifact capture', () =>
   }
   assert(script.includes('snapshot_file_inventory'));
   assert(script.includes('assert_no_forbidden_temporal_history'));
+  assert(script.includes('uat-resume-synthetic'));
+
+  const seedCleanup = [
+    'delete(JobFit)',
+    'delete(JobRequirementMapping)',
+    'delete(RawJob)',
+    'delete(Job)',
+    'delete(Resume)',
+    'delete(RawResume)',
+  ];
+  let lastIndex = -1;
+  for (const statement of seedCleanup) {
+    const index = script.indexOf(statement);
+    assert(index > lastIndex, statement);
+    lastIndex = index;
+  }
+
+  assert(script.includes('runtime-execution-history-source.json'));
+  assert(!script.includes('temporal workflow start'));
   assert(docs.includes('scripts/uat-local.sh'));
 });

@@ -1,7 +1,8 @@
 from __future__ import annotations
 
+import os
 from datetime import datetime, timezone
-from typing import Any, Literal
+from typing import Any, Literal, Mapping
 from uuid import UUID, uuid4
 
 from pydantic import ValidationError
@@ -9,11 +10,15 @@ from sqlmodel import select
 
 from db.db import AsyncSessionLocal
 from src.models.runtime_execution import RuntimeExecution
-from src.services.runtime_execution_adapter import LocalTemporalAdapter
+from src.services.runtime_execution_adapter import (
+    LocalTemporalAdapter,
+    connect_temporal_adapter,
+)
 from src.services.runtime_execution_contract import (
     ExecutionCommand,
     RuntimeContractError,
 )
+from src.services.temporal_config import TemporalWorkerConfig
 
 WorkflowType = Literal[
     "job-fit",
@@ -46,8 +51,18 @@ def _id(prefix: str) -> str:
     return f"{prefix}_{uuid4()}"
 
 
+async def build_runtime_execution_service(
+    env: Mapping[str, str] | None = None,
+) -> "RuntimeExecutionService":
+    env = os.environ if env is None else env
+    if not env.get("TEMPORAL_ADDRESS"):
+        return RuntimeExecutionService()
+    adapter = await connect_temporal_adapter(TemporalWorkerConfig.from_env(env))
+    return RuntimeExecutionService(adapter)
+
+
 class RuntimeExecutionService:
-    def __init__(self, adapter: LocalTemporalAdapter | None = None) -> None:
+    def __init__(self, adapter: Any | None = None) -> None:
         self.adapter = adapter or LocalTemporalAdapter()
 
     async def start(self, request: dict[str, Any]) -> tuple[RuntimeExecution, bool]:
@@ -87,6 +102,7 @@ class RuntimeExecutionService:
                     tenant_key=execution.tenant_key,
                     workflow_definition_id=execution.workflow_definition_id,
                     workflow_version=execution.workflow_version,
+                    workflow_type=execution.workflow_type,  # type: ignore[arg-type]
                     workflow_run_id=execution.workflow_run_id,
                     correlation_id=execution.correlation_id,
                     idempotency_key=execution.idempotency_key,
@@ -123,6 +139,7 @@ class RuntimeExecutionService:
                 tenant_key=execution.tenant_key,
                 workflow_definition_id=execution.workflow_definition_id,
                 workflow_version=execution.workflow_version,
+                workflow_type=execution.workflow_type,  # type: ignore[arg-type]
                 workflow_run_id=execution.workflow_run_id,
                 correlation_id=execution.correlation_id,
                 idempotency_key=_id("idem"),

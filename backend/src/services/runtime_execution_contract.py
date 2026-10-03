@@ -25,6 +25,14 @@ _IDENTIFIER_PREFIXES = {
     "idempotency_key": "idem_",
 }
 _WORKFLOW_VERSION_PATTERN = re.compile(r"^v[1-9][0-9]{0,7}$")
+WorkflowType = Literal[
+    "job-fit",
+    "target-catalog-fit",
+    "deliverable-generation",
+    "application-automation",
+    "book-of-work-refresh",
+    "curation",
+]
 _FORBIDDEN_FIELD_FRAGMENTS = frozenset(
     {
         "resume", "jobdescription", "prompt", "completion", "secret", "password",
@@ -119,6 +127,7 @@ class ExecutionCommand(_SafeRuntimeModel):
     tenant_key: str = Field(serialization_alias="tenantKey")
     workflow_definition_id: str = Field(serialization_alias="workflowDefinitionId")
     workflow_version: str = Field(serialization_alias="workflowVersion")
+    workflow_type: WorkflowType = Field(serialization_alias="workflowType")
     workflow_run_id: str | None = Field(default=None, serialization_alias="workflowRunId")
     correlation_id: str = Field(serialization_alias="correlationId")
     idempotency_key: str = Field(serialization_alias="idempotencyKey")

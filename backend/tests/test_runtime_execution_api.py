@@ -1,8 +1,14 @@
 from uuid import uuid4
 
+import pytest
 from fastapi.testclient import TestClient
 
 from src.main import app
+
+
+@pytest.fixture(autouse=True)
+def no_temporal_address(monkeypatch):
+    monkeypatch.delenv("TEMPORAL_ADDRESS", raising=False)
 
 
 def test_runtime_execution_start_and_human_decision_are_privacy_safe():

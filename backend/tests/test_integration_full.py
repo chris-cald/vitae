@@ -45,8 +45,7 @@ def job_id() -> str:
     return str(jobs[0]["job_id"])
 
 
-def test_resume_upload_and_list() -> List[Dict[str, Any]]:
-    """Test uploading a resume and listing resumes."""
+def _upload_resume_and_list() -> List[Dict[str, Any]]:
     files = {"file": ("test.pdf", io.BytesIO(PDF_BYTES), "application/pdf")}
     resp = requests.post(f"{BASE_URL}/resume/file", files=files)
     assert resp.status_code == 200, resp.text
@@ -59,8 +58,7 @@ def test_resume_upload_and_list() -> List[Dict[str, Any]]:
     return resume_list  # type: ignore
 
 
-def test_job_upload_and_list() -> List[Dict[str, Any]]:
-    """Test uploading a job and listing jobs."""
+def _upload_job_and_list() -> List[Dict[str, Any]]:
     resp = requests.post(
         f"{BASE_URL}/job/text",
         json={"job_text": "Software Engineer", "name": "Software Engineer"},
@@ -72,6 +70,16 @@ def test_job_upload_and_list() -> List[Dict[str, Any]]:
     jobs = resp.json().get("jobs", resp.json())
     assert isinstance(jobs, list)
     return jobs  # type: ignore
+
+
+def test_resume_upload_and_list() -> None:
+    """Test uploading a resume and listing resumes."""
+    _upload_resume_and_list()
+
+
+def test_job_upload_and_list() -> None:
+    """Test uploading a job and listing jobs."""
+    _upload_job_and_list()
 
 
 def test_job_fit_flow(resume_id: str, job_id: str) -> None:
@@ -90,8 +98,8 @@ def test_job_fit_flow(resume_id: str, job_id: str) -> None:
 
 def main():
     """Run all comprehensive integration tests."""
-    resumes = test_resume_upload_and_list()
-    jobs = test_job_upload_and_list()
+    resumes = _upload_resume_and_list()
+    jobs = _upload_job_and_list()
     resume_id = resumes[0]["resume_id"] if resumes else "fake_id"
     job_id = jobs[0]["job_id"] if jobs else "fake_id"
     test_job_fit_flow(resume_id, job_id)

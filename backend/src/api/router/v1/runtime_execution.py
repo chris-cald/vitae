@@ -4,7 +4,10 @@ from fastapi import APIRouter, Body, HTTPException, Response, status
 from pydantic import BaseModel
 
 from src.services.runtime_execution_contract import RuntimeContractError
-from src.services.runtime_execution_service import RuntimeExecutionService
+from src.services.runtime_execution_service import (
+    RuntimeExecutionService,
+    build_runtime_execution_service,
+)
 
 router = APIRouter()
 
@@ -28,7 +31,7 @@ def _public_execution(execution: Any) -> dict[str, Any]:
 
 @router.post("/runtime-executions", status_code=status.HTTP_201_CREATED)
 async def start_runtime_execution(response: Response, input: dict[str, Any] = Body(...)):
-    service = RuntimeExecutionService()
+    service = await build_runtime_execution_service()
     try:
         execution, created = await service.start(input)
     except RuntimeContractError as error:
@@ -49,7 +52,8 @@ async def get_runtime_execution(execution_id: str):
 @router.post("/runtime-executions/{execution_id}/cancel")
 async def cancel_runtime_execution(execution_id: str):
     try:
-        execution = await RuntimeExecutionService().cancel(execution_id)
+        service = await build_runtime_execution_service()
+        execution = await service.cancel(execution_id)
     except RuntimeContractError as error:
         raise HTTPException(status_code=422, detail=error.as_dict())
     return {"execution": _public_execution(execution)}
@@ -60,9 +64,8 @@ async def decide_runtime_execution(
     execution_id: str, input: RuntimeDecisionRequest = Body(...)
 ):
     try:
-        execution = await RuntimeExecutionService().record_decision(
-            execution_id, input.decision_code
-        )
+        service = await build_runtime_execution_service()
+        execution = await service.record_decision(execution_id, input.decision_code)
     except RuntimeContractError as error:
         raise HTTPException(status_code=422, detail=error.as_dict())
     return {"execution": _public_execution(execution)}

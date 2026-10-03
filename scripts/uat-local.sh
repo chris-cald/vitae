@@ -73,13 +73,41 @@ export_temporal_history() {
     UAT_TEMPORAL_HISTORY_PATH="$UAT_ARTIFACT_DIR/temporal-history.json"
     export UAT_TEMPORAL_HISTORY_PATH
   fi
-  local workflow_id="uat-history-$(date +%s)"
-  log "capture: exporting Temporal history $workflow_id"
-  podman exec "${UAT_PROJECT}_temporal_1" temporal workflow start --namespace vitae-dev --workflow-id "$workflow_id" --type vitae_runtime_workflow --task-queue vitae-orchestration --input '{"executionId":"exec_00000000-0000-4000-8000-000000000999","workflowType":"curation"}' >/dev/null
-  sleep 1
-  podman exec "${UAT_PROJECT}_temporal_1" temporal workflow signal --namespace vitae-dev --workflow-id "$workflow_id" --name runtime_decision --input '{"decisionCode":"approve"}' >/dev/null
-  podman exec "${UAT_PROJECT}_temporal_1" temporal workflow result --namespace vitae-dev --workflow-id "$workflow_id" >/dev/null
-  podman exec "${UAT_PROJECT}_temporal_1" temporal workflow show --namespace vitae-dev --workflow-id "$workflow_id" --output json >"$UAT_TEMPORAL_HISTORY_PATH"
+  local runtime_source="$UAT_ARTIFACT_DIR/runtime-execution-history-source.json"
+  [[ -s "$UAT_TEMPORAL_HISTORY_PATH" && -s "$runtime_source" ]] && return 0
+  local execution_id
+  execution_id=$(RUNTIME_SOURCE_PATH="$runtime_source" python3 - <<'PY'
+import json, os, pathlib, urllib.request, uuid
+api = os.environ["UAT_API_URL"].rstrip("/")
+
+def request(path, data):
+    req = urllib.request.Request(
+        api + path,
+        data=json.dumps(data).encode(),
+        headers={"content-type": "application/json"},
+    )
+    with urllib.request.urlopen(req, timeout=30) as res:
+        return json.load(res)
+
+started = request("/api/v1/runtime-executions", {
+    "workflow_type": "curation",
+    "idempotency_key": f"idem_{uuid.uuid4()}",
+})
+execution_id = started["execution"]["execution_id"]
+finished = request(
+    f"/api/v1/runtime-executions/{execution_id}/decision",
+    {"decision_code": "approve"},
+)
+pathlib.Path(os.environ["RUNTIME_SOURCE_PATH"]).write_text(json.dumps({
+    "executionId": execution_id,
+    "workflowType": started["execution"]["workflow_type"],
+    "statusCode": finished["execution"]["status_code"],
+}, indent=2) + "\n")
+print(execution_id)
+PY
+)
+  log "capture: exporting Temporal history for API runtime execution $execution_id"
+  podman exec "${UAT_PROJECT}_temporal_1" temporal workflow show --namespace vitae-dev --workflow-id "$execution_id" --output json >"$UAT_TEMPORAL_HISTORY_PATH"
 }
 
 scan_temporal_history() {
@@ -132,6 +160,8 @@ seed_uat_browser_data() {
   log 'execute: seeding synthetic browser UAT data'
   podman exec -i "${UAT_PROJECT}_backend_1" python - <<'PY'
 import asyncio
+from sqlmodel import delete
+
 from db.db import init_db, AsyncSessionLocal
 from src.models.resume import RawResume, Resume
 from src.models.job import RawJob, Job
@@ -144,6 +174,15 @@ async def main():
         job_id = 'uat-job-synthetic'
         mapping_id = 'uat-mapping-synthetic'
         fit_id = 'uat-fit-synthetic'
+        for statement in (
+            delete(JobFit).where(JobFit.id == fit_id),
+            delete(JobRequirementMapping).where(JobRequirementMapping.id == mapping_id),
+            delete(RawJob).where(RawJob.job_id == job_id),
+            delete(Job).where(Job.job_id == job_id),
+            delete(Resume).where(Resume.resume_id == resume_id),
+            delete(RawResume).where(RawResume.resume_id == resume_id),
+        ):
+            await session.execute(statement)
         await session.merge(RawResume(resume_id=resume_id, file_path='uat://resume', extracted_content='synthetic', content_type='text/markdown'))
         await session.merge(Resume(resume_id=resume_id, name='Synthetic UAT Resume', basics={'name': 'Synthetic UAT'}, work=[], skills=[], profile_categories={}))
         await session.merge(Job(job_id=job_id, resume_id=resume_id, name='Synthetic UAT Role', title='Synthetic UAT Role', company='Vitae UAT', responsibilities=['Build safe UAT'], qualifications=['Testing'], skills=[], profile_categories={}))

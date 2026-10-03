@@ -24,6 +24,7 @@ def command_payload(**overrides):
         "tenant_key": f"tenant_{IDENTIFIER_SUFFIX}",
         "workflow_definition_id": f"workflow_{IDENTIFIER_SUFFIX}",
         "workflow_version": "v1",
+        "workflow_type": "curation",
         "workflow_run_id": f"workflowrun_{IDENTIFIER_SUFFIX}",
         "correlation_id": f"corr_{IDENTIFIER_SUFFIX}",
         "idempotency_key": f"idem_{IDENTIFIER_SUFFIX}",
@@ -43,6 +44,7 @@ def test_execution_command_serializes_only_allowlisted_opaque_fields():
         "tenantKey": f"tenant_{IDENTIFIER_SUFFIX}",
         "workflowDefinitionId": f"workflow_{IDENTIFIER_SUFFIX}",
         "workflowVersion": "v1",
+        "workflowType": "curation",
         "workflowRunId": f"workflowrun_{IDENTIFIER_SUFFIX}",
         "correlationId": f"corr_{IDENTIFIER_SUFFIX}",
         "idempotencyKey": f"idem_{IDENTIFIER_SUFFIX}",
@@ -124,6 +126,11 @@ def test_activity_result_rejects_freeform_errors_and_unknown_diagnostics():
             error="raw exception text",
             occurred_at=datetime(2025, 1, 1, tzinfo=timezone.utc),
         )
+
+
+def test_execution_command_rejects_unsupported_workflow_type():
+    with pytest.raises(ValidationError):
+        ExecutionCommand(**command_payload(workflow_type="unknown"))
 
 
 def test_payload_size_limit_fails_closed_before_any_client_call():
