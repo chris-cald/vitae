@@ -38,6 +38,18 @@ Capture a validated, implementation-ready MVP backlog for Vitae that turns a Boo
 
 ## Frontier Tickets
 
+### Active P0 reconciliation frontier
+
+- [Complete P0 Reconciliation](../../backlog/047-complete-p0-reconciliation.md) — coordinating epic for source-of-truth, runtime, and Job Search application-funnel alignment.
+- [Refresh P0 Source-of-Truth Docs](../../backlog/048-refresh-p0-source-of-truth-docs.md) — completed; this map is the current entrypoint for P0 work.
+- [Align Runtime Execution Temporal Truth](../../backlog/049-align-runtime-execution-temporal-truth.md) — make API runtime behavior, Temporal worker behavior, and UAT evidence match.
+- [Deliver Job Search Application Funnel Slice](../../backlog/050-deliver-job-search-application-funnel-slice.md) — HITL epic for the minimum application bundle workflow.
+- [Add Application Bundle Record Slice](../../backlog/051-add-application-bundle-record-slice.md) — persist/read the minimum application bundle records.
+- [Enforce Generation Source Eligibility](../../backlog/052-enforce-generation-source-eligibility.md) — restrict generation to validated Catalog/Projection material plus target context.
+- [Generate Draft Application Bundle Artifacts](../../backlog/053-generate-draft-application-bundle-artifacts.md) — produce JD note, resume draft, manifest, source summary, unsupported claims, and next action.
+
+### Independent governance frontier
+
 - [Add ADR PRD Frontmatter Validation Tooling](../../backlog/018-add-adr-prd-frontmatter-validation-tooling.md) — independent SDLC-governance work that can proceed without changing the product domain.
 
 ## Completed MVP UAT Tickets
@@ -65,14 +77,17 @@ Capture a validated, implementation-ready MVP backlog for Vitae that turns a Boo
 - [Implement Required Scheduled Application Automation for WI-026](../../backlog/039-implement-required-scheduled-application-automation-for-wi-026.md)
 - [Add UAT Evidence Capture Harness](../../backlog/041-add-uat-evidence-capture-harness.md)
 
-## MVP-Blocking Live Evidence Gate
+## Completed MVP-Blocking Live Evidence Gate
 
-- [Adopt Privacy-Safe Durable Temporal Execution](../../backlog/027-adopt-privacy-safe-durable-temporal-execution.md) — open only for WI-040 operational adoption evidence.
-- [Complete Production Hardening and Temporal Adoption Decision](../../backlog/040-complete-production-hardening-and-temporal-adoption-decision.md)
+- [Adopt Privacy-Safe Durable Temporal Execution](../../backlog/027-adopt-privacy-safe-durable-temporal-execution.md) — completed after WI-040 accepted self-hosted-first MVP/UAT evidence.
+- [Complete Production Hardening and Temporal Adoption Decision](../../backlog/040-complete-production-hardening-and-temporal-adoption-decision.md) — completed for MVP/UAT; production rollout remains excluded without separate approval.
 
-## Blocked Tickets
+## Current State
 
-Full MVP UAT is blocked only on live external evidence: real Temporal server/worker history inspection, retry/restart/cancel/human-wait proof, provider/browser UAT, and canonical-vault before/after no-write artifact.
+- **Implemented:** local resume/job/job-fit analysis flow, runtime-execution ledger/status API, and Temporal worker seam.
+- **UAT-evidenced:** self-hosted local Temporal MVP/UAT path, opaque history inspection, provider/browser UAT, cancellation/human-wait behavior, and canonical-vault no-write evidence.
+- **Contract-only or fixture-backed:** canonical Career Knowledge/Application domain schemas, workflow templates, and demo application-loop fixture slices.
+- **Planned P0 reconciliation:** API/runtime truth alignment and the Job Search application-funnel bundle slice tracked by WI-049 through WI-053.
 
 ## Not yet specified
 

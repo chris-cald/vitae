@@ -44,6 +44,13 @@ backlogItems:
   - wi-038
   - wi-039
   - wi-040
+  - wi-047
+  - wi-048
+  - wi-049
+  - wi-050
+  - wi-051
+  - wi-052
+  - wi-053
 successMetricIds:
   - metric-canonical-model-validated
   - metric-mvp-loop-complete
@@ -61,7 +68,7 @@ tags:
   - catalog
   - application-loop
 llm:
-  purpose: Define the smallest end-to-end Vitae product loop to implement AFK after domain-model reconciliation: profile and Book of Work ingestion, Seed harvesting, CatalogAsset distillation, fit analysis, source-backed deliverables, and application tracking.
+  purpose: "Define the smallest end-to-end Vitae product loop to implement AFK after domain-model reconciliation: profile and Book of Work ingestion, Seed harvesting, CatalogAsset distillation, fit analysis, source-backed deliverables, and application tracking."
   canonicalQuestions:
     - What is the MVP user journey?
     - Which canonical domain types are in scope?

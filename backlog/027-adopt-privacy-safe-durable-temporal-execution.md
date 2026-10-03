@@ -4,8 +4,8 @@ title: Adopt Privacy-Safe Durable Temporal Execution
 type: work-item
 subtype: epic
 lifecycle: active
-status: ready
-status_reason: MVP-blocking after expanded UAT scope adopted Temporal for durable execution
+status: completed
+status_reason: WI-040 accepted self-hosted-first MVP/UAT evidence on 2026-09-30
 priority: high
 estimated: 21
 links:
@@ -50,7 +50,7 @@ WI-022 supplies declarative workflow contracts but no durable runtime. ADR-0004 
 - [x] Sensitive career/model/reviewer content is excluded from Temporal and its adjacent metadata surfaces.
 - [x] Runtime slices required for expanded MVP UAT are implemented without invalidating WI-023 through WI-026 contract/fixture evidence.
 - [x] UAT no-write evidence harness proves canonical Obsidian vault file/catalog mutations are detected; live no-write artifact remains WI-040 evidence.
-- [ ] WI-040 records the operational adoption decision with required evidence.
+- [x] WI-040 records the operational adoption decision with required evidence.
 
 ## Exclusions
 

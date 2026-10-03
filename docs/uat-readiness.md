@@ -40,6 +40,10 @@ cp frontend/.env.example frontend/.env
 
 Set provider credentials only in local `.env` files. Do not commit raw resumes, job descriptions, prompts, completions, API keys, or upload contents.
 
+## Runtime execution boundary
+
+`POST /api/v1/runtime-executions` uses the real Temporal adapter only when `TEMPORAL_ADDRESS` is configured; otherwise it uses the validating local adapter. Live Temporal UAT evidence must create the runtime execution through this API and inspect that workflow history. Local/static checks prove payload shape and redaction only; they are not live Temporal evidence.
+
 ## Canonical vault no-write rule
 
 Full UAT must not alter canonical files or Catalog content under:

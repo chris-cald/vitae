@@ -4,8 +4,8 @@ title: Complete Production Hardening and Temporal Adoption Decision
 type: work-item
 subtype: story
 lifecycle: active
-status: ready
-status_reason: self-hosted-first Temporal decision recorded; live evidence and sign-off remain
+status: completed
+status_reason: self-hosted-first MVP/UAT evidence accepted 2026-09-30; production rollout remains excluded without separate approval
 priority: high
 estimated: 5
 links:
@@ -57,15 +57,52 @@ This is a child of WI-027. It implements ADR-0004’s direct Vitae-owned Tempora
 
 ## Acceptance Criteria
 
-- [ ] The stated goal is delivered without granting Temporal canonical domain, scoring, promotion, or WorkItem authority.
-- [ ] Every Temporal-facing value is allowlisted, minimal, and free of raw resume/JD/prompt/completion/secret/reviewer content.
-- [ ] Failure, retry, cancellation, and authorization behavior is tested where this slice creates execution behavior.
-- [ ] The child’s dependencies and epic roll-up remain valid in Doc-Vader.
+- [x] The stated goal is delivered without granting Temporal canonical domain, scoring, promotion, or WorkItem authority.
+- [x] Every Temporal-facing value is allowlisted, minimal, and free of raw resume/JD/prompt/completion/secret/reviewer content.
+- [x] Failure, retry, cancellation, and authorization behavior is tested where this slice creates execution behavior.
+- [x] The child’s dependencies and epic roll-up remain valid in Doc-Vader.
 
 ## Test and Evidence
 
 - Synthetic disaster/replay, access-control, payload-redaction, idempotency, and operational recovery evidence must pass; unresolved PII stop conditions block adoption.
 - `node /Users/macos/dev/tiab/doc-vader/dist/cli/doc-vader.js backlog validate --dir backlog --fail-on error` passes after documentation changes.
+
+## 2026-09-30 MVP/UAT readiness evidence
+
+Decision owner sign-off: self-hosted Temporal is accepted for MVP/UAT based on the local evidence below. Production rollout is still excluded without a separate deployment approval.
+
+Artifact bundle: `artifacts/uat/20260930T175726Z-live/`
+
+Run configuration:
+
+```sh
+UAT_ARTIFACT_DIR="$PWD/artifacts/uat/20260930T175726Z-live" \
+UAT_START_STACK=1 \
+UAT_STATIC_ONLY=0 \
+UAT_RUN_CUCUMBER=1 \
+UAT_INSTALL_PLAYWRIGHT_BROWSERS=0 \
+UAT_TEARDOWN=0 \
+UAT_COMPOSE_FILE="$PWD/compose.local.yml" \
+UAT_PROJECT=vitae-local \
+CANONICAL_VAULT_PATH="$HOME/Obsidian Vaults/loft/1 Projects/Job Search" \
+scripts/uat-local.sh all
+```
+
+Evidence recorded:
+
+- Live API UAT passed for five required workflow types: `book-of-work-refresh`, `curation`, `target-catalog-fit`, `deliverable-generation`, and `application-automation`.
+- Browser/provider UAT passed: Cucumber reported `10 scenarios (10 passed)` and `63 steps (63 passed)` against local backend/frontend and the local Pi OpenAI-compatible bridge.
+- Temporal history was exported from the real local Temporal server/worker to `temporal-history.json` and passed `assert_no_forbidden_temporal_history(...)`.
+- Human-wait approval and cancellation were exercised through `/api/v1/runtime-executions/{id}/decision` and `/cancel`; public responses retained opaque status fields only.
+- Canonical vault before/after hashed inventories were recorded as `vault-before.json` and `vault-after.json`; `assert_no_vault_inventory_changes(...)` passed.
+- Static pre-UAT checks also passed in `artifacts/uat/20260930T175217Z-static/`: `24 passed`, frontend UAT smoke tests passed, syntax checks passed.
+
+Operational posture:
+
+- Self-hosted-first remains the MVP/UAT choice.
+- Temporal remains a substrate only; Vitae keeps canonical domain, scoring, promotion, authorization, and WorkItem authority.
+- Cloud migration remains an option only if later operations, reliability, data-residency, support, or cost evidence justifies it.
+- Rollback for MVP/UAT is to disable the worker/API Temporal path, keep the synchronous fallback, preserve minimal opaque evidence, and reconcile RuntimeExecution ledger state before retrying side effects.
 
 ## Exclusions
 
