@@ -2,13 +2,16 @@
 id: wi-052
 title: Enforce Generation Source Eligibility
 summary: Add the guardrail that allows application deliverable generation only from validated Catalog/Projection material plus current target context.
+assignee: pi-babysitter
 type: work-item
 subtype: story
 lifecycle: active
-status: ready
-status_reason: auto
+status: completed
+status_reason: implemented
 priority: critical
 estimated: 2
+actual: 2
+completed_date: '2026-10-03'
 links:
   parent:
     - '[[050-deliver-job-search-application-funnel-slice]]'
@@ -18,6 +21,8 @@ links:
     - '[[../docs/career/canonical-domain-model]]'
     - '[[../schemas/career/catalog-asset.schema.json]]'
     - '[[../schemas/career/projection.schema.json]]'
+  evidence:
+    - '[[record-wi-052-source-eligibility-validation-and-independent-review-passed-after-remediation]]'
 tags:
   - afk
   - p0
@@ -37,11 +42,11 @@ The Job Search ChatGPT process allows validated Catalog artifacts, validated Pro
 
 ## Tasks
 
-- [ ] Add a generation-input resolver with explicit allowed and denied source classes.
-- [ ] Require validated CatalogAsset/Projection status for reusable facts or wording.
-- [ ] Permit the current JD/Target as targeting context, not as proof of candidate experience.
-- [ ] Return unsupported/weak requirements as structured gaps instead of fabricating content.
-- [ ] Add tests covering allowed validated sources and denied Seeds/Tests/Work Orders/drafts.
+- [x] Add a generation-input resolver with explicit allowed and denied source classes.
+- [x] Require validated CatalogAsset/Projection status for reusable facts or wording.
+- [x] Permit the current JD/Target as targeting context, not as proof of candidate experience.
+- [x] Return unsupported/weak requirements as structured gaps instead of fabricating content.
+- [x] Add tests covering allowed validated sources and denied Seeds/Tests/Work Orders/drafts.
 
 ## Deliverables
 
@@ -51,10 +56,10 @@ The Job Search ChatGPT process allows validated Catalog artifacts, validated Pro
 
 ## Acceptance Criteria
 
-- [ ] Seeds, Tests, Work Orders, evidence notes, and draft artifacts cannot contribute facts or polished wording.
-- [ ] Unsupported claims are surfaced as gaps/questions on the bundle, not hidden in generated text.
-- [ ] Resolver output is PII-safe for logs and runtime telemetry.
-- [ ] Existing job-fit analysis remains usable for gap analysis without becoming generation authority.
+- [x] Seeds, Tests, Work Orders, evidence notes, and draft artifacts cannot contribute facts or polished wording.
+- [x] Unsupported claims are surfaced as gaps/questions on the bundle, not hidden in generated text.
+- [x] Resolver output is PII-safe for logs and runtime telemetry.
+- [x] Existing job-fit analysis remains usable for gap analysis without becoming generation authority.
 
 ## Relationships
 
