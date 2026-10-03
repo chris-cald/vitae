@@ -81,7 +81,7 @@ A WorkflowRun stores its workflow reference, lifecycle status, typed input/outpu
 
 A Seed may promote only to a validated `CatalogAsset`. The Seed must be `substantiated`, every declared `promotionCriteria` entry must have a corresponding source-backed `promotionEvidence` entry, and the promoted asset kind must be one of its declared `maturesTo` forms. A promotion does not make the Seed itself reusable.
 
-A Projection requires one or more referenced validated CatalogAssets. A deliverable must belong to an Application bundle and every rendered content block must be backed by canonical IDs or `SourceRef` values, unless the block explicitly requires human confirmation. The schema fixtures and `schemas/career/contract-guards.mjs` make these rules executable for adapter implementations; they do not yet constitute a backend generation service.
+A Projection requires one or more referenced validated CatalogAssets. A deliverable must belong to an Application bundle and every rendered content block must be backed by canonical IDs or `SourceRef` values, unless the block explicitly requires human confirmation. The backend generation-input resolver emits only IDs, source refs, roles, and gap reasons: validated `CatalogAsset` records may provide facts, Projections backed by validated CatalogAssets may provide wording, and the current Target/JD may provide targeting context only. Seeds, Tests, Work Orders, Notes, Evidence notes, drafts, and job-fit mappings are gap-analysis material, not generation authority. The schema fixtures and `schemas/career/contract-guards.mjs` make these rules executable for adapter implementations; they do not yet constitute a full backend generation service.
 
 ## Provenance and durable-record threshold
 

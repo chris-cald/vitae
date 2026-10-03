@@ -5,10 +5,11 @@
   "description": "Canonical, persistence-neutral downstream communication derived from validated CatalogAssets; it is never first factual evidence.",
   "type": "object",
   "additionalProperties": false,
-  "required": ["id", "kind", "derivedFromCatalogAssetIds", "inputRef", "outputKind", "method"],
+  "required": ["id", "kind", "status", "derivedFromCatalogAssetIds", "inputRef", "outputKind", "method"],
   "properties": {
     "id": { "$ref": "https://vitae.local/schemas/career/common.schema.json#/$defs/entityId" },
     "kind": { "const": "projection" },
+    "status": { "const": "validated" },
     "derivedFromCatalogAssetIds": {
       "type": "array",
       "minItems": 1,

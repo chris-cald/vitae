@@ -148,8 +148,10 @@ class ApplicationBundleService:
             "needsHumanConfirmation": assessment in {"gap", "unsupported"},
             "sourceRefs": [source_ref],
         }
-        if assessment in {"matched", "partial"}:
-            result["catalogAssetIds"] = [_entity_id("catalog-asset", requirement_id)]
+        result["generationGap"] = {
+            "reason": "validated-catalog-asset-required",
+            "sourceKind": "job-fit-analysis",
+        }
         return result
 
     async def _render_bundle(self, session: Any, bundle: ApplicationBundle) -> dict[str, Any]:
