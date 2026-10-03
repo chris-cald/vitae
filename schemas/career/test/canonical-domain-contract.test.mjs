@@ -177,9 +177,19 @@ test('a Projection requires validated CatalogAsset derivation and cannot be firs
   const missingDerivation = readJson('fixtures/invalid/projection-missing-derived-from.json');
   const episode = readJson('fixtures/valid/catalog-asset.json');
 
+  const missingStatus = { ...projection };
+  delete missingStatus.status;
+  const draftProjection = { ...projection, status: 'draft' };
+
   assert.equal(validateProjection(projection), true, JSON.stringify(validateProjection.errors, null, 2));
+  assert.equal(validateProjection(missingStatus), false);
+  assert.match(JSON.stringify(validateProjection.errors), /status/);
+  assert.equal(validateProjection(draftProjection), false);
+  assert.match(JSON.stringify(validateProjection.errors), /validated/);
   assert.equal(validateProjection(missingDerivation), false);
   assert.doesNotThrow(() => assertCanCreateProjection(projection, [episode]));
+  assert.throws(() => assertCanCreateProjection(missingStatus, [episode]), /validated status/);
+  assert.throws(() => assertCanCreateProjection(draftProjection, [episode]), /validated status/);
   assert.throws(() => assertCanCreateProjection(projection, []), /validated CatalogAsset/);
 });
 
@@ -203,6 +213,41 @@ test('embedded fit mappings and application-bundled deliverables preserve claim 
 
   const unsupportedBlock = readJson('fixtures/invalid/deliverable-unsupported-content-block.json');
   assert.equal(createValidatorFor('deliverable.schema.json')(unsupportedBlock), false);
+});
+
+test('Fit-analysis requirement mappings accept structured generation gaps and reject extras', () => {
+  const fitAnalysis = readJson('fixtures/valid/fit-analysis.json');
+  const validateFitAnalysis = createValidatorFor('fit-analysis.schema.json');
+
+  const withGenerationGap = structuredClone(fitAnalysis);
+  withGenerationGap.requirementMappings[1].generationGap = {
+    reason: 'validated-catalog-asset-required',
+    sourceKind: 'job-fit-analysis',
+  };
+  assert.equal(validateFitAnalysis(withGenerationGap), true, JSON.stringify(validateFitAnalysis.errors, null, 2));
+
+  const nonAuthoritativeMatch = structuredClone(fitAnalysis);
+  delete nonAuthoritativeMatch.requirementMappings[0].catalogAssetIds;
+  nonAuthoritativeMatch.requirementMappings[0].generationGap = {
+    reason: 'validated-catalog-asset-required',
+    sourceKind: 'job-fit-analysis',
+  };
+  assert.equal(validateFitAnalysis(nonAuthoritativeMatch), true, JSON.stringify(validateFitAnalysis.errors, null, 2));
+
+  const matchWithoutAuthorityOrGap = structuredClone(nonAuthoritativeMatch);
+  delete matchWithoutAuthorityOrGap.requirementMappings[0].sourceRefs;
+  assert.equal(validateFitAnalysis(matchWithoutAuthorityOrGap), false);
+  assert.match(JSON.stringify(validateFitAnalysis.errors), /anyOf/);
+
+  const withUnexpectedMappingProperty = structuredClone(withGenerationGap);
+  withUnexpectedMappingProperty.requirementMappings[1].unexpected = true;
+  assert.equal(validateFitAnalysis(withUnexpectedMappingProperty), false);
+  assert.match(JSON.stringify(validateFitAnalysis.errors), /additionalProperties/);
+
+  const withUnexpectedGapProperty = structuredClone(withGenerationGap);
+  withUnexpectedGapProperty.requirementMappings[1].generationGap.unexpected = true;
+  assert.equal(validateFitAnalysis(withUnexpectedGapProperty), false);
+  assert.match(JSON.stringify(validateFitAnalysis.errors), /additionalProperties/);
 });
 
 test('promotion requires substantiation and a validated CatalogAsset, never a Projection', () => {

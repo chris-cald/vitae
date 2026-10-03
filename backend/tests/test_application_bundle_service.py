@@ -15,6 +15,7 @@ from src.models.job import Job
 from src.models.job_fit import JobFit, JobRequirementMapping
 from src.models.resume import RawResume, Resume
 from src.services.application_bundle_service import ApplicationBundleService
+from src.services.generation_input_resolver import resolve_generation_inputs
 
 
 def _suffix() -> str:
@@ -60,7 +61,25 @@ async def test_create_and_fetch_draft_bundle_links_ids_without_note_prose():
     assert bundle["fitAnalysis"]["profileId"].startswith("profile-")
     assert bundle["sourceRefs"]
     assert bundle["applicationRecords"] == []
+    requirement_mapping = bundle["fitAnalysis"]["requirementMappings"][0]
+    assert "catalogAssetIds" not in requirement_mapping
+    assert requirement_mapping["generationGap"] == {
+        "reason": "validated-catalog-asset-required",
+        "sourceKind": "job-fit-analysis",
+    }
+    assert resolve_generation_inputs([bundle["fitAnalysis"]]) == {
+        "eligibleSources": [],
+        "targetContext": None,
+        "gaps": [
+            {
+                "id": bundle["fitAnalysis"]["id"],
+                "kind": "fit-analysis",
+                "reason": "unsupported-source-kind",
+            }
+        ],
+    }
     assert "unsupported claim prose" not in str(bundle).lower()
+    assert "synthetic evidence" not in str(bundle).lower()
     assert "synthetic jd" not in str(bundle).lower()
 
 

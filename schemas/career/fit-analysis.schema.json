@@ -33,12 +33,26 @@
           },
           "method": { "$ref": "https://vitae.local/schemas/career/common.schema.json#/$defs/nonEmptyString" },
           "confidence": { "type": "number", "minimum": 0, "maximum": 1 },
-          "needsHumanConfirmation": { "type": "boolean" }
+          "needsHumanConfirmation": { "type": "boolean" },
+          "generationGap": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["reason", "sourceKind"],
+            "properties": {
+              "reason": { "$ref": "https://vitae.local/schemas/career/common.schema.json#/$defs/nonEmptyString" },
+              "sourceKind": { "enum": ["job-fit-analysis"] }
+            }
+          }
         },
         "allOf": [
           {
             "if": { "properties": { "assessment": { "enum": ["matched", "partial"] } }, "required": ["assessment"] },
-            "then": { "required": ["catalogAssetIds", "sourceRefs"] }
+            "then": {
+              "anyOf": [
+                { "required": ["catalogAssetIds", "sourceRefs"] },
+                { "required": ["generationGap", "sourceRefs"] }
+              ]
+            }
           }
         ]
       }

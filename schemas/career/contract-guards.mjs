@@ -58,6 +58,7 @@ export function assertCanPromoteSeed(seed, promotedAsset) {
 
 export function assertCanCreateProjection(projection, catalogAssets) {
   invariant(projection?.kind === 'projection', 'Only a Projection may use this guard.');
+  invariant(projection.status === 'validated', 'A Projection requires validated status.');
   invariant(projection.derivedFromCatalogAssetIds?.length, 'A Projection requires a validated CatalogAsset.');
   for (const id of projection.derivedFromCatalogAssetIds) {
     validatedCatalogAsset(id, catalogAssets);

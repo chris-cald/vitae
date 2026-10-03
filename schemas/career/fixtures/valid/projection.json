@@ -1,6 +1,7 @@
 {
   "id": "projection-platform-reliability-summary",
   "kind": "projection",
+  "status": "validated",
   "derivedFromCatalogAssetIds": ["catalog-asset-platform-reliability"],
   "inputRef": {
     "uri": "template://career/platform-reliability-summary"
