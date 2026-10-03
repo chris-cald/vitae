@@ -2,13 +2,16 @@
 id: wi-051
 title: Add Application Bundle Record Slice
 summary: Persist and expose the minimum canonical Application, ApplicationRecord, Target, FitAnalysis, and Deliverable references needed for one draft application bundle.
+assignee: pi-babysitter
 type: work-item
 subtype: story
 lifecycle: active
-status: ready
-status_reason: auto
+status: completed
+status_reason: implemented
 priority: critical
 estimated: 3
+actual: 3
+completed_date: '2026-10-03'
 links:
   parent:
     - '[[050-deliver-job-search-application-funnel-slice]]'
@@ -20,6 +23,8 @@ links:
     - '[[../schemas/career/deliverable.schema.json]]'
     - '[[../schemas/career/target.schema.json]]'
     - '[[../schemas/career/fit-analysis.schema.json]]'
+  evidence:
+    - '[[record-wi-051-focused-validation-and-independent-review-passed-after-remediation]]'
 tags:
   - afk
   - p0
@@ -39,11 +44,11 @@ Canonical schemas already define `Application`, `ApplicationRecord`, `Target`, `
 
 ## Tasks
 
-- [ ] Add a backend service that creates a draft application bundle from an existing job/job-fit context.
-- [ ] Store stable bundle/application IDs and material ApplicationRecord entries only for meaningful events.
-- [ ] Link target, fit analysis, deliverable IDs, source refs, and unsupported-claim notes without embedding sensitive note prose in the Application record.
-- [ ] Expose minimal API endpoints to create/fetch a draft application bundle.
-- [ ] Add focused tests using synthetic data only.
+- [x] Add a backend service that creates a draft application bundle from an existing job/job-fit context.
+- [x] Store stable bundle/application IDs and material ApplicationRecord entries only for meaningful events.
+- [x] Link target, fit analysis, deliverable IDs, source refs, and unsupported-claim notes without embedding sensitive note prose in the Application record.
+- [x] Expose minimal API endpoints to create/fetch a draft application bundle.
+- [x] Add focused tests using synthetic data only.
 
 ## Deliverables
 
@@ -53,10 +58,10 @@ Canonical schemas already define `Application`, `ApplicationRecord`, `Target`, `
 
 ## Acceptance Criteria
 
-- [ ] Creating a draft bundle does not create records for field edits, autosaves, rescoring, or internal steps.
-- [ ] Application bundle data validates against the canonical schema shape or an explicitly documented adapter subset.
-- [ ] Tests prove at least two application bundles do not cross-contaminate targets/deliverables.
-- [ ] Raw resume/JD text is not logged or stored in runtime telemetry.
+- [x] Creating a draft bundle does not create records for field edits, autosaves, rescoring, or internal steps.
+- [x] Application bundle data validates against the canonical schema shape or an explicitly documented adapter subset.
+- [x] Tests prove at least two application bundles do not cross-contaminate targets/deliverables.
+- [x] Raw resume/JD text is not logged or stored in runtime telemetry.
 
 ## Relationships
 
