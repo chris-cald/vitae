@@ -12,6 +12,8 @@ priority: critical
 estimated: 2
 actual: 2
 completed_date: '2026-10-03'
+commits:
+  20f59da7467943c068f01fafb2474a637cafa235: Enforce generation source eligibility
 links:
   parent:
     - '[[050-deliver-job-search-application-funnel-slice]]'
