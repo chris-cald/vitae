@@ -12,6 +12,8 @@ priority: critical
 estimated: 3
 actual: 3
 completed_date: '2026-10-03'
+commits:
+  f39294e41a29b69a154f53718870391cea2f51d4: Add application bundle record slice
 links:
   parent:
     - '[[050-deliver-job-search-application-funnel-slice]]'
