@@ -65,6 +65,7 @@ Note: the current ESLint configuration may not cover every TS/TSX source file un
 - `/api/v1/resume`
 - `/api/v1/job`
 - `/api/v1/job-fit`
+- `/api/v1/application-bundles` for draft JD note, tailored resume draft, manifest, source summary, unsupported claims, and next-action artifacts
 - `/api/v1/profile-categories`
 
 Verify exact route names and payloads in `../backend/src/api/router/v1/` when changing API calls.

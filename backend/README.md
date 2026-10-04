@@ -72,6 +72,8 @@ Verify exact request/response shapes in `src/api/router/v1/` before publishing e
 - `GET /api/v1/job-fit/{job_fit_id}`
 - `GET /api/v1/job-fit/{job_fit_id}/mapping`
 - `GET /api/v1/job-fit/{job_fit_id}/feedback`
+- `POST /api/v1/application-bundles/draft` — creates a PII-safe draft bundle with JD/resume/manifest artifact markdown under `vitae://draft-application-bundles/...`
+- `GET /api/v1/application-bundles/{application_or_bundle_id}`
 - `GET /api/v1/profile-categories`
 
 ## Tests

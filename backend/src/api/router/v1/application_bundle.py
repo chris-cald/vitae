@@ -29,6 +29,10 @@ class DraftApplicationBundleRequest(BaseModel):
         default_factory=list,
         description="WI-051 adapter subset: unique canonical entity IDs with the note- prefix.",
     )
+    generation_records: list[dict[str, Any]] = Field(
+        default_factory=list,
+        description="WI-052-approved source candidates; raw prose is ignored by artifact generation.",
+    )
 
     @field_validator("deliverable_ids")
     @classmethod
@@ -48,6 +52,7 @@ async def create_draft_application_bundle(input: DraftApplicationBundleRequest) 
             input.job_fit_id,
             deliverable_ids=input.deliverable_ids,
             unsupported_claim_note_ids=input.unsupported_claim_note_ids,
+            generation_records=input.generation_records,
         )
     except ValueError:
         raise HTTPException(status_code=404, detail="Application bundle dependency not found.")

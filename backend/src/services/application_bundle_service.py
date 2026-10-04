@@ -11,6 +11,7 @@ from db.db import AsyncSessionLocal
 from src.models.application_bundle import ApplicationBundle, ApplicationRecord
 from src.models.job import Job
 from src.models.job_fit import JobFit, JobRequirementMapping
+from src.services.generation_input_resolver import resolve_generation_inputs
 from src.services.utils import get_or_404
 
 _MATERIAL_RECORD_TYPES = {"submission", "interview", "decision", "follow-up", "material-change"}
@@ -20,6 +21,7 @@ _ASSESSMENT_BY_MATCH = {
     "weak": "gap",
     "none": "unsupported",
 }
+_GENERATION_CONTEXT_URI = "vitae://generation-inputs"
 
 
 def _entity_id(prefix: str, value: str) -> str:
@@ -35,9 +37,11 @@ class ApplicationBundleService:
         job_fit_id: str,
         deliverable_ids: list[str] | None = None,
         unsupported_claim_note_ids: list[str] | None = None,
+        generation_records: list[dict[str, Any]] | None = None,
     ) -> dict[str, Any]:
         deliverable_ids = deliverable_ids or []
         note_ids = unsupported_claim_note_ids or []
+        generation_records = generation_records or []
         async with AsyncSessionLocal() as session:
             job_fit = await get_or_404(session, JobFit, "id", job_fit_id)
             job = await get_or_404(session, Job, "job_id", job_fit.job_id)
@@ -50,7 +54,11 @@ class ApplicationBundleService:
                 )
             ).scalars().first()
             if existing:
-                return await self._render_bundle(session, existing)
+                self._remember_generation_context(existing, generation_records)
+                session.add(existing)
+                await session.commit()
+                await session.refresh(existing)
+                return await self._render_bundle(session, existing, generation_records)
 
             application_id = _entity_id("application", job_fit.id)
             bundle_id = _entity_id("bundle", job_fit.id)
@@ -80,6 +88,7 @@ class ApplicationBundleService:
                     for item in (mapping.requirements or [])
                 ],
             }
+            source_refs = self._source_refs_with_generation_context(source_refs, generation_records, target)
             bundle = ApplicationBundle(
                 application_id=application_id,
                 bundle_id=bundle_id,
@@ -97,7 +106,7 @@ class ApplicationBundleService:
             session.add(bundle)
             await session.commit()
             await session.refresh(bundle)
-            return await self._render_bundle(session, bundle)
+            return await self._render_bundle(session, bundle, generation_records)
 
     async def fetch_bundle(self, application_or_bundle_id: str) -> dict[str, Any]:
         async with AsyncSessionLocal() as session:
@@ -154,7 +163,12 @@ class ApplicationBundleService:
         }
         return result
 
-    async def _render_bundle(self, session: Any, bundle: ApplicationBundle) -> dict[str, Any]:
+    async def _render_bundle(
+        self,
+        session: Any,
+        bundle: ApplicationBundle,
+        generation_records: list[dict[str, Any]] | None = None,
+    ) -> dict[str, Any]:
         records = (
             await session.execute(
                 select(ApplicationRecord)
@@ -175,13 +189,138 @@ class ApplicationBundleService:
             "deliverableIds": bundle.deliverable_ids,
             "noteIds": bundle.note_ids,
         }
+        job_fit = await get_or_404(session, JobFit, "id", bundle.job_fit_id)
+        job = await get_or_404(session, Job, "job_id", bundle.job_id)
+        mapping = await get_or_404(session, JobRequirementMapping, "id", job_fit.mapping_id)
         return {
             "application": application,
             "target": bundle.target,
             "fitAnalysis": bundle.fit_analysis,
             "sourceRefs": bundle.source_refs,
             "applicationRecords": [self._render_record(record) for record in records],
+            "draftArtifacts": self._draft_artifacts(bundle, job, mapping, generation_records or []),
             "adapterSubset": "application-bundle-record-slice-v1",
+        }
+
+    def _source_refs_with_generation_context(
+        self,
+        source_refs: list[dict[str, Any]],
+        generation_records: list[dict[str, Any]],
+        target: dict[str, Any],
+    ) -> list[dict[str, Any]]:
+        refs = [ref for ref in source_refs if ref.get("uri") != _GENERATION_CONTEXT_URI]
+        if generation_records:
+            refs.append({"uri": _GENERATION_CONTEXT_URI, **resolve_generation_inputs([*generation_records, target])})
+        return refs
+
+    def _remember_generation_context(
+        self,
+        bundle: ApplicationBundle,
+        generation_records: list[dict[str, Any]],
+    ) -> None:
+        if generation_records:
+            bundle.source_refs = self._source_refs_with_generation_context(
+                bundle.source_refs,
+                generation_records,
+                bundle.target,
+            )
+
+    def _resolved_generation_inputs(
+        self,
+        bundle: ApplicationBundle,
+        generation_records: list[dict[str, Any]],
+    ) -> dict[str, Any]:
+        if generation_records:
+            return resolve_generation_inputs([*generation_records, bundle.target])
+        for ref in bundle.source_refs:
+            if ref.get("uri") == _GENERATION_CONTEXT_URI:
+                return {
+                    "eligibleSources": ref.get("eligibleSources", []),
+                    "targetContext": ref.get("targetContext"),
+                    "gaps": ref.get("gaps", []),
+                }
+        return resolve_generation_inputs([bundle.target])
+
+    def _draft_artifacts(
+        self,
+        bundle: ApplicationBundle,
+        job: Job,
+        mapping: JobRequirementMapping,
+        generation_records: list[dict[str, Any]],
+    ) -> dict[str, Any]:
+        resolved = self._resolved_generation_inputs(bundle, generation_records)
+        jd_name = f"{bundle.target_id}-jd.md"
+        resume_name = f"{bundle.target_id}-resume.md"
+        manifest_name = f"{bundle.bundle_id}-manifest.md"
+        root = f"vitae://draft-application-bundles/{bundle.bundle_id}"
+        source_url = (job.meta or {}).get("source_url") or (job.meta or {}).get("sourceUrl") or f"db://jobs/{job.job_id}"
+        accessed_at = (job.meta or {}).get("accessed_at") or (job.meta or {}).get("accessedAt") or "not-recorded"
+        eligible_ids = [source["id"] for source in resolved["eligibleSources"]]
+        source_refs = [
+            source_ref
+            for source in resolved["eligibleSources"]
+            for source_ref in source.get("sourceRefs", [])
+        ]
+        unsupported_claims = [
+            {
+                "id": item["requirementId"],
+                "assessment": item["assessment"],
+                "reason": "needs-human-confirmation",
+            }
+            for item in bundle.fit_analysis.get("requirementMappings", [])
+            if item.get("assessment") in {"gap", "unsupported"}
+        ]
+        unsupported_claims.extend(resolved["gaps"])
+        next_action = (
+            "Review unsupported claims before publishing."
+            if unsupported_claims
+            else "Ready for human review before publishing."
+        )
+        jd_markdown = "\n".join(
+            [
+                f"# Captured JD: {job.title or job.name}",
+                "",
+                f"- Target ID: `{bundle.target_id}`",
+                f"- Organization: {job.company or 'not-recorded'}",
+                f"- Source: {source_url}",
+                f"- Accessed: {accessed_at}",
+                "- Content: stored in Vitae source storage; raw JD text is not copied into this draft artifact.",
+            ]
+        )
+        resume_markdown = "\n".join(
+            [
+                f"# Tailored resume draft for {job.title or job.name}",
+                "",
+                "Uses only WI-052-approved generation inputs.",
+                "",
+                "## Approved inputs",
+                *(f"- `{source_id}`" for source_id in eligible_ids),
+                "",
+                "## Omitted claims",
+                *(f"- `{claim['id']}` — {claim['reason']}" for claim in unsupported_claims),
+            ]
+        )
+        manifest_markdown = "\n".join(
+            [
+                f"# Draft application bundle manifest: {bundle.bundle_id}",
+                "",
+                f"- JD note: [{jd_name}]({root}/{jd_name})",
+                f"- Tailored resume draft: [{resume_name}]({root}/{resume_name})",
+                f"- Next action: {next_action}",
+            ]
+        )
+        return {
+            "capturedJdNote": {"name": jd_name, "path": f"{root}/{jd_name}", "markdown": jd_markdown},
+            "tailoredResumeDraft": {"name": resume_name, "path": f"{root}/{resume_name}", "markdown": resume_markdown},
+            "manifest": {"name": manifest_name, "path": f"{root}/{manifest_name}", "markdown": manifest_markdown},
+            "sourceSummary": {
+                "eligibleSourceIds": eligible_ids,
+                "targetSourceRef": resolved["targetContext"]["sourceRef"],
+                "sourceRefs": source_refs,
+            },
+            "unsupportedClaims": unsupported_claims,
+            "nextAction": next_action,
+            "storage": {"writeTarget": root, "canonicalVaultMutated": False},
         }
 
     def _render_record(self, record: ApplicationRecord) -> dict[str, Any]:

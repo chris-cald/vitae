@@ -22,18 +22,24 @@ def _suffix() -> str:
     return uuid4().hex[:10]
 
 
-async def _seed_job_fit(suffix: str, mismatched_mapping: bool = False) -> str:
+async def _seed_job_fit(
+    suffix: str,
+    mismatched_mapping: bool = False,
+    job_meta: dict | None = None,
+    requirements: list[dict] | None = None,
+) -> str:
     resume_id = f"resume-{suffix}"
     job_id = f"job-{suffix}"
     mapping_id = f"mapping-{suffix}"
     job_fit_id = f"job-fit-{suffix}"
     mapping_resume_id = f"resume-other-{suffix}" if mismatched_mapping else resume_id
     mapping_job_id = f"job-other-{suffix}" if mismatched_mapping else job_id
+    requirements = requirements or [{"requirement_id": f"req-{suffix}", "requirement": "Build reliable platforms", "resume_evidence": "synthetic evidence", "match_level": "partial", "notes": ""}]
     async with AsyncSessionLocal() as session:
         session.add(RawResume(resume_id=resume_id, file_path=f"/tmp/{resume_id}.pdf", extracted_content="synthetic", content_type="text/plain"))
         session.add(Resume(resume_id=resume_id, name=f"Resume {suffix}", basics={"name": "Synthetic Candidate"}))
-        session.add(Job(job_id=job_id, name=f"Role {suffix}", resume_id=resume_id, title=f"Staff Engineer {suffix}", company=f"Company {suffix}", description="synthetic JD"))
-        session.add(JobRequirementMapping(id=mapping_id, resume_id=mapping_resume_id, job_id=mapping_job_id, requirements=[{"requirement_id": f"req-{suffix}", "requirement": "Build reliable platforms", "resume_evidence": "synthetic evidence", "match_level": "partial", "notes": ""}]))
+        session.add(Job(job_id=job_id, name=f"Role {suffix}", resume_id=resume_id, title=f"Staff Engineer {suffix}", company=f"Company {suffix}", description="synthetic JD", meta=job_meta))
+        session.add(JobRequirementMapping(id=mapping_id, resume_id=mapping_resume_id, job_id=mapping_job_id, requirements=requirements))
         session.add(JobFit(id=job_fit_id, name=f"Fit {suffix}", resume_id=resume_id, job_id=job_id, mapping_id=mapping_id, score=0.72, analysis="synthetic analysis", feedback=[], keywords=["platform"], skills=[], created_at=datetime.now(timezone.utc).isoformat()))
         await session.commit()
     return job_fit_id
@@ -81,6 +87,75 @@ async def test_create_and_fetch_draft_bundle_links_ids_without_note_prose():
     assert "unsupported claim prose" not in str(bundle).lower()
     assert "synthetic evidence" not in str(bundle).lower()
     assert "synthetic jd" not in str(bundle).lower()
+
+
+@pytest.mark.asyncio
+async def test_draft_bundle_generates_artifacts_from_approved_inputs_only_without_vault_writes():
+    await init_db()
+    job_fit_id = await _seed_job_fit(
+        _suffix(),
+        job_meta={"source_url": "https://jobs.example.test/staff", "accessed_at": "2025-01-02T03:04:05Z"},
+        requirements=[
+            {"requirement_id": "supported", "requirement": "Approved source backs this", "resume_evidence": "DO NOT COPY RESUME EVIDENCE", "match_level": "strong", "notes": ""},
+            {"requirement_id": "gap", "requirement": "Needs human proof", "resume_evidence": "UNSUPPORTED CLAIM PROSE", "match_level": "none", "notes": ""},
+        ],
+    )
+
+    bundle = await ApplicationBundleService().create_draft_bundle(
+        job_fit_id,
+        generation_records=[
+            {
+                "id": "catalog-asset-platform-reliability",
+                "kind": "catalog-asset",
+                "confirmationStatus": "validated",
+                "summary": "PRIVATE RAW FACT",
+                "sourceRefs": [{"uri": "source://candidate/platform", "locator": "#impact"}],
+            },
+            {
+                "id": "projection-platform-summary",
+                "kind": "projection",
+                "status": "validated",
+                "text": "PRIVATE POLISHED WORDING",
+                "derivedFromCatalogAssetIds": ["catalog-asset-platform-reliability"],
+                "inputRef": {"uri": "template://resume/summary"},
+            },
+            {"id": "note-private", "kind": "note", "content": "PRIVATE NOTE"},
+        ],
+    )
+
+    artifacts = bundle["draftArtifacts"]
+    assert artifacts["capturedJdNote"]["name"].endswith("-jd.md")
+    assert artifacts["tailoredResumeDraft"]["name"].endswith("-resume.md")
+    assert artifacts["capturedJdNote"]["path"].startswith("vitae://draft-application-bundles/")
+    assert artifacts["tailoredResumeDraft"]["path"].startswith("vitae://draft-application-bundles/")
+    assert artifacts["capturedJdNote"]["name"] in artifacts["manifest"]["markdown"]
+    assert artifacts["tailoredResumeDraft"]["name"] in artifacts["manifest"]["markdown"]
+    assert "https://jobs.example.test/staff" in artifacts["capturedJdNote"]["markdown"]
+    assert "2025-01-02T03:04:05Z" in artifacts["capturedJdNote"]["markdown"]
+    assert "catalog-asset-platform-reliability" in artifacts["tailoredResumeDraft"]["markdown"]
+    assert "projection-platform-summary" in artifacts["tailoredResumeDraft"]["markdown"]
+    assert artifacts["sourceSummary"]["eligibleSourceIds"] == [
+        "catalog-asset-platform-reliability",
+        "projection-platform-summary",
+    ]
+    assert artifacts["unsupportedClaims"] == [
+        {"id": "requirement-gap", "assessment": "unsupported", "reason": "needs-human-confirmation"},
+        {"id": "note-private", "kind": "note", "reason": "source-kind-not-generation-authoritative"},
+    ]
+    assert artifacts["nextAction"] == "Review unsupported claims before publishing."
+
+    fetched = await ApplicationBundleService().fetch_bundle(bundle["application"]["id"])
+    assert fetched["draftArtifacts"]["sourceSummary"]["eligibleSourceIds"] == artifacts["sourceSummary"]["eligibleSourceIds"]
+    assert fetched["draftArtifacts"]["unsupportedClaims"] == artifacts["unsupportedClaims"]
+
+    rendered = str(bundle)
+    assert "Obsidian Vaults" not in rendered
+    assert "synthetic JD" not in rendered
+    assert "DO NOT COPY RESUME EVIDENCE" not in rendered
+    assert "UNSUPPORTED CLAIM PROSE" not in rendered
+    assert "PRIVATE RAW FACT" not in rendered
+    assert "PRIVATE POLISHED WORDING" not in rendered
+    assert "PRIVATE NOTE" not in rendered
 
 
 @pytest.mark.asyncio
