@@ -51,5 +51,7 @@ Turn the existing draft-bundle backend slice into the minimal candidate workflow
 ## Relationships
 
 - `parent`: WI-050
-- `depends_on`: WI-051, WI-052, WI-053
+- `depends_on`: WI-051
+- `depends_on`: WI-052
+- `depends_on`: WI-053
 - `references`: WI-051, WI-052, WI-053
