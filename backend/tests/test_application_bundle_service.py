@@ -56,7 +56,7 @@ async def test_create_and_fetch_draft_bundle_links_ids_without_note_prose():
         deliverable_ids=["deliverable-alpha"],
         unsupported_claim_note_ids=["note-review-alpha"],
     )
-    fetched = await service.fetch_bundle(bundle["application"]["id"])
+    fetched = await service.fetch_bundle(bundle["application"]["id"], job_fit_id)
 
     assert fetched == bundle
     assert bundle["application"]["kind"] == "application"
@@ -144,7 +144,7 @@ async def test_draft_bundle_generates_artifacts_from_approved_inputs_only_withou
     ]
     assert artifacts["nextAction"] == "Review unsupported claims before publishing."
 
-    fetched = await ApplicationBundleService().fetch_bundle(bundle["application"]["id"])
+    fetched = await ApplicationBundleService().fetch_bundle(bundle["application"]["id"], job_fit_id)
     assert fetched["draftArtifacts"]["sourceSummary"]["eligibleSourceIds"] == artifacts["sourceSummary"]["eligibleSourceIds"]
     assert fetched["draftArtifacts"]["unsupportedClaims"] == artifacts["unsupportedClaims"]
 
@@ -197,9 +197,9 @@ async def test_records_only_material_application_events_without_note_prose():
     bundle = await service.create_draft_bundle(job_fit_id)
     application_id = bundle["application"]["id"]
 
-    ignored = await service.add_application_record(application_id, "autosave", note_ids=["note-sensitive"], note_text="unsupported claim prose")
-    created = await service.add_application_record(application_id, "follow-up", note_ids=["note-sensitive"], note_text="unsupported claim prose")
-    fetched = await service.fetch_bundle(application_id)
+    ignored = await service.add_application_record(application_id, job_fit_id, "autosave", note_ids=["note-sensitive"], note_text="unsupported claim prose")
+    created = await service.add_application_record(application_id, job_fit_id, "follow-up", note_ids=["note-sensitive"], note_text="unsupported claim prose")
+    fetched = await service.fetch_bundle(application_id, job_fit_id)
 
     assert ignored is None
     assert created is not None
@@ -218,11 +218,77 @@ def test_application_bundle_create_and_fetch_endpoints():
             "/api/v1/application-bundles/draft",
             json={"job_fit_id": job_fit_id, "deliverable_ids": ["deliverable-api"]},
         )
-        fetched = client.get(f"/api/v1/application-bundles/{created.json()['application']['id']}")
+        fetched = client.get(
+            f"/api/v1/application-bundles/{created.json()['application']['id']}",
+            params={"job_fit_id": job_fit_id},
+        )
 
     assert created.status_code == 201
     assert fetched.status_code == 200
     assert fetched.json()["application"]["deliverableIds"] == ["deliverable-api"]
+
+
+def test_application_bundle_list_endpoint_isolated_by_job_fit():
+    asyncio.run(init_db())
+    first_fit = asyncio.run(_seed_job_fit(_suffix()))
+    second_fit = asyncio.run(_seed_job_fit(_suffix()))
+
+    with TestClient(app) as client:
+        first = client.post("/api/v1/application-bundles/draft", json={"job_fit_id": first_fit})
+        second = client.post("/api/v1/application-bundles/draft", json={"job_fit_id": second_fit})
+        listed = client.get("/api/v1/application-bundles", params={"job_fit_id": first_fit})
+
+    assert first.status_code == 201
+    assert second.status_code == 201
+    assert listed.status_code == 200
+    assert [bundle["application"]["id"] for bundle in listed.json()] == [first.json()["application"]["id"]]
+    assert second.json()["application"]["id"] not in str(listed.json())
+
+
+def test_material_application_record_endpoint_accepts_only_permitted_events():
+    asyncio.run(init_db())
+    job_fit_id = asyncio.run(_seed_job_fit(_suffix()))
+
+    with TestClient(app) as client:
+        created = client.post("/api/v1/application-bundles/draft", json={"job_fit_id": job_fit_id})
+        application_id = created.json()["application"]["id"]
+        event = client.post(
+            f"/api/v1/application-bundles/{application_id}/records",
+            json={"job_fit_id": job_fit_id, "record_type": "follow-up", "note_ids": ["note-synthetic"]},
+        )
+        rejected = client.post(
+            f"/api/v1/application-bundles/{application_id}/records",
+            json={"job_fit_id": job_fit_id, "record_type": "autosave"},
+        )
+        fetched = client.get(f"/api/v1/application-bundles/{application_id}", params={"job_fit_id": job_fit_id})
+
+    assert event.status_code == 201
+    assert event.json()["recordType"] == "follow-up"
+    assert event.json()["noteIds"] == ["note-synthetic"]
+    assert rejected.status_code == 422
+    assert [record["recordType"] for record in fetched.json()["applicationRecords"]] == ["follow-up"]
+
+
+def test_bundle_detail_and_event_reject_job_fit_mismatch():
+    asyncio.run(init_db())
+    first_fit = asyncio.run(_seed_job_fit(_suffix()))
+    second_fit = asyncio.run(_seed_job_fit(_suffix()))
+
+    with TestClient(app) as client:
+        created = client.post("/api/v1/application-bundles/draft", json={"job_fit_id": first_fit})
+        application_id = created.json()["application"]["id"]
+        detail = client.get(f"/api/v1/application-bundles/{application_id}", params={"job_fit_id": second_fit})
+        event = client.post(
+            f"/api/v1/application-bundles/{application_id}/records",
+            json={"job_fit_id": second_fit, "record_type": "interview"},
+        )
+        current = client.get(f"/api/v1/application-bundles/{application_id}", params={"job_fit_id": first_fit})
+
+    assert created.status_code == 201
+    assert detail.status_code == 404
+    assert event.status_code == 404
+    assert current.status_code == 200
+    assert current.json()["applicationRecords"] == []
 
 
 def test_application_bundle_create_endpoint_rejects_invalid_or_duplicate_refs():

@@ -108,12 +108,13 @@ class ApplicationBundleService:
             await session.refresh(bundle)
             return await self._render_bundle(session, bundle, generation_records)
 
-    async def fetch_bundle(self, application_or_bundle_id: str) -> dict[str, Any]:
+    async def fetch_bundle(self, application_or_bundle_id: str, job_fit_id: str) -> dict[str, Any]:
         async with AsyncSessionLocal() as session:
             result = await session.execute(
                 select(ApplicationBundle).where(
-                    (ApplicationBundle.application_id == application_or_bundle_id)
-                    | (ApplicationBundle.bundle_id == application_or_bundle_id)
+                    ((ApplicationBundle.application_id == application_or_bundle_id)
+                    | (ApplicationBundle.bundle_id == application_or_bundle_id))
+                    & (ApplicationBundle.job_fit_id == job_fit_id)
                 )
             )
             bundle = result.scalars().one_or_none()
@@ -121,9 +122,21 @@ class ApplicationBundleService:
                 raise ValueError("Application bundle not found.")
             return await self._render_bundle(session, bundle)
 
+    async def list_bundles(self, job_fit_id: str) -> list[dict[str, Any]]:
+        async with AsyncSessionLocal() as session:
+            bundles = (
+                await session.execute(
+                    select(ApplicationBundle)
+                    .where(ApplicationBundle.job_fit_id == job_fit_id)
+                    .order_by(ApplicationBundle.created_at)
+                )
+            ).scalars().all()
+            return [await self._render_bundle(session, bundle) for bundle in bundles]
+
     async def add_application_record(
         self,
         application_id: str,
+        job_fit_id: str,
         record_type: str,
         note_ids: list[str] | None = None,
         note_text: str | None = None,
@@ -131,7 +144,16 @@ class ApplicationBundleService:
         if record_type not in _MATERIAL_RECORD_TYPES:
             return None
         async with AsyncSessionLocal() as session:
-            await get_or_404(session, ApplicationBundle, "application_id", application_id)
+            bundle = (
+                await session.execute(
+                    select(ApplicationBundle).where(
+                        (ApplicationBundle.application_id == application_id)
+                        & (ApplicationBundle.job_fit_id == job_fit_id)
+                    )
+                )
+            ).scalars().one_or_none()
+            if bundle is None:
+                raise ValueError("Application bundle not found.")
             record = ApplicationRecord(
                 id=_entity_id("application-record", uuid4().hex),
                 application_id=application_id,

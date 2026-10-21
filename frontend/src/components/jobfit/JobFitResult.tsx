@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { EditableName } from '@/components/ui/EditableName';
+import { ApplicationBundleWorkspace } from '@/components/jobfit/ApplicationBundleWorkspace';
 
 interface Resume {
   resume_id: string;
@@ -161,6 +162,7 @@ export function JobFitResult({ jobFitId }: { jobFitId: string }) {
               </div>
             </div>
           </div>
+          <ApplicationBundleWorkspace jobFitId={jobFitId} />
         </div>
       )}
     </div>
