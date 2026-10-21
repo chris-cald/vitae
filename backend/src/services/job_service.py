@@ -75,7 +75,7 @@ class JobService:
         async with AsyncSessionLocal() as session:
             from sqlmodel import select
 
-            statement = select(Job).limit(limit).offset(offset)
+            statement = select(Job).order_by(Job.processed_at.desc()).limit(limit).offset(offset)
             result = await session.execute(statement)
             jobs = result.scalars().all()
             return [job.model_dump() for job in jobs]

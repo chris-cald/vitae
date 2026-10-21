@@ -51,6 +51,10 @@ backlogItems:
   - wi-051
   - wi-052
   - wi-053
+  - wi-054
+  - wi-055
+  - wi-056
+  - wi-057
 successMetricIds:
   - metric-canonical-model-validated
   - metric-mvp-loop-complete
@@ -243,14 +247,14 @@ Adapter expectations:
 | REQ-005 | wi-023 | Target requirement and fit analysis slice |
 | REQ-006 | wi-024 | Misalignment review categories |
 | REQ-007 | wi-025 | Source-backed deliverable generation |
-| REQ-008 | wi-026, wi-039 | Concurrent lightweight application tracking and scheduled automation |
+| REQ-008 | wi-026, wi-039, wi-055, wi-057 | Concurrent lightweight application tracking, workspace, automation, and live evidence |
 | REQ-009 | wi-019, wi-027 | Planning reconciliation and Temporal workflow boundary |
 | REQ-010 | wi-020, wi-031 | Record threshold and RuntimeExecution ledger |
 | REQ-011 | wi-020 | Portfolio deferred type definition |
-| REQ-012 | wi-034, wi-035, wi-036 | Durable curation runtime slices |
-| REQ-013 | wi-034, wi-040 | Book of Work refresh and readiness evidence |
-| REQ-014 | wi-027, wi-030, wi-031, wi-032, wi-033, wi-037, wi-038, wi-039, wi-040 | Temporal durable execution adoption |
-| REQ-015 | wi-028, wi-034, wi-040 | Canonical vault no-write guardrail |
+| REQ-012 | wi-034, wi-035, wi-036, wi-054, wi-057 | Durable curation runtime slices, inventory UX, and live evidence |
+| REQ-013 | wi-034, wi-040, wi-056, wi-057 | Book of Work refresh, runtime UX, and readiness evidence |
+| REQ-014 | wi-027, wi-030, wi-031, wi-032, wi-033, wi-037, wi-038, wi-039, wi-040, wi-056, wi-057 | Temporal durable execution adoption, runtime UX, and live evidence |
+| REQ-015 | wi-028, wi-034, wi-040, wi-057 | Canonical vault no-write guardrail and live evidence |
 
 ## Related Work
 

@@ -1,9 +1,11 @@
+import importlib
 import sys
 import types
 
 import pytest
 
 from src.services.temporal_config import TemporalWorkerConfig
+from src.workers import temporal_worker
 from src.workers.temporal_worker import build_temporal_worker
 
 
@@ -16,6 +18,11 @@ class FakeWorker:
 
 
 def test_temporal_worker_import_is_lazy():
+    for module_name in ("temporalio.worker", "temporalio.workflow", "temporalio.activity"):
+        sys.modules.pop(module_name, None)
+
+    importlib.reload(temporal_worker)
+
     assert "temporalio.worker" not in sys.modules
     assert "temporalio.workflow" not in sys.modules
     assert "temporalio.activity" not in sys.modules

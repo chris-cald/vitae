@@ -1,0 +1,6 @@
+{
+  "private": true,
+  "scripts": {
+    "check": "cd backend && PYTHON=${PYTHON:-$(if [ -x .venv/bin/python ]; then printf .venv/bin/python; else printf python3; fi)} && $PYTHON -c 'import os, sys, pytest; code = pytest.main(); sys.stdout.flush(); sys.stderr.flush(); os._exit(code)' && cd ../frontend && npm test"
+  }
+}

@@ -1,9 +1,8 @@
 # Simple rule-based auto-detection for profile categories from job data
 import logging
+import math
 import re
 from typing import Dict, Any, List
-from sklearn.metrics.pairwise import cosine_similarity
-import numpy as np
 from src.category_config import CATEGORY_CONFIG
 from functools import lru_cache
 
@@ -58,6 +57,15 @@ def _category_value_names() -> Dict[str, List[str]]:
     return result
 
 
+def _cosine_similarity(left: Any, right: Any) -> float:
+    left_values = [float(value) for value in left]
+    right_values = [float(value) for value in right]
+    numerator = sum(a * b for a, b in zip(left_values, right_values))
+    left_norm = math.sqrt(sum(a * a for a in left_values))
+    right_norm = math.sqrt(sum(b * b for b in right_values))
+    return numerator / (left_norm * right_norm) if left_norm and right_norm else 0.0
+
+
 def embedding_based_category_detection(text: str) -> Dict[str, Any]:
     from .litellm_embedding import weighted_pool_embeddings
 
@@ -75,12 +83,12 @@ def embedding_based_category_detection(text: str) -> Dict[str, Any]:
     for cat, fragments in canonical_texts.items():
         # Embed each fragment using cached_weighted_pool_embeddings
         cat_embs = [cached_weighted_pool_embeddings(frag)[0] for frag in fragments]
-        # Compute cosine similarity
-        sims = cosine_similarity(np.array([text_emb]), np.array(cat_embs))[0]
+        # Compute cosine similarity without pulling in sklearn at import time.
+        sims = [_cosine_similarity(text_emb, cat_emb) for cat_emb in cat_embs]
         logger.debug("Category similarity evaluated for category=%s", cat)
         for score in sims:
             logger.debug("Category similarity score=%s", round(float(score), 4))
-        idx = int(np.argmax(sims))
+        idx = max(range(len(sims)), key=sims.__getitem__)
         if sims[idx] > 0.5:
             detected[cat] = value_names[cat][idx]
         else:
