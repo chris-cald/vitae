@@ -36,11 +36,14 @@ The current app supports resume/job upload and job-fit analysis. The Job Search 
 
 ## Tasks
 
-- [ ] Complete WI-051 to persist/read the minimum application-bundle records.
-- [ ] Complete WI-052 to enforce generation-source eligibility before resume/communication generation.
-- [ ] Complete WI-053 to assemble draft markdown application artifacts and manifest in Vitae-controlled storage.
+- [x] Complete WI-051 to persist/read the minimum application-bundle records.
+- [x] Complete WI-052 to enforce generation-source eligibility before resume/communication generation.
+- [x] Complete WI-053 to assemble draft markdown application artifacts and manifest in Vitae-controlled storage.
+- [ ] Complete WI-054 to add the source inventory and human-reviewed curation loop.
+- [ ] Complete WI-055 to expose the bundle workflow and material events in the frontend.
+- [ ] Complete WI-056 to connect refresh and durable runtime UX.
+- [ ] Complete WI-057 to collect live full-loop UAT evidence and release readiness.
 - [ ] Keep canonical Obsidian vault access read-only or out of scope for this slice.
-- [ ] Update frontend/API docs to show the new natural process flow.
 
 ## Deliverables
 
@@ -51,10 +54,11 @@ The current app supports resume/job upload and job-fit analysis. The Job Search 
 
 ## Acceptance Criteria
 
-- [ ] A user can create a draft application bundle from an existing target/job and selected resume/profile inputs.
+- [ ] A user can create, review, and record material events for a draft application bundle from an existing target/job and selected resume/profile inputs.
 - [ ] Bundle output includes JD note, resume draft, manifest, source summary, unsupported claims, and recommended follow-up.
 - [ ] Draft generation cannot use Seeds, Tests, Work Orders, or draft Career Knowledge artifacts as factual/writing sources.
-- [ ] No slice writes to the canonical Obsidian vault.
+- [ ] A user can inventory source material, complete a reviewed curation cycle, and see refresh or stale state without canonical-vault writes.
+- [ ] Live UAT validates two isolated applications, real Temporal behavior, privacy controls, and no canonical-vault mutation.
 - [ ] `dv backlog validate --dir backlog --fail-on error` passes.
 
 ## Relationships
