@@ -45,10 +45,20 @@ export default defineConfig([
       },
     },
     rules: {
-      // ponytail: existing effect-driven fetches use synchronous loading-state updates; refactor when their data fetching changes.
-      'react-hooks/set-state-in-effect': 'off',
       'no-debugger': 'error',
       'no-irregular-whitespace': 'error',
+    },
+  },
+  {
+    files: [
+      'src/components/job/JobListInline.tsx',
+      'src/components/jobfit/JobFitList.tsx',
+      'src/components/jobfit/JobFitResult.tsx',
+      'src/components/resume/ResumeListInline.tsx',
+    ],
+    rules: {
+      // ponytail: existing effect-driven fetches use synchronous loading-state updates; refactor when their data fetching changes.
+      'react-hooks/set-state-in-effect': 'off',
     },
   },
 ])
