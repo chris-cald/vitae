@@ -91,47 +91,44 @@ Major roadmap themes:
 
 ## Local development
 
+### Clean-checkout setup
+
+Use Node `22.17.0` with npm `10.9.2` (`.nvmrc`) and uv `0.9.26` with Python `3.12` (`backend/.python-version`). From the repository root:
+
+```sh
+npm run setup
+```
+
+This installs the frontend from its tracked npm lockfile and creates `backend/.venv` from `backend/pyproject.toml` and `backend/uv.lock`. The validation gate never falls back to `python3`, `PYTHON`, or a pre-existing virtual environment.
+
 ### Backend
 
 ```sh
-cd backend
-python3 -m venv .venv
-source .venv/bin/activate
-pip install -r requirements.txt
-uvicorn src.main:app --reload
+uv --directory backend run uvicorn src.main:app --reload
 ```
 
-The API listens on `http://localhost:8000` by default.
-
-Docker-oriented backend notes are in `backend/README_DOCKER.md`.
+The API listens on `http://localhost:8000` by default. Docker-oriented backend notes are in `backend/README_DOCKER.md`.
 
 ### Frontend
 
 ```sh
-cd frontend
-npm install
-npm run dev
+npm --prefix frontend run dev
 ```
 
 The frontend dev server proxies `/api` to the backend on port 8000.
 
 ### Validation
 
-Use focused validation first, then broader checks:
+Use focused validation first, then the deterministic gates:
 
 ```sh
-# backend
-cd backend
-pytest
-
-# frontend
-cd frontend
-npm test
+npm run check
+npm run pilot:rehearse
 ```
 
-See `docs/uat-readiness.md` for the MVP UAT smoke path and deployment notes.
+`check` runs backend tests in the locked uv environment, frontend behavior tests, `tsc --noEmit`, and ESLint across JS/TS/TSX. `pilot:rehearse` additionally verifies the documented synthetic demo contract, schema and career-core contracts, and backlog validity. It requires the Doc-Vader `dv` CLI; `npm run setup` intentionally does not install a machine-global documentation tool. CI runs the portable check, synthetic-demo, schema, and career-core gates separately.
 
-Some backend tests may require a live backend, model provider, embedding dependencies, or local configuration. If a test is environment-dependent, document that explicitly in the handoff.
+These gates are pre-UAT evidence only. They do not provide live provider, browser, or Temporal evidence required by WI-057; use `docs/uat-readiness.md` with local credentials and sanitized fixtures for that work. Never put credentials or candidate material in CI.
 
 ## Standards and invariants
 

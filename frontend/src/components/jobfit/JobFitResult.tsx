@@ -18,8 +18,14 @@ interface JobFit {
   id?: string;
   resume_id?: string;
   job_id?: string;
+  name?: string;
+  score?: number;
+  analysis?: string;
+  keywords?: string[];
+  skills?: Array<{ name?: string; score?: number }>;
+  created_at?: string;
+  feedback?: FeedbackItem[];
   links?: Array<{ rel: string; href: string }>;
-  [key: string]: any;
 }
 interface ScoreResult {
   score?: number;
@@ -45,7 +51,6 @@ export function JobFitResult({ jobFitId }: { jobFitId: string }) {
     if (!jobFitId) return;
     setError(null);
     setLoading(true);
-    let fit: JobFit | null = null;
     let score: ScoreResult | null = null;
     let feedback: FeedbackItem[] = [];
     let resumeId = '';
@@ -57,14 +62,14 @@ export function JobFitResult({ jobFitId }: { jobFitId: string }) {
     ])
       .then(async ([fitRes, scoreRes, feedbackRes]) => {
         if (!fitRes.ok) throw new Error('JobFit not found');
-        fit = await fitRes.json();
-        score = scoreRes.ok ? await scoreRes.json() : null;
-        feedback = feedbackRes.ok ? await feedbackRes.json() : [];
-        setResult(fit);
+        const fitPayload = await fitRes.json() as JobFit;
+        score = scoreRes.ok ? await scoreRes.json() as ScoreResult : null;
+        feedback = feedbackRes.ok ? await feedbackRes.json() as FeedbackItem[] : [];
+        setResult(fitPayload);
         setScore(score);
-        setFeedback((feedback && feedback.length > 0) ? feedback : (fit.feedback || []));
-        resumeId = fit.resume_id;
-        jobId = fit.job_id;
+        setFeedback(feedback.length > 0 ? feedback : (fitPayload.feedback || []));
+        resumeId = fitPayload.resume_id || '';
+        jobId = fitPayload.job_id || '';
         // Fetch user-friendly resume and job
         if (resumeId) fetch(`/api/v1/resume/${resumeId}`).then(r => r.json()).then(r => setResume(r.resume)).catch(() => setResume(null));
         if (jobId) fetch(`/api/v1/job/${jobId}`).then(r => r.json()).then(r => setJob(r.job)).catch(() => setJob(null));
@@ -134,7 +139,7 @@ export function JobFitResult({ jobFitId }: { jobFitId: string }) {
                 <div>
                   <span className="font-semibold">Skills:</span>
                   <ul className="ml-4 list-disc text-xs">
-                    {result.skills.map((s: any, i: number) => (
+                    {result.skills.map((s, i) => (
                       <li key={i}>{s.name} <span className="text-gray-500">({Math.round((s.score || 0) * 100)}%)</span></li>
                     ))}
                   </ul>
