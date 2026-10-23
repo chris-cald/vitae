@@ -43,7 +43,8 @@ export function JobUpload({ onUploaded }: JobUploadProps) {
     }
     setUploading(true);
     try {
-      let res, data;
+      let res: Response | undefined;
+      let data: JobUploadResponse;
       if (tab === 'url') {
         if (!jobUrl) {
           setError('Please enter a job URL.');
@@ -80,7 +81,8 @@ export function JobUpload({ onUploaded }: JobUploadProps) {
           body: formData,
         });
       }
-      data = await res.json();
+      if (!res) throw new Error('Unsupported upload type.');
+      data = await res.json() as JobUploadResponse;
       if (res.ok) {
         onUploaded && onUploaded(data);
       } else {

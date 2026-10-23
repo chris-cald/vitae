@@ -1,6 +1,21 @@
 {
   "private": true,
+  "packageManager": "npm@10.9.2",
+  "engines": {
+    "node": ">=22.17.0 <23",
+    "npm": "10.9.2"
+  },
   "scripts": {
-    "check": "cd backend && PYTHON=${PYTHON:-$(if [ -x .venv/bin/python ]; then printf .venv/bin/python; else printf python3; fi)} && $PYTHON -c 'import os, sys, pytest; code = pytest.main(); sys.stdout.flush(); sys.stderr.flush(); os._exit(code)' && cd ../frontend && npm test"
+    "setup": "npm --prefix frontend ci && npm --prefix vendor/templjs/core ci && npm --prefix vendor/templjs/cli ci && npm --prefix doc-packs/vitae-sdlc ci && uv --directory backend sync --locked",
+    "test:backend": "uv --directory backend run --locked --no-sync python -m pytest",
+    "test:frontend": "npm --prefix frontend run test:behavior",
+    "typecheck": "npm --prefix frontend run typecheck",
+    "lint": "npm --prefix frontend run lint",
+    "test:release": "node --test test/release-validation.test.mjs",
+    "test:schema": "node --test schemas/career/test/canonical-domain-contract.test.mjs",
+    "test:career-core": "node --experimental-strip-types --test services/career-core/test/*.test.ts",
+    "validate:backlog": "dv backlog validate --dir backlog --fail-on error",
+    "check": "npm run test:backend && npm run test:frontend && npm run typecheck && npm run lint",
+    "pilot:rehearse": "npm run test:release && npm run check && npm run test:schema && npm run test:career-core && npm run validate:backlog"
   }
 }

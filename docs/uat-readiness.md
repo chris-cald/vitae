@@ -15,19 +15,13 @@ The synchronous `GET /api/v1/mvp/application-loop/demo` endpoint remains a smoke
 ## Required local checks
 
 ```sh
-cd backend
-.venv/bin/python -m pytest -q
-
-cd ../frontend
-npm test
-
-cd ..
-node --test schemas/career/test/canonical-domain-contract.test.mjs
-dv backlog validate --dir backlog --fail-on error
+npm run setup
+npm run check
+npm run pilot:rehearse
 git diff --check
 ```
 
-Expected baseline without a live backend: backend unit tests pass and live integration tests skip.
+Expected baseline without a live backend: backend unit tests pass and live integration tests skip. `pilot:rehearse` is deterministic pre-UAT evidence only; it does not replace required provider, browser, or live Temporal evidence.
 
 ## Environment
 
@@ -138,8 +132,7 @@ If neither provider credentials nor the local Pi bridge are configured, this sec
 Terminal 1:
 
 ```sh
-cd backend
-.venv/bin/uvicorn src.main:app --reload
+uv --directory backend run uvicorn src.main:app --reload
 ```
 
 Terminal 2:

@@ -1,0 +1,26 @@
+[project]
+name = "vitae-backend"
+version = "0.1.0"
+description = "Vitae backend test environment"
+requires-python = ">=3.12,<3.13"
+dependencies = [
+  "aiosqlite",
+  "alembic",
+  "fastapi",
+  "greenlet",
+  "litellm",
+  "markitdown",
+  "pdfminer-six",
+  "python-docx",
+  "python-dotenv",
+  "python-multipart",
+  "pytest",
+  "pytest-asyncio",
+  "sentence-transformers",
+  "sqlmodel",
+  "temporalio",
+  "uvicorn",
+]
+
+[tool.uv]
+package = false
