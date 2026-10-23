@@ -35,6 +35,7 @@ export default defineConfig([
   },
   {
     files: ['**/*.{ts,tsx}'],
+    extends: [reactHooks.configs.flat.recommended],
     languageOptions: {
       parser: tsParser,
       parserOptions: {
@@ -44,6 +45,8 @@ export default defineConfig([
       },
     },
     rules: {
+      // ponytail: existing effect-driven fetches use synchronous loading-state updates; refactor when their data fetching changes.
+      'react-hooks/set-state-in-effect': 'off',
       'no-debugger': 'error',
       'no-irregular-whitespace': 'error',
     },

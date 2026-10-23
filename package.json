@@ -15,7 +15,7 @@
     "test:schema": "node --test schemas/career/test/canonical-domain-contract.test.mjs",
     "test:career-core": "node --experimental-strip-types --test services/career-core/test/*.test.ts",
     "validate:backlog": "dv backlog validate --dir backlog --fail-on error",
-    "check": "npm run test:backend && npm run test:frontend && npm run typecheck && npm run lint",
+    "check": "npm run test:backend && npm run test:frontend && npm run typecheck && npm run lint && npm --prefix frontend run build",
     "pilot:rehearse": "npm run test:release && npm run check && npm run test:schema && npm run test:career-core && npm run validate:backlog"
   }
 }

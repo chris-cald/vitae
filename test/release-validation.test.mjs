@@ -15,6 +15,7 @@ test('root validation uses the locked backend environment and frontend TS gates'
   assert.match(scripts.check, /test:frontend/);
   assert.match(scripts.check, /typecheck/);
   assert.match(scripts.check, /lint/);
+  assert.match(scripts.check, /npm --prefix frontend run build/);
   assert.doesNotMatch(scripts.check, /python3|PYTHON=/);
   assert.match(scripts['test:backend'], /uv .*run .*--locked .*--no-sync .*pytest/);
   assert.equal(existsSync(resolve(root, 'backend/pyproject.toml')), true);
@@ -29,5 +30,12 @@ test('rehearsal verifies the documented synthetic demo contract', () => {
   assert.match(scripts['validate:backlog'], /^dv backlog validate/);
   assert.match(read('docs/uat-readiness.md'), /\/api\/v1\/mvp\/application-loop\/demo/);
   assert.match(read('backend/src/api/router/v1/mvp.py'), /@router\.get\("\/mvp\/application-loop\/demo"/);
-  assert.match(read('.github/workflows/validation.yml'), /npm run test:release/);
+  const workflow = read('.github/workflows/validation.yml');
+
+  assert.match(workflow, /actions\/checkout@[0-9a-f]{40}/);
+  assert.match(workflow, /persist-credentials: false/);
+  assert.match(workflow, /actions\/setup-node@[0-9a-f]{40}/);
+  assert.match(workflow, /astral-sh\/setup-uv@[0-9a-f]{40}/);
+  assert.match(workflow, /npm run test:release/);
+  assert.match(read('frontend/eslint.config.js'), /files: \['\*\*\/\*\.\{ts,tsx\}'\],[\s\S]*reactHooks\.configs\.flat\.recommended/);
 });
