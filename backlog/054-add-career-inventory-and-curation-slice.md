@@ -34,7 +34,7 @@ Add the smallest persisted, user-visible Career Inventory that turns Vitae-contr
 
 - [ ] Add a thin source inventory API and UI that list opaque source metadata, Seed status, CatalogAsset status, and provenance references.
 - [ ] Support harvest, prime, cull, and CatalogAsset publication as reviewable candidate actions; the implementation records an approval request and decision without executing live source changes.
-- [ ] Keep Seeds outside the Catalog; only an approved substantiated material can become a CatalogAsset in synthetic coverage. Reserve live cull and publication for WI-057 UAT under explicit human authority.
+- [ ] Keep Seeds outside the Catalog; synthetic CatalogAsset promotion requires source-backed evidence for every promotion criterion, an `assetKind` declared in the Seed's `maturesTo`, and an approved `publish-catalog-asset` decision. Reserve live cull and publication for WI-057 UAT under explicit human authority.
 - [ ] Reuse the existing generation-source eligibility resolver rather than creating a second authority model.
 - [ ] Add a focused API seam test and a browser-flow test using synthetic source metadata only.
 

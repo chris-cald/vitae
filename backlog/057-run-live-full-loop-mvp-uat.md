@@ -34,7 +34,7 @@ Validate the complete candidate loop against live backend, browser, and Temporal
 ## Tasks
 
 - [ ] Run two concurrent, isolated application journeys from inventory to guarded bundle and material application event.
-- [ ] Demonstrate one harvest/cull/prime/substantiate iteration and one source refresh or stale-state outcome, obtaining explicit human authority immediately before any live cull or CatalogAsset publication.
+- [ ] Demonstrate one harvest/cull/prime/substantiate iteration and one source refresh or stale-state outcome, obtaining an approved `discard`, `merge`, or `split` decision immediately before live cull, and an approved `publish-catalog-asset` decision plus the Seed promotion guard immediately before CatalogAsset publication.
 - [ ] Capture real Temporal start, retry/restart, cancellation, human-wait, and opaque-history evidence.
 - [ ] Record pre/post canonical-vault inventories as hashed relative paths, size, and mtime only; require an empty diff and never expose filenames.
 - [ ] Record only sanitized evidence and close the parent epic when every acceptance criterion is met.
