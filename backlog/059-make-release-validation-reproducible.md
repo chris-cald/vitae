@@ -34,7 +34,8 @@ Make the documented validation path runnable from a clean checkout without an un
 - [ ] Pin and document compatible Node, Python, and package-manager versions; provide a reproducible backend test environment from tracked dependency inputs.
 - [ ] Make root `npm run check` run backend tests, frontend behavior tests, TypeScript typechecking, and applicable TS/TSX linting without hidden local setup.
 - [ ] Add GitHub Actions checks for backend, frontend, schemas/domain/career-core, and practical README/synthetic-demo integrity.
-- [ ] Keep fast deterministic checks separate from provider, browser, and Temporal integration evidence; do not add credentials or raw candidate material to CI.
+- [ ] Create the root `npm run pilot:rehearse` command as a deterministic release rehearsal.
+- [ ] Keep CI and rehearsal checks separate from provider, browser, and Temporal integration evidence; they are never a substitute for WI-057 live UAT. Do not add credentials or raw candidate material to CI.
 - [ ] Update public setup and validation documentation with exact clean-checkout commands and explicit live-validation limitations.
 
 ## Acceptance Criteria
@@ -42,7 +43,7 @@ Make the documented validation path runnable from a clean checkout without an un
 - [ ] A clean checkout can install tracked dependencies and run `npm run check` without relying on an untracked repository virtualenv.
 - [ ] `tsc --noEmit` and TS/TSX linting run in the normal reproducible gate.
 - [ ] CI executes the documented deterministic checks and fails on a broken synthetic demo/documentation link or contract check.
-- [ ] The release rehearsal distinguishes local deterministic evidence from optional provider, browser, and Temporal evidence.
+- [ ] The release rehearsal distinguishes local deterministic evidence from required WI-057 provider, browser, and Temporal UAT evidence.
 - [ ] `npm run check`, `npm run pilot:rehearse`, and `dv backlog validate --dir backlog --fail-on error` pass.
 
 ## Relationships
