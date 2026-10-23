@@ -40,7 +40,7 @@ Make the documented validation path runnable from a clean checkout without an un
 
 ## Acceptance Criteria
 
-- [ ] A clean checkout can install tracked dependencies and run `npm run check` without relying on an untracked repository virtualenv.
+- [ ] From a clean checkout, documented commands install tracked dependencies into an isolated environment, and `npm run check` uses that environment without falling back to ambient `python3` or an untracked repository virtualenv.
 - [ ] `tsc --noEmit` and TS/TSX linting run in the normal reproducible gate.
 - [ ] CI executes the documented deterministic checks and fails on a broken synthetic demo/documentation link or contract check.
 - [ ] The release rehearsal distinguishes local deterministic evidence from required WI-057 provider, browser, and Temporal UAT evidence.
