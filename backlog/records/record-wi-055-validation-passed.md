@@ -12,7 +12,7 @@ links:
   supporting_reference:
     - https://github.com/chris-cald/vitae/pull/8
     - '`8133ca9eda4e0caf2b23361993c54072a531e04c`'
-    - '`7c74fd1ab636d8e2bca77ed9488e8fc8`'
+    - 'Babysitter completion proof: `7c74fd1ab636d8e2bca77ed9488e8fc8`'
     - '`ad9af44c63e907796df981fede3783b40026f3d3`'
 ---
 
@@ -26,7 +26,7 @@ pass
 
 ## Observation
 
-PR #8 merged application workspace implementation passed GitHub Validation and publisher gates.
+PR #8 merged application workspace implementation passed `npm run check`, `node --test frontend/test/application-bundle-workspace.test.mjs`, and `dv backlog validate --dir backlog --fail-on error` using synthetic data; no live UAT was run.
 
 ## Subject References
 
@@ -42,7 +42,7 @@ PR #8 merged application workspace implementation passed GitHub Validation and p
 
 - https://github.com/chris-cald/vitae/pull/8
 - `8133ca9eda4e0caf2b23361993c54072a531e04c`
-- `7c74fd1ab636d8e2bca77ed9488e8fc8`
+- Babysitter completion proof: `7c74fd1ab636d8e2bca77ed9488e8fc8`
 - `ad9af44c63e907796df981fede3783b40026f3d3`
 
 ## Notes
