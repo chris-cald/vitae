@@ -8,7 +8,6 @@ lifecycle: active
 status: ready
 status_reason: planned
 priority: critical
-estimated: 4
 commits:
   8133ca9eda4e0caf2b23361993c54072a531e04c: Guard application bundle workspace state (#8)
 links:
@@ -24,6 +23,8 @@ links:
     - '[[051-add-application-bundle-record-slice]]'
     - '[[052-enforce-generation-source-eligibility]]'
     - '[[053-generate-draft-application-bundle-artifacts]]'
+  evidence:
+    - '[[record-wi-055-validation-passed]]'
 tags:
   - afk
   - p0
