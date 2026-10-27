@@ -19,7 +19,14 @@ export function CareerInventoryPanel() {
     }
   };
 
-  useEffect(() => { void refresh(); }, []);
+  useEffect(() => {
+    void fetchCareerInventory()
+      .then(nextInventory => {
+        setInventory(nextInventory);
+        setError('');
+      })
+      .catch(() => setError('Career inventory is unavailable.'));
+  }, []);
 
   const harvest = async (sourceId: string) => {
     try {
