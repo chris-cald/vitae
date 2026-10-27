@@ -17,6 +17,8 @@ links:
   reference:
     - '[[../docs/prd/mvp-book-of-work-to-application-loop]]'
     - '[[../docs/career/canonical-domain-model]]'
+  evidence:
+    - '[[record-wi-054-synthetic-inventory-validation-passed]]'
 tags:
   - afk
   - p0
