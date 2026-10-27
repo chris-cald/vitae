@@ -9,7 +9,11 @@ status: ready
 status_reason: planned
 priority: critical
 estimated: 4
+commits:
+  8133ca9eda4e0caf2b23361993c54072a531e04c: Guard application bundle workspace state (#8)
 links:
+  pull_requests:
+    - https://github.com/chris-cald/vitae/pull/8
   parent:
     - '[[050-deliver-job-search-application-funnel-slice]]'
   depends_on:
