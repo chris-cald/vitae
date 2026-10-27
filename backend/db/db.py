@@ -24,7 +24,7 @@ if TYPE_CHECKING:
 
 # Create tables using SQLModel metadata
 async def init_db():
-    from src.models import application_bundle, runtime_execution  # noqa: F401
+    from src.models import application_bundle, career_inventory, runtime_execution  # noqa: F401
 
     async with engine.begin() as conn:
         await conn.run_sync(SQLModel.metadata.create_all)

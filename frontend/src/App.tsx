@@ -7,6 +7,7 @@ import { JobListInline } from '@/components/job/JobListInline';
 import { JobFitCreate, JobFitCreateResponse } from '@/components/jobfit/JobFitCreate';
 import { JobFitResult } from '@/components/jobfit/JobFitResult';
 import { JobFitList } from '@/components/jobfit/JobFitList';
+import { CareerInventoryPanel } from '@/components/career/CareerInventory';
 
 const steps = [
   { key: 'resume', label: 'Resume' },
@@ -111,6 +112,7 @@ export default function App() {
                             <JobListInline />
                           </div>
                         </div>
+                        <CareerInventoryPanel />
                       </>
                     )}
           {step === 'jobfit' && (

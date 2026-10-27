@@ -146,6 +146,36 @@ test('job-fit API flow scopes bundle detail and material events', async () => {
   }
 });
 
+test('career inventory API uses metadata-only AFK actions', async () => {
+  const requests = [];
+  const originalFetch = globalThis.fetch;
+  globalThis.fetch = async (url, options = {}) => {
+    requests.push({ url, options });
+    if (url === '/api/v1/career-inventory') {
+      return Response.json({
+        sources: [{ id: 'source-synthetic-platform', title: 'Synthetic platform record', sourceType: 'synthetic', sourceRef: { uri: 'vitae://synthetic/career-source/platform' }, capturedAt: '2026-01-01T00:00:00+00:00', seedCount: 0 }],
+        seeds: [], catalogAssets: [], actions: [], counts: { sources: 1, seeds: 0, catalogAssets: 0 }, generationEligibility: { eligibleSources: [], targetContext: null, gaps: [] },
+      });
+    }
+    return Response.json({ id: 'seed-synthetic-1', sourceId: 'source-synthetic-platform', status: url.endsWith('/prime') ? 'primed' : 'harvested', provenanceRef: { uri: 'vitae://synthetic/career-source/platform' } });
+  };
+  try {
+    const inventory = await api.fetchCareerInventory();
+    await api.harvestCareerInventory(inventory.sources[0].id);
+    await api.primeCareerInventorySeed('seed-synthetic-1');
+    assert.deepEqual(inventory.counts, { sources: 1, seeds: 0, catalogAssets: 0 });
+    assert.deepEqual(requests.map(request => request.url), [
+      '/api/v1/career-inventory',
+      '/api/v1/career-inventory/harvest',
+      '/api/v1/career-inventory/seeds/seed-synthetic-1/prime',
+    ]);
+    assert.equal(JSON.parse(requests[1].options.body).source_id, 'source-synthetic-platform');
+    assert.equal(requests.some(request => /cull|publish|provider/i.test(request.url)), false);
+  } finally {
+    globalThis.fetch = originalFetch;
+  }
+});
+
 test('workspace ignores create, refresh, and event responses from a prior job fit', async () => {
   const create = deferred();
   const refresh = deferred();

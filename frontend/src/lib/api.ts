@@ -24,6 +24,22 @@ interface UnsupportedClaim {
   reason: string;
 }
 
+export interface CareerInventory {
+  sources: Array<{
+    id: string;
+    title: string;
+    sourceType: string;
+    sourceRef: SourceRef;
+    capturedAt: string;
+    seedCount: number;
+  }>;
+  seeds: Array<{ id: string; sourceId: string; status: string; provenanceRef: SourceRef }>;
+  catalogAssets: Array<{ id: string; status: string }>;
+  actions: Array<{ id: string; action: 'harvest' | 'prime' | 'cull' | 'publish-catalog-asset'; seedId: string | null; status: string; provenanceRef: SourceRef }>;
+  counts: { sources: number; seeds: number; catalogAssets: number };
+  generationEligibility: { eligibleSources: unknown[]; targetContext: unknown; gaps: unknown[] };
+}
+
 export interface ApplicationBundle {
   application: {
     id: string;
@@ -82,6 +98,28 @@ export async function addMaterialApplicationRecord(
     body: JSON.stringify({ job_fit_id: jobFitId, record_type: recordType }),
   });
   if (!res.ok) throw new Error('Failed to record material application event');
+}
+
+export async function fetchCareerInventory(): Promise<CareerInventory> {
+  const res = await fetch('/api/v1/career-inventory');
+  if (!res.ok) throw new Error('Failed to fetch career inventory');
+  return res.json() as Promise<CareerInventory>;
+}
+
+export async function harvestCareerInventory(sourceId: string): Promise<CareerInventory['seeds'][number]> {
+  const res = await fetch('/api/v1/career-inventory/harvest', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ source_id: sourceId }),
+  });
+  if (!res.ok) throw new Error('Failed to harvest career inventory source');
+  return res.json() as Promise<CareerInventory['seeds'][number]>;
+}
+
+export async function primeCareerInventorySeed(seedId: string): Promise<CareerInventory['seeds'][number]> {
+  const res = await fetch(`/api/v1/career-inventory/seeds/${encodeURIComponent(seedId)}/prime`, { method: 'POST' });
+  if (!res.ok) throw new Error('Failed to prime career inventory Seed');
+  return res.json() as Promise<CareerInventory['seeds'][number]>;
 }
 
 export async function fetchProfileCategories() {
