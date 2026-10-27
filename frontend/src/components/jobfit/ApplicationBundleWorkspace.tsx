@@ -147,7 +147,7 @@ export function ApplicationBundleWorkspace({ jobFitId }: { jobFitId: string }) {
       <div className="text-sm">
         <h4 className="font-semibold">Source summary</h4>
         <p>Eligible sources: {artifacts.sourceSummary.eligibleSourceIds.join(', ') || 'None'}</p>
-        <p>Target source: {artifacts.sourceSummary.targetSourceRef?.uri || 'Not recorded'}</p>
+        <p>Target context (not candidate evidence): {artifacts.sourceSummary.targetSourceRef?.uri || 'Not recorded'}</p>
       </div>
       <div className="text-sm">
         <h4 className="font-semibold">Unsupported claims</h4>

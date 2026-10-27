@@ -205,3 +205,20 @@ test('workspace ignores create, refresh, and event responses from a prior job fi
   assert.ok(!textContent(view).includes('fit-event'));
   assert.equal(fetches, 1);
 });
+
+test('workspace labels target context as non-evidence after creating a bundle', async () => {
+  const workspace = loadWorkspace({
+    listApplicationBundles: async () => [],
+    createDraftApplicationBundle: async () => bundle('fit-context'),
+    fetchApplicationBundle: async () => bundle('fit-context'),
+    addMaterialApplicationRecord: async () => undefined,
+  });
+
+  let view = workspace.render('fit-context');
+  await settle();
+  view = workspace.render('fit-context');
+  await findAction(view, 'Create or retrieve draft bundle')();
+  view = workspace.render('fit-context');
+
+  assert.match(textContent(view), /Target context \(not candidate evidence\):/);
+});
