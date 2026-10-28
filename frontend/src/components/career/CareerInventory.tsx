@@ -80,7 +80,7 @@ export function CareerInventoryPanel() {
       </p>
       {error && <p role="alert" className="text-sm text-red-600">{error}</p>}
       {loading && !inventory ? <p className="text-sm">Loading inventory…</p> : <>
-        {error && !inventory && <button className="px-3 py-1 rounded bg-secondary" onClick={() => void refresh()}>Retry</button>}
+        {error && <button className="px-3 py-1 rounded bg-secondary" onClick={() => void refresh()}>Retry</button>}
         {inventory && <>
           <p className="text-sm mb-3">
             {inventory.counts.sources} source · {inventory.counts.seeds} Seeds · {inventory.counts.catalogAssets} CatalogAssets

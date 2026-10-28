@@ -11,6 +11,19 @@ from src.models.career_inventory import CareerInventoryAction, CareerInventorySe
 from src.services.career_inventory_service import CareerInventoryNotFound, CareerInventoryService
 
 
+def test_inventory_models_require_persisted_metadata():
+    for column in (
+        CareerInventorySeed.__table__.c.source_id,
+        CareerInventorySeed.__table__.c.status,
+        CareerInventorySeed.__table__.c.source_ref,
+        CareerInventoryAction.__table__.c.action,
+        CareerInventoryAction.__table__.c.status,
+        CareerInventoryAction.__table__.c.provenance_ref,
+    ):
+        assert column.nullable is False
+    assert CareerInventorySeed.__table__.c.source_id.unique is True
+
+
 async def reset_inventory() -> None:
     await init_db()
     async with AsyncSessionLocal() as session:
