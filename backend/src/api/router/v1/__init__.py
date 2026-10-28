@@ -8,6 +8,7 @@ from .profile_categories import router as profile_categories_router
 from .mvp import router as mvp_router
 from .runtime_execution import router as runtime_execution_router
 from .application_bundle import router as application_bundle_router
+from .career_inventory import router as career_inventory_router
 
 __all__ = [
     "resume_router",
@@ -17,6 +18,7 @@ __all__ = [
     "mvp_router",
     "runtime_execution_router",
     "application_bundle_router",
+    "career_inventory_router",
 ]
 v1_router = APIRouter()
 v1_router.include_router(resume_router, prefix="/resume", tags=["resume"])
@@ -28,3 +30,4 @@ v1_router.include_router(
 v1_router.include_router(mvp_router, tags=["mvp"])
 v1_router.include_router(runtime_execution_router, tags=["runtime-execution"])
 v1_router.include_router(application_bundle_router, tags=["application-bundle"])
+v1_router.include_router(career_inventory_router, tags=["career-inventory"])

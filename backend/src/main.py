@@ -7,6 +7,7 @@ from src.api.router.v1 import (
     mvp_router,
     runtime_execution_router,
     application_bundle_router,
+    career_inventory_router,
 )
 from db.db import init_db
 from contextlib import asynccontextmanager
@@ -39,3 +40,4 @@ app.include_router(
 app.include_router(mvp_router, prefix="/api/v1", tags=["MVP"])
 app.include_router(runtime_execution_router, prefix="/api/v1", tags=["RuntimeExecution"])
 app.include_router(application_bundle_router, prefix="/api/v1", tags=["ApplicationBundle"])
+app.include_router(career_inventory_router, prefix="/api/v1", tags=["CareerInventory"])
