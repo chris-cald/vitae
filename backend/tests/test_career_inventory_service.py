@@ -1,46 +1,55 @@
+import asyncio
+
 import pytest
 from fastapi import FastAPI
 from fastapi.testclient import TestClient
+from sqlalchemy import delete
 
-from db.db import init_db
+from db.db import AsyncSessionLocal, init_db
 from src.api.router.v1.career_inventory import router
-from src.services.career_inventory_service import CareerInventoryService
+from src.models.career_inventory import CareerInventoryAction, CareerInventorySeed
+from src.services.career_inventory_service import CareerInventoryNotFound, CareerInventoryService
+
+
+async def reset_inventory() -> None:
+    await init_db()
+    async with AsyncSessionLocal() as session:
+        await session.execute(delete(CareerInventoryAction))
+        await session.execute(delete(CareerInventorySeed))
+        await session.commit()
 
 
 @pytest.mark.asyncio
-async def test_inventory_harvest_and_prime_expose_only_opaque_metadata_and_keep_seeds_ineligible():
-    await init_db()
+async def test_inventory_harvest_is_idempotent_and_prime_has_one_canonical_transition():
+    await reset_inventory()
     service = CareerInventoryService()
 
-    before = await service.list_inventory()
     harvested = await service.harvest("source-synthetic-platform")
+    repeated_harvest = await service.harvest("source-synthetic-platform")
     primed = await service.prime(harvested["id"])
-    cull = await service.record_decision(harvested["id"], "cull", approved=True)
-    publication = await service.record_decision(harvested["id"], "publish-catalog-asset", approved=True)
+    repeated_prime = await service.prime(harvested["id"])
     inventory = await service.list_inventory()
 
-    assert before["counts"]["sources"] == 1
-    assert before["counts"]["catalogAssets"] == 0
-    assert harvested["status"] == "harvested"
+    assert harvested == repeated_harvest
+    assert harvested["status"] == "incubating"
+    assert primed == repeated_prime
     assert primed["status"] == "primed"
-    assert inventory["counts"]["seeds"] == before["counts"]["seeds"] + 1
-    assert inventory["counts"]["catalogAssets"] == 0
-    assert [action["action"] for action in inventory["actions"][-4:]] == ["harvest", "prime", "cull", "publish-catalog-asset"]
-    assert cull["status"] == "approved"
-    assert publication["status"] == "approved"
+    assert [action["action"] for action in inventory["actions"]] == ["harvest", "prime"]
+    assert inventory["counts"] == {"sources": 1, "seeds": 1, "catalogAssets": 0}
     assert inventory["catalogAssets"] == []
     assert inventory["generationEligibility"]["eligibleSources"] == []
-    assert inventory["generationEligibility"]["targetContext"] is None
     assert {
         "id": harvested["id"],
         "kind": "seed",
         "reason": "source-kind-not-generation-authoritative",
     } in inventory["generationEligibility"]["gaps"]
-    rendered = str(inventory).lower()
-    assert "raw" not in rendered
+
+    with pytest.raises(CareerInventoryNotFound):
+        await service.prime("missing-seed")
 
 
-def test_inventory_api_harvests_and_primes_synthetic_metadata_only():
+def test_inventory_api_initializes_tables_and_distinguishes_missing_resources():
+    asyncio.run(reset_inventory())
     app = FastAPI()
     app.include_router(router, prefix="/api/v1")
 
@@ -48,6 +57,7 @@ def test_inventory_api_harvests_and_primes_synthetic_metadata_only():
         listed = client.get("/api/v1/career-inventory")
         harvested = client.post("/api/v1/career-inventory/harvest", json={"source_id": "source-synthetic-platform"})
         primed = client.post(f"/api/v1/career-inventory/seeds/{harvested.json()['id']}/prime")
+        missing = client.post("/api/v1/career-inventory/seeds/missing-seed/prime")
         decision = client.post(
             f"/api/v1/career-inventory/seeds/{harvested.json()['id']}/decisions",
             json={"action": "publish-catalog-asset", "approved": True},
@@ -55,8 +65,10 @@ def test_inventory_api_harvests_and_primes_synthetic_metadata_only():
 
     assert listed.status_code == 200
     assert harvested.status_code == 201
+    assert harvested.json()["status"] == "incubating"
     assert primed.status_code == 200
     assert primed.json()["status"] == "primed"
-    assert decision.status_code == 201
-    assert decision.json()["status"] == "approved"
+    assert missing.status_code == 404
+    assert decision.status_code == 404
+    assert listed.json()["sources"][0]["sourceRef"]["uri"].startswith("vitae://")
     assert "raw" not in str(listed.json()).lower()

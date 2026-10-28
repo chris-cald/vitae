@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import {
   CareerInventory,
   fetchCareerInventory,
@@ -9,40 +9,66 @@ import {
 export function CareerInventoryPanel() {
   const [inventory, setInventory] = useState<CareerInventory | null>(null);
   const [error, setError] = useState('');
+  const [loading, setLoading] = useState(true);
+  const [busy, setBusy] = useState(false);
+  const latestRequest = useRef(0);
 
   const refresh = async () => {
+    const request = ++latestRequest.current;
+    setLoading(true);
     try {
-      setError('');
-      setInventory(await fetchCareerInventory());
+      const nextInventory = await fetchCareerInventory();
+      if (request === latestRequest.current) {
+        setInventory(nextInventory);
+        setError('');
+      }
     } catch {
-      setError('Career inventory is unavailable.');
+      if (request === latestRequest.current) setError('Career inventory is unavailable.');
+    } finally {
+      if (request === latestRequest.current) setLoading(false);
     }
   };
 
   useEffect(() => {
+    let active = true;
+    const request = ++latestRequest.current;
     void fetchCareerInventory()
       .then(nextInventory => {
-        setInventory(nextInventory);
-        setError('');
+        if (active && request === latestRequest.current) {
+          setInventory(nextInventory);
+          setError('');
+        }
       })
-      .catch(() => setError('Career inventory is unavailable.'));
+      .catch(() => {
+        if (active && request === latestRequest.current) setError('Career inventory is unavailable.');
+      })
+      .finally(() => {
+        if (active && request === latestRequest.current) setLoading(false);
+      });
+    return () => { active = false; };
   }, []);
 
   const harvest = async (sourceId: string) => {
+    setBusy(true);
     try {
       await harvestCareerInventory(sourceId);
       await refresh();
     } catch {
       setError('Could not harvest the synthetic source.');
+    } finally {
+      setBusy(false);
     }
   };
 
   const prime = async (seedId: string) => {
+    setBusy(true);
     try {
       await primeCareerInventorySeed(seedId);
       await refresh();
     } catch {
       setError('Could not prime this Seed.');
+    } finally {
+      setBusy(false);
     }
   };
 
@@ -53,27 +79,30 @@ export function CareerInventoryPanel() {
         Synthetic source metadata only. Harvested Seeds remain outside the Catalog and cannot supply generation inputs.
       </p>
       {error && <p role="alert" className="text-sm text-red-600">{error}</p>}
-      {!inventory ? <p className="text-sm">Loading inventory…</p> : <>
-        <p className="text-sm mb-3">
-          {inventory.counts.sources} source · {inventory.counts.seeds} Seeds · {inventory.counts.catalogAssets} CatalogAssets
-        </p>
-        <ul className="space-y-2">
-          {inventory.sources.map(source => (
-            <li key={source.id} className="flex items-center justify-between gap-2 text-sm">
-              <span>{source.title} ({source.sourceType})</span>
-              <button className="px-3 py-1 rounded bg-secondary" onClick={() => void harvest(source.id)}>Harvest</button>
-            </li>
-          ))}
-          {inventory.seeds.map(seed => (
-            <li key={seed.id} className="flex items-center justify-between gap-2 text-sm">
-              <span>{seed.id} · {seed.status}</span>
-              {seed.status === 'harvested' && <button className="px-3 py-1 rounded bg-secondary" onClick={() => void prime(seed.id)}>Prime</button>}
-            </li>
-          ))}
-        </ul>
-        {inventory.actions.length > 0 && <p className="mt-3 text-xs text-muted-foreground">
-          Synthetic decision history: {inventory.actions.map(action => `${action.action}: ${action.status}`).join(', ')}
-        </p>}
+      {loading && !inventory ? <p className="text-sm">Loading inventory…</p> : <>
+        {error && !inventory && <button className="px-3 py-1 rounded bg-secondary" onClick={() => void refresh()}>Retry</button>}
+        {inventory && <>
+          <p className="text-sm mb-3">
+            {inventory.counts.sources} source · {inventory.counts.seeds} Seeds · {inventory.counts.catalogAssets} CatalogAssets
+          </p>
+          <ul className="space-y-2">
+            {inventory.sources.map(source => (
+              <li key={source.id} className="flex items-center justify-between gap-2 text-sm">
+                <span>{source.title} ({source.sourceType}) · {source.sourceRef.uri} · {source.capturedAt}</span>
+                <button disabled={busy} className="px-3 py-1 rounded bg-secondary" onClick={() => void harvest(source.id)}>Harvest</button>
+              </li>
+            ))}
+            {inventory.seeds.map(seed => (
+              <li key={seed.id} className="flex items-center justify-between gap-2 text-sm">
+                <span>{seed.id} · {seed.status} · {seed.provenanceRef.uri}</span>
+                {seed.status === 'incubating' && <button disabled={busy} className="px-3 py-1 rounded bg-secondary" onClick={() => void prime(seed.id)}>Prime</button>}
+              </li>
+            ))}
+          </ul>
+          {inventory.actions.length > 0 && <p className="mt-3 text-xs text-muted-foreground">
+            Synthetic decision history: {inventory.actions.map(action => `${action.action}: ${action.status}`).join(', ')}
+          </p>}
+        </>}
       </>}
     </section>
   );

@@ -4,7 +4,7 @@ import sys
 from sqlalchemy import pool
 from alembic import context
 from typing import Optional
-from src.models import job, resume, job_fit  # pyright: ignore[reportUnusedImport] # noqa: F401
+from src.models import career_inventory, job, resume, job_fit  # pyright: ignore[reportUnusedImport] # noqa: F401
 from sqlmodel import SQLModel
 
 # Register custom Alembic autogenerate renderers

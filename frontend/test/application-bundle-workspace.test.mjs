@@ -157,7 +157,7 @@ test('career inventory API uses metadata-only AFK actions', async () => {
         seeds: [], catalogAssets: [], actions: [], counts: { sources: 1, seeds: 0, catalogAssets: 0 }, generationEligibility: { eligibleSources: [], targetContext: null, gaps: [] },
       });
     }
-    return Response.json({ id: 'seed-synthetic-1', sourceId: 'source-synthetic-platform', status: url.endsWith('/prime') ? 'primed' : 'harvested', provenanceRef: { uri: 'vitae://synthetic/career-source/platform' } });
+    return Response.json({ id: 'seed-synthetic-1', sourceId: 'source-synthetic-platform', status: url.endsWith('/prime') ? 'primed' : 'incubating', provenanceRef: { uri: 'vitae://synthetic/career-source/platform' } });
   };
   try {
     const inventory = await api.fetchCareerInventory();
