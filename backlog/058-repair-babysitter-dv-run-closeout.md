@@ -5,13 +5,17 @@ summary: Make a completed implementation effect advance through evidence, review
 type: work-item
 subtype: bug
 lifecycle: active
-status: ready
-status_reason: planned
+status: completed
+status_reason: completed
 priority: high
 estimated: 3
+actual: 3
+completed_date: '2026-10-29'
 links:
   reference:
     - '[[055-add-application-bundle-workspace]]'
+  evidence:
+    - '[[record-wi-058-source-integration-validation]]'
 tags:
   - afk
   - delivery
