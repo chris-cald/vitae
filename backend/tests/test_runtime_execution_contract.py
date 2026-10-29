@@ -22,6 +22,7 @@ def command_payload(**overrides):
     payload = {
         "execution_id": f"exec_{IDENTIFIER_SUFFIX}",
         "tenant_key": f"tenant_{IDENTIFIER_SUFFIX}",
+        "actor_key": f"actor_{IDENTIFIER_SUFFIX}",
         "workflow_definition_id": f"workflow_{IDENTIFIER_SUFFIX}",
         "workflow_version": "v1",
         "workflow_type": "curation",
@@ -42,6 +43,7 @@ def test_execution_command_serializes_only_allowlisted_opaque_fields():
     assert build_temporal_payload(command) == {
         "executionId": f"exec_{IDENTIFIER_SUFFIX}",
         "tenantKey": f"tenant_{IDENTIFIER_SUFFIX}",
+        "actorKey": f"actor_{IDENTIFIER_SUFFIX}",
         "workflowDefinitionId": f"workflow_{IDENTIFIER_SUFFIX}",
         "workflowVersion": "v1",
         "workflowType": "curation",
@@ -156,6 +158,7 @@ def test_exception_redaction_never_returns_exception_text():
     "field,value",
     [
         ("tenant_key", "person@example.test"),
+        ("actor_key", "person@example.test"),
         ("execution_id", "exec_Jane-Example-415-555-0199"),
         ("resume_content", "Candidate resume for jane@example.test"),
     ],

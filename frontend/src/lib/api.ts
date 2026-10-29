@@ -4,7 +4,7 @@ export type RuntimeWorkflowType = 'book-of-work-refresh' | 'application-automati
 export interface RuntimeExecution {
   execution_id: string;
   workflow_type: RuntimeWorkflowType;
-  status_code: 'accepted' | 'completed' | 'cancelled' | 'rejected' | 'retryable-failure' | 'permanent-failure';
+  status_code: 'pending-dispatch' | 'dispatching' | 'accepted' | 'completed' | 'cancelled' | 'rejected' | 'retryable-failure' | 'permanent-failure';
 }
 
 export type MaterialApplicationRecordType =

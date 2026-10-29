@@ -5,6 +5,7 @@ import jwt
 import pytest
 from cryptography.hazmat.primitives.asymmetric import rsa
 from fastapi.testclient import TestClient
+from sqlmodel import select
 
 from db.db import AsyncSessionLocal, init_db
 from src.main import app
@@ -21,6 +22,8 @@ def no_temporal_address(monkeypatch):
     monkeypatch.setenv("RUNTIME_EXECUTION_AUTH_MODE", "dummy")
     monkeypatch.setenv("RUNTIME_EXECUTION_TOKEN", "runtime-test-token")
     monkeypatch.setenv("RUNTIME_EXECUTION_TENANT_KEY", "tenant_00000000-0000-4000-8000-000000000001")
+    monkeypatch.setenv("RUNTIME_EXECUTION_ACTOR_KEY", "actor_00000000-0000-4000-8000-000000000001")
+    monkeypatch.setenv("RUNTIME_EXECUTION_ALLOWED_WORKFLOWS", "*")
 
 
 @pytest.mark.asyncio
@@ -33,6 +36,8 @@ async def test_runtime_execution_accepts_a_verified_oidc_token_with_an_opaque_te
             "aud": "vitae-api",
             "exp": 4_102_444_800,
             "vitae_tenant": "tenant_00000000-0000-4000-8000-000000000001",
+            "sub": "actor_00000000-0000-4000-8000-000000000001",
+            "vitae_runtime_workflows": ["curation"],
         },
         private_key,
         algorithm="RS256",
@@ -40,7 +45,7 @@ async def test_runtime_execution_accepts_a_verified_oidc_token_with_an_opaque_te
     )
 
     class Jwks:
-        def __init__(self, _url):
+        def __init__(self, _url, **_kwargs):
             pass
 
         def get_signing_key_from_jwt(self, _token):
@@ -55,10 +60,13 @@ async def test_runtime_execution_accepts_a_verified_oidc_token_with_an_opaque_te
             "RUNTIME_OIDC_AUDIENCE": "vitae-api",
             "RUNTIME_OIDC_JWKS_URL": "https://auth.example/application/o/vitae/jwks/",
             "RUNTIME_OIDC_TENANT_CLAIM": "vitae_tenant",
+            "RUNTIME_OIDC_ACTOR_CLAIM": "sub",
+            "RUNTIME_OIDC_WORKFLOW_CLAIM": "vitae_runtime_workflows",
         },
     )
 
     assert authority.tenant_key == "tenant_00000000-0000-4000-8000-000000000001"
+    assert authority.actor_key == "actor_00000000-0000-4000-8000-000000000001"
 
 
 @pytest.mark.asyncio
@@ -76,7 +84,11 @@ async def test_concurrent_same_key_start_reserves_one_runtime_execution_before_a
             await release.wait()
 
     service = RuntimeExecutionService(BlockingAdapter())
-    authority = RuntimeExecutionAuthority("tenant_00000000-0000-4000-8000-000000000001")
+    authority = RuntimeExecutionAuthority(
+        "tenant_00000000-0000-4000-8000-000000000001",
+        "actor_00000000-0000-4000-8000-000000000001",
+        frozenset({"curation"}),
+    )
     request = {"workflow_type": "curation", "idempotency_key": f"idem_{uuid4()}"}
     first = asyncio.create_task(service.start(request, authority))
     await started.wait()
@@ -262,3 +274,186 @@ def test_runtime_execution_failure_status_cannot_receive_a_late_decision():
 
     assert response.status_code == 422
     assert response.json() == {"detail": {"code": "stale-execution-decision"}}
+
+
+@pytest.mark.asyncio
+async def test_runtime_start_rejects_an_unauthorized_actor_before_reservation():
+    await init_db()
+    service = RuntimeExecutionService()
+    authority = RuntimeExecutionAuthority(
+        "tenant_00000000-0000-4000-8000-000000000001",
+        "actor_00000000-0000-4000-8000-000000000001",
+        frozenset({"curation"}),
+    )
+    idempotency_key = f"idem_{uuid4()}"
+
+    with pytest.raises(Exception, match="runtime-authorization-denied"):
+        await service.start(
+            {"workflow_type": "application-automation", "idempotency_key": idempotency_key},
+            authority,
+        )
+
+    async with AsyncSessionLocal() as session:
+        assert (
+            await session.execute(
+                select(RuntimeExecution).where(RuntimeExecution.idempotency_key == idempotency_key)
+            )
+        ).scalars().first() is None
+
+
+@pytest.mark.asyncio
+async def test_oidc_reuses_a_bounded_jwks_client_for_the_same_url(monkeypatch):
+    private_key = rsa.generate_private_key(public_exponent=65537, key_size=2048)
+    token = jwt.encode(
+        {
+            "sub": "actor_00000000-0000-4000-8000-000000000001",
+            "iss": "https://auth.example/cache/",
+            "aud": "vitae-api",
+            "exp": 4_102_444_800,
+            "vitae_tenant": "tenant_00000000-0000-4000-8000-000000000001",
+            "vitae_runtime_workflows": ["curation"],
+        },
+        private_key,
+        algorithm="RS256",
+        headers={"kid": "cache-key"},
+    )
+    calls = 0
+
+    class Jwks:
+        def __init__(self, _url, **_kwargs):
+            nonlocal calls
+            calls += 1
+
+        def get_signing_key_from_jwt(self, _token):
+            return type("Key", (), {"key": private_key.public_key()})()
+
+    monkeypatch.setattr("src.services.runtime_execution_service.jwt.PyJWKClient", Jwks)
+    env = {
+        "RUNTIME_EXECUTION_AUTH_MODE": "oidc",
+        "RUNTIME_OIDC_ISSUER": "https://auth.example/cache/",
+        "RUNTIME_OIDC_AUDIENCE": "vitae-api",
+        "RUNTIME_OIDC_JWKS_URL": "https://auth.example/cache/jwks/",
+    }
+
+    await RuntimeExecutionAuthority.from_authorization_header(f"Bearer {token}", env)
+    await RuntimeExecutionAuthority.from_authorization_header(f"Bearer {token}", env)
+
+    assert calls == 1
+
+
+@pytest.mark.asyncio
+async def test_oidc_jwks_client_cache_evicts_the_oldest_url(monkeypatch):
+    from src.services import runtime_execution_service
+
+    runtime_execution_service._jwks_clients.clear()
+    private_key = rsa.generate_private_key(public_exponent=65537, key_size=2048)
+    token = jwt.encode(
+        {
+            "sub": "actor_00000000-0000-4000-8000-000000000001",
+            "iss": "https://auth.example/bounded/",
+            "aud": "vitae-api",
+            "exp": 4_102_444_800,
+            "vitae_tenant": "tenant_00000000-0000-4000-8000-000000000001",
+            "vitae_runtime_workflows": ["curation"],
+        },
+        private_key,
+        algorithm="RS256",
+        headers={"kid": "bounded-key"},
+    )
+    calls = 0
+
+    class Jwks:
+        def __init__(self, _url, **_kwargs):
+            nonlocal calls
+            calls += 1
+
+        def get_signing_key_from_jwt(self, _token):
+            return type("Key", (), {"key": private_key.public_key()})()
+
+    monkeypatch.setattr("src.services.runtime_execution_service.jwt.PyJWKClient", Jwks)
+    for index in range(9):
+        await RuntimeExecutionAuthority.from_authorization_header(
+            f"Bearer {token}",
+            {
+                "RUNTIME_EXECUTION_AUTH_MODE": "oidc",
+                "RUNTIME_OIDC_ISSUER": "https://auth.example/bounded/",
+                "RUNTIME_OIDC_AUDIENCE": "vitae-api",
+                "RUNTIME_OIDC_JWKS_URL": f"https://auth.example/bounded/{index}/jwks/",
+            },
+        )
+    await RuntimeExecutionAuthority.from_authorization_header(
+        f"Bearer {token}",
+        {
+            "RUNTIME_EXECUTION_AUTH_MODE": "oidc",
+            "RUNTIME_OIDC_ISSUER": "https://auth.example/bounded/",
+            "RUNTIME_OIDC_AUDIENCE": "vitae-api",
+            "RUNTIME_OIDC_JWKS_URL": "https://auth.example/bounded/0/jwks/",
+        },
+    )
+
+    assert calls == 10
+    assert len(runtime_execution_service._jwks_clients) == 8
+
+
+@pytest.mark.asyncio
+async def test_stale_dispatching_reservation_is_reconciled_on_same_key_retry():
+    await init_db()
+
+    class CountingAdapter:
+        calls = 0
+
+        async def start(self, _command):
+            self.calls += 1
+
+    service = RuntimeExecutionService()
+    authority = RuntimeExecutionAuthority(
+        "tenant_00000000-0000-4000-8000-000000000001",
+        "actor_00000000-0000-4000-8000-000000000001",
+        frozenset({"curation"}),
+    )
+    request = {"workflow_type": "curation", "idempotency_key": f"idem_{uuid4()}"}
+    execution, _ = await service.start(request, authority)
+    async with AsyncSessionLocal() as session:
+        persisted = await session.get(RuntimeExecution, execution.execution_id)
+        persisted.status_code = "dispatching"
+        persisted.updated_at = persisted.updated_at.replace(year=persisted.updated_at.year - 1)
+        session.add(persisted)
+        await session.commit()
+
+    service.adapter = CountingAdapter()
+    recovered, created = await service.start(request, authority)
+
+    assert created is False
+    assert recovered.status_code == "accepted"
+    assert service.adapter.calls == 1
+
+
+@pytest.mark.asyncio
+async def test_same_key_retries_a_recoverable_adapter_failure_without_new_execution(caplog):
+    await init_db()
+
+    class FlakyAdapter:
+        calls = 0
+
+        async def start(self, _command):
+            self.calls += 1
+            if self.calls == 1:
+                raise RuntimeError("candidate@example.test protected resume content")
+
+    service = RuntimeExecutionService(FlakyAdapter())
+    authority = RuntimeExecutionAuthority(
+        "tenant_00000000-0000-4000-8000-000000000001",
+        "actor_00000000-0000-4000-8000-000000000001",
+        frozenset({"curation"}),
+    )
+    request = {"workflow_type": "curation", "idempotency_key": f"idem_{uuid4()}"}
+
+    with pytest.raises(Exception, match="runtime-start-failed"):
+        await service.start(request, authority)
+    recovered, created = await service.start(request, authority)
+
+    assert created is False
+    assert recovered.status_code == "accepted"
+    assert service.adapter.calls == 2
+    assert "candidate@example.test" not in caplog.text
+    assert "runtime adapter dispatch failed" in caplog.text

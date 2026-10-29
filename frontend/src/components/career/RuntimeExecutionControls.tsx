@@ -8,17 +8,21 @@ import {
   type RuntimeWorkflowType,
 } from '@/lib/api';
 
+async function authorizationScope(authorization: string) {
+  const digest = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(authorization));
+  return Array.from(new Uint8Array(digest), byte => byte.toString(16).padStart(2, '0')).join('');
+}
+
 export function RuntimeExecutionControls({ workflowType, label }: {
   workflowType: RuntimeWorkflowType;
   label: string;
 }) {
   const [execution, setExecution] = useState<RuntimeExecution | null>(null);
   const [authorization, setAuthorization] = useState('');
-  const storageKey = `runtime-start:${workflowType}`;
-  const [startIdempotencyKey, setStartIdempotencyKey] = useState<string | null>(sessionStorage.getItem(storageKey));
+  const [pendingStart, setPendingStart] = useState<{ scope: string; key: string } | null>(null);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState('');
-  const terminal = execution !== null && execution.status_code !== 'accepted';
+  const terminal = execution !== null && ['completed', 'cancelled', 'rejected', 'retryable-failure', 'permanent-failure'].includes(execution.status_code);
 
   const run = async (action: () => Promise<RuntimeExecution>) => {
     setBusy(true);
@@ -33,15 +37,26 @@ export function RuntimeExecutionControls({ workflowType, label }: {
   };
 
   const start = () => {
-    const idempotencyKey = startIdempotencyKey ?? `idem_${crypto.randomUUID()}`;
-    setStartIdempotencyKey(idempotencyKey);
-    sessionStorage.setItem(storageKey, idempotencyKey);
-    void run(async () => {
-      const next = await startRuntimeExecution(workflowType, authorization, idempotencyKey);
-      setStartIdempotencyKey(null);
-      sessionStorage.removeItem(storageKey);
-      return next;
-    });
+    void (async () => {
+      setBusy(true);
+      try {
+        const scope = await authorizationScope(authorization);
+        const storageKey = `runtime-start:${workflowType}:${scope}`;
+        const idempotencyKey = pendingStart?.scope === scope
+          ? pendingStart.key
+          : sessionStorage.getItem(storageKey) ?? `idem_${crypto.randomUUID()}`;
+        setPendingStart({ scope, key: idempotencyKey });
+        sessionStorage.setItem(storageKey, idempotencyKey);
+        setExecution(await startRuntimeExecution(workflowType, authorization, idempotencyKey));
+        setPendingStart(null);
+        sessionStorage.removeItem(storageKey);
+        setError('');
+      } catch {
+        setError('Runtime execution is unavailable.');
+      } finally {
+        setBusy(false);
+      }
+    })();
   };
 
   return (
@@ -53,7 +68,7 @@ export function RuntimeExecutionControls({ workflowType, label }: {
           aria-label="Runtime authorization token"
           autoComplete="off"
           className="ml-2 rounded border px-2 py-1"
-          onChange={event => setAuthorization(event.target.value)}
+          onChange={event => { setAuthorization(event.target.value); setError(''); }}
           type="password"
           value={authorization}
         />

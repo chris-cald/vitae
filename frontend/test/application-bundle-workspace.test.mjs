@@ -30,7 +30,7 @@ const deferred = () => {
   return { promise, resolve };
 };
 
-const settle = async () => { await Promise.resolve(); await Promise.resolve(); };
+const settle = async () => { await Promise.resolve(); await Promise.resolve(); await Promise.resolve(); await Promise.resolve(); };
 
 function textContent(node) {
   if (typeof node === 'string' || typeof node === 'number') return String(node);
@@ -204,7 +204,12 @@ function loadRuntimeControls(apiMock, storage = new Map(), randomUUID = () => '0
   vm.runInNewContext(compiled, {
     exports,
     require,
-    crypto: { randomUUID },
+    crypto: {
+      randomUUID,
+      subtle: { digest: async (_algorithm, bytes) => new Uint8Array([Array.from(bytes).reduce((sum, byte) => (sum + byte) % 256, 0)]).buffer },
+    },
+    TextEncoder,
+    Uint8Array,
     sessionStorage: { getItem: key => storage.get(key) ?? null, setItem: (key, value) => storage.set(key, value), removeItem: key => storage.delete(key) },
   });
   return {
@@ -353,6 +358,42 @@ test('runtime controls reuse a pending idempotency key after remounting', async 
 
   assert.equal(calls.length, 2);
   assert.equal(calls[0][2], calls[1][2]);
+});
+
+test('runtime controls isolate a pending retry by authorization scope and clear a corrected-token error', async () => {
+  const calls = [];
+  const storage = new Map();
+  let id = 1;
+  const controls = loadRuntimeControls({
+    startRuntimeExecution: async (...args) => {
+      calls.push(args);
+      if (calls.length === 1) throw new Error('network error');
+      return { execution_id: 'exec_opaque', workflow_type: 'book-of-work-refresh', status_code: 'accepted' };
+    },
+    cancelRuntimeExecution: async () => { throw new Error('not used'); },
+    decideRuntimeExecution: async () => { throw new Error('not used'); },
+    fetchRuntimeExecution: async () => { throw new Error('not used'); },
+  }, storage, () => `00000000-0000-4000-8000-00000000000${id++}`);
+
+  let view = controls.render({ workflowType: 'book-of-work-refresh', label: 'Refresh Book of Work' });
+  findField(view, 'Runtime authorization token').props.onChange({ target: { value: 'tenant-a-token' } });
+  view = controls.render({ workflowType: 'book-of-work-refresh', label: 'Refresh Book of Work' });
+  findAction(view, 'Start Refresh Book of Work')();
+  await settle();
+  await settle();
+
+  view = controls.render({ workflowType: 'book-of-work-refresh', label: 'Refresh Book of Work' });
+  assert.match(textContent(view), /Runtime execution is unavailable/);
+  assert.equal([...storage.keys()].some(key => key.includes('tenant-a-token')), false);
+  findField(view, 'Runtime authorization token').props.onChange({ target: { value: 'tenant-b-token' } });
+  view = controls.render({ workflowType: 'book-of-work-refresh', label: 'Refresh Book of Work' });
+  assert.doesNotMatch(textContent(view), /Runtime execution is unavailable/);
+  findAction(view, 'Start Refresh Book of Work')();
+  await settle();
+  await settle();
+
+  assert.equal(calls.length, 2);
+  assert.notEqual(calls[0][2], calls[1][2]);
 });
 
 test('career inventory lets users refresh a displayed Book of Work state', async () => {

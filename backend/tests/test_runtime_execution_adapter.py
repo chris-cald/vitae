@@ -15,6 +15,7 @@ def command(**overrides):
     payload = {
         "execution_id": f"exec_{IDENTIFIER_SUFFIX}",
         "tenant_key": f"tenant_{IDENTIFIER_SUFFIX}",
+        "actor_key": f"actor_{IDENTIFIER_SUFFIX}",
         "workflow_definition_id": f"workflow_{IDENTIFIER_SUFFIX}",
         "workflow_version": "v1",
         "workflow_type": "target-catalog-fit",

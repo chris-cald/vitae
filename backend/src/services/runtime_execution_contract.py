@@ -19,6 +19,7 @@ MAX_COUNT = 1_000_000
 _IDENTIFIER_PREFIXES = {
     "execution_id": "exec_",
     "tenant_key": "tenant_",
+    "actor_key": "actor_",
     "workflow_definition_id": "workflow_",
     "workflow_run_id": "workflowrun_",
     "correlation_id": "corr_",
@@ -125,6 +126,7 @@ class ExecutionCommand(_SafeRuntimeModel):
 
     execution_id: str = Field(serialization_alias="executionId")
     tenant_key: str = Field(serialization_alias="tenantKey")
+    actor_key: str = Field(serialization_alias="actorKey")
     workflow_definition_id: str = Field(serialization_alias="workflowDefinitionId")
     workflow_version: str = Field(serialization_alias="workflowVersion")
     workflow_type: WorkflowType = Field(serialization_alias="workflowType")
