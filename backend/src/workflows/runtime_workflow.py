@@ -42,6 +42,9 @@ class VitaeRuntimeWorkflow:
     @workflow.run
     async def run(self, payload: dict[str, Any]) -> dict[str, str]:
         await workflow.wait_condition(lambda: self.decision is not None)
+        decision_code = (self.decision or {}).get("decisionCode")
+        if decision_code in {"cancel", "reject"}:
+            return {"statusCode": "cancelled" if decision_code == "cancel" else "rejected"}
         return await workflow.execute_activity(
             record_runtime_activity,
             {**payload, **(self.decision or {})},

@@ -30,11 +30,18 @@ class BookOfWorkAdapter:
     def snapshot(self) -> dict[str, int]:
         return {str(path): path.stat().st_mtime_ns for path in self.list_markdown_sources()}
 
-    def opaque_snapshot(self) -> dict[str, int]:
-        return {
-            hashlib.sha256(str(path).encode()).hexdigest(): path.stat().st_mtime_ns
-            for path in self.list_markdown_sources()
-        }
+    def opaque_snapshot(self) -> dict[str, str]:
+        snapshot: dict[str, str] = {}
+        for path in self.source_root.rglob("*.md"):
+            try:
+                if not path.is_file():
+                    continue
+                snapshot[hashlib.sha256(str(path).encode()).hexdigest()] = hashlib.sha256(
+                    path.read_bytes()
+                ).hexdigest()
+            except FileNotFoundError:
+                continue
+        return snapshot
 
     def changed_since(self, previous: dict[str, int]) -> list[dict[str, str]]:
         current = self.snapshot()

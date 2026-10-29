@@ -1,6 +1,8 @@
 from __future__ import annotations
 
+import hmac
 import os
+from dataclasses import dataclass
 from datetime import datetime, timezone
 from typing import Any, Literal, Mapping
 from uuid import UUID, uuid4
@@ -35,6 +37,13 @@ _REQUEST_ID_PREFIXES = {
     "correlation_id": "corr_",
     "idempotency_key": "idem_",
 }
+_TERMINAL_STATUSES = {
+    "completed",
+    "rejected",
+    "cancelled",
+    "retryable-failure",
+    "permanent-failure",
+}
 
 _FORBIDDEN_REQUEST_FIELDS = {
     "resume_content",
@@ -51,6 +60,39 @@ def _id(prefix: str) -> str:
     return f"{prefix}_{uuid4()}"
 
 
+def _is_runtime_identifier(value: Any, prefix: str) -> bool:
+    if not isinstance(value, str) or not value.startswith(prefix):
+        return False
+    try:
+        return UUID(value.removeprefix(prefix)).version == 4
+    except ValueError:
+        return False
+
+
+@dataclass(frozen=True)
+class RuntimeExecutionAuthority:
+    """An authenticated runtime actor with a server-selected tenant."""
+
+    tenant_key: str
+
+    @classmethod
+    def from_authorization_header(
+        cls,
+        authorization: str | None,
+        env: Mapping[str, str] | None = None,
+    ) -> "RuntimeExecutionAuthority":
+        env = os.environ if env is None else env
+        token = env.get("RUNTIME_EXECUTION_TOKEN")
+        tenant_key = env.get("RUNTIME_EXECUTION_TENANT_KEY")
+        if not token or not tenant_key or authorization is None:
+            raise RuntimeContractError("runtime-authorization-required")
+        if not hmac.compare_digest(authorization, f"Bearer {token}"):
+            raise RuntimeContractError("runtime-authorization-denied")
+        if not _is_runtime_identifier(tenant_key, _REQUEST_ID_PREFIXES["tenant_key"]):
+            raise RuntimeContractError("runtime-authorization-required")
+        return cls(tenant_key=tenant_key)
+
+
 async def build_runtime_execution_service(
     env: Mapping[str, str] | None = None,
 ) -> "RuntimeExecutionService":
@@ -65,7 +107,9 @@ class RuntimeExecutionService:
     def __init__(self, adapter: Any | None = None) -> None:
         self.adapter = adapter or LocalTemporalAdapter()
 
-    async def start(self, request: dict[str, Any]) -> tuple[RuntimeExecution, bool]:
+    async def start(
+        self, request: dict[str, Any], authority: RuntimeExecutionAuthority
+    ) -> tuple[RuntimeExecution, bool]:
         self._reject_unsafe_request(request)
         workflow_type = request.get("workflow_type")
         if workflow_type not in _ALLOWED_WORKFLOW_TYPES:
@@ -80,12 +124,14 @@ class RuntimeExecutionService:
             )
             existing = result.scalars().first()
             if existing:
+                if existing.tenant_key != authority.tenant_key:
+                    raise RuntimeContractError("runtime-authorization-denied")
                 return existing, False
 
             now = datetime.now(timezone.utc)
             execution = RuntimeExecution(
                 execution_id=_id("exec"),
-                tenant_key=request.get("tenant_key") or _id("tenant"),
+                tenant_key=authority.tenant_key,
                 workflow_definition_id=_id("workflow"),
                 workflow_version="v1",
                 workflow_run_id=_id("workflowrun"),
@@ -106,11 +152,11 @@ class RuntimeExecutionService:
                     workflow_run_id=execution.workflow_run_id,
                     correlation_id=execution.correlation_id,
                     idempotency_key=execution.idempotency_key,
-                    actor_type="service",
+                    actor_type="user",
                     command="start",
                     occurred_at=now,
                 )
-            except ValidationError as error:
+            except ValidationError:
                 raise RuntimeContractError("invalid-execution-command") from None
             await self.adapter.start(command)
             session.add(execution)
@@ -118,20 +164,34 @@ class RuntimeExecutionService:
             await session.refresh(execution)
             return execution, True
 
-    async def cancel(self, execution_id: str) -> RuntimeExecution:
-        return await self._signal(execution_id, "cancel")
+    async def cancel(
+        self, execution_id: str, authority: RuntimeExecutionAuthority
+    ) -> RuntimeExecution:
+        return await self._signal(execution_id, "cancel", authority)
 
-    async def record_decision(self, execution_id: str, decision_code: str) -> RuntimeExecution:
+    async def record_decision(
+        self,
+        execution_id: str,
+        decision_code: str,
+        authority: RuntimeExecutionAuthority,
+    ) -> RuntimeExecution:
         if decision_code not in {"approve", "reject", "cancel"}:
             raise RuntimeContractError("invalid-decision-code")
-        return await self._signal(execution_id, decision_code)
+        return await self._signal(execution_id, decision_code, authority)
 
-    async def _signal(self, execution_id: str, decision_code: str) -> RuntimeExecution:
+    async def _signal(
+        self,
+        execution_id: str,
+        decision_code: str,
+        authority: RuntimeExecutionAuthority,
+    ) -> RuntimeExecution:
         async with AsyncSessionLocal() as session:
             execution = await session.get(RuntimeExecution, execution_id)
             if not execution:
                 raise RuntimeContractError("execution-not-found")
-            if execution.status_code in {"completed", "rejected", "cancelled"}:
+            if execution.tenant_key != authority.tenant_key:
+                raise RuntimeContractError("runtime-authorization-denied")
+            if execution.status_code in _TERMINAL_STATUSES:
                 raise RuntimeContractError("stale-execution-decision")
             now = datetime.now(timezone.utc)
             command = ExecutionCommand(
@@ -160,24 +220,23 @@ class RuntimeExecutionService:
             await session.refresh(execution)
             return execution
 
-    async def fetch(self, execution_id: str) -> RuntimeExecution | None:
+    async def fetch(
+        self, execution_id: str, authority: RuntimeExecutionAuthority
+    ) -> RuntimeExecution | None:
         async with AsyncSessionLocal() as session:
-            return await session.get(RuntimeExecution, execution_id)
+            execution = await session.get(RuntimeExecution, execution_id)
+            if execution is not None and execution.tenant_key != authority.tenant_key:
+                raise RuntimeContractError("runtime-authorization-denied")
+            return execution
 
     def _reject_unsafe_request(self, request: dict[str, Any]) -> None:
         normalized = {"".join(ch for ch in key.lower() if ch.isalnum()) for key in request}
         forbidden = {"".join(ch for ch in key.lower() if ch.isalnum()) for key in _FORBIDDEN_REQUEST_FIELDS}
-        if normalized & forbidden:
+        if normalized & forbidden or "tenantkey" in normalized:
             raise RuntimeContractError("invalid-runtime-execution-request")
         for field, prefix in _REQUEST_ID_PREFIXES.items():
             if field not in request:
                 continue
             value = request[field]
-            if not isinstance(value, str) or not value.startswith(prefix):
-                raise RuntimeContractError("invalid-execution-command")
-            try:
-                parsed = UUID(value.removeprefix(prefix))
-            except ValueError:
-                raise RuntimeContractError("invalid-execution-command") from None
-            if parsed.version != 4:
+            if not _is_runtime_identifier(value, prefix):
                 raise RuntimeContractError("invalid-execution-command")

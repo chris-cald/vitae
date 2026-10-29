@@ -1,19 +1,27 @@
+import asyncio
 from uuid import uuid4
 
 import pytest
 from fastapi.testclient import TestClient
 
+from db.db import AsyncSessionLocal
 from src.main import app
+from src.models.runtime_execution import RuntimeExecution
+
+
+RUNTIME_HEADERS = {"Authorization": "Bearer runtime-test-token"}
 
 
 @pytest.fixture(autouse=True)
 def no_temporal_address(monkeypatch):
     monkeypatch.delenv("TEMPORAL_ADDRESS", raising=False)
+    monkeypatch.setenv("RUNTIME_EXECUTION_TOKEN", "runtime-test-token")
+    monkeypatch.setenv("RUNTIME_EXECUTION_TENANT_KEY", "tenant_00000000-0000-4000-8000-000000000001")
 
 
 def test_runtime_execution_start_and_human_decision_are_privacy_safe():
     idempotency_key = f"idem_{uuid4()}"
-    with TestClient(app) as client:
+    with TestClient(app, headers=RUNTIME_HEADERS) as client:
         start = client.post(
             "/api/v1/runtime-executions",
             json={"workflow_type": "target-catalog-fit", "idempotency_key": idempotency_key},
@@ -48,7 +56,7 @@ def test_runtime_execution_start_and_human_decision_are_privacy_safe():
 
 
 def test_runtime_execution_reject_maps_to_rejected_and_terminal_state_is_stale():
-    with TestClient(app) as client:
+    with TestClient(app, headers=RUNTIME_HEADERS) as client:
         start = client.post(
             "/api/v1/runtime-executions",
             json={"workflow_type": "curation", "idempotency_key": f"idem_{uuid4()}"},
@@ -67,7 +75,7 @@ def test_runtime_execution_reject_maps_to_rejected_and_terminal_state_is_stale()
 
 
 def test_runtime_execution_can_be_cancelled_without_temporal_payload_leakage():
-    with TestClient(app) as client:
+    with TestClient(app, headers=RUNTIME_HEADERS) as client:
         start = client.post(
             "/api/v1/runtime-executions",
             json={"workflow_type": "application-automation", "idempotency_key": f"idem_{uuid4()}"},
@@ -91,7 +99,7 @@ def test_runtime_execution_supports_required_expanded_mvp_workflow_types():
         "application-automation",
     ]
 
-    with TestClient(app) as client:
+    with TestClient(app, headers=RUNTIME_HEADERS) as client:
         for workflow_type in workflow_types:
             response = client.post(
                 "/api/v1/runtime-executions",
@@ -109,7 +117,7 @@ def test_runtime_execution_rejects_invalid_allowed_ids_safely():
         {"idempotency_key": ""},
     ]
 
-    with TestClient(app) as client:
+    with TestClient(app, headers=RUNTIME_HEADERS) as client:
         for extra in cases:
             response = client.post(
                 "/api/v1/runtime-executions",
@@ -120,7 +128,7 @@ def test_runtime_execution_rejects_invalid_allowed_ids_safely():
 
 
 def test_runtime_execution_rejects_pii_shaped_fields_before_temporal_boundary():
-    with TestClient(app) as client:
+    with TestClient(app, headers=RUNTIME_HEADERS) as client:
         response = client.post(
             "/api/v1/runtime-executions",
             json={
@@ -131,3 +139,52 @@ def test_runtime_execution_rejects_pii_shaped_fields_before_temporal_boundary():
 
     assert response.status_code == 422
     assert "candidate@example.test" not in response.text
+
+
+def test_runtime_execution_requires_authorization_before_it_creates_a_ledger():
+    with TestClient(app) as client:
+        response = client.post(
+            "/api/v1/runtime-executions",
+            json={"workflow_type": "curation", "idempotency_key": f"idem_{uuid4()}"},
+        )
+
+    assert response.status_code == 401
+    assert response.json() == {"detail": {"code": "runtime-authorization-required"}}
+
+
+def test_runtime_execution_rejects_client_supplied_tenant_context():
+    with TestClient(app, headers=RUNTIME_HEADERS) as client:
+        response = client.post(
+            "/api/v1/runtime-executions",
+            json={
+                "workflow_type": "curation",
+                "tenant_key": "tenant_00000000-0000-4000-8000-000000000002",
+            },
+        )
+
+    assert response.status_code == 422
+    assert response.json() == {"detail": {"code": "invalid-runtime-execution-request"}}
+
+
+def test_runtime_execution_failure_status_cannot_receive_a_late_decision():
+    with TestClient(app, headers=RUNTIME_HEADERS) as client:
+        started = client.post(
+            "/api/v1/runtime-executions",
+            json={"workflow_type": "curation", "idempotency_key": f"idem_{uuid4()}"},
+        ).json()["execution"]
+
+        async def mark_failed():
+            async with AsyncSessionLocal() as session:
+                execution = await session.get(RuntimeExecution, started["execution_id"])
+                execution.status_code = "permanent-failure"
+                session.add(execution)
+                await session.commit()
+
+        asyncio.run(mark_failed())
+        response = client.post(
+            f"/api/v1/runtime-executions/{started['execution_id']}/decision",
+            json={"decision_code": "approve"},
+        )
+
+    assert response.status_code == 422
+    assert response.json() == {"detail": {"code": "stale-execution-decision"}}

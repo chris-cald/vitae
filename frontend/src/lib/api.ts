@@ -4,7 +4,7 @@ export type RuntimeWorkflowType = 'book-of-work-refresh' | 'application-automati
 export interface RuntimeExecution {
   execution_id: string;
   workflow_type: RuntimeWorkflowType;
-  status_code: 'accepted' | 'completed' | 'cancelled' | 'rejected';
+  status_code: 'accepted' | 'completed' | 'cancelled' | 'rejected' | 'retryable-failure' | 'permanent-failure';
 }
 
 export type MaterialApplicationRecordType =
@@ -33,7 +33,7 @@ interface UnsupportedClaim {
 }
 
 export interface BookOfWorkState {
-  status: 'unavailable' | 'incorporated' | 'stale';
+  status: 'unavailable' | 'unprocessed' | 'incorporated' | 'stale';
   changeCount: number;
 }
 
@@ -115,24 +115,34 @@ export async function addMaterialApplicationRecord(
   if (!res.ok) throw new Error('Failed to record material application event');
 }
 
-export async function startRuntimeExecution(workflowType: RuntimeWorkflowType): Promise<RuntimeExecution> {
+const runtimeHeaders = (authorization: string, json = false) => ({
+  Authorization: `Bearer ${authorization}`,
+  ...(json ? { 'Content-Type': 'application/json' } : {}),
+});
+
+export async function startRuntimeExecution(workflowType: RuntimeWorkflowType, authorization: string): Promise<RuntimeExecution> {
   const res = await fetch('/api/v1/runtime-executions', {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    headers: runtimeHeaders(authorization, true),
     body: JSON.stringify({ workflow_type: workflowType }),
   });
   if (!res.ok) throw new Error('Failed to start runtime execution');
   return (await res.json() as { execution: RuntimeExecution }).execution;
 }
 
-export async function fetchRuntimeExecution(executionId: string): Promise<RuntimeExecution> {
-  const res = await fetch(`/api/v1/runtime-executions/${encodeURIComponent(executionId)}`);
+export async function fetchRuntimeExecution(executionId: string, authorization: string): Promise<RuntimeExecution> {
+  const res = await fetch(`/api/v1/runtime-executions/${encodeURIComponent(executionId)}`, {
+    headers: runtimeHeaders(authorization),
+  });
   if (!res.ok) throw new Error('Failed to fetch runtime execution');
   return (await res.json() as { execution: RuntimeExecution }).execution;
 }
 
-export async function cancelRuntimeExecution(executionId: string): Promise<RuntimeExecution> {
-  const res = await fetch(`/api/v1/runtime-executions/${encodeURIComponent(executionId)}/cancel`, { method: 'POST' });
+export async function cancelRuntimeExecution(executionId: string, authorization: string): Promise<RuntimeExecution> {
+  const res = await fetch(`/api/v1/runtime-executions/${encodeURIComponent(executionId)}/cancel`, {
+    method: 'POST',
+    headers: runtimeHeaders(authorization),
+  });
   if (!res.ok) throw new Error('Failed to cancel runtime execution');
   return (await res.json() as { execution: RuntimeExecution }).execution;
 }
@@ -140,10 +150,11 @@ export async function cancelRuntimeExecution(executionId: string): Promise<Runti
 export async function decideRuntimeExecution(
   executionId: string,
   decisionCode: 'approve' | 'reject',
+  authorization: string,
 ): Promise<RuntimeExecution> {
   const res = await fetch(`/api/v1/runtime-executions/${encodeURIComponent(executionId)}/decision`, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    headers: runtimeHeaders(authorization, true),
     body: JSON.stringify({ decision_code: decisionCode }),
   });
   if (!res.ok) throw new Error('Failed to record runtime decision');

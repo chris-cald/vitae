@@ -47,6 +47,15 @@ function findAction(node, label) {
   }
 }
 
+function findField(node, label) {
+  if (!node || typeof node !== 'object') return undefined;
+  if (node.props?.['aria-label'] === label) return node;
+  for (const child of Array.isArray(node.props?.children) ? node.props.children : [node.props?.children]) {
+    const found = findField(child, label);
+    if (found) return found;
+  }
+}
+
 function loadWorkspace(apiMock) {
   const source = readFileSync(new URL('../src/components/jobfit/ApplicationBundleWorkspace.tsx', import.meta.url), 'utf8');
   const compiled = ts.transpileModule(source, {
@@ -159,10 +168,11 @@ test('runtime execution API sends opaque workflow control only', async () => {
     return Response.json({ execution, created: true }, { status: 201 });
   };
   try {
-    assert.deepEqual(await api.startRuntimeExecution('book-of-work-refresh'), execution);
-    assert.equal((await api.cancelRuntimeExecution(execution.execution_id)).status_code, 'cancelled');
-    assert.equal((await api.decideRuntimeExecution(execution.execution_id, 'approve')).status_code, 'completed');
+    assert.deepEqual(await api.startRuntimeExecution('book-of-work-refresh', 'runtime-token'), execution);
+    assert.equal((await api.cancelRuntimeExecution(execution.execution_id, 'runtime-token')).status_code, 'cancelled');
+    assert.equal((await api.decideRuntimeExecution(execution.execution_id, 'approve', 'runtime-token')).status_code, 'completed');
     assert.deepEqual(JSON.parse(requests[0].options.body), { workflow_type: 'book-of-work-refresh' });
+    assert.equal(requests[0].options.headers.Authorization, 'Bearer runtime-token');
     assert.deepEqual(JSON.parse(requests[2].options.body), { decision_code: 'approve' });
     assert.equal(JSON.stringify(requests).includes('resume'), false);
     assert.equal(JSON.stringify(requests).includes('prompt'), false);
@@ -203,12 +213,12 @@ function loadRuntimeControls(apiMock) {
 test('runtime controls let a user start and cancel an opaque refresh execution', async () => {
   const calls = [];
   const controls = loadRuntimeControls({
-    startRuntimeExecution: async workflowType => {
-      calls.push(['start', workflowType]);
+    startRuntimeExecution: async (workflowType, authorization) => {
+      calls.push(['start', workflowType, authorization]);
       return { execution_id: 'exec_opaque', workflow_type: workflowType, status_code: 'accepted' };
     },
-    cancelRuntimeExecution: async executionId => {
-      calls.push(['cancel', executionId]);
+    cancelRuntimeExecution: async (executionId, authorization) => {
+      calls.push(['cancel', executionId, authorization]);
       return { execution_id: executionId, workflow_type: 'book-of-work-refresh', status_code: 'cancelled' };
     },
     decideRuntimeExecution: async () => { throw new Error('not used'); },
@@ -216,6 +226,8 @@ test('runtime controls let a user start and cancel an opaque refresh execution',
   });
 
   let view = controls.render({ workflowType: 'book-of-work-refresh', label: 'Refresh Book of Work' });
+  findField(view, 'Runtime authorization token').props.onChange({ target: { value: 'runtime-token' } });
+  view = controls.render({ workflowType: 'book-of-work-refresh', label: 'Refresh Book of Work' });
   findAction(view, 'Start Refresh Book of Work')();
   await settle();
   view = controls.render({ workflowType: 'book-of-work-refresh', label: 'Refresh Book of Work' });
@@ -225,7 +237,8 @@ test('runtime controls let a user start and cancel an opaque refresh execution',
   view = controls.render({ workflowType: 'book-of-work-refresh', label: 'Refresh Book of Work' });
 
   assert.match(textContent(view), /cancelled/);
-  assert.deepEqual(calls, [['start', 'book-of-work-refresh'], ['cancel', 'exec_opaque']]);
+  assert.ok(findAction(view, 'Start Refresh Book of Work'));
+  assert.deepEqual(calls, [['start', 'book-of-work-refresh', 'runtime-token'], ['cancel', 'exec_opaque', 'runtime-token']]);
 });
 
 test('career inventory API uses metadata-only AFK actions', async () => {

@@ -31,3 +31,17 @@ async def test_runtime_workflow_name_matches_adapter_and_waits_for_decision(monk
 
     assert WORKFLOW_NAME == TEMPORAL_WORKFLOW_NAME
     assert result == {"statusCode": "completed", "activityName": "curation", "recordCount": 1}
+
+
+@pytest.mark.asyncio
+@pytest.mark.parametrize(("decision", "status"), [("cancel", "cancelled"), ("reject", "rejected")])
+async def test_runtime_workflow_does_not_run_an_activity_for_terminal_decisions(monkeypatch, decision, status):
+    class NoActivityWorkflowShim(_WorkflowShim):
+        async def execute_activity(self, *_args, **_kwargs):
+            raise AssertionError("terminal decision must not execute activity")
+
+    monkeypatch.setattr(runtime_workflow_module, "workflow", NoActivityWorkflowShim())
+    workflow = VitaeRuntimeWorkflow()
+    await workflow.runtime_decision({"decisionCode": decision})
+
+    assert await workflow.run({"workflowType": "curation"}) == {"statusCode": status}
