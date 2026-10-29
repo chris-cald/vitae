@@ -127,6 +127,22 @@ async def test_book_of_work_source_uses_container_mount_when_no_override_is_set(
 
 
 @pytest.mark.asyncio
+async def test_book_of_work_alias_uses_the_same_opaque_snapshot_keys(tmp_path):
+    await init_db()
+    source = tmp_path / "source"
+    source.mkdir()
+    (source / "current.md").write_text("metadata only")
+    alias = tmp_path / "source-alias"
+    alias.symlink_to(source, target_is_directory=True)
+
+    initial = await BookOfWorkRefreshService(source).observe()
+    aliased = await BookOfWorkRefreshService(alias).observe()
+
+    assert initial == {"status": "unprocessed", "changeCount": 1}
+    assert aliased == {"status": "unprocessed", "changeCount": 0}
+
+
+@pytest.mark.asyncio
 async def test_concurrent_first_observation_does_not_fail_on_duplicate_state(tmp_path):
     await init_db()
     source = tmp_path / "source"

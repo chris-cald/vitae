@@ -20,6 +20,7 @@ dependencies = [
   "sqlmodel",
   "temporalio",
   "uvicorn",
+  "pyjwt[crypto]>=2.15.1",
 ]
 
 [tool.uv]

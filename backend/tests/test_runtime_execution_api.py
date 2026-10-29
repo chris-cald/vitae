@@ -1,12 +1,15 @@
 import asyncio
 from uuid import uuid4
 
+import jwt
 import pytest
+from cryptography.hazmat.primitives.asymmetric import rsa
 from fastapi.testclient import TestClient
 
 from db.db import AsyncSessionLocal
 from src.main import app
 from src.models.runtime_execution import RuntimeExecution
+from src.services.runtime_execution_service import RuntimeExecutionAuthority
 
 
 RUNTIME_HEADERS = {"Authorization": "Bearer runtime-test-token"}
@@ -15,8 +18,47 @@ RUNTIME_HEADERS = {"Authorization": "Bearer runtime-test-token"}
 @pytest.fixture(autouse=True)
 def no_temporal_address(monkeypatch):
     monkeypatch.delenv("TEMPORAL_ADDRESS", raising=False)
+    monkeypatch.setenv("RUNTIME_EXECUTION_AUTH_MODE", "dummy")
     monkeypatch.setenv("RUNTIME_EXECUTION_TOKEN", "runtime-test-token")
     monkeypatch.setenv("RUNTIME_EXECUTION_TENANT_KEY", "tenant_00000000-0000-4000-8000-000000000001")
+
+
+@pytest.mark.asyncio
+async def test_runtime_execution_accepts_a_verified_oidc_token_with_an_opaque_tenant_claim(monkeypatch):
+    private_key = rsa.generate_private_key(public_exponent=65537, key_size=2048)
+    token = jwt.encode(
+        {
+            "sub": "runtime-operator",
+            "iss": "https://auth.example/application/o/vitae/",
+            "aud": "vitae-api",
+            "exp": 4_102_444_800,
+            "vitae_tenant": "tenant_00000000-0000-4000-8000-000000000001",
+        },
+        private_key,
+        algorithm="RS256",
+        headers={"kid": "test-key"},
+    )
+
+    class Jwks:
+        def __init__(self, _url):
+            pass
+
+        def get_signing_key_from_jwt(self, _token):
+            return type("Key", (), {"key": private_key.public_key()})()
+
+    monkeypatch.setattr("src.services.runtime_execution_service.jwt.PyJWKClient", Jwks)
+    authority = await RuntimeExecutionAuthority.from_authorization_header(
+        f"Bearer {token}",
+        {
+            "RUNTIME_EXECUTION_AUTH_MODE": "oidc",
+            "RUNTIME_OIDC_ISSUER": "https://auth.example/application/o/vitae/",
+            "RUNTIME_OIDC_AUDIENCE": "vitae-api",
+            "RUNTIME_OIDC_JWKS_URL": "https://auth.example/application/o/vitae/jwks/",
+            "RUNTIME_OIDC_TENANT_CLAIM": "vitae_tenant",
+        },
+    )
+
+    assert authority.tenant_key == "tenant_00000000-0000-4000-8000-000000000001"
 
 
 def test_runtime_execution_start_and_human_decision_are_privacy_safe():

@@ -34,7 +34,7 @@ async def runtime_execution_authority(
     authorization: str | None = Header(default=None),
 ) -> RuntimeExecutionAuthority:
     try:
-        return RuntimeExecutionAuthority.from_authorization_header(authorization)
+        return await RuntimeExecutionAuthority.from_authorization_header(authorization)
     except RuntimeContractError as error:
         raise HTTPException(status_code=401, detail=error.as_dict()) from None
 

@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import asyncio
 import hmac
 import os
 from dataclasses import dataclass
@@ -7,6 +8,7 @@ from datetime import datetime, timezone
 from typing import Any, Literal, Mapping
 from uuid import UUID, uuid4
 
+import jwt
 from pydantic import ValidationError
 from sqlmodel import select
 
@@ -76,20 +78,52 @@ class RuntimeExecutionAuthority:
     tenant_key: str
 
     @classmethod
-    def from_authorization_header(
+    async def from_authorization_header(
         cls,
         authorization: str | None,
         env: Mapping[str, str] | None = None,
     ) -> "RuntimeExecutionAuthority":
         env = os.environ if env is None else env
-        token = env.get("RUNTIME_EXECUTION_TOKEN")
-        tenant_key = env.get("RUNTIME_EXECUTION_TENANT_KEY")
-        if not token or not tenant_key or authorization is None:
+        if env.get("RUNTIME_EXECUTION_AUTH_MODE") == "dummy":
+            token = env.get("RUNTIME_EXECUTION_TOKEN")
+            tenant_key = env.get("RUNTIME_EXECUTION_TENANT_KEY")
+            if not token or not tenant_key or authorization is None:
+                raise RuntimeContractError("runtime-authorization-required")
+            if not hmac.compare_digest(authorization, f"Bearer {token}"):
+                raise RuntimeContractError("runtime-authorization-denied")
+            if not _is_runtime_identifier(tenant_key, _REQUEST_ID_PREFIXES["tenant_key"]):
+                raise RuntimeContractError("runtime-authorization-required")
+            return cls(tenant_key=tenant_key)
+        if env.get("RUNTIME_EXECUTION_AUTH_MODE") != "oidc" or authorization is None:
             raise RuntimeContractError("runtime-authorization-required")
-        if not hmac.compare_digest(authorization, f"Bearer {token}"):
-            raise RuntimeContractError("runtime-authorization-denied")
+        return await asyncio.to_thread(cls._from_oidc_token, authorization, env)
+
+    @classmethod
+    def _from_oidc_token(
+        cls, authorization: str, env: Mapping[str, str]
+    ) -> "RuntimeExecutionAuthority":
+        issuer = env.get("RUNTIME_OIDC_ISSUER")
+        audience = env.get("RUNTIME_OIDC_AUDIENCE")
+        jwks_url = env.get("RUNTIME_OIDC_JWKS_URL")
+        tenant_claim = env.get("RUNTIME_OIDC_TENANT_CLAIM", "vitae_tenant")
+        if not issuer or not audience or not jwks_url or not authorization.startswith("Bearer "):
+            raise RuntimeContractError("runtime-authorization-required")
+        try:
+            token = authorization.removeprefix("Bearer ")
+            key = jwt.PyJWKClient(jwks_url).get_signing_key_from_jwt(token).key
+            claims = jwt.decode(
+                token,
+                key,
+                algorithms=["RS256"],
+                audience=audience,
+                issuer=issuer,
+                options={"require": ["exp", "sub"]},
+            )
+        except (jwt.PyJWTError, OSError, ValueError):
+            raise RuntimeContractError("runtime-authorization-denied") from None
+        tenant_key = claims.get(tenant_claim)
         if not _is_runtime_identifier(tenant_key, _REQUEST_ID_PREFIXES["tenant_key"]):
-            raise RuntimeContractError("runtime-authorization-required")
+            raise RuntimeContractError("runtime-authorization-denied")
         return cls(tenant_key=tenant_key)
 
 

@@ -36,7 +36,7 @@ class BookOfWorkAdapter:
             try:
                 if not path.is_file():
                     continue
-                snapshot[hashlib.sha256(str(path).encode()).hexdigest()] = hashlib.sha256(
+                snapshot[hashlib.sha256(str(path.resolve()).encode()).hexdigest()] = hashlib.sha256(
                     path.read_bytes()
                 ).hexdigest()
             except FileNotFoundError:
