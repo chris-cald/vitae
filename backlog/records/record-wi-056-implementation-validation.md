@@ -8,10 +8,6 @@ subtype: test-result
 lifecycle: active
 status: ready
 status_reason: recorded
-links:
-  supporting_reference:
-    - '[[npm run check]]'
-    - '[[dv backlog validate --dir backlog --fail-on error]]'
 ---
 
 ## Recorded At
@@ -37,11 +33,6 @@ Focused backend and frontend runtime UX tests passed; npm run check and backlog 
 - backend/tests/test_application_bundle_service.py
 - backend/tests/test_career_inventory_service.py
 - frontend/test/application-bundle-workspace.test.mjs
-
-## Supporting References
-
-- [[npm run check]]
-- [[dv backlog validate --dir backlog --fail-on error]]
 
 ## Notes
 
