@@ -84,6 +84,10 @@ def _is_runtime_identifier(value: Any, prefix: str) -> bool:
         return False
 
 
+def _as_utc(value: datetime) -> datetime:
+    return value.replace(tzinfo=timezone.utc) if value.tzinfo is None else value.astimezone(timezone.utc)
+
+
 def _jwks_client(jwks_url: str) -> Any:
     with _jwks_clients_lock:
         cached = _jwks_clients.pop(jwks_url, None)
@@ -137,7 +141,7 @@ class RuntimeExecutionAuthority:
             )
             if not token or not tenant_key or not actor_key or authorization is None:
                 raise RuntimeContractError("runtime-authorization-required")
-            if not hmac.compare_digest(authorization, f"Bearer {token}"):
+            if not hmac.compare_digest(authorization.encode(), f"Bearer {token}".encode()):
                 raise RuntimeContractError("runtime-authorization-denied")
             if not (
                 _is_runtime_identifier(tenant_key, _REQUEST_ID_PREFIXES["tenant_key"])
@@ -254,10 +258,11 @@ class RuntimeExecutionService:
                     created = False
             if execution.tenant_key != authority.tenant_key:
                 raise RuntimeContractError("runtime-authorization-denied")
+            authority.authorize(execution.workflow_type)
 
         if execution.status_code in _DISPATCHABLE_STATUSES or (
             execution.status_code == "dispatching"
-            and execution.updated_at <= datetime.now(timezone.utc) - timedelta(minutes=1)
+            and _as_utc(execution.updated_at) <= datetime.now(timezone.utc) - timedelta(minutes=1)
         ):
             execution = await self._dispatch(execution, authority)
         return execution, created
@@ -279,12 +284,17 @@ class RuntimeExecutionService:
                         ),
                     ),
                 )
-                .values(status_code="dispatching", updated_at=now)
+                .values(
+                    status_code="dispatching",
+                    updated_at=now,
+                    dispatch_attempt=RuntimeExecution.dispatch_attempt + 1,
+                )
             )
             await session.commit()
             persisted = await session.get(RuntimeExecution, execution.execution_id)
             if not claimed.rowcount or persisted is None:
                 return persisted or execution
+            dispatch_attempt = persisted.dispatch_attempt
 
         try:
             command = ExecutionCommand(
@@ -315,22 +325,31 @@ class RuntimeExecutionService:
                 type(error).__name__,
             )
             async with AsyncSessionLocal() as session:
-                failed = await session.get(RuntimeExecution, persisted.execution_id)
-                if failed is not None:
-                    failed.status_code = "retryable-failure"
-                    failed.updated_at = datetime.now(timezone.utc)
-                    session.add(failed)
-                    await session.commit()
+                await session.execute(
+                    update(RuntimeExecution)
+                    .where(
+                        RuntimeExecution.execution_id == persisted.execution_id,
+                        RuntimeExecution.dispatch_attempt == dispatch_attempt,
+                        RuntimeExecution.status_code == "dispatching",
+                    )
+                    .values(status_code="retryable-failure", updated_at=datetime.now(timezone.utc))
+                )
+                await session.commit()
             raise RuntimeContractError("runtime-start-failed") from None
 
         async with AsyncSessionLocal() as session:
+            await session.execute(
+                update(RuntimeExecution)
+                .where(
+                    RuntimeExecution.execution_id == persisted.execution_id,
+                    RuntimeExecution.dispatch_attempt == dispatch_attempt,
+                    RuntimeExecution.status_code == "dispatching",
+                )
+                .values(status_code="accepted", updated_at=datetime.now(timezone.utc))
+            )
+            await session.commit()
             started = await session.get(RuntimeExecution, persisted.execution_id)
             if started is not None:
-                started.status_code = "accepted"
-                started.updated_at = datetime.now(timezone.utc)
-                session.add(started)
-                await session.commit()
-                await session.refresh(started)
                 return started
         return persisted
 

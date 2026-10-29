@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
   cancelRuntimeExecution,
   decideRuntimeExecution,
@@ -13,6 +13,8 @@ async function authorizationScope(authorization: string) {
   return Array.from(new Uint8Array(digest), byte => byte.toString(16).padStart(2, '0')).join('');
 }
 
+const executionStorageKey = (workflowType: RuntimeWorkflowType, scope: string) => `runtime-execution:${workflowType}:${scope}`;
+
 export function RuntimeExecutionControls({ workflowType, label }: {
   workflowType: RuntimeWorkflowType;
   label: string;
@@ -23,6 +25,27 @@ export function RuntimeExecutionControls({ workflowType, label }: {
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState('');
   const terminal = execution !== null && ['completed', 'cancelled', 'rejected', 'retryable-failure', 'permanent-failure'].includes(execution.status_code);
+
+  useEffect(() => {
+    let current = true;
+    if (!authorization) {
+      setExecution(null);
+      return () => { current = false; };
+    }
+    setExecution(null);
+    void (async () => {
+      const scope = await authorizationScope(authorization);
+      const executionId = sessionStorage.getItem(executionStorageKey(workflowType, scope));
+      if (!executionId) return;
+      try {
+        const restored = await fetchRuntimeExecution(executionId, authorization);
+        if (current) setExecution(restored);
+      } catch {
+        if (current) setExecution(null);
+      }
+    })();
+    return () => { current = false; };
+  }, [authorization, workflowType]);
 
   const run = async (action: () => Promise<RuntimeExecution>) => {
     setBusy(true);
@@ -47,7 +70,9 @@ export function RuntimeExecutionControls({ workflowType, label }: {
           : sessionStorage.getItem(storageKey) ?? `idem_${crypto.randomUUID()}`;
         setPendingStart({ scope, key: idempotencyKey });
         sessionStorage.setItem(storageKey, idempotencyKey);
-        setExecution(await startRuntimeExecution(workflowType, authorization, idempotencyKey));
+        const started = await startRuntimeExecution(workflowType, authorization, idempotencyKey);
+        sessionStorage.setItem(executionStorageKey(workflowType, scope), started.execution_id);
+        setExecution(started);
         setPendingStart(null);
         sessionStorage.removeItem(storageKey);
         setError('');

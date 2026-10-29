@@ -34,6 +34,10 @@ test('local UAT orchestrator has CI-friendly phases and artifact capture', () =>
   }
 
   assert(script.includes('runtime-execution-history-source.json'));
+  assert(script.includes('UAT_RUNTIME_AUTHORIZATION'));
+  assert(script.includes('Authorization'));
   assert(!script.includes('temporal workflow start'));
   assert(docs.includes('scripts/uat-local.sh'));
+  assert(docs.includes('UAT_RUNTIME_AUTHORIZATION'));
+  assert(readRepo('uat/playwright-cucumber/steps/mvp-expanded-uat.steps.mjs').includes('VITAE_RUNTIME_AUTHORIZATION'));
 });

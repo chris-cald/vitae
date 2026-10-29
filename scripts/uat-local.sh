@@ -14,6 +14,7 @@ UAT_COMPOSE_FILE="${UAT_COMPOSE_FILE:-$ROOT_DIR/uat/podman-compose.yml}"
 BACKEND_PYTHON="${BACKEND_PYTHON:-$ROOT_DIR/backend/.venv/bin/python}"
 [[ -x "$BACKEND_PYTHON" ]] || BACKEND_PYTHON=python3
 UAT_API_URL="${UAT_API_URL:-http://localhost:8000}"
+UAT_RUNTIME_AUTHORIZATION="${UAT_RUNTIME_AUTHORIZATION:-Bearer ${RUNTIME_EXECUTION_TOKEN:-local-runtime-token}}"
 UAT_FRONTEND_URL="${UAT_FRONTEND_URL:-http://localhost:5173}"
 UAT_TEMPORAL_HISTORY_PATH="${UAT_TEMPORAL_HISTORY_PATH:-}"
 CANONICAL_VAULT_PATH="${CANONICAL_VAULT_PATH:-}"
@@ -22,7 +23,7 @@ PI_BRIDGE_PID=""
 mkdir -p "$UAT_ARTIFACT_DIR"
 LOG_FILE="$UAT_ARTIFACT_DIR/uat.log"
 SUMMARY_FILE="$UAT_ARTIFACT_DIR/summary.json"
-export ROOT_DIR UAT_ARTIFACT_DIR UAT_PROJECT UAT_START_STACK UAT_STATIC_ONLY UAT_RUN_CUCUMBER UAT_INSTALL_PLAYWRIGHT_BROWSERS UAT_USE_PI_BRIDGE UAT_TEARDOWN UAT_COMPOSE_FILE BACKEND_PYTHON UAT_API_URL UAT_FRONTEND_URL UAT_TEMPORAL_HISTORY_PATH CANONICAL_VAULT_PATH LOG_FILE SUMMARY_FILE
+export ROOT_DIR UAT_ARTIFACT_DIR UAT_PROJECT UAT_START_STACK UAT_STATIC_ONLY UAT_RUN_CUCUMBER UAT_INSTALL_PLAYWRIGHT_BROWSERS UAT_USE_PI_BRIDGE UAT_TEARDOWN UAT_COMPOSE_FILE BACKEND_PYTHON UAT_API_URL UAT_RUNTIME_AUTHORIZATION UAT_FRONTEND_URL UAT_TEMPORAL_HISTORY_PATH CANONICAL_VAULT_PATH LOG_FILE SUMMARY_FILE
 
 log() { printf '[%s] %s\n' "$(date -u +%H:%M:%S)" "$*" | tee -a "$LOG_FILE"; }
 compose() { ${UAT_COMPOSE_BIN:-podman-compose} --parallel "${UAT_COMPOSE_PARALLEL:-1}" -f "$UAT_COMPOSE_FILE" -p "$UAT_PROJECT" "$@"; }
@@ -84,7 +85,7 @@ def request(path, data):
     req = urllib.request.Request(
         api + path,
         data=json.dumps(data).encode(),
-        headers={"content-type": "application/json"},
+        headers={"content-type": "application/json", "Authorization": os.environ["UAT_RUNTIME_AUTHORIZATION"]},
     )
     with urllib.request.urlopen(req, timeout=30) as res:
         return json.load(res)
@@ -203,7 +204,10 @@ import json, os, urllib.request, uuid
 api = os.environ["UAT_API_URL"].rstrip("/")
 def request(path, data=None):
     body = None if data is None else json.dumps(data).encode()
-    req = urllib.request.Request(api + path, data=body, headers={"content-type": "application/json"})
+    headers = {"content-type": "application/json"}
+    if path.startswith("/api/v1/runtime-executions"):
+        headers["Authorization"] = os.environ["UAT_RUNTIME_AUTHORIZATION"]
+    req = urllib.request.Request(api + path, data=body, headers=headers)
     with urllib.request.urlopen(req, timeout=30) as res:
         return json.load(res)
 expanded = request("/api/v1/mvp/application-loop/expanded-uat")
@@ -218,7 +222,7 @@ PY
 execute_cucumber() {
   [[ "$UAT_RUN_CUCUMBER" == "1" ]] || return 0
   log 'execute: Playwright/Cucumber UAT'
-  (cd "$ROOT_DIR/uat/playwright-cucumber" && npm install && { [[ "$UAT_INSTALL_PLAYWRIGHT_BROWSERS" != "1" ]] || npx playwright install chromium; } && PLAYWRIGHT_BASE_URL="$UAT_FRONTEND_URL" VITAE_API_URL="$UAT_API_URL" TEMPORAL_HISTORY_PATH="$UAT_TEMPORAL_HISTORY_PATH" CANONICAL_VAULT_PATH="$CANONICAL_VAULT_PATH" npm run uat) | tee -a "$LOG_FILE"
+  (cd "$ROOT_DIR/uat/playwright-cucumber" && npm install && { [[ "$UAT_INSTALL_PLAYWRIGHT_BROWSERS" != "1" ]] || npx playwright install chromium; } && PLAYWRIGHT_BASE_URL="$UAT_FRONTEND_URL" VITAE_API_URL="$UAT_API_URL" VITAE_RUNTIME_AUTHORIZATION="$UAT_RUNTIME_AUTHORIZATION" TEMPORAL_HISTORY_PATH="$UAT_TEMPORAL_HISTORY_PATH" CANONICAL_VAULT_PATH="$CANONICAL_VAULT_PATH" npm run uat) | tee -a "$LOG_FILE"
 }
 
 execute() {

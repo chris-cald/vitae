@@ -187,12 +187,23 @@ function loadRuntimeControls(apiMock, storage = new Map(), randomUUID = () => '0
     compilerOptions: { jsx: ts.JsxEmit.ReactJSX, module: ts.ModuleKind.CommonJS, target: ts.ScriptTarget.ES2022, esModuleInterop: true },
   }).outputText;
   const state = [];
+  const effects = [];
   let hook = 0;
+  let pending = [];
   const react = {
     useState(initial) {
       const index = hook++;
       if (!(index in state)) state[index] = initial;
       return [state[index], value => { state[index] = typeof value === 'function' ? value(state[index]) : value; }];
+    },
+    useEffect(effect, dependencies) {
+      const index = hook++;
+      const previous = effects[index];
+      if (!previous || dependencies.some((value, i) => value !== previous.dependencies[i])) {
+        previous?.cleanup?.();
+        effects[index] = { dependencies, effect };
+        pending.push(index);
+      }
     },
   };
   const exports = {};
@@ -215,7 +226,10 @@ function loadRuntimeControls(apiMock, storage = new Map(), randomUUID = () => '0
   return {
     render(props) {
       hook = 0;
-      return exports.RuntimeExecutionControls(props);
+      pending = [];
+      const view = exports.RuntimeExecutionControls(props);
+      for (const index of pending) effects[index].cleanup = effects[index].effect();
+      return view;
     },
   };
 }
@@ -326,6 +340,39 @@ function loadCareerInventory(apiMock) {
     },
   };
 }
+
+test('runtime controls restore an opaque execution after remounting in the same authorization scope', async () => {
+  const storage = new Map();
+  const calls = [];
+  const apiMock = {
+    startRuntimeExecution: async workflowType => ({ execution_id: 'exec_opaque', workflow_type: workflowType, status_code: 'accepted' }),
+    cancelRuntimeExecution: async () => { throw new Error('not used'); },
+    decideRuntimeExecution: async () => { throw new Error('not used'); },
+    fetchRuntimeExecution: async (...args) => {
+      calls.push(args);
+      return { execution_id: 'exec_opaque', workflow_type: 'book-of-work-refresh', status_code: 'accepted' };
+    },
+  };
+  let controls = loadRuntimeControls(apiMock, storage);
+  let view = controls.render({ workflowType: 'book-of-work-refresh', label: 'Refresh Book of Work' });
+  findField(view, 'Runtime authorization token').props.onChange({ target: { value: 'runtime-token' } });
+  view = controls.render({ workflowType: 'book-of-work-refresh', label: 'Refresh Book of Work' });
+  findAction(view, 'Start Refresh Book of Work')();
+  await settle();
+  assert.equal(storage.size, 1);
+
+  controls = loadRuntimeControls(apiMock, storage);
+  view = controls.render({ workflowType: 'book-of-work-refresh', label: 'Refresh Book of Work' });
+  findField(view, 'Runtime authorization token').props.onChange({ target: { value: 'runtime-token' } });
+  view = controls.render({ workflowType: 'book-of-work-refresh', label: 'Refresh Book of Work' });
+  await settle();
+  await settle();
+  view = controls.render({ workflowType: 'book-of-work-refresh', label: 'Refresh Book of Work' });
+
+  assert.deepEqual(calls, [['exec_opaque', 'runtime-token']]);
+  assert.match(textContent(view), /exec_opaque.*accepted/);
+  assert.equal([...storage.entries()].some(([, value]) => value === 'runtime-token'), false);
+});
 
 test('runtime controls reuse a pending idempotency key after remounting', async () => {
   const calls = [];

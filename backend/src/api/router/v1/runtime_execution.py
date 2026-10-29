@@ -11,6 +11,19 @@ from src.services.runtime_execution_service import (
 )
 
 router = APIRouter()
+_ERROR_STATUS_CODES = {
+    "execution-not-found": status.HTTP_404_NOT_FOUND,
+    "runtime-authorization-denied": status.HTTP_403_FORBIDDEN,
+    "stale-execution-decision": status.HTTP_409_CONFLICT,
+    "runtime-start-failed": status.HTTP_503_SERVICE_UNAVAILABLE,
+}
+
+
+def _runtime_error_response(error: RuntimeContractError) -> HTTPException:
+    return HTTPException(
+        status_code=_ERROR_STATUS_CODES.get(error.code, status.HTTP_422_UNPROCESSABLE_CONTENT),
+        detail=error.as_dict(),
+    )
 
 
 class RuntimeDecisionRequest(BaseModel):
@@ -26,6 +39,7 @@ def _public_execution(execution: Any) -> dict[str, Any]:
             "workflow_run_id",
             "correlation_id",
             "idempotency_key",
+            "dispatch_attempt",
         },
     )
 
@@ -49,7 +63,7 @@ async def start_runtime_execution(
     try:
         execution, created = await service.start(input, authority)
     except RuntimeContractError as error:
-        raise HTTPException(status_code=422, detail=error.as_dict())
+        raise _runtime_error_response(error) from None
     if not created:
         response.status_code = status.HTTP_200_OK
     return {"execution": _public_execution(execution), "created": created}
@@ -63,7 +77,7 @@ async def get_runtime_execution(
     try:
         execution = await RuntimeExecutionService().fetch(execution_id, authority)
     except RuntimeContractError as error:
-        raise HTTPException(status_code=422, detail=error.as_dict())
+        raise _runtime_error_response(error) from None
     if not execution:
         raise HTTPException(status_code=404, detail="Runtime execution not found.")
     return {"execution": _public_execution(execution)}
@@ -78,7 +92,7 @@ async def cancel_runtime_execution(
         service = await build_runtime_execution_service()
         execution = await service.cancel(execution_id, authority)
     except RuntimeContractError as error:
-        raise HTTPException(status_code=422, detail=error.as_dict())
+        raise _runtime_error_response(error) from None
     return {"execution": _public_execution(execution)}
 
 
@@ -92,5 +106,5 @@ async def decide_runtime_execution(
         service = await build_runtime_execution_service()
         execution = await service.record_decision(execution_id, input.decision_code, authority)
     except RuntimeContractError as error:
-        raise HTTPException(status_code=422, detail=error.as_dict())
+        raise _runtime_error_response(error) from None
     return {"execution": _public_execution(execution)}
