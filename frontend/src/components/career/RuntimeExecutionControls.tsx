@@ -14,6 +14,7 @@ export function RuntimeExecutionControls({ workflowType, label }: {
 }) {
   const [execution, setExecution] = useState<RuntimeExecution | null>(null);
   const [authorization, setAuthorization] = useState('');
+  const [startIdempotencyKey, setStartIdempotencyKey] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState('');
   const terminal = execution !== null && execution.status_code !== 'accepted';
@@ -30,6 +31,16 @@ export function RuntimeExecutionControls({ workflowType, label }: {
     }
   };
 
+  const start = () => {
+    const idempotencyKey = startIdempotencyKey ?? `idem_${crypto.randomUUID()}`;
+    setStartIdempotencyKey(idempotencyKey);
+    void run(async () => {
+      const next = await startRuntimeExecution(workflowType, authorization, idempotencyKey);
+      setStartIdempotencyKey(null);
+      return next;
+    });
+  };
+
   return (
     <section aria-label={`${label} runtime controls`} className="space-y-2 text-sm">
       <h4 className="font-semibold">{label}</h4>
@@ -44,7 +55,7 @@ export function RuntimeExecutionControls({ workflowType, label }: {
           value={authorization}
         />
       </label>
-      {(!execution || terminal) && <button disabled={busy || !authorization} className="px-3 py-1 rounded bg-secondary" onClick={() => void run(() => startRuntimeExecution(workflowType, authorization))}>Start {label}</button>}
+      {(!execution || terminal) && <button disabled={busy || !authorization} className="px-3 py-1 rounded bg-secondary" onClick={start}>Start {label}</button>}
       {execution && <>
         <p>Execution: {execution.execution_id} · {execution.status_code}</p>
         <div className="flex flex-wrap gap-2">

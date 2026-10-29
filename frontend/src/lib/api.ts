@@ -120,11 +120,15 @@ const runtimeHeaders = (authorization: string, json = false) => ({
   ...(json ? { 'Content-Type': 'application/json' } : {}),
 });
 
-export async function startRuntimeExecution(workflowType: RuntimeWorkflowType, authorization: string): Promise<RuntimeExecution> {
+export async function startRuntimeExecution(
+  workflowType: RuntimeWorkflowType,
+  authorization: string,
+  idempotencyKey: string,
+): Promise<RuntimeExecution> {
   const res = await fetch('/api/v1/runtime-executions', {
     method: 'POST',
     headers: runtimeHeaders(authorization, true),
-    body: JSON.stringify({ workflow_type: workflowType }),
+    body: JSON.stringify({ workflow_type: workflowType, idempotency_key: idempotencyKey }),
   });
   if (!res.ok) throw new Error('Failed to start runtime execution');
   return (await res.json() as { execution: RuntimeExecution }).execution;

@@ -168,10 +168,10 @@ test('runtime execution API sends opaque workflow control only', async () => {
     return Response.json({ execution, created: true }, { status: 201 });
   };
   try {
-    assert.deepEqual(await api.startRuntimeExecution('book-of-work-refresh', 'runtime-token'), execution);
+    assert.deepEqual(await api.startRuntimeExecution('book-of-work-refresh', 'runtime-token', 'idem_opaque'), execution);
     assert.equal((await api.cancelRuntimeExecution(execution.execution_id, 'runtime-token')).status_code, 'cancelled');
     assert.equal((await api.decideRuntimeExecution(execution.execution_id, 'approve', 'runtime-token')).status_code, 'completed');
-    assert.deepEqual(JSON.parse(requests[0].options.body), { workflow_type: 'book-of-work-refresh' });
+    assert.deepEqual(JSON.parse(requests[0].options.body), { workflow_type: 'book-of-work-refresh', idempotency_key: 'idem_opaque' });
     assert.equal(requests[0].options.headers.Authorization, 'Bearer runtime-token');
     assert.deepEqual(JSON.parse(requests[2].options.body), { decision_code: 'approve' });
     assert.equal(JSON.stringify(requests).includes('resume'), false);
@@ -201,7 +201,7 @@ function loadRuntimeControls(apiMock) {
     '@/lib/api': apiMock,
     'react/jsx-runtime': { jsx: (type, props) => ({ type, props }), jsxs: (type, props) => ({ type, props }) },
   })[name];
-  vm.runInNewContext(compiled, { exports, require });
+  vm.runInNewContext(compiled, { exports, require, crypto: { randomUUID: () => '00000000-0000-4000-8000-000000000001' } });
   return {
     render(props) {
       hook = 0;
@@ -213,8 +213,8 @@ function loadRuntimeControls(apiMock) {
 test('runtime controls let a user start and cancel an opaque refresh execution', async () => {
   const calls = [];
   const controls = loadRuntimeControls({
-    startRuntimeExecution: async (workflowType, authorization) => {
-      calls.push(['start', workflowType, authorization]);
+    startRuntimeExecution: async (workflowType, authorization, idempotencyKey) => {
+      calls.push(['start', workflowType, authorization, idempotencyKey]);
       return { execution_id: 'exec_opaque', workflow_type: workflowType, status_code: 'accepted' };
     },
     cancelRuntimeExecution: async (executionId, authorization) => {
@@ -230,6 +230,7 @@ test('runtime controls let a user start and cancel an opaque refresh execution',
   view = controls.render({ workflowType: 'book-of-work-refresh', label: 'Refresh Book of Work' });
   findAction(view, 'Start Refresh Book of Work')();
   await settle();
+  await settle();
   view = controls.render({ workflowType: 'book-of-work-refresh', label: 'Refresh Book of Work' });
   assert.match(textContent(view), /exec_opaque.*accepted/);
   findAction(view, 'Cancel execution')();
@@ -238,7 +239,105 @@ test('runtime controls let a user start and cancel an opaque refresh execution',
 
   assert.match(textContent(view), /cancelled/);
   assert.ok(findAction(view, 'Start Refresh Book of Work'));
-  assert.deepEqual(calls, [['start', 'book-of-work-refresh', 'runtime-token'], ['cancel', 'exec_opaque', 'runtime-token']]);
+  assert.deepEqual(calls, [['start', 'book-of-work-refresh', 'runtime-token', 'idem_00000000-0000-4000-8000-000000000001'], ['cancel', 'exec_opaque', 'runtime-token']]);
+});
+
+test('runtime controls reuse an idempotency key after an uncertain start error', async () => {
+  const calls = [];
+  const controls = loadRuntimeControls({
+    startRuntimeExecution: async (...args) => {
+      calls.push(args);
+      if (calls.length === 1) throw new Error('network error');
+      return { execution_id: 'exec_opaque', workflow_type: 'book-of-work-refresh', status_code: 'accepted' };
+    },
+    cancelRuntimeExecution: async () => { throw new Error('not used'); },
+    decideRuntimeExecution: async () => { throw new Error('not used'); },
+    fetchRuntimeExecution: async () => { throw new Error('not used'); },
+  });
+
+  let view = controls.render({ workflowType: 'book-of-work-refresh', label: 'Refresh Book of Work' });
+  findField(view, 'Runtime authorization token').props.onChange({ target: { value: 'runtime-token' } });
+  view = controls.render({ workflowType: 'book-of-work-refresh', label: 'Refresh Book of Work' });
+  findAction(view, 'Start Refresh Book of Work')();
+  await settle();
+  view = controls.render({ workflowType: 'book-of-work-refresh', label: 'Refresh Book of Work' });
+  findAction(view, 'Start Refresh Book of Work')();
+  await settle();
+
+  assert.equal(calls.length, 2);
+  assert.equal(calls[0][2], calls[1][2]);
+});
+
+function loadCareerInventory(apiMock) {
+  const source = readFileSync(new URL('../src/components/career/CareerInventory.tsx', import.meta.url), 'utf8');
+  const compiled = ts.transpileModule(source, {
+    compilerOptions: { jsx: ts.JsxEmit.ReactJSX, module: ts.ModuleKind.CommonJS, target: ts.ScriptTarget.ES2022, esModuleInterop: true },
+  }).outputText;
+  const state = [];
+  const effects = [];
+  let hook = 0;
+  let pending = [];
+  const react = {
+    useState(initial) {
+      const index = hook++;
+      if (!(index in state)) state[index] = initial;
+      return [state[index], value => { state[index] = typeof value === 'function' ? value(state[index]) : value; }];
+    },
+    useEffect(effect, dependencies) {
+      const index = hook++;
+      const previous = effects[index];
+      if (!previous || dependencies.some((value, i) => value !== previous.dependencies[i])) {
+        previous?.cleanup?.();
+        effects[index] = { dependencies, effect };
+        pending.push(index);
+      }
+    },
+    useRef(initial) {
+      const index = hook++;
+      if (!(index in state)) state[index] = { current: initial };
+      return state[index];
+    },
+  };
+  const exports = {};
+  const require = name => ({
+    react,
+    '@/lib/api': apiMock,
+    '@/components/career/RuntimeExecutionControls': { RuntimeExecutionControls: () => null },
+    'react/jsx-runtime': { jsx: (type, props) => ({ type, props }), jsxs: (type, props) => ({ type, props }) },
+  })[name];
+  vm.runInNewContext(compiled, { exports, require });
+  return {
+    render() {
+      hook = 0;
+      pending = [];
+      const view = exports.CareerInventoryPanel();
+      for (const index of pending) effects[index].cleanup = effects[index].effect();
+      return view;
+    },
+  };
+}
+
+test('career inventory lets users refresh a displayed Book of Work state', async () => {
+  let fetches = 0;
+  const inventory = {
+    bookOfWork: { status: 'stale', changeCount: 1 },
+    sources: [], seeds: [], catalogAssets: [], actions: [],
+    counts: { sources: 0, seeds: 0, catalogAssets: 0 },
+    generationEligibility: { eligibleSources: [], targetContext: null, gaps: [] },
+  };
+  const panel = loadCareerInventory({
+    fetchCareerInventory: async () => { fetches += 1; return inventory; },
+    harvestCareerInventory: async () => { throw new Error('not used'); },
+    primeCareerInventorySeed: async () => { throw new Error('not used'); },
+  });
+
+  panel.render();
+  await settle();
+  let view = panel.render();
+  findAction(view, 'Refresh inventory')();
+  await settle();
+
+  assert.equal(fetches, 2);
 });
 
 test('career inventory API uses metadata-only AFK actions', async () => {

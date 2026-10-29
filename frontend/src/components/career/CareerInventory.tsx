@@ -87,6 +87,7 @@ export function CareerInventoryPanel() {
             {inventory.counts.sources} source · {inventory.counts.seeds} Seeds · {inventory.counts.catalogAssets} CatalogAssets
           </p>
           <p className="text-sm mb-3">Book of Work source state: {inventory.bookOfWork.status} ({inventory.bookOfWork.changeCount} changes)</p>
+          <button disabled={loading || busy} className="px-3 py-1 rounded bg-secondary" onClick={() => void refresh()}>Refresh inventory</button>
           <RuntimeExecutionControls workflowType="book-of-work-refresh" label="Refresh Book of Work" />
           <ul className="space-y-2">
             {inventory.sources.map(source => (
