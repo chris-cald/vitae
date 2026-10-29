@@ -205,6 +205,11 @@ function loadRuntimeControls(apiMock, storage = new Map(), randomUUID = () => '0
         pending.push(index);
       }
     },
+    useRef(initial) {
+      const index = hook++;
+      if (!(index in state)) state[index] = { current: initial };
+      return state[index];
+    },
   };
   const exports = {};
   const require = name => ({
@@ -372,6 +377,38 @@ test('runtime controls restore an opaque execution after remounting in the same 
   assert.deepEqual(calls, [['exec_opaque', 'runtime-token']]);
   assert.match(textContent(view), /exec_opaque.*accepted/);
   assert.equal([...storage.entries()].some(([, value]) => value === 'runtime-token'), false);
+});
+
+test('runtime controls ignore a completed start from a prior authorization scope', async () => {
+  const storage = new Map();
+  const started = deferred();
+  const calls = [];
+  const controls = loadRuntimeControls({
+    startRuntimeExecution: async (...args) => {
+      calls.push(args);
+      return started.promise;
+    },
+    cancelRuntimeExecution: async () => { throw new Error('not used'); },
+    decideRuntimeExecution: async () => { throw new Error('not used'); },
+    fetchRuntimeExecution: async () => { throw new Error('not used'); },
+  }, storage);
+
+  let view = controls.render({ workflowType: 'book-of-work-refresh', label: 'Refresh Book of Work' });
+  findField(view, 'Runtime authorization token').props.onChange({ target: { value: 'tenant-a-token' } });
+  view = controls.render({ workflowType: 'book-of-work-refresh', label: 'Refresh Book of Work' });
+  findAction(view, 'Start Refresh Book of Work')();
+  await settle();
+  findField(view, 'Runtime authorization token').props.onChange({ target: { value: 'tenant-b-token' } });
+  controls.render({ workflowType: 'book-of-work-refresh', label: 'Refresh Book of Work' });
+  started.resolve({ execution_id: 'exec_tenant_a', workflow_type: 'book-of-work-refresh', status_code: 'accepted' });
+  await settle();
+  await settle();
+  view = controls.render({ workflowType: 'book-of-work-refresh', label: 'Refresh Book of Work' });
+
+  assert.deepEqual(calls, [['book-of-work-refresh', 'tenant-a-token', 'idem_00000000-0000-4000-8000-000000000001']]);
+  assert.doesNotMatch(textContent(view), /exec_tenant_a/);
+  assert.ok(findAction(view, 'Start Refresh Book of Work'));
+  assert.equal([...storage.values()].includes('exec_tenant_a'), true);
 });
 
 test('runtime controls reuse a pending idempotency key after remounting', async () => {

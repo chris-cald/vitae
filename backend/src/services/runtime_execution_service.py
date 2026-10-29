@@ -380,7 +380,8 @@ class RuntimeExecutionService:
                 raise RuntimeContractError("execution-not-found")
             if execution.tenant_key != authority.tenant_key:
                 raise RuntimeContractError("runtime-authorization-denied")
-            if execution.status_code in _TERMINAL_STATUSES:
+            authority.authorize(execution.workflow_type)
+            if execution.status_code in _TERMINAL_STATUSES | {"pending-dispatch", "dispatching"}:
                 raise RuntimeContractError("stale-execution-decision")
             now = datetime.now(timezone.utc)
             command = ExecutionCommand(
@@ -415,8 +416,10 @@ class RuntimeExecutionService:
     ) -> RuntimeExecution | None:
         async with AsyncSessionLocal() as session:
             execution = await session.get(RuntimeExecution, execution_id)
-            if execution is not None and execution.tenant_key != authority.tenant_key:
-                raise RuntimeContractError("runtime-authorization-denied")
+            if execution is not None:
+                if execution.tenant_key != authority.tenant_key:
+                    raise RuntimeContractError("runtime-authorization-denied")
+                authority.authorize(execution.workflow_type)
             return execution
 
     def _reject_unsafe_request(self, request: dict[str, Any]) -> None:

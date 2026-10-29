@@ -3,18 +3,22 @@
 from alembic import op
 import sqlalchemy as sa
 
-revision = "20261030_runtime_execution_dispatch_attempt"
+revision = "20261030_dispatch_attempt"
 down_revision = "20261029_book_of_work_refresh"
 branch_labels = None
 depends_on = None
 
 
 def upgrade():
-    op.add_column(
-        "runtimeexecution",
-        sa.Column("dispatch_attempt", sa.Integer(), nullable=False, server_default="0"),
-    )
+    columns = {column["name"] for column in sa.inspect(op.get_bind()).get_columns("runtimeexecution")}
+    if "dispatch_attempt" not in columns:
+        op.add_column(
+            "runtimeexecution",
+            sa.Column("dispatch_attempt", sa.Integer(), nullable=False, server_default="0"),
+        )
 
 
 def downgrade():
-    op.drop_column("runtimeexecution", "dispatch_attempt")
+    columns = {column["name"] for column in sa.inspect(op.get_bind()).get_columns("runtimeexecution")}
+    if "dispatch_attempt" in columns:
+        op.drop_column("runtimeexecution", "dispatch_attempt")

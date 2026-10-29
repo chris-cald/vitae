@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import {
   cancelRuntimeExecution,
   decideRuntimeExecution,
@@ -21,6 +21,9 @@ export function RuntimeExecutionControls({ workflowType, label }: {
 }) {
   const [execution, setExecution] = useState<RuntimeExecution | null>(null);
   const [authorization, setAuthorization] = useState('');
+  const authorizationRef = useRef(authorization);
+  const workflowTypeRef = useRef(workflowType);
+  workflowTypeRef.current = workflowType;
   const [pendingStart, setPendingStart] = useState<{ scope: string; key: string } | null>(null);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState('');
@@ -72,7 +75,10 @@ export function RuntimeExecutionControls({ workflowType, label }: {
         sessionStorage.setItem(storageKey, idempotencyKey);
         const started = await startRuntimeExecution(workflowType, authorization, idempotencyKey);
         sessionStorage.setItem(executionStorageKey(workflowType, scope), started.execution_id);
-        setExecution(started);
+        if (
+          workflowTypeRef.current === workflowType
+          && authorizationRef.current === authorization
+        ) setExecution(started);
         setPendingStart(null);
         sessionStorage.removeItem(storageKey);
         setError('');
@@ -93,7 +99,11 @@ export function RuntimeExecutionControls({ workflowType, label }: {
           aria-label="Runtime authorization token"
           autoComplete="off"
           className="ml-2 rounded border px-2 py-1"
-          onChange={event => { setAuthorization(event.target.value); setError(''); }}
+          onChange={event => {
+            authorizationRef.current = event.target.value;
+            setAuthorization(event.target.value);
+            setError('');
+          }}
           type="password"
           value={authorization}
         />

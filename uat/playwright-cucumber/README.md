@@ -15,7 +15,7 @@ PLAYWRIGHT_BASE_URL=http://localhost:5173 \
 VITAE_API_URL=http://localhost:8000 \
 CANONICAL_VAULT_PATH="$HOME/Obsidian Vaults/loft/1 Projects/Job Search" \
 TEMPORAL_HISTORY_PATH=../../artifacts/uat/temporal-history.json \
-VITAE_RUNTIME_AUTHORIZATION="Bearer $UAT_RUNTIME_TOKEN" \
+VITAE_RUNTIME_AUTHORIZATION="Bearer ${RUNTIME_EXECUTION_TOKEN:-local-runtime-token}" \
 npm run uat
 ```
 

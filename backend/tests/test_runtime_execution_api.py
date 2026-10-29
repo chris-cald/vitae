@@ -33,7 +33,6 @@ async def test_runtime_execution_accepts_a_verified_oidc_token_with_an_opaque_te
     private_key = rsa.generate_private_key(public_exponent=65537, key_size=2048)
     token = jwt.encode(
         {
-            "sub": "runtime-operator",
             "iss": "https://auth.example/application/o/vitae/",
             "aud": "vitae-api",
             "exp": 4_102_444_800,
@@ -512,43 +511,74 @@ async def test_idempotency_reauthorizes_the_stored_workflow_type():
 
 
 @pytest.mark.asyncio
-@pytest.mark.parametrize(("decision", "expected_status"), [("cancel", "cancelled"), ("reject", "rejected")])
-async def test_late_dispatch_cannot_overwrite_terminal_decision(decision, expected_status):
+@pytest.mark.parametrize("status_code", ["pending-dispatch", "dispatching"])
+async def test_runtime_execution_rejects_signals_before_dispatch_completes(status_code):
     await init_db()
-    started = asyncio.Event()
-    release = asyncio.Event()
 
-    class BlockingAdapter:
+    class TrackingAdapter:
+        signals = 0
+
         async def start(self, _command):
-            started.set()
-            await release.wait()
-
-        async def signal(self, _command):
             return None
 
-    service = RuntimeExecutionService(BlockingAdapter())
+        async def signal(self, _command):
+            self.signals += 1
+
+    adapter = TrackingAdapter()
+    service = RuntimeExecutionService(adapter)
     authority = RuntimeExecutionAuthority(
         "tenant_00000000-0000-4000-8000-000000000001",
         "actor_00000000-0000-4000-8000-000000000001",
         frozenset({"curation"}),
     )
-    request = {"workflow_type": "curation", "idempotency_key": f"idem_{uuid4()}"}
-    task = asyncio.create_task(service.start(request, authority))
-    await started.wait()
+    execution, _ = await service.start({"workflow_type": "curation"}, authority)
     async with AsyncSessionLocal() as session:
-        execution = (
-            await session.execute(
-                select(RuntimeExecution).where(RuntimeExecution.idempotency_key == request["idempotency_key"])
-            )
-        ).scalars().one()
-    if decision == "cancel":
-        await service.cancel(execution.execution_id, authority)
-    else:
-        await service.record_decision(execution.execution_id, decision, authority)
-    release.set()
-    result, _ = await task
+        persisted = await session.get(RuntimeExecution, execution.execution_id)
+        persisted.status_code = status_code
+        session.add(persisted)
+        await session.commit()
 
-    assert result.status_code == expected_status
+    with pytest.raises(RuntimeContractError, match="stale-execution-decision"):
+        await service.cancel(execution.execution_id, authority)
+
+    assert adapter.signals == 0
+
+
+@pytest.mark.asyncio
+async def test_runtime_execution_authorizes_stored_workflow_for_fetch_and_signal():
+    await init_db()
+
+    class TrackingAdapter:
+        signals = 0
+
+        async def start(self, _command):
+            return None
+
+        async def signal(self, _command):
+            self.signals += 1
+
+    adapter = TrackingAdapter()
+    service = RuntimeExecutionService(adapter)
+    full_authority = RuntimeExecutionAuthority(
+        "tenant_00000000-0000-4000-8000-000000000001",
+        "actor_00000000-0000-4000-8000-000000000001",
+        frozenset({"application-automation", "curation"}),
+    )
+    restricted_authority = RuntimeExecutionAuthority(
+        full_authority.tenant_key,
+        full_authority.actor_key,
+        frozenset({"curation"}),
+    )
+    execution, _ = await service.start(
+        {"workflow_type": "application-automation"}, full_authority
+    )
+
+    with pytest.raises(RuntimeContractError, match="runtime-authorization-denied"):
+        await service.fetch(execution.execution_id, restricted_authority)
+    with pytest.raises(RuntimeContractError, match="runtime-authorization-denied"):
+        await service.cancel(execution.execution_id, restricted_authority)
+
+    assert adapter.signals == 0
 
 
 @pytest.mark.asyncio
