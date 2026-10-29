@@ -5,8 +5,8 @@ summary: Let candidates start, observe, cancel, and review privacy-safe durable 
 type: work-item
 subtype: story
 lifecycle: active
-status: planned
-status_reason: blocked-by-dependency
+status: ready
+status_reason: planned
 priority: high
 estimated: 5
 links:
