@@ -10,6 +10,7 @@ from uuid import UUID, uuid4
 
 import jwt
 from pydantic import ValidationError
+from sqlalchemy.exc import IntegrityError
 from sqlmodel import select
 
 from db.db import AsyncSessionLocal
@@ -150,6 +151,37 @@ class RuntimeExecutionService:
             raise RuntimeContractError("invalid-workflow-type")
 
         idempotency_key = request.get("idempotency_key") or _id("idem")
+        now = datetime.now(timezone.utc)
+        execution = RuntimeExecution(
+            execution_id=_id("exec"),
+            tenant_key=authority.tenant_key,
+            workflow_definition_id=_id("workflow"),
+            workflow_version="v1",
+            workflow_run_id=_id("workflowrun"),
+            correlation_id=request.get("correlation_id") or _id("corr"),
+            idempotency_key=idempotency_key,
+            workflow_type=workflow_type,
+            status_code="accepted",
+            created_at=now,
+            updated_at=now,
+        )
+        try:
+            command = ExecutionCommand(
+                execution_id=execution.execution_id,
+                tenant_key=execution.tenant_key,
+                workflow_definition_id=execution.workflow_definition_id,
+                workflow_version=execution.workflow_version,
+                workflow_type=execution.workflow_type,  # type: ignore[arg-type]
+                workflow_run_id=execution.workflow_run_id,
+                correlation_id=execution.correlation_id,
+                idempotency_key=execution.idempotency_key,
+                actor_type="user",
+                command="start",
+                occurred_at=now,
+            )
+        except ValidationError:
+            raise RuntimeContractError("invalid-execution-command") from None
+
         async with AsyncSessionLocal() as session:
             result = await session.execute(
                 select(RuntimeExecution).where(
@@ -161,42 +193,36 @@ class RuntimeExecutionService:
                 if existing.tenant_key != authority.tenant_key:
                     raise RuntimeContractError("runtime-authorization-denied")
                 return existing, False
-
-            now = datetime.now(timezone.utc)
-            execution = RuntimeExecution(
-                execution_id=_id("exec"),
-                tenant_key=authority.tenant_key,
-                workflow_definition_id=_id("workflow"),
-                workflow_version="v1",
-                workflow_run_id=_id("workflowrun"),
-                correlation_id=request.get("correlation_id") or _id("corr"),
-                idempotency_key=idempotency_key,
-                workflow_type=workflow_type,
-                status_code="accepted",
-                created_at=now,
-                updated_at=now,
-            )
-            try:
-                command = ExecutionCommand(
-                    execution_id=execution.execution_id,
-                    tenant_key=execution.tenant_key,
-                    workflow_definition_id=execution.workflow_definition_id,
-                    workflow_version=execution.workflow_version,
-                    workflow_type=execution.workflow_type,  # type: ignore[arg-type]
-                    workflow_run_id=execution.workflow_run_id,
-                    correlation_id=execution.correlation_id,
-                    idempotency_key=execution.idempotency_key,
-                    actor_type="user",
-                    command="start",
-                    occurred_at=now,
-                )
-            except ValidationError:
-                raise RuntimeContractError("invalid-execution-command") from None
-            await self.adapter.start(command)
             session.add(execution)
-            await session.commit()
-            await session.refresh(execution)
-            return execution, True
+            try:
+                await session.commit()
+            except IntegrityError:
+                await session.rollback()
+                existing = (
+                    await session.execute(
+                        select(RuntimeExecution).where(
+                            RuntimeExecution.idempotency_key == idempotency_key
+                        )
+                    )
+                ).scalars().first()
+                if existing is None:
+                    raise
+                if existing.tenant_key != authority.tenant_key:
+                    raise RuntimeContractError("runtime-authorization-denied")
+                return existing, False
+
+        try:
+            await self.adapter.start(command)
+        except Exception:
+            async with AsyncSessionLocal() as session:
+                persisted = await session.get(RuntimeExecution, execution.execution_id)
+                if persisted is not None:
+                    persisted.status_code = "retryable-failure"
+                    persisted.updated_at = datetime.now(timezone.utc)
+                    session.add(persisted)
+                    await session.commit()
+            raise RuntimeContractError("runtime-start-failed") from None
+        return execution, True
 
     async def cancel(
         self, execution_id: str, authority: RuntimeExecutionAuthority

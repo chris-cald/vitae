@@ -14,7 +14,8 @@ export function RuntimeExecutionControls({ workflowType, label }: {
 }) {
   const [execution, setExecution] = useState<RuntimeExecution | null>(null);
   const [authorization, setAuthorization] = useState('');
-  const [startIdempotencyKey, setStartIdempotencyKey] = useState<string | null>(null);
+  const storageKey = `runtime-start:${workflowType}`;
+  const [startIdempotencyKey, setStartIdempotencyKey] = useState<string | null>(sessionStorage.getItem(storageKey));
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState('');
   const terminal = execution !== null && execution.status_code !== 'accepted';
@@ -34,9 +35,11 @@ export function RuntimeExecutionControls({ workflowType, label }: {
   const start = () => {
     const idempotencyKey = startIdempotencyKey ?? `idem_${crypto.randomUUID()}`;
     setStartIdempotencyKey(idempotencyKey);
+    sessionStorage.setItem(storageKey, idempotencyKey);
     void run(async () => {
       const next = await startRuntimeExecution(workflowType, authorization, idempotencyKey);
       setStartIdempotencyKey(null);
+      sessionStorage.removeItem(storageKey);
       return next;
     });
   };

@@ -6,10 +6,10 @@ import pytest
 from cryptography.hazmat.primitives.asymmetric import rsa
 from fastapi.testclient import TestClient
 
-from db.db import AsyncSessionLocal
+from db.db import AsyncSessionLocal, init_db
 from src.main import app
 from src.models.runtime_execution import RuntimeExecution
-from src.services.runtime_execution_service import RuntimeExecutionAuthority
+from src.services.runtime_execution_service import RuntimeExecutionAuthority, RuntimeExecutionService
 
 
 RUNTIME_HEADERS = {"Authorization": "Bearer runtime-test-token"}
@@ -59,6 +59,38 @@ async def test_runtime_execution_accepts_a_verified_oidc_token_with_an_opaque_te
     )
 
     assert authority.tenant_key == "tenant_00000000-0000-4000-8000-000000000001"
+
+
+@pytest.mark.asyncio
+async def test_concurrent_same_key_start_reserves_one_runtime_execution_before_adapter_start():
+    await init_db()
+    started = asyncio.Event()
+    release = asyncio.Event()
+
+    class BlockingAdapter:
+        calls = 0
+
+        async def start(self, _command):
+            self.calls += 1
+            started.set()
+            await release.wait()
+
+    service = RuntimeExecutionService(BlockingAdapter())
+    authority = RuntimeExecutionAuthority("tenant_00000000-0000-4000-8000-000000000001")
+    request = {"workflow_type": "curation", "idempotency_key": f"idem_{uuid4()}"}
+    first = asyncio.create_task(service.start(request, authority))
+    await started.wait()
+    second = asyncio.create_task(service.start(request, authority))
+    try:
+        await asyncio.sleep(0)
+        assert service.adapter.calls == 1
+    finally:
+        release.set()
+        results = await asyncio.gather(first, second, return_exceptions=True)
+
+    assert not any(isinstance(result, Exception) for result in results)
+    assert results[0][0].execution_id == results[1][0].execution_id
+    assert sorted(result[1] for result in results) == [False, True]
 
 
 def test_runtime_execution_start_and_human_decision_are_privacy_safe():

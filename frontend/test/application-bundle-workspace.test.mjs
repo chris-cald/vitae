@@ -181,7 +181,7 @@ test('runtime execution API sends opaque workflow control only', async () => {
   }
 });
 
-function loadRuntimeControls(apiMock) {
+function loadRuntimeControls(apiMock, storage = new Map(), randomUUID = () => '00000000-0000-4000-8000-000000000001') {
   const source = readFileSync(new URL('../src/components/career/RuntimeExecutionControls.tsx', import.meta.url), 'utf8');
   const compiled = ts.transpileModule(source, {
     compilerOptions: { jsx: ts.JsxEmit.ReactJSX, module: ts.ModuleKind.CommonJS, target: ts.ScriptTarget.ES2022, esModuleInterop: true },
@@ -201,7 +201,12 @@ function loadRuntimeControls(apiMock) {
     '@/lib/api': apiMock,
     'react/jsx-runtime': { jsx: (type, props) => ({ type, props }), jsxs: (type, props) => ({ type, props }) },
   })[name];
-  vm.runInNewContext(compiled, { exports, require, crypto: { randomUUID: () => '00000000-0000-4000-8000-000000000001' } });
+  vm.runInNewContext(compiled, {
+    exports,
+    require,
+    crypto: { randomUUID },
+    sessionStorage: { getItem: key => storage.get(key) ?? null, setItem: (key, value) => storage.set(key, value), removeItem: key => storage.delete(key) },
+  });
   return {
     render(props) {
       hook = 0;
@@ -316,6 +321,39 @@ function loadCareerInventory(apiMock) {
     },
   };
 }
+
+test('runtime controls reuse a pending idempotency key after remounting', async () => {
+  const calls = [];
+  const storage = new Map();
+  let next = 1;
+  const randomUUID = () => `00000000-0000-4000-8000-00000000000${next++}`;
+  const apiMock = {
+    startRuntimeExecution: async (...args) => {
+      calls.push(args);
+      if (calls.length === 1) throw new Error('network error');
+      return { execution_id: 'exec_opaque', workflow_type: 'book-of-work-refresh', status_code: 'accepted' };
+    },
+    cancelRuntimeExecution: async () => { throw new Error('not used'); },
+    decideRuntimeExecution: async () => { throw new Error('not used'); },
+    fetchRuntimeExecution: async () => { throw new Error('not used'); },
+  };
+  let controls = loadRuntimeControls(apiMock, storage, randomUUID);
+  let view = controls.render({ workflowType: 'book-of-work-refresh', label: 'Refresh Book of Work' });
+  findField(view, 'Runtime authorization token').props.onChange({ target: { value: 'runtime-token' } });
+  view = controls.render({ workflowType: 'book-of-work-refresh', label: 'Refresh Book of Work' });
+  findAction(view, 'Start Refresh Book of Work')();
+  await settle();
+
+  controls = loadRuntimeControls(apiMock, storage, randomUUID);
+  view = controls.render({ workflowType: 'book-of-work-refresh', label: 'Refresh Book of Work' });
+  findField(view, 'Runtime authorization token').props.onChange({ target: { value: 'runtime-token' } });
+  view = controls.render({ workflowType: 'book-of-work-refresh', label: 'Refresh Book of Work' });
+  findAction(view, 'Start Refresh Book of Work')();
+  await settle();
+
+  assert.equal(calls.length, 2);
+  assert.equal(calls[0][2], calls[1][2]);
+});
 
 test('career inventory lets users refresh a displayed Book of Work state', async () => {
   let fetches = 0;
