@@ -8,6 +8,7 @@ from sqlalchemy import delete
 from db.db import AsyncSessionLocal, init_db
 from src.api.router.v1.career_inventory import router
 from src.models.career_inventory import CareerInventoryAction, CareerInventorySeed
+from src.services.book_of_work_refresh_service import BookOfWorkRefreshService
 from src.services.career_inventory_service import CareerInventoryNotFound, CareerInventoryService
 
 
@@ -85,3 +86,22 @@ def test_inventory_api_initializes_tables_and_distinguishes_missing_resources():
     assert decision.status_code == 404
     assert listed.json()["sources"][0]["sourceRef"]["uri"].startswith("vitae://")
     assert "raw" not in str(listed.json()).lower()
+
+
+@pytest.mark.asyncio
+async def test_inventory_marks_out_of_band_book_of_work_change_stale_without_exposing_paths(tmp_path):
+    await init_db()
+    source = tmp_path / "book-of-work"
+    source.mkdir()
+    note = source / "current.md"
+    note.write_text("before")
+    service = CareerInventoryService(BookOfWorkRefreshService(source))
+
+    incorporated = await service.list_inventory()
+    note.write_text("after")
+    stale = await service.list_inventory()
+
+    assert incorporated["bookOfWork"] == {"status": "incorporated", "changeCount": 0}
+    assert stale["bookOfWork"] == {"status": "stale", "changeCount": 1}
+    assert str(source) not in str(stale)
+    assert note.read_text() == "after"

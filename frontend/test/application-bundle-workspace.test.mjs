@@ -12,6 +12,7 @@ const api = await import(`data:text/javascript;base64,${Buffer.from(apiCompiled)
 
 const artifact = id => ({ name: `${id}.md`, path: `/drafts/${id}.md`, markdown: id });
 const bundle = jobFitId => ({
+  bookOfWork: { status: 'unavailable', changeCount: 0 },
   application: { id: `application-${jobFitId}`, status: 'draft' },
   applicationRecords: [],
   draftArtifacts: {
@@ -32,7 +33,7 @@ const deferred = () => {
 const settle = async () => { await Promise.resolve(); await Promise.resolve(); };
 
 function textContent(node) {
-  if (typeof node === 'string') return node;
+  if (typeof node === 'string' || typeof node === 'number') return String(node);
   if (Array.isArray(node)) return node.map(textContent).join('');
   return node?.props ? textContent(node.props.children) : '';
 }
@@ -86,6 +87,7 @@ function loadWorkspace(apiMock) {
     react,
     '@/lib/api': apiMock,
     '@/components/ui/button': { Button: 'button' },
+    '@/components/career/RuntimeExecutionControls': { RuntimeExecutionControls: () => null },
     'react/jsx-runtime': { jsx: (type, props) => ({ type, props }), jsxs: (type, props) => ({ type, props }) },
   })[name];
   vm.runInNewContext(compiled, { exports, require });
@@ -144,6 +146,86 @@ test('job-fit API flow scopes bundle detail and material events', async () => {
   } finally {
     globalThis.fetch = originalFetch;
   }
+});
+
+test('runtime execution API sends opaque workflow control only', async () => {
+  const requests = [];
+  const execution = { execution_id: 'exec_opaque', workflow_type: 'book-of-work-refresh', status_code: 'accepted' };
+  const originalFetch = globalThis.fetch;
+  globalThis.fetch = async (url, options = {}) => {
+    requests.push({ url, options });
+    if (url.endsWith('/cancel')) return Response.json({ execution: { ...execution, status_code: 'cancelled' } });
+    if (url.endsWith('/decision')) return Response.json({ execution: { ...execution, status_code: 'completed' } });
+    return Response.json({ execution, created: true }, { status: 201 });
+  };
+  try {
+    assert.deepEqual(await api.startRuntimeExecution('book-of-work-refresh'), execution);
+    assert.equal((await api.cancelRuntimeExecution(execution.execution_id)).status_code, 'cancelled');
+    assert.equal((await api.decideRuntimeExecution(execution.execution_id, 'approve')).status_code, 'completed');
+    assert.deepEqual(JSON.parse(requests[0].options.body), { workflow_type: 'book-of-work-refresh' });
+    assert.deepEqual(JSON.parse(requests[2].options.body), { decision_code: 'approve' });
+    assert.equal(JSON.stringify(requests).includes('resume'), false);
+    assert.equal(JSON.stringify(requests).includes('prompt'), false);
+  } finally {
+    globalThis.fetch = originalFetch;
+  }
+});
+
+function loadRuntimeControls(apiMock) {
+  const source = readFileSync(new URL('../src/components/career/RuntimeExecutionControls.tsx', import.meta.url), 'utf8');
+  const compiled = ts.transpileModule(source, {
+    compilerOptions: { jsx: ts.JsxEmit.ReactJSX, module: ts.ModuleKind.CommonJS, target: ts.ScriptTarget.ES2022, esModuleInterop: true },
+  }).outputText;
+  const state = [];
+  let hook = 0;
+  const react = {
+    useState(initial) {
+      const index = hook++;
+      if (!(index in state)) state[index] = initial;
+      return [state[index], value => { state[index] = typeof value === 'function' ? value(state[index]) : value; }];
+    },
+  };
+  const exports = {};
+  const require = name => ({
+    react,
+    '@/lib/api': apiMock,
+    'react/jsx-runtime': { jsx: (type, props) => ({ type, props }), jsxs: (type, props) => ({ type, props }) },
+  })[name];
+  vm.runInNewContext(compiled, { exports, require });
+  return {
+    render(props) {
+      hook = 0;
+      return exports.RuntimeExecutionControls(props);
+    },
+  };
+}
+
+test('runtime controls let a user start and cancel an opaque refresh execution', async () => {
+  const calls = [];
+  const controls = loadRuntimeControls({
+    startRuntimeExecution: async workflowType => {
+      calls.push(['start', workflowType]);
+      return { execution_id: 'exec_opaque', workflow_type: workflowType, status_code: 'accepted' };
+    },
+    cancelRuntimeExecution: async executionId => {
+      calls.push(['cancel', executionId]);
+      return { execution_id: executionId, workflow_type: 'book-of-work-refresh', status_code: 'cancelled' };
+    },
+    decideRuntimeExecution: async () => { throw new Error('not used'); },
+    fetchRuntimeExecution: async () => { throw new Error('not used'); },
+  });
+
+  let view = controls.render({ workflowType: 'book-of-work-refresh', label: 'Refresh Book of Work' });
+  findAction(view, 'Start Refresh Book of Work')();
+  await settle();
+  view = controls.render({ workflowType: 'book-of-work-refresh', label: 'Refresh Book of Work' });
+  assert.match(textContent(view), /exec_opaque.*accepted/);
+  findAction(view, 'Cancel execution')();
+  await settle();
+  view = controls.render({ workflowType: 'book-of-work-refresh', label: 'Refresh Book of Work' });
+
+  assert.match(textContent(view), /cancelled/);
+  assert.deepEqual(calls, [['start', 'book-of-work-refresh'], ['cancel', 'exec_opaque']]);
 });
 
 test('career inventory API uses metadata-only AFK actions', async () => {
@@ -234,6 +316,25 @@ test('workspace ignores create, refresh, and event responses from a prior job fi
   view = eventWorkspace.render('fit-later');
   assert.ok(!textContent(view).includes('fit-event'));
   assert.equal(fetches, 1);
+});
+
+test('workspace marks a stale Book of Work source without exposing its path', async () => {
+  const staleBundle = { ...bundle('fit-stale'), bookOfWork: { status: 'stale', changeCount: 1 } };
+  const workspace = loadWorkspace({
+    listApplicationBundles: async () => [],
+    createDraftApplicationBundle: async () => staleBundle,
+    fetchApplicationBundle: async () => staleBundle,
+    addMaterialApplicationRecord: async () => undefined,
+  });
+
+  let view = workspace.render('fit-stale');
+  await settle();
+  view = workspace.render('fit-stale');
+  await findAction(view, 'Create or retrieve draft bundle')();
+  view = workspace.render('fit-stale');
+
+  assert.match(textContent(view), /Book of Work source state: stale \(1 changes\)/);
+  assert.equal(textContent(view).includes('/book-of-work/'), false);
 });
 
 test('workspace labels target context as non-evidence after creating a bundle', async () => {

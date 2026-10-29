@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import hashlib
 from pathlib import Path
 
 CANONICAL_JOB_SEARCH_PATH = "~/Obsidian Vaults/loft/1 Projects/Job Search/"
@@ -15,10 +16,11 @@ def ensure_not_canonical_write(path: str | Path) -> None:
 class BookOfWorkAdapter:
     """Read-only Book of Work source adapter; derived state writes elsewhere."""
 
-    def __init__(self, source_root: str | Path, output_root: str | Path) -> None:
+    def __init__(self, source_root: str | Path, output_root: str | Path | None = None) -> None:
         self.source_root = Path(source_root).expanduser()
-        self.output_root = Path(output_root).expanduser()
-        ensure_not_canonical_write(self.output_root)
+        self.output_root = Path(output_root).expanduser() if output_root is not None else None
+        if self.output_root is not None:
+            ensure_not_canonical_write(self.output_root)
 
     def list_markdown_sources(self) -> list[Path]:
         if not self.source_root.exists():
@@ -27,6 +29,12 @@ class BookOfWorkAdapter:
 
     def snapshot(self) -> dict[str, int]:
         return {str(path): path.stat().st_mtime_ns for path in self.list_markdown_sources()}
+
+    def opaque_snapshot(self) -> dict[str, int]:
+        return {
+            hashlib.sha256(str(path).encode()).hexdigest(): path.stat().st_mtime_ns
+            for path in self.list_markdown_sources()
+        }
 
     def changed_since(self, previous: dict[str, int]) -> list[dict[str, str]]:
         current = self.snapshot()

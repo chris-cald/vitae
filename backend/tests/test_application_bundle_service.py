@@ -61,6 +61,7 @@ async def test_create_and_fetch_draft_bundle_links_ids_without_note_prose():
     assert fetched == bundle
     assert bundle["application"]["kind"] == "application"
     assert bundle["application"]["status"] == "draft"
+    assert bundle["bookOfWork"] == {"status": "unavailable", "changeCount": 0}
     assert bundle["application"]["deliverableIds"] == ["deliverable-alpha"]
     assert bundle["application"]["noteIds"] == ["note-review-alpha"]
     assert bundle["target"]["id"] == bundle["fitAnalysis"]["targetId"]

@@ -10,6 +10,7 @@ from sqlmodel import select
 
 from db.db import AsyncSessionLocal
 from src.models.career_inventory import CareerInventoryAction, CareerInventorySeed
+from src.services.book_of_work_refresh_service import BookOfWorkRefreshService
 from src.services.generation_input_resolver import resolve_generation_inputs
 
 
@@ -28,12 +29,16 @@ class CareerInventoryNotFound(ValueError):
 
 
 class CareerInventoryService:
+    def __init__(self, book_of_work_refresh: BookOfWorkRefreshService | None = None) -> None:
+        self.book_of_work_refresh = book_of_work_refresh or BookOfWorkRefreshService.from_env()
+
     async def list_inventory(self) -> dict[str, Any]:
         async with AsyncSessionLocal() as session:
             seeds = (await session.execute(select(CareerInventorySeed).order_by(CareerInventorySeed.created_at))).scalars().all()
             actions = (await session.execute(select(CareerInventoryAction).order_by(CareerInventoryAction.created_at))).scalars().all()
         rendered_seeds = [self._seed(seed) for seed in seeds]
         return {
+            "bookOfWork": await self.book_of_work_refresh.observe(),
             "sources": [{**_SOURCE, "seedCount": len(rendered_seeds)}],
             "seeds": rendered_seeds,
             "catalogAssets": [],

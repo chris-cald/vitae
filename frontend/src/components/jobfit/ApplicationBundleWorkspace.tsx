@@ -8,6 +8,7 @@ import {
   type MaterialApplicationRecordType,
 } from '@/lib/api';
 import { Button } from '@/components/ui/button';
+import { RuntimeExecutionControls } from '@/components/career/RuntimeExecutionControls';
 
 const materialEventTypes: MaterialApplicationRecordType[] = [
   'submission',
@@ -158,6 +159,8 @@ export function ApplicationBundleWorkspace({ jobFitId }: { jobFitId: string }) {
         ) : <p>None.</p>}
       </div>
       <p className="text-sm"><span className="font-semibold">Next action:</span> {artifacts.nextAction}</p>
+      <p className="text-sm">Book of Work source state: {bundle.bookOfWork.status} ({bundle.bookOfWork.changeCount} changes)</p>
+      <RuntimeExecutionControls workflowType="application-automation" label="Automate application" />
       <div className="flex flex-wrap items-center gap-2">
         <select
           aria-label="Material event type"
