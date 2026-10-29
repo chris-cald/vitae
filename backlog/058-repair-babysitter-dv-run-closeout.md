@@ -25,7 +25,7 @@ Repair the Babysitter-DV process so an externally posted successful implementati
 
 ## Acceptance Criteria
 
-- [ ] A reproduced run advances after `task:post --status ok` instead of re-requesting the same effect.
-- [ ] Evidence, independent review, closure, integration, and cleanup gates remain fail-closed.
-- [ ] A focused regression test covers the external effect-result continuation path.
-- [ ] `npm run check` and `dv backlog validate --dir backlog --fail-on error` pass.
+- [x] A reproduced run advances after `task:post --status ok` instead of re-requesting the same effect.
+- [x] Evidence, independent review, closure, integration, and cleanup gates remain fail-closed.
+- [x] A focused regression test covers the external effect-result continuation path.
+- [x] `npm run check` and `dv backlog validate --dir backlog --fail-on error` pass.
