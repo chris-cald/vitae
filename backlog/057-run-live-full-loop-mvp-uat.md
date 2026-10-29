@@ -5,8 +5,8 @@ summary: Produce release evidence for the complete source-inventory-to-applicati
 type: work-item
 subtype: story
 lifecycle: active
-status: planned
-status_reason: blocked-by-dependency
+status: ready
+status_reason: dependencies-cleared
 priority: critical
 estimated: 3
 links:
