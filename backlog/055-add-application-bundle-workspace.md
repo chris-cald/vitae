@@ -5,9 +5,10 @@ summary: Expose the existing guarded application-bundle API as a candidate-facin
 type: work-item
 subtype: story
 lifecycle: active
-status: ready
-status_reason: planned
+status: completed
+status_reason: completed
 priority: critical
+completed_date: '2026-10-27'
 commits:
   8133ca9eda4e0caf2b23361993c54072a531e04c: Guard application bundle workspace state (#8)
 links:
@@ -25,6 +26,7 @@ links:
     - '[[053-generate-draft-application-bundle-artifacts]]'
   evidence:
     - '[[record-wi-055-validation-passed]]'
+    - '[[record-wi-055-historical-approval]]'
 tags:
   - afk
   - p0
@@ -39,19 +41,19 @@ Turn the existing draft-bundle backend slice into the minimal candidate workflow
 
 ## Tasks
 
-- [ ] Add shared typed frontend API helpers for application bundles and material application records.
-- [ ] Add a bundle create/detail UI reachable from job-fit results and list existing bundles without cross-application bleed.
-- [ ] Expose an API route for the existing material-record service method; permit only submission, interview, decision, follow-up, and material-change events.
-- [ ] Render source summaries, unsupported claims, and next action without treating target context as candidate evidence.
-- [ ] Add focused API and browser-flow tests using synthetic data.
+- [x] Add shared typed frontend API helpers for application bundles and material application records.
+- [x] Add a bundle create/detail UI reachable from job-fit results and list existing bundles without cross-application bleed.
+- [x] Expose an API route for the existing material-record service method; permit only submission, interview, decision, follow-up, and material-change events.
+- [x] Render source summaries, unsupported claims, and next action without treating target context as candidate evidence.
+- [x] Add focused API and browser-flow tests using synthetic data.
 
 ## Acceptance Criteria
 
-- [ ] A candidate can create and retrieve a draft bundle from a job-fit result.
-- [ ] Bundle detail shows the JD note, resume draft, manifest, source summary, unsupported claims, and recommended next action.
-- [ ] Material events can be added and listed; edits/autosaves/recalculations create no ApplicationRecord.
-- [ ] Two bundles remain isolated in UI and API responses.
-- [ ] `npm run check` and `dv backlog validate --dir backlog --fail-on error` pass.
+- [x] A candidate can create and retrieve a draft bundle from a job-fit result.
+- [x] Bundle detail shows the JD note, resume draft, manifest, source summary, unsupported claims, and recommended next action.
+- [x] Material events can be added and listed; edits/autosaves/recalculations create no ApplicationRecord.
+- [x] Two bundles remain isolated in UI and API responses.
+- [x] `npm run check` and `dv backlog validate --dir backlog --fail-on error` pass.
 
 ## Relationships
 
