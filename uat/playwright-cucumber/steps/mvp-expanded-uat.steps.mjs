@@ -67,6 +67,7 @@ const FORBIDDEN_VALUES = [
 class UatWorld {
   constructor() {
     this.apiUrl = process.env.VITAE_API_URL || 'http://localhost:8000';
+    this.runtimeAuthorization = process.env.VITAE_RUNTIME_AUTHORIZATION;
     this.baseUrl = process.env.PLAYWRIGHT_BASE_URL || 'http://localhost:5173';
     this.vaultPath = process.env.CANONICAL_VAULT_PATH;
     this.temporalHistoryPath = process.env.TEMPORAL_HISTORY_PATH;
@@ -79,6 +80,7 @@ class UatWorld {
       ...options,
       headers: {
         'content-type': 'application/json',
+        ...(route.startsWith('/api/v1/runtime-executions') && this.runtimeAuthorization ? { Authorization: this.runtimeAuthorization } : {}),
         ...(options.headers || {}),
       },
     });

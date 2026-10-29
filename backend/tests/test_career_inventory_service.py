@@ -1,4 +1,5 @@
 import asyncio
+from pathlib import Path
 
 import pytest
 from fastapi import FastAPI
@@ -7,7 +8,9 @@ from sqlalchemy import delete
 
 from db.db import AsyncSessionLocal, init_db
 from src.api.router.v1.career_inventory import router
+from src.models.book_of_work_refresh import BookOfWorkRefreshState
 from src.models.career_inventory import CareerInventoryAction, CareerInventorySeed
+from src.services.book_of_work_refresh_service import BookOfWorkRefreshService
 from src.services.career_inventory_service import CareerInventoryNotFound, CareerInventoryService
 
 
@@ -85,3 +88,85 @@ def test_inventory_api_initializes_tables_and_distinguishes_missing_resources():
     assert decision.status_code == 404
     assert listed.json()["sources"][0]["sourceRef"]["uri"].startswith("vitae://")
     assert "raw" not in str(listed.json()).lower()
+
+
+@pytest.mark.asyncio
+async def test_inventory_marks_out_of_band_book_of_work_change_stale_without_exposing_paths(tmp_path):
+    await init_db()
+    source = tmp_path / "book-of-work"
+    source.mkdir()
+    note = source / "current.md"
+    note.write_text("before")
+    service = CareerInventoryService(BookOfWorkRefreshService(source))
+
+    incorporated = await service.list_inventory()
+    note.write_text("after")
+    stale = await service.list_inventory()
+
+    assert incorporated["bookOfWork"] == {"status": "unprocessed", "changeCount": 1}
+    assert stale["bookOfWork"] == {"status": "stale", "changeCount": 1}
+    assert str(source) not in str(stale)
+    assert note.read_text() == "after"
+
+
+@pytest.mark.asyncio
+async def test_unavailable_book_of_work_source_never_appears_incorporated(tmp_path):
+    await init_db()
+    source = tmp_path / "missing"
+
+    state = await BookOfWorkRefreshService(source).observe()
+
+    assert state == {"status": "unavailable", "changeCount": 0}
+    assert str(source) not in str(state)
+
+
+@pytest.mark.asyncio
+async def test_book_of_work_source_uses_container_mount_when_no_override_is_set():
+    service = BookOfWorkRefreshService.from_env({})
+    assert service.source_root == Path("/vault/job-search")
+
+
+@pytest.mark.asyncio
+async def test_book_of_work_alias_uses_the_same_opaque_snapshot_keys(tmp_path):
+    await init_db()
+    source = tmp_path / "source"
+    source.mkdir()
+    (source / "current.md").write_text("metadata only")
+    alias = tmp_path / "source-alias"
+    alias.symlink_to(source, target_is_directory=True)
+
+    initial = await BookOfWorkRefreshService(source).observe()
+    aliased = await BookOfWorkRefreshService(alias).observe()
+
+    assert initial == {"status": "unprocessed", "changeCount": 1}
+    assert aliased == {"status": "unprocessed", "changeCount": 0}
+
+
+@pytest.mark.asyncio
+async def test_concurrent_first_observation_does_not_fail_on_duplicate_state(tmp_path):
+    await init_db()
+    source = tmp_path / "source"
+    source.mkdir()
+    (source / "current.md").write_text("metadata only")
+    service = BookOfWorkRefreshService(source)
+
+    first, second = await asyncio.gather(service.observe(), service.observe())
+
+    assert {first["status"], second["status"]} == {"unprocessed"}
+
+
+@pytest.mark.asyncio
+async def test_book_of_work_scan_failure_is_unavailable_and_does_not_persist_partial_state(tmp_path, monkeypatch):
+    await init_db()
+    source = tmp_path / "source"
+    source.mkdir()
+
+    def unavailable_snapshot(_self):
+        raise OSError("permission denied")
+
+    monkeypatch.setattr("src.services.book_of_work_refresh_service.BookOfWorkAdapter.opaque_snapshot", unavailable_snapshot)
+    state = await BookOfWorkRefreshService(source).observe()
+
+    assert state == {"status": "unavailable", "changeCount": 0}
+    async with AsyncSessionLocal() as session:
+        assert await session.get(BookOfWorkRefreshState, __import__("hashlib").sha256(str(source.resolve()).encode()).hexdigest()) is None

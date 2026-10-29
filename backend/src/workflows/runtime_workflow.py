@@ -23,6 +23,9 @@ except ImportError:  # local tests do not require Temporal installed
         def signal(self, fn):
             return fn
 
+        def patched(self, _change_id: str) -> bool:
+            return True
+
         async def wait_condition(self, condition: Callable[[], bool]):
             if not condition():
                 raise RuntimeError("workflow-decision-required")
@@ -42,6 +45,9 @@ class VitaeRuntimeWorkflow:
     @workflow.run
     async def run(self, payload: dict[str, Any]) -> dict[str, str]:
         await workflow.wait_condition(lambda: self.decision is not None)
+        decision_code = (self.decision or {}).get("decisionCode")
+        if workflow.patched("runtime-terminal-decisions-v1") and decision_code in {"cancel", "reject"}:
+            return {"statusCode": "cancelled" if decision_code == "cancel" else "rejected"}
         return await workflow.execute_activity(
             record_runtime_activity,
             {**payload, **(self.decision or {})},

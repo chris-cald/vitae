@@ -1,3 +1,4 @@
+import os
 from pathlib import Path
 
 import pytest
@@ -37,6 +38,23 @@ def test_book_of_work_adapter_reports_added_modified_and_deleted_files(tmp_path)
 
     assert {event["change"] for event in events} == {"added", "modified", "deleted"}
     assert {Path(event["path"]).name for event in events} == {"added.md", "existing.md", "deleted.md"}
+
+
+def test_opaque_snapshot_detects_content_replaced_with_preserved_timestamp(tmp_path):
+    source = tmp_path / "source"
+    source.mkdir()
+    note = source / "current.md"
+    note.write_text("before")
+    adapter = BookOfWorkAdapter(source)
+    original = adapter.opaque_snapshot()
+    timestamp = note.stat().st_mtime_ns
+
+    note.write_text("after")
+    os.utime(note, ns=(timestamp, timestamp))
+
+    assert adapter.opaque_snapshot() != original
+    assert "before" not in str(adapter.opaque_snapshot())
+    assert str(note) not in str(adapter.opaque_snapshot())
 
 
 def test_book_of_work_adapter_has_no_write_api():

@@ -16,6 +16,7 @@ class RuntimeExecution(SQLModel, table=True):
     idempotency_key: str = Field(sa_column=Column(sa.String(), unique=True, index=True))
     workflow_type: str = Field(sa_column=Column(sa.String(), index=True))
     status_code: str = Field(sa_column=Column(sa.String(), index=True))
+    dispatch_attempt: int = Field(default=0, sa_column=Column(sa.Integer(), nullable=False, server_default="0"))
     diagnostic_code: Optional[str] = Field(default=None, sa_column=Column(sa.String()))
     created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
     updated_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))

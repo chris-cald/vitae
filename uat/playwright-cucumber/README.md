@@ -15,10 +15,11 @@ PLAYWRIGHT_BASE_URL=http://localhost:5173 \
 VITAE_API_URL=http://localhost:8000 \
 CANONICAL_VAULT_PATH="$HOME/Obsidian Vaults/loft/1 Projects/Job Search" \
 TEMPORAL_HISTORY_PATH=../../artifacts/uat/temporal-history.json \
+VITAE_RUNTIME_AUTHORIZATION="Bearer ${RUNTIME_EXECUTION_TOKEN:-local-runtime-token}" \
 npm run uat
 ```
 
-Use a read-only bind mount for `CANONICAL_VAULT_PATH` when running under Podman. Keep artifacts under `artifacts/uat/` or another ignored directory; never commit real resumes, job descriptions, prompts, completions, URLs, filenames, vault paths, or Temporal histories.
+`VITAE_RUNTIME_AUTHORIZATION` is required when runtime auth is enabled and is sent only to runtime-execution endpoints; source it from a local secret store and never log or commit it. Use a read-only bind mount for `CANONICAL_VAULT_PATH` when running under Podman. Keep artifacts under `artifacts/uat/` or another ignored directory; never commit real resumes, job descriptions, prompts, completions, URLs, filenames, vault paths, or Temporal histories.
 
 ## Evidence captured
 

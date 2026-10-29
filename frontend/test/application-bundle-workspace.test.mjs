@@ -12,6 +12,7 @@ const api = await import(`data:text/javascript;base64,${Buffer.from(apiCompiled)
 
 const artifact = id => ({ name: `${id}.md`, path: `/drafts/${id}.md`, markdown: id });
 const bundle = jobFitId => ({
+  bookOfWork: { status: 'unavailable', changeCount: 0 },
   application: { id: `application-${jobFitId}`, status: 'draft' },
   applicationRecords: [],
   draftArtifacts: {
@@ -29,10 +30,10 @@ const deferred = () => {
   return { promise, resolve };
 };
 
-const settle = async () => { await Promise.resolve(); await Promise.resolve(); };
+const settle = async () => { await Promise.resolve(); await Promise.resolve(); await Promise.resolve(); await Promise.resolve(); };
 
 function textContent(node) {
-  if (typeof node === 'string') return node;
+  if (typeof node === 'string' || typeof node === 'number') return String(node);
   if (Array.isArray(node)) return node.map(textContent).join('');
   return node?.props ? textContent(node.props.children) : '';
 }
@@ -42,6 +43,15 @@ function findAction(node, label) {
   if (node.props?.onClick && textContent(node.props.children) === label) return node.props.onClick;
   for (const child of Array.isArray(node.props?.children) ? node.props.children : [node.props?.children]) {
     const found = findAction(child, label);
+    if (found) return found;
+  }
+}
+
+function findField(node, label) {
+  if (!node || typeof node !== 'object') return undefined;
+  if (node.props?.['aria-label'] === label) return node;
+  for (const child of Array.isArray(node.props?.children) ? node.props.children : [node.props?.children]) {
+    const found = findField(child, label);
     if (found) return found;
   }
 }
@@ -86,6 +96,7 @@ function loadWorkspace(apiMock) {
     react,
     '@/lib/api': apiMock,
     '@/components/ui/button': { Button: 'button' },
+    '@/components/career/RuntimeExecutionControls': { RuntimeExecutionControls: () => null },
     'react/jsx-runtime': { jsx: (type, props) => ({ type, props }), jsxs: (type, props) => ({ type, props }) },
   })[name];
   vm.runInNewContext(compiled, { exports, require });
@@ -144,6 +155,352 @@ test('job-fit API flow scopes bundle detail and material events', async () => {
   } finally {
     globalThis.fetch = originalFetch;
   }
+});
+
+test('runtime execution API sends opaque workflow control only', async () => {
+  const requests = [];
+  const execution = { execution_id: 'exec_opaque', workflow_type: 'book-of-work-refresh', status_code: 'accepted' };
+  const originalFetch = globalThis.fetch;
+  globalThis.fetch = async (url, options = {}) => {
+    requests.push({ url, options });
+    if (url.endsWith('/cancel')) return Response.json({ execution: { ...execution, status_code: 'cancelled' } });
+    if (url.endsWith('/decision')) return Response.json({ execution: { ...execution, status_code: 'completed' } });
+    return Response.json({ execution, created: true }, { status: 201 });
+  };
+  try {
+    assert.deepEqual(await api.startRuntimeExecution('book-of-work-refresh', 'runtime-token', 'idem_opaque'), execution);
+    assert.equal((await api.cancelRuntimeExecution(execution.execution_id, 'runtime-token')).status_code, 'cancelled');
+    assert.equal((await api.decideRuntimeExecution(execution.execution_id, 'approve', 'runtime-token')).status_code, 'completed');
+    assert.deepEqual(JSON.parse(requests[0].options.body), { workflow_type: 'book-of-work-refresh', idempotency_key: 'idem_opaque' });
+    assert.equal(requests[0].options.headers.Authorization, 'Bearer runtime-token');
+    assert.deepEqual(JSON.parse(requests[2].options.body), { decision_code: 'approve' });
+    assert.equal(JSON.stringify(requests).includes('resume'), false);
+    assert.equal(JSON.stringify(requests).includes('prompt'), false);
+  } finally {
+    globalThis.fetch = originalFetch;
+  }
+});
+
+function loadRuntimeControls(apiMock, storage = new Map(), randomUUID = () => '00000000-0000-4000-8000-000000000001') {
+  const source = readFileSync(new URL('../src/components/career/RuntimeExecutionControls.tsx', import.meta.url), 'utf8');
+  const compiled = ts.transpileModule(source, {
+    compilerOptions: { jsx: ts.JsxEmit.ReactJSX, module: ts.ModuleKind.CommonJS, target: ts.ScriptTarget.ES2022, esModuleInterop: true },
+  }).outputText;
+  const state = [];
+  const effects = [];
+  let hook = 0;
+  let pending = [];
+  const react = {
+    useState(initial) {
+      const index = hook++;
+      if (!(index in state)) state[index] = initial;
+      return [state[index], value => { state[index] = typeof value === 'function' ? value(state[index]) : value; }];
+    },
+    useEffect(effect, dependencies) {
+      const index = hook++;
+      const previous = effects[index];
+      if (!previous || dependencies.some((value, i) => value !== previous.dependencies[i])) {
+        previous?.cleanup?.();
+        effects[index] = { dependencies, effect };
+        pending.push(index);
+      }
+    },
+    useRef(initial) {
+      const index = hook++;
+      if (!(index in state)) state[index] = { current: initial };
+      return state[index];
+    },
+  };
+  const exports = {};
+  const require = name => ({
+    react,
+    '@/lib/api': apiMock,
+    'react/jsx-runtime': { jsx: (type, props) => ({ type, props }), jsxs: (type, props) => ({ type, props }) },
+  })[name];
+  vm.runInNewContext(compiled, {
+    exports,
+    require,
+    crypto: {
+      randomUUID,
+      subtle: { digest: async (_algorithm, bytes) => new Uint8Array([Array.from(bytes).reduce((sum, byte) => (sum + byte) % 256, 0)]).buffer },
+    },
+    TextEncoder,
+    Uint8Array,
+    sessionStorage: { getItem: key => storage.get(key) ?? null, setItem: (key, value) => storage.set(key, value), removeItem: key => storage.delete(key) },
+  });
+  return {
+    render(props) {
+      hook = 0;
+      pending = [];
+      const view = exports.RuntimeExecutionControls(props);
+      for (const index of pending) effects[index].cleanup = effects[index].effect();
+      return view;
+    },
+  };
+}
+
+test('runtime controls let a user start and cancel an opaque refresh execution', async () => {
+  const calls = [];
+  const controls = loadRuntimeControls({
+    startRuntimeExecution: async (workflowType, authorization, idempotencyKey) => {
+      calls.push(['start', workflowType, authorization, idempotencyKey]);
+      return { execution_id: 'exec_opaque', workflow_type: workflowType, status_code: 'accepted' };
+    },
+    cancelRuntimeExecution: async (executionId, authorization) => {
+      calls.push(['cancel', executionId, authorization]);
+      return { execution_id: executionId, workflow_type: 'book-of-work-refresh', status_code: 'cancelled' };
+    },
+    decideRuntimeExecution: async () => { throw new Error('not used'); },
+    fetchRuntimeExecution: async () => { throw new Error('not used'); },
+  });
+
+  let view = controls.render({ workflowType: 'book-of-work-refresh', label: 'Refresh Book of Work' });
+  findField(view, 'Runtime authorization token').props.onChange({ target: { value: 'runtime-token' } });
+  view = controls.render({ workflowType: 'book-of-work-refresh', label: 'Refresh Book of Work' });
+  findAction(view, 'Start Refresh Book of Work')();
+  await settle();
+  await settle();
+  view = controls.render({ workflowType: 'book-of-work-refresh', label: 'Refresh Book of Work' });
+  assert.match(textContent(view), /exec_opaque.*accepted/);
+  findAction(view, 'Cancel execution')();
+  await settle();
+  view = controls.render({ workflowType: 'book-of-work-refresh', label: 'Refresh Book of Work' });
+
+  assert.match(textContent(view), /cancelled/);
+  assert.ok(findAction(view, 'Start Refresh Book of Work'));
+  assert.deepEqual(calls, [['start', 'book-of-work-refresh', 'runtime-token', 'idem_00000000-0000-4000-8000-000000000001'], ['cancel', 'exec_opaque', 'runtime-token']]);
+});
+
+test('runtime controls reuse an idempotency key after an uncertain start error', async () => {
+  const calls = [];
+  const controls = loadRuntimeControls({
+    startRuntimeExecution: async (...args) => {
+      calls.push(args);
+      if (calls.length === 1) throw new Error('network error');
+      return { execution_id: 'exec_opaque', workflow_type: 'book-of-work-refresh', status_code: 'accepted' };
+    },
+    cancelRuntimeExecution: async () => { throw new Error('not used'); },
+    decideRuntimeExecution: async () => { throw new Error('not used'); },
+    fetchRuntimeExecution: async () => { throw new Error('not used'); },
+  });
+
+  let view = controls.render({ workflowType: 'book-of-work-refresh', label: 'Refresh Book of Work' });
+  findField(view, 'Runtime authorization token').props.onChange({ target: { value: 'runtime-token' } });
+  view = controls.render({ workflowType: 'book-of-work-refresh', label: 'Refresh Book of Work' });
+  findAction(view, 'Start Refresh Book of Work')();
+  await settle();
+  view = controls.render({ workflowType: 'book-of-work-refresh', label: 'Refresh Book of Work' });
+  findAction(view, 'Start Refresh Book of Work')();
+  await settle();
+
+  assert.equal(calls.length, 2);
+  assert.equal(calls[0][2], calls[1][2]);
+});
+
+function loadCareerInventory(apiMock) {
+  const source = readFileSync(new URL('../src/components/career/CareerInventory.tsx', import.meta.url), 'utf8');
+  const compiled = ts.transpileModule(source, {
+    compilerOptions: { jsx: ts.JsxEmit.ReactJSX, module: ts.ModuleKind.CommonJS, target: ts.ScriptTarget.ES2022, esModuleInterop: true },
+  }).outputText;
+  const state = [];
+  const effects = [];
+  let hook = 0;
+  let pending = [];
+  const react = {
+    useState(initial) {
+      const index = hook++;
+      if (!(index in state)) state[index] = initial;
+      return [state[index], value => { state[index] = typeof value === 'function' ? value(state[index]) : value; }];
+    },
+    useEffect(effect, dependencies) {
+      const index = hook++;
+      const previous = effects[index];
+      if (!previous || dependencies.some((value, i) => value !== previous.dependencies[i])) {
+        previous?.cleanup?.();
+        effects[index] = { dependencies, effect };
+        pending.push(index);
+      }
+    },
+    useRef(initial) {
+      const index = hook++;
+      if (!(index in state)) state[index] = { current: initial };
+      return state[index];
+    },
+  };
+  const exports = {};
+  const require = name => ({
+    react,
+    '@/lib/api': apiMock,
+    '@/components/career/RuntimeExecutionControls': { RuntimeExecutionControls: () => null },
+    'react/jsx-runtime': { jsx: (type, props) => ({ type, props }), jsxs: (type, props) => ({ type, props }) },
+  })[name];
+  vm.runInNewContext(compiled, { exports, require });
+  return {
+    render() {
+      hook = 0;
+      pending = [];
+      const view = exports.CareerInventoryPanel();
+      for (const index of pending) effects[index].cleanup = effects[index].effect();
+      return view;
+    },
+  };
+}
+
+test('runtime controls restore an opaque execution after remounting in the same authorization scope', async () => {
+  const storage = new Map();
+  const calls = [];
+  const apiMock = {
+    startRuntimeExecution: async workflowType => ({ execution_id: 'exec_opaque', workflow_type: workflowType, status_code: 'accepted' }),
+    cancelRuntimeExecution: async () => { throw new Error('not used'); },
+    decideRuntimeExecution: async () => { throw new Error('not used'); },
+    fetchRuntimeExecution: async (...args) => {
+      calls.push(args);
+      return { execution_id: 'exec_opaque', workflow_type: 'book-of-work-refresh', status_code: 'accepted' };
+    },
+  };
+  let controls = loadRuntimeControls(apiMock, storage);
+  let view = controls.render({ workflowType: 'book-of-work-refresh', label: 'Refresh Book of Work' });
+  findField(view, 'Runtime authorization token').props.onChange({ target: { value: 'runtime-token' } });
+  view = controls.render({ workflowType: 'book-of-work-refresh', label: 'Refresh Book of Work' });
+  findAction(view, 'Start Refresh Book of Work')();
+  await settle();
+  assert.equal(storage.size, 1);
+
+  controls = loadRuntimeControls(apiMock, storage);
+  view = controls.render({ workflowType: 'book-of-work-refresh', label: 'Refresh Book of Work' });
+  findField(view, 'Runtime authorization token').props.onChange({ target: { value: 'runtime-token' } });
+  view = controls.render({ workflowType: 'book-of-work-refresh', label: 'Refresh Book of Work' });
+  await settle();
+  await settle();
+  view = controls.render({ workflowType: 'book-of-work-refresh', label: 'Refresh Book of Work' });
+
+  assert.deepEqual(calls, [['exec_opaque', 'runtime-token']]);
+  assert.match(textContent(view), /exec_opaque.*accepted/);
+  assert.equal([...storage.entries()].some(([, value]) => value === 'runtime-token'), false);
+});
+
+test('runtime controls ignore a completed start from a prior authorization scope', async () => {
+  const storage = new Map();
+  const started = deferred();
+  const calls = [];
+  const controls = loadRuntimeControls({
+    startRuntimeExecution: async (...args) => {
+      calls.push(args);
+      return started.promise;
+    },
+    cancelRuntimeExecution: async () => { throw new Error('not used'); },
+    decideRuntimeExecution: async () => { throw new Error('not used'); },
+    fetchRuntimeExecution: async () => { throw new Error('not used'); },
+  }, storage);
+
+  let view = controls.render({ workflowType: 'book-of-work-refresh', label: 'Refresh Book of Work' });
+  findField(view, 'Runtime authorization token').props.onChange({ target: { value: 'tenant-a-token' } });
+  view = controls.render({ workflowType: 'book-of-work-refresh', label: 'Refresh Book of Work' });
+  findAction(view, 'Start Refresh Book of Work')();
+  await settle();
+  findField(view, 'Runtime authorization token').props.onChange({ target: { value: 'tenant-b-token' } });
+  controls.render({ workflowType: 'book-of-work-refresh', label: 'Refresh Book of Work' });
+  started.resolve({ execution_id: 'exec_tenant_a', workflow_type: 'book-of-work-refresh', status_code: 'accepted' });
+  await settle();
+  await settle();
+  view = controls.render({ workflowType: 'book-of-work-refresh', label: 'Refresh Book of Work' });
+
+  assert.deepEqual(calls, [['book-of-work-refresh', 'tenant-a-token', 'idem_00000000-0000-4000-8000-000000000001']]);
+  assert.doesNotMatch(textContent(view), /exec_tenant_a/);
+  assert.ok(findAction(view, 'Start Refresh Book of Work'));
+  assert.equal([...storage.values()].includes('exec_tenant_a'), true);
+});
+
+test('runtime controls reuse a pending idempotency key after remounting', async () => {
+  const calls = [];
+  const storage = new Map();
+  let next = 1;
+  const randomUUID = () => `00000000-0000-4000-8000-00000000000${next++}`;
+  const apiMock = {
+    startRuntimeExecution: async (...args) => {
+      calls.push(args);
+      if (calls.length === 1) throw new Error('network error');
+      return { execution_id: 'exec_opaque', workflow_type: 'book-of-work-refresh', status_code: 'accepted' };
+    },
+    cancelRuntimeExecution: async () => { throw new Error('not used'); },
+    decideRuntimeExecution: async () => { throw new Error('not used'); },
+    fetchRuntimeExecution: async () => { throw new Error('not used'); },
+  };
+  let controls = loadRuntimeControls(apiMock, storage, randomUUID);
+  let view = controls.render({ workflowType: 'book-of-work-refresh', label: 'Refresh Book of Work' });
+  findField(view, 'Runtime authorization token').props.onChange({ target: { value: 'runtime-token' } });
+  view = controls.render({ workflowType: 'book-of-work-refresh', label: 'Refresh Book of Work' });
+  findAction(view, 'Start Refresh Book of Work')();
+  await settle();
+
+  controls = loadRuntimeControls(apiMock, storage, randomUUID);
+  view = controls.render({ workflowType: 'book-of-work-refresh', label: 'Refresh Book of Work' });
+  findField(view, 'Runtime authorization token').props.onChange({ target: { value: 'runtime-token' } });
+  view = controls.render({ workflowType: 'book-of-work-refresh', label: 'Refresh Book of Work' });
+  findAction(view, 'Start Refresh Book of Work')();
+  await settle();
+
+  assert.equal(calls.length, 2);
+  assert.equal(calls[0][2], calls[1][2]);
+});
+
+test('runtime controls isolate a pending retry by authorization scope and clear a corrected-token error', async () => {
+  const calls = [];
+  const storage = new Map();
+  let id = 1;
+  const controls = loadRuntimeControls({
+    startRuntimeExecution: async (...args) => {
+      calls.push(args);
+      if (calls.length === 1) throw new Error('network error');
+      return { execution_id: 'exec_opaque', workflow_type: 'book-of-work-refresh', status_code: 'accepted' };
+    },
+    cancelRuntimeExecution: async () => { throw new Error('not used'); },
+    decideRuntimeExecution: async () => { throw new Error('not used'); },
+    fetchRuntimeExecution: async () => { throw new Error('not used'); },
+  }, storage, () => `00000000-0000-4000-8000-00000000000${id++}`);
+
+  let view = controls.render({ workflowType: 'book-of-work-refresh', label: 'Refresh Book of Work' });
+  findField(view, 'Runtime authorization token').props.onChange({ target: { value: 'tenant-a-token' } });
+  view = controls.render({ workflowType: 'book-of-work-refresh', label: 'Refresh Book of Work' });
+  findAction(view, 'Start Refresh Book of Work')();
+  await settle();
+  await settle();
+
+  view = controls.render({ workflowType: 'book-of-work-refresh', label: 'Refresh Book of Work' });
+  assert.match(textContent(view), /Runtime execution is unavailable/);
+  assert.equal([...storage.keys()].some(key => key.includes('tenant-a-token')), false);
+  findField(view, 'Runtime authorization token').props.onChange({ target: { value: 'tenant-b-token' } });
+  view = controls.render({ workflowType: 'book-of-work-refresh', label: 'Refresh Book of Work' });
+  assert.doesNotMatch(textContent(view), /Runtime execution is unavailable/);
+  findAction(view, 'Start Refresh Book of Work')();
+  await settle();
+  await settle();
+
+  assert.equal(calls.length, 2);
+  assert.notEqual(calls[0][2], calls[1][2]);
+});
+
+test('career inventory lets users refresh a displayed Book of Work state', async () => {
+  let fetches = 0;
+  const inventory = {
+    bookOfWork: { status: 'stale', changeCount: 1 },
+    sources: [], seeds: [], catalogAssets: [], actions: [],
+    counts: { sources: 0, seeds: 0, catalogAssets: 0 },
+    generationEligibility: { eligibleSources: [], targetContext: null, gaps: [] },
+  };
+  const panel = loadCareerInventory({
+    fetchCareerInventory: async () => { fetches += 1; return inventory; },
+    harvestCareerInventory: async () => { throw new Error('not used'); },
+    primeCareerInventorySeed: async () => { throw new Error('not used'); },
+  });
+
+  panel.render();
+  await settle();
+  let view = panel.render();
+  findAction(view, 'Refresh inventory')();
+  await settle();
+
+  assert.equal(fetches, 2);
 });
 
 test('career inventory API uses metadata-only AFK actions', async () => {
@@ -234,6 +591,25 @@ test('workspace ignores create, refresh, and event responses from a prior job fi
   view = eventWorkspace.render('fit-later');
   assert.ok(!textContent(view).includes('fit-event'));
   assert.equal(fetches, 1);
+});
+
+test('workspace marks a stale Book of Work source without exposing its path', async () => {
+  const staleBundle = { ...bundle('fit-stale'), bookOfWork: { status: 'stale', changeCount: 1 } };
+  const workspace = loadWorkspace({
+    listApplicationBundles: async () => [],
+    createDraftApplicationBundle: async () => staleBundle,
+    fetchApplicationBundle: async () => staleBundle,
+    addMaterialApplicationRecord: async () => undefined,
+  });
+
+  let view = workspace.render('fit-stale');
+  await settle();
+  view = workspace.render('fit-stale');
+  await findAction(view, 'Create or retrieve draft bundle')();
+  view = workspace.render('fit-stale');
+
+  assert.match(textContent(view), /Book of Work source state: stale \(1 changes\)/);
+  assert.equal(textContent(view).includes('/book-of-work/'), false);
 });
 
 test('workspace labels target context as non-evidence after creating a bundle', async () => {

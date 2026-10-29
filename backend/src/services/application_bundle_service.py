@@ -11,6 +11,7 @@ from db.db import AsyncSessionLocal
 from src.models.application_bundle import ApplicationBundle, ApplicationRecord
 from src.models.job import Job
 from src.models.job_fit import JobFit, JobRequirementMapping
+from src.services.book_of_work_refresh_service import BookOfWorkRefreshService
 from src.services.generation_input_resolver import resolve_generation_inputs
 from src.services.utils import get_or_404
 
@@ -32,6 +33,9 @@ def _entity_id(prefix: str, value: str) -> str:
 
 
 class ApplicationBundleService:
+    def __init__(self, book_of_work_refresh: BookOfWorkRefreshService | None = None) -> None:
+        self.book_of_work_refresh = book_of_work_refresh or BookOfWorkRefreshService.from_env()
+
     async def create_draft_bundle(
         self,
         job_fit_id: str,
@@ -42,6 +46,7 @@ class ApplicationBundleService:
         deliverable_ids = deliverable_ids or []
         note_ids = unsupported_claim_note_ids or []
         generation_records = generation_records or []
+        book_of_work = await self.book_of_work_refresh.observe()
         async with AsyncSessionLocal() as session:
             job_fit = await get_or_404(session, JobFit, "id", job_fit_id)
             job = await get_or_404(session, Job, "job_id", job_fit.job_id)
@@ -58,7 +63,7 @@ class ApplicationBundleService:
                 session.add(existing)
                 await session.commit()
                 await session.refresh(existing)
-                return await self._render_bundle(session, existing, generation_records)
+                return await self._render_bundle(session, existing, generation_records, book_of_work)
 
             application_id = _entity_id("application", job_fit.id)
             bundle_id = _entity_id("bundle", job_fit.id)
@@ -106,9 +111,10 @@ class ApplicationBundleService:
             session.add(bundle)
             await session.commit()
             await session.refresh(bundle)
-            return await self._render_bundle(session, bundle, generation_records)
+            return await self._render_bundle(session, bundle, generation_records, book_of_work)
 
     async def fetch_bundle(self, application_or_bundle_id: str, job_fit_id: str) -> dict[str, Any]:
+        book_of_work = await self.book_of_work_refresh.observe()
         async with AsyncSessionLocal() as session:
             result = await session.execute(
                 select(ApplicationBundle).where(
@@ -120,9 +126,10 @@ class ApplicationBundleService:
             bundle = result.scalars().one_or_none()
             if bundle is None:
                 raise ValueError("Application bundle not found.")
-            return await self._render_bundle(session, bundle)
+            return await self._render_bundle(session, bundle, book_of_work=book_of_work)
 
     async def list_bundles(self, job_fit_id: str) -> list[dict[str, Any]]:
+        book_of_work = await self.book_of_work_refresh.observe()
         async with AsyncSessionLocal() as session:
             bundles = (
                 await session.execute(
@@ -131,7 +138,7 @@ class ApplicationBundleService:
                     .order_by(ApplicationBundle.created_at)
                 )
             ).scalars().all()
-            return [await self._render_bundle(session, bundle) for bundle in bundles]
+            return [await self._render_bundle(session, bundle, book_of_work=book_of_work) for bundle in bundles]
 
     async def add_application_record(
         self,
@@ -190,6 +197,7 @@ class ApplicationBundleService:
         session: Any,
         bundle: ApplicationBundle,
         generation_records: list[dict[str, Any]] | None = None,
+        book_of_work: dict[str, str | int] | None = None,
     ) -> dict[str, Any]:
         records = (
             await session.execute(
@@ -215,6 +223,7 @@ class ApplicationBundleService:
         job = await get_or_404(session, Job, "job_id", bundle.job_id)
         mapping = await get_or_404(session, JobRequirementMapping, "id", job_fit.mapping_id)
         return {
+            "bookOfWork": book_of_work or {"status": "unavailable", "changeCount": 0},
             "application": application,
             "target": bundle.target,
             "fitAnalysis": bundle.fit_analysis,

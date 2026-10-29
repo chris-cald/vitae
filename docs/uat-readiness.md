@@ -95,7 +95,7 @@ CANONICAL_VAULT_PATH="$HOME/Obsidian Vaults/loft/1 Projects/Job Search" \
 scripts/uat-local.sh all
 ```
 
-CI can reuse the same script by setting `UAT_ARTIFACT_DIR`, `BACKEND_PYTHON`, `UAT_START_STACK`, `UAT_STATIC_ONLY`, `UAT_RUN_CUCUMBER`, `UAT_TEARDOWN`, `UAT_API_URL`, and `UAT_FRONTEND_URL`. The compose file is `uat/podman-compose.yml`; replace or override it with `UAT_COMPOSE_FILE` if CI needs hosted services instead of local Podman.
+CI can reuse the same script by setting `UAT_ARTIFACT_DIR`, `BACKEND_PYTHON`, `UAT_START_STACK`, `UAT_STATIC_ONLY`, `UAT_RUN_CUCUMBER`, `UAT_TEARDOWN`, `UAT_API_URL`, `UAT_RUNTIME_AUTHORIZATION`, and `UAT_FRONTEND_URL`. `UAT_RUNTIME_AUTHORIZATION` is the complete `Bearer …` value sent only to runtime-execution endpoints; it is never logged or written to UAT artifacts. The local dummy stack defaults to its synthetic token. OIDC or any non-default runtime auth must provide this environment variable from a local secret store. The compose file is `uat/podman-compose.yml`; replace or override it with `UAT_COMPOSE_FILE` if CI needs hosted services instead of local Podman.
 
 ## Local Playwright/Cucumber fixture
 
@@ -108,6 +108,7 @@ PLAYWRIGHT_BASE_URL=http://localhost:5173 \
 VITAE_API_URL=http://localhost:8000 \
 CANONICAL_VAULT_PATH="$HOME/Obsidian Vaults/loft/1 Projects/Job Search" \
 TEMPORAL_HISTORY_PATH=../../artifacts/uat/temporal-history.json \
+VITAE_RUNTIME_AUTHORIZATION="Bearer ${RUNTIME_EXECUTION_TOKEN:-local-runtime-token}" \
 npm run uat
 ```
 
