@@ -11,6 +11,7 @@ status_reason: recorded
 links:
   supporting_reference:
     - https://github.com/chris-cald/vitae/pull/8
+    - https://github.com/chris-cald/vitae/pull/8#pullrequestreview-5674180304
     - '`8133ca9eda4e0caf2b23361993c54072a531e04c`'
     - '`7ab345902b54a5e617e653518773db52f0005d9c`'
 ---
@@ -25,7 +26,7 @@ approved
 
 ## Observation
 
-Historical approval for PR #8 was verified before the merge.
+CodeRabbit approved PR #8 before merge; the immutable approval artifact is linked below.
 
 ## Subject References
 
@@ -36,15 +37,17 @@ Historical approval for PR #8 was verified before the merge.
 ## Artifact References
 
 - https://github.com/chris-cald/vitae/pull/8
+- https://github.com/chris-cald/vitae/pull/8#pullrequestreview-5674180304
 
 ## Supporting References
 
 - https://github.com/chris-cald/vitae/pull/8
+- https://github.com/chris-cald/vitae/pull/8#pullrequestreview-5674180304
 - `8133ca9eda4e0caf2b23361993c54072a531e04c`
 - `7ab345902b54a5e617e653518773db52f0005d9c`
 
 ## Notes
 
-- Historical approval is tied to the merged PR and immutable merge commit.
+- CodeRabbit approval was submitted on 2026-10-27T20:54:32Z for PR #8 before merge.
 - Verified historical changed file: frontend/src/components/jobfit/ApplicationBundleWorkspace.tsx
 - Verified historical changed file: frontend/test/application-bundle-workspace.test.mjs
