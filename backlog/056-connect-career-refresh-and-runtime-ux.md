@@ -5,10 +5,12 @@ summary: Let candidates start, observe, cancel, and review privacy-safe durable 
 type: work-item
 subtype: story
 lifecycle: active
-status: ready
-status_reason: planned
+status: completed
+status_reason: completed
 priority: high
 estimated: 5
+actual: 5
+completed_date: '2026-10-29'
 links:
   parent:
     - '[[050-deliver-job-search-application-funnel-slice]]'
@@ -17,6 +19,8 @@ links:
   reference:
     - '[[../docs/adr/0004-adopt-privacy-safe-temporal-execution-substrate]]'
     - '[[../docs/uat-readiness]]'
+  evidence:
+    - '[[record-wi-056-implementation-validation]]'
 tags:
   - afk
   - p0
