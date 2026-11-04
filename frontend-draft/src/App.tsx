@@ -8,6 +8,8 @@ type Placement = (typeof placements)[number];
 export default function App() {
   const [view, setView] = useState<ViewId>("today");
   const [placement, setPlacement] = useState<Placement>("Resume");
+  const [todayStarted, setTodayStarted] = useState(false);
+  const [applicationQuery, setApplicationQuery] = useState("");
   const current = activeView(view);
 
   return (
@@ -59,9 +61,8 @@ export default function App() {
           ))}
         </nav>
 
-        {(view === "today" || view === "applications") && (
-          <ApplicationWorkspace placement={placement} setPlacement={setPlacement} />
-        )}
+        {view === "today" && <TodayView started={todayStarted} onStart={() => setTodayStarted(true)} />}
+        {view === "applications" && <ApplicationWorkspace placement={placement} setPlacement={setPlacement} query={applicationQuery} setQuery={setApplicationQuery} />}
         {view === "knowledge" && <KnowledgeView />}
         {view === "catalog" && <CatalogView />}
         {view === "deliverables" && <DeliverablesView />}
@@ -72,18 +73,37 @@ export default function App() {
   );
 }
 
+function TodayView({ started, onStart }: { started: boolean; onStart: () => void }) {
+  return <section className="single-view">
+    <p className="eyebrow">PERSONAL WORK QUEUE</p>
+    <h2>Today’s priorities</h2>
+    <p className="intro">Three focused steps keep the current application moving without losing the broader career record.</p>
+    <button className="primary-button" onClick={onStart} type="button">{started ? "Priority in progress" : "Start next priority"}</button>
+    <div className="bundle">
+      <div className="deliverable"><span className="doc-mark" /><div><strong>Review market-entry evidence</strong><p>Product strategy · 15 minutes · due next</p></div><span className="pill amber">Next</span></div>
+      <div className="deliverable"><span className="doc-mark" /><div><strong>Confirm claim scope</strong><p>Product strategy · waiting for your decision</p></div><span className="pill">Queued</span></div>
+      <div className="deliverable"><span className="doc-mark" /><div><strong>Read interview brief</strong><p>Operating systems · prepared for Thursday</p></div><span className="pill">Later</span></div>
+    </div>
+  </section>;
+}
+
 function ApplicationWorkspace({
   placement,
   setPlacement,
+  query,
+  setQuery,
 }: {
   placement: Placement;
   setPlacement: (placement: Placement) => void;
+  query: string;
+  setQuery: (query: string) => void;
 }) {
   return <div className="workspace">
     <section className="panel applications-panel">
-      <div className="panel-heading"><div><p className="eyebrow">APPLICATIONS</p><h2>Active focus</h2></div><button type="button">+ Add</button></div>
-      <button className="application active" type="button"><span className="avatar">PS</span><span><strong>Product strategy</strong><small>Stage: evidence placement</small></span><b>72</b></button>
-      <button className="application" type="button"><span className="avatar slate">OS</span><span><strong>Operating systems</strong><small>Next: reconcile brief</small></span><b>64</b></button>
+      <div className="panel-heading"><div><p className="eyebrow">APPLICATION RECORDS</p><h2>Application pipeline</h2></div><button type="button">+ Add</button></div>
+      <input aria-label="Search applications" className="application-search" onInput={(event) => setQuery(event.currentTarget.value)} placeholder="Search applications" type="search" value={query} />
+      {(!query || "product strategy".includes(query.toLowerCase())) && <button className="application active" type="button"><span className="avatar">PS</span><span><strong>Product strategy</strong><small>Stage: evidence placement</small></span><b>72</b></button>}
+      {(!query || "operating systems".includes(query.toLowerCase())) && <button className="application" type="button"><span className="avatar slate">OS</span><span><strong>Operating systems</strong><small>Next: reconcile brief</small></span><b>64</b></button>}
       <div className="stage-list">
         {applicationStages.map((stage, index) => <div key={stage}><span>{index + 1}</span>{stage}</div>)}
       </div>
