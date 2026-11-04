@@ -4,14 +4,18 @@ title: Draft Figma-Based Frontend
 type: work-item
 subtype: story
 lifecycle: active
-status: running
-status_reason: implementation
+status: completed
+status_reason: completed
 priority: medium
 estimated: 2
+actual: 2
+completed_date: '2026-11-04'
 links:
   parent: []
   depends_on: []
   implements: []
+  evidence:
+    - '[[record-interactive-frontend-draft-validated]]'
 tags:
   - frontend
   - afk
