@@ -5,10 +5,15 @@ summary: Ensure resume-file uploads use the explicit local parser fallback when 
 type: work-item
 subtype: bug
 lifecycle: active
-status: ready
-status_reason: reproduced
+status: completed
+status_reason: completed
 priority: high
 estimated: 1
+actual: 2
+completed_date: '2026-11-04'
+links:
+  evidence:
+    - '[[record-clean-validation-passed]]'
 tags:
   - afk
   - backend
