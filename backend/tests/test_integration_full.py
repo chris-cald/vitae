@@ -1,7 +1,12 @@
 from typing import List, Dict, Any
-import requests
-import pytest
 import io
+
+import pytest
+import requests
+from fastapi.testclient import TestClient
+
+from src.main import app
+from src.services import resume_service as resume_service_module
 
 """
 Comprehensive integration tests for Vitae backend API endpoints.
@@ -20,7 +25,7 @@ def _backend_available() -> bool:
         return False
 
 
-pytestmark = pytest.mark.skipif(
+requires_live_backend = pytest.mark.skipif(
     not _backend_available(), reason="live backend not running on localhost:8000"
 )
 
@@ -72,16 +77,44 @@ def _upload_job_and_list() -> List[Dict[str, Any]]:
     return jobs  # type: ignore
 
 
-def test_resume_upload_and_list() -> None:
-    """Test uploading a resume and listing resumes."""
-    _upload_resume_and_list()
+def test_resume_upload_and_list(
+    monkeypatch: pytest.MonkeyPatch, tmp_path: Any
+) -> None:
+    """Upload through the app with the explicit local parse fallback."""
+    monkeypatch.setenv("VITAE_LOCAL_PARSE_FALLBACK", "1")
+    monkeypatch.setenv("UPLOAD_DIR", str(tmp_path))
+
+    def unavailable_model(_: str) -> str:
+        raise RuntimeError("model unavailable")
+
+    monkeypatch.setattr(resume_service_module, "call_llm_stub", unavailable_model)
+    with TestClient(app) as client:
+        response = client.post(
+            "/api/v1/resume/file",
+            files={"file": ("test.pdf", io.BytesIO(PDF_BYTES), "application/pdf")},
+        )
+        assert response.status_code == 200, response.text
+        resume_id = response.json()["resume_id"]
+        assert (tmp_path / resume_id).is_file()
+
+        offset = 0
+        while True:
+            response = client.get(f"/api/v1/resume?limit=100&offset={offset}")
+            assert response.status_code == 200
+            resumes = response.json()["resumes"]
+            if any(resume["resume_id"] == resume_id for resume in resumes):
+                break
+            assert len(resumes) == 100
+            offset += 100
 
 
+@requires_live_backend
 def test_job_upload_and_list() -> None:
     """Test uploading a job and listing jobs."""
     _upload_job_and_list()
 
 
+@requires_live_backend
 def test_job_fit_flow(resume_id: str, job_id: str) -> None:
     """Test job-fit analysis creation and retrieval."""
     payload = {"resume_id": resume_id, "job_id": job_id}
