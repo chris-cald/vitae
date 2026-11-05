@@ -4,10 +4,12 @@ title: Make Sources And Evidence Actionable
 type: work-item
 subtype: bug
 lifecycle: active
-status: running
-status_reason: implementation
+status: completed
+status_reason: completed
 priority: high
 estimated: 1
+actual: 1
+completed_date: '2026-11-05'
 links:
   parent: []
   depends_on: []
