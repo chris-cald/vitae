@@ -9,7 +9,9 @@ import { JobFitResult } from '@/components/jobfit/JobFitResult';
 import { JobFitList } from '@/components/jobfit/JobFitList';
 import { CareerInventoryPanel } from '@/components/career/CareerInventory';
 
-const steps = [
+type Step = 'resume' | 'job' | 'jobfit' | 'results' | 'manage';
+
+const steps: { key: Step; label: string }[] = [
   { key: 'resume', label: 'Resume' },
   { key: 'job', label: 'Job Description' },
   { key: 'jobfit', label: 'Analyze Fit' },
@@ -18,35 +20,42 @@ const steps = [
 ];
 
 export default function App() {
-  const [step, setStep] = useState<'resume' | 'job' | 'jobfit' | 'results' | 'manage'>('resume');
+  const [step, setStep] = useState<Step>('resume');
+  const [sidebarOpen, setSidebarOpen] = useState(true);
   const [resumeId, setResumeId] = useState<string>('');
   const [jobId, setJobId] = useState<string>('');
   const [jobFitId, setJobFitId] = useState<string>('');
 
   return (
-    <div className="min-h-screen bg-background flex flex-col items-center justify-center px-4 py-8">
-      <div className="w-full max-w-2xl">
-        {/* Stepper */}
-        <ol className="flex items-center w-full mb-8 space-x-2 text-sm font-medium text-gray-500">
-          {steps.map((s, idx) => (
-            <li
-              key={s.key}
-              className={`flex-1 flex flex-col items-center ${step === s.key ? 'text-primary font-bold' : ''}`}
+    <div className="min-h-screen bg-background flex">
+      <aside
+        aria-label="Main navigation"
+        className={`shrink-0 border-r bg-white p-3 transition-[width] ${sidebarOpen ? 'w-56' : 'w-16'}`}
+      >
+        <button
+          className="mb-4 w-full rounded px-2 py-2 text-left text-sm font-medium hover:bg-muted focus-visible:outline-2 focus-visible:outline-primary"
+          onClick={() => setSidebarOpen(open => !open)}
+          aria-label={sidebarOpen ? 'Collapse navigation' : 'Expand navigation'}
+          aria-expanded={sidebarOpen}
+        >
+          {sidebarOpen ? 'Collapse navigation' : 'Expand navigation'}
+        </button>
+        <nav>
+          {steps.map(item => (
+            <button
+              key={item.key}
+              className={`mb-1 w-full rounded px-2 py-2 text-left text-sm ${step === item.key ? 'bg-primary text-primary-foreground font-semibold' : 'hover:bg-muted'}`}
+              onClick={() => setStep(item.key)}
+              aria-current={step === item.key ? 'page' : undefined}
+              aria-label={sidebarOpen ? undefined : item.label}
             >
-              <button
-                className={`w-8 h-8 rounded-full flex items-center justify-center border-2 ${step === s.key ? 'bg-primary text-primary-foreground border-primary' : 'border-gray-300 bg-white'}`}
-                onClick={() => setStep(s.key as any)}
-                aria-current={step === s.key ? 'step' : undefined}
-              >
-                {idx + 1}
-              </button>
-              <span className="mt-2">{s.label}</span>
-            </li>
+              <span className={sidebarOpen ? '' : 'sr-only'}>{item.label}</span>
+            </button>
           ))}
-        </ol>
-
-        {/* Card */}
-        <div className="bg-white rounded-xl shadow-lg p-8 min-h-[320px] flex flex-col gap-6">
+        </nav>
+      </aside>
+      <main className="flex-1 p-4 md:p-8">
+        <div className="mx-auto w-full max-w-2xl bg-white rounded-xl shadow-lg p-8 min-h-[320px] flex flex-col gap-6">
           {step === 'resume' && (
             <>
               <h2 className="text-xl font-semibold mb-2">Upload or Select Resume</h2>
@@ -161,7 +170,7 @@ export default function App() {
             </>
           )}
         </div>
-      </div>
+      </main>
     </div>
   );
 }
