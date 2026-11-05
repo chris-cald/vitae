@@ -21,7 +21,7 @@ function findNode(node, predicate) {
   }
 }
 
-function loadApp() {
+function loadApp(isDesktop = true) {
   const compiled = ts.transpileModule(app, {
     compilerOptions: { jsx: ts.JsxEmit.ReactJSX, module: ts.ModuleKind.CommonJS, target: ts.ScriptTarget.ES2022, esModuleInterop: true },
   }).outputText;
@@ -30,7 +30,7 @@ function loadApp() {
   const react = {
     useState(initial) {
       const index = hook++;
-      if (!(index in state)) state[index] = initial;
+      if (!(index in state)) state[index] = typeof initial === 'function' ? initial() : initial;
       return [state[index], value => { state[index] = typeof value === 'function' ? value(state[index]) : value; }];
     },
   };
@@ -48,7 +48,11 @@ function loadApp() {
     '@/components/career/CareerInventory': { CareerInventoryPanel: component },
     'react/jsx-runtime': { jsx: (type, props) => ({ type, props }), jsxs: (type, props) => ({ type, props }) },
   })[name];
-  vm.runInNewContext(compiled, { exports, require });
+  vm.runInNewContext(compiled, {
+    exports,
+    require,
+    window: { matchMedia: () => ({ matches: isDesktop }) },
+  });
   return () => {
     hook = 0;
     return exports.default();
@@ -72,12 +76,20 @@ test('collapses and changes the active view through native buttons', () => {
   collapseButton.props.onClick();
   view = render();
   assert.equal(findNode(view, node => node.props?.['aria-label'] === 'Expand navigation').props['aria-expanded'], false);
-  assert.equal(textContent(findNode(view, node => node.props?.['aria-label'] === 'Job Description')), 'J');
+  assert.equal(textContent(findNode(view, node => node.props?.['aria-label'] === 'Job Description')), 'Job');
+  assert.equal(textContent(findNode(view, node => node.props?.['aria-label'] === 'Expand navigation')), '›');
   const jobButton = findNode(view, node => node.props?.['aria-label'] === 'Job Description');
   assert.equal(jobButton.type, 'button');
   jobButton.props.onClick();
   view = render();
   const activeButton = findNode(view, node => node.props?.['aria-current'] === 'page');
   assert.equal(activeButton.props['aria-label'], 'Job Description');
-  assert.equal(textContent(activeButton), 'J');
+  assert.equal(textContent(activeButton), 'Job');
+});
+
+test('starts collapsed on mobile with distinct visible navigation labels', () => {
+  const view = loadApp(false)();
+  assert.equal(findNode(view, node => node.props?.['aria-label'] === 'Expand navigation').props['aria-expanded'], false);
+  assert.equal(textContent(findNode(view, node => node.props?.['aria-label'] === 'Resume')), 'Rsm');
+  assert.equal(textContent(findNode(view, node => node.props?.['aria-label'] === 'Results')), 'Rsl');
 });

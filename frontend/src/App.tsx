@@ -11,17 +11,19 @@ import { CareerInventoryPanel } from '@/components/career/CareerInventory';
 
 type Step = 'resume' | 'job' | 'jobfit' | 'results' | 'manage';
 
-const steps: { key: Step; label: string }[] = [
-  { key: 'resume', label: 'Resume' },
-  { key: 'job', label: 'Job Description' },
-  { key: 'jobfit', label: 'Analyze Fit' },
-  { key: 'results', label: 'Results' },
-  { key: 'manage', label: 'Manage' },
+const steps: { key: Step; label: string; abbreviation: string }[] = [
+  { key: 'resume', label: 'Resume', abbreviation: 'Rsm' },
+  { key: 'job', label: 'Job Description', abbreviation: 'Job' },
+  { key: 'jobfit', label: 'Analyze Fit', abbreviation: 'Fit' },
+  { key: 'results', label: 'Results', abbreviation: 'Rsl' },
+  { key: 'manage', label: 'Manage', abbreviation: 'Mng' },
 ];
 
 export default function App() {
   const [step, setStep] = useState<Step>('resume');
-  const [sidebarOpen, setSidebarOpen] = useState(true);
+  const [sidebarOpen, setSidebarOpen] = useState(
+    () => typeof window === 'undefined' || window.matchMedia('(min-width: 768px)').matches,
+  );
   const [resumeId, setResumeId] = useState<string>('');
   const [jobId, setJobId] = useState<string>('');
   const [jobFitId, setJobFitId] = useState<string>('');
@@ -38,7 +40,7 @@ export default function App() {
           aria-label={sidebarOpen ? 'Collapse navigation' : 'Expand navigation'}
           aria-expanded={sidebarOpen}
         >
-          {sidebarOpen ? 'Collapse navigation' : 'Expand navigation'}
+          {sidebarOpen ? 'Collapse navigation' : '›'}
         </button>
         <nav>
           {steps.map(item => (
@@ -48,8 +50,9 @@ export default function App() {
               onClick={() => setStep(item.key)}
               aria-current={step === item.key ? 'page' : undefined}
               aria-label={sidebarOpen ? undefined : item.label}
+              title={sidebarOpen ? undefined : item.label}
             >
-              <span>{sidebarOpen ? item.label : item.label.charAt(0)}</span>
+              <span>{sidebarOpen ? item.label : item.abbreviation}</span>
             </button>
           ))}
         </nav>
