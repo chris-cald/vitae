@@ -27,10 +27,10 @@ export default function App() {
   const [jobFitId, setJobFitId] = useState<string>('');
 
   return (
-    <div className="min-h-screen bg-background flex">
+    <div className="min-h-screen bg-background flex flex-col md:flex-row">
       <aside
         aria-label="Main navigation"
-        className={`shrink-0 border-r bg-white p-3 transition-[width] ${sidebarOpen ? 'w-56' : 'w-16'}`}
+        className={`w-full shrink-0 border-b bg-white p-3 transition-[width] md:border-b-0 md:border-r ${sidebarOpen ? 'md:w-56' : 'md:w-16'}`}
       >
         <button
           className="mb-4 w-full rounded px-2 py-2 text-left text-sm font-medium hover:bg-muted focus-visible:outline-2 focus-visible:outline-primary"
@@ -49,7 +49,7 @@ export default function App() {
               aria-current={step === item.key ? 'page' : undefined}
               aria-label={sidebarOpen ? undefined : item.label}
             >
-              <span className={sidebarOpen ? '' : 'sr-only'}>{item.label}</span>
+              <span className={sidebarOpen ? '' : 'md:sr-only'}>{item.label}</span>
             </button>
           ))}
         </nav>
