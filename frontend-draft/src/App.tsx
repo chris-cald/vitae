@@ -10,6 +10,7 @@ export default function App() {
   const [placement, setPlacement] = useState<Placement>("Resume");
   const [todayStarted, setTodayStarted] = useState(false);
   const [applicationQuery, setApplicationQuery] = useState("");
+  const [notice, setNotice] = useState("");
   const current = activeView(view);
 
   return (
@@ -36,7 +37,11 @@ export default function App() {
         </div>
       </aside>
 
-      <section className="main-area">
+      <section className="main-area" onClick={(event) => {
+        const button = (event.target as HTMLElement).closest("button");
+        const label = button?.getAttribute("aria-label") ?? button?.textContent?.trim();
+        if (label && label !== "New application") setNotice(`Mock action recorded: ${label}`);
+      }}>
         <header className="topbar">
           <div>
             <p className="eyebrow">CAREER OPERATING SYSTEM</p>
@@ -44,10 +49,11 @@ export default function App() {
           </div>
           <div className="top-actions">
             <span className="status"><i /> Evidence synced</span>
-            <button className="quiet-button" type="button">New application</button>
+            <button className="quiet-button" onClick={() => setNotice("Mock application created")} type="button">New application</button>
           </div>
         </header>
 
+        {notice && <p className="mock-notice" role="status">{notice}</p>}
         <nav className="top-nav" aria-label="Workbench shortcuts">
           {primaryViews.map((item) => (
             <button
