@@ -58,8 +58,7 @@ function loadApp() {
 test('uses one accessible responsive collapsible left navigation', () => {
   assert.match(app, /<aside[^>]+aria-label="Main navigation"/);
   assert.match(app, /flex-col md:flex-row/);
-  assert.match(app, /w-full shrink-0/);
-  assert.match(app, /md:w-56/);
+  assert.match(app, /sidebarOpen \? 'w-full md:w-56' : 'w-16'/);
   assert.doesNotMatch(app, /<ol/);
   assert.doesNotMatch(app, /Stepper/);
 });
@@ -73,9 +72,12 @@ test('collapses and changes the active view through native buttons', () => {
   collapseButton.props.onClick();
   view = render();
   assert.equal(findNode(view, node => node.props?.['aria-label'] === 'Expand navigation').props['aria-expanded'], false);
-  const jobButton = findNode(view, node => textContent(node) === 'Job Description' && node.props?.onClick);
+  assert.equal(textContent(findNode(view, node => node.props?.['aria-label'] === 'Job Description')), 'J');
+  const jobButton = findNode(view, node => node.props?.['aria-label'] === 'Job Description');
   assert.equal(jobButton.type, 'button');
   jobButton.props.onClick();
   view = render();
-  assert.equal(textContent(findNode(view, node => node.props?.['aria-current'] === 'page')), 'Job Description');
+  const activeButton = findNode(view, node => node.props?.['aria-current'] === 'page');
+  assert.equal(activeButton.props['aria-label'], 'Job Description');
+  assert.equal(textContent(activeButton), 'J');
 });
