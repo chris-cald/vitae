@@ -64,3 +64,15 @@ test("sidebar navigation and Product strategy evidence placement are interactive
   assert.match(document.querySelector(".projection")?.textContent, /Cover letter/);
   assert.equal(button(document, "Add to Cover letter")?.textContent, "Add to Cover letter");
 });
+
+test("mock action controls publish a status", async (t) => {
+  const { dom, root } = await renderApp();
+  t.after(async () => { await act(async () => root.unmount()); dom.window.close(); });
+  await act(async () => button(document, "New application").click());
+  assert.match(document.querySelector('[role="status"]')?.textContent, /Mock application created/);
+  await act(async () => sidebarButton(document, "Applications").click());
+  for (const label of ["+ Add", "View all applications →", "Review", "Cover letter", "Add to Cover letter"]) {
+    await act(async () => button(document, label).click());
+    assert.match(document.querySelector('[role="status"]')?.textContent, /Mock action recorded/);
+  }
+});

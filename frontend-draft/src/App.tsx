@@ -108,8 +108,8 @@ function ApplicationWorkspace({
     <section className="panel applications-panel">
       <div className="panel-heading"><div><p className="eyebrow">APPLICATION RECORDS</p><h2>Application pipeline</h2></div><button type="button">+ Add</button></div>
       <input aria-label="Search applications" className="application-search" onInput={(event) => setQuery(event.currentTarget.value)} placeholder="Search applications" type="search" value={query} />
-      {(!query || "product strategy".includes(query.toLowerCase())) && <button className="application active" type="button"><span className="avatar">PS</span><span><strong>Product strategy</strong><small>Stage: evidence placement</small></span><b>72</b></button>}
-      {(!query || "operating systems".includes(query.toLowerCase())) && <button className="application" type="button"><span className="avatar slate">OS</span><span><strong>Operating systems</strong><small>Next: reconcile brief</small></span><b>64</b></button>}
+      {(!query || "product strategy".includes(query.toLowerCase())) && <button aria-label="Open Product strategy application" className="application active" type="button"><span className="avatar">PS</span><span><strong>Product strategy</strong><small>Stage: evidence placement</small></span><b>72</b></button>}
+      {(!query || "operating systems".includes(query.toLowerCase())) && <button aria-label="Open Operating systems application" className="application" type="button"><span className="avatar slate">OS</span><span><strong>Operating systems</strong><small>Next: reconcile brief</small></span><b>64</b></button>}
       <div className="stage-list">
         {applicationStages.map((stage, index) => <div key={stage}><span>{index + 1}</span>{stage}</div>)}
       </div>
