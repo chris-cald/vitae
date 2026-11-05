@@ -14,6 +14,7 @@ links:
   implements: []
   evidence:
     - '[[record-wi-067-validation-passed]]'
+    - '[[record-wi-067-persistence-validation-passed]]'
 tags:
   - afk
   - frontend
