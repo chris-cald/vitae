@@ -12,6 +12,8 @@ links:
   parent: []
   depends_on: []
   implements: []
+  evidence:
+    - '[[record-wi-067-validation-passed]]'
 tags:
   - afk
   - frontend
