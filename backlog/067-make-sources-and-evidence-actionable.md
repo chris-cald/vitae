@@ -15,6 +15,7 @@ links:
   evidence:
     - '[[record-wi-067-validation-passed]]'
     - '[[record-wi-067-persistence-validation-passed]]'
+    - '[[record-wi-067-independent-review-approved]]'
 tags:
   - afk
   - frontend
