@@ -26,7 +26,7 @@ Sources & evidence lacks actual source records and uses unexplained signal termi
 
 ## Acceptance Criteria
 
-- [ ] Sources & evidence lists linked mock source records and their supporting evidence.
-- [ ] Evidence status uses plain language and explains its relationship to use in deliverables.
-- [ ] Source/evidence controls have mock interactions.
-- [ ] Focused frontend test and `npm run check` pass.
+- [x] Sources & evidence lists linked mock source records and their supporting evidence.
+- [x] Evidence status uses plain language and explains its relationship to use in deliverables.
+- [x] Source/evidence controls have mock interactions.
+- [x] Focused frontend test and `npm run check` pass.
