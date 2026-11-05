@@ -25,6 +25,8 @@ links:
     - '[[record-wi-064-frontend-navigation-validation]]'
     - '[[record-wi-064-independent-review]]'
     - '[[record-wi-064-final-independent-review]]'
+  pull_requests:
+    - https://github.com/chris-cald/vitae/pull/19
 tags:
   - afk
   - frontend
