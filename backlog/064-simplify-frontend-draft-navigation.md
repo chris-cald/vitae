@@ -17,6 +17,7 @@ commits:
   6baf918: Integrate simplified frontend navigation
   ed34158: Remediate final independent-review findings
   5c1e6ae: Record final independent-review evidence
+  6ba3664: Address compact-navigation PR review findings
 links:
   parent: []
   depends_on: []
