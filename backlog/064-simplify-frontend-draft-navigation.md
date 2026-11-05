@@ -13,6 +13,7 @@ completed_date: '2026-11-05'
 commits:
   25d3e8e142ce92570cebd7689d775921f6430f8f: Simplify frontend draft navigation
   83f78087c540e66df536d795bd80744186168a52: Record wi-064 validation and closure
+  6c39905: Clarify collapsed navigation after independent review
 links:
   parent: []
   depends_on: []
@@ -20,6 +21,7 @@ links:
   evidence:
     - '[[record-wi-064-frontend-navigation-validation]]'
     - '[[record-wi-064-independent-review]]'
+    - '[[record-wi-064-final-independent-review]]'
 tags:
   - afk
   - frontend
