@@ -14,6 +14,9 @@ commits:
   25d3e8e142ce92570cebd7689d775921f6430f8f: Simplify frontend draft navigation
   83f78087c540e66df536d795bd80744186168a52: Record wi-064 validation and closure
   6c39905: Clarify collapsed navigation after independent review
+  6baf918: Integrate simplified frontend navigation
+  ed34158: Remediate final independent-review findings
+  5c1e6ae: Record final independent-review evidence
 links:
   parent: []
   depends_on: []
