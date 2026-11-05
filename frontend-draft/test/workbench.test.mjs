@@ -82,6 +82,11 @@ test("sources link mock records to evidence and let users mark it for a delivera
   assert.match(document.body.textContent, /Used in Resume/);
   assert.match(document.body.textContent, /This evidence is now linked to the Resume deliverable/);
 
+  await act(async () => sidebarButton(document, "Today").click());
+  await act(async () => sidebarButton(document, "Sources & evidence").click());
+  assert.match(document.body.textContent, /Used in Resume/);
+  assert.match(document.body.textContent, /This evidence is now linked to the Resume deliverable/);
+
   const planningEvidence = document.querySelector('button[aria-label="View evidence for Planning retrospective"]');
   await act(async () => planningEvidence.click());
   assert.equal(planningEvidence.getAttribute("aria-pressed"), "true");

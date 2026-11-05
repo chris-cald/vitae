@@ -28,6 +28,7 @@ export default function App() {
   const [placement, setPlacement] = useState<Placement>("Resume");
   const [todayStarted, setTodayStarted] = useState(false);
   const [applicationQuery, setApplicationQuery] = useState("");
+  const [usedSourceIds, setUsedSourceIds] = useState<string[]>([]);
   const current = activeView(view);
 
   return (
@@ -85,7 +86,7 @@ export default function App() {
         {view === "catalog" && <CatalogView />}
         {view === "deliverables" && <DeliverablesView />}
         {(view === "activity" || view === "decisions") && <ActivityView decisionMode={view === "decisions"} />}
-        {view === "sources" && <SourcesView />}
+        {view === "sources" && <SourcesView usedSourceIds={usedSourceIds} onUseInResume={(sourceId) => setUsedSourceIds((ids) => [...new Set([...ids, sourceId])])} />}
       </section>
     </main>
   );
@@ -165,9 +166,8 @@ function ActivityView({ decisionMode }: { decisionMode: boolean }) {
   return <section className="single-view"><p className="eyebrow">{decisionMode ? "DECISION RECONCILIATION" : "ACTIVITY TIMELINE"}</p><h2>{decisionMode ? "Resolve evidence choices" : "Application lifecycle"}</h2><div className="timeline"><Timeline title="Evidence mapped" detail="Market-entry signal linked to Product strategy" /><Timeline title="Decision requested" detail="Choose the best surface for the verified outcome" /><Timeline title={decisionMode ? "Reconcile projection" : "Deliverable review"} detail={decisionMode ? "Confirm claim scope before bundle generation" : "Bundle remains ready for final review"} /></div></section>;
 }
 
-function SourcesView() {
+function SourcesView({ usedSourceIds, onUseInResume }: { usedSourceIds: string[]; onUseInResume: (sourceId: string) => void }) {
   const [selectedId, setSelectedId] = useState<string>(sourceRecords[0].id);
-  const [usedSourceIds, setUsedSourceIds] = useState<string[]>([]);
   const selected = sourceRecords.find((source) => source.id === selectedId) ?? sourceRecords[0];
   const usedInResume = usedSourceIds.includes(selected.id);
 
@@ -188,7 +188,7 @@ function SourcesView() {
       <h3>{selected.evidence}</h3>
       <p>{selected.summary}</p>
       <p><strong>{usedInResume ? "Used in Resume" : "Ready to use in a deliverable"}</strong> · {usedInResume ? "This evidence is now linked to the Resume deliverable." : "This evidence has not been added to a deliverable yet."}</p>
-      <button className="primary-button" onClick={() => setUsedSourceIds((ids) => [...new Set([...ids, selected.id])])} type="button">Use in Resume</button>
+      <button className="primary-button" onClick={() => onUseInResume(selected.id)} type="button">Use in Resume</button>
     </article>
   </section>;
 }
