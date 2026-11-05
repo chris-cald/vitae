@@ -5,6 +5,24 @@ const applicationStages = ["New evidence", "Drafting", "Decision review"];
 const placements = ["Resume", "Cover letter", "Interview"] as const;
 type Placement = (typeof placements)[number];
 
+// ponytail: mock records until the source/evidence API exists.
+const sourceRecords = [
+  {
+    id: "customer-research",
+    title: "Customer research notes",
+    detail: "Interview synthesis · captured 12 Feb",
+    evidence: "Launch decision evidence",
+    summary: "Cross-functional research clarified the launch decision and its outcome.",
+  },
+  {
+    id: "planning-retrospective",
+    title: "Planning retrospective",
+    detail: "Team review · captured 18 Feb",
+    evidence: "Stakeholder alignment evidence",
+    summary: "A shared operating cadence aligned stakeholders around the next decision.",
+  },
+] as const;
+
 export default function App() {
   const [view, setView] = useState<ViewId>("today");
   const [placement, setPlacement] = useState<Placement>("Resume");
@@ -148,7 +166,31 @@ function ActivityView({ decisionMode }: { decisionMode: boolean }) {
 }
 
 function SourcesView() {
-  return <section className="single-view"><p className="eyebrow">SOURCES & EVIDENCE</p><h2>Traceable signal ledger</h2><div className="source-table"><div className="table-head"><span>Signal</span><span>Reliability</span><span>Use</span></div><div><strong>Launch research</strong><span>High</span><span>Resume, interview</span></div><div><strong>Stakeholder alignment</strong><span>High</span><span>Cover letter</span></div><div><strong>Operating cadence</strong><span>Medium</span><span>Interview</span></div></div></section>;
+  const [selectedId, setSelectedId] = useState<string>(sourceRecords[0].id);
+  const [usedSourceIds, setUsedSourceIds] = useState<string[]>([]);
+  const selected = sourceRecords.find((source) => source.id === selectedId) ?? sourceRecords[0];
+  const usedInResume = usedSourceIds.includes(selected.id);
+
+  return <section className="single-view">
+    <p className="eyebrow">SOURCES & EVIDENCE</p>
+    <h2>Traceable signal ledger</h2>
+    <p className="intro">Each mock source record links to the evidence it supports.</p>
+    <div className="source-table">
+      <div className="table-head"><span>Source record</span><span>Supporting evidence</span><span>Control</span></div>
+      {sourceRecords.map((source) => <div key={source.id}>
+        <strong>{source.title}<small>{source.detail}</small></strong>
+        <span>{source.evidence}</span>
+        <button aria-controls="selected-evidence" aria-label={`View evidence for ${source.title}`} aria-pressed={selected.id === source.id} onClick={() => setSelectedId(source.id)} type="button">View evidence</button>
+      </div>)}
+    </div>
+    <article aria-live="polite" className="evidence-block" id="selected-evidence">
+      <span className="signal">SUPPORTING EVIDENCE</span>
+      <h3>{selected.evidence}</h3>
+      <p>{selected.summary}</p>
+      <p><strong>{usedInResume ? "Used in Resume" : "Ready to use in a deliverable"}</strong> · {usedInResume ? "This evidence is now linked to the Resume deliverable." : "This evidence has not been added to a deliverable yet."}</p>
+      <button className="primary-button" onClick={() => setUsedSourceIds((ids) => [...new Set([...ids, selected.id])])} type="button">Use in Resume</button>
+    </article>
+  </section>;
 }
 
 function Metric({ value, label }: { value: string; label: string }) { return <div className="metric"><strong>{value}</strong><span>{label}</span></div>; }

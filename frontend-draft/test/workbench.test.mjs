@@ -64,3 +64,28 @@ test("sidebar navigation and Product strategy evidence placement are interactive
   assert.match(document.querySelector(".projection")?.textContent, /Cover letter/);
   assert.equal(button(document, "Add to Cover letter")?.textContent, "Add to Cover letter");
 });
+
+test("sources link mock records to evidence and let users mark it for a deliverable", async (t) => {
+  const { dom, root } = await renderApp();
+  t.after(async () => {
+    await act(async () => root.unmount());
+    dom.window.close();
+  });
+
+  await act(async () => sidebarButton(document, "Sources & evidence").click());
+  assert.match(document.body.textContent, /Customer research notes/);
+  assert.match(document.body.textContent, /Launch decision evidence/);
+  assert.match(document.body.textContent, /Ready to use in a deliverable/);
+  assert.match(document.body.textContent, /This evidence has not been added to a deliverable yet/);
+
+  await act(async () => button(document, "Use in Resume").click());
+  assert.match(document.body.textContent, /Used in Resume/);
+  assert.match(document.body.textContent, /This evidence is now linked to the Resume deliverable/);
+
+  const planningEvidence = document.querySelector('button[aria-label="View evidence for Planning retrospective"]');
+  await act(async () => planningEvidence.click());
+  assert.equal(planningEvidence.getAttribute("aria-pressed"), "true");
+  assert.match(document.querySelector("#selected-evidence")?.textContent, /Stakeholder alignment evidence/);
+  assert.match(document.body.textContent, /Ready to use in a deliverable/);
+  assert.match(document.body.textContent, /This evidence has not been added to a deliverable yet/);
+});
