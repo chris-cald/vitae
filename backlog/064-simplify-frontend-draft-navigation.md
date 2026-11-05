@@ -4,14 +4,19 @@ title: Simplify Frontend Draft Navigation
 type: work-item
 subtype: bug
 lifecycle: active
-status: ready
-status_reason: auto
+status: completed
+status_reason: completed
 priority: high
 estimated: 1
+actual: 1
+completed_date: '2026-11-05'
 links:
   parent: []
   depends_on: []
   implements: []
+  evidence:
+    - '[[record-wi-064-frontend-navigation-validation]]'
+    - '[[record-wi-064-independent-review]]'
 tags:
   - afk
   - frontend
@@ -24,7 +29,7 @@ Remove redundant top navigation and make the left navigation collapsible while p
 
 ## Acceptance Criteria
 
-- [ ] The redundant top navigation is removed.
-- [ ] The left navigation has a keyboard-accessible collapse/expand control.
-- [ ] Navigation remains usable with clear active-view state.
-- [ ] Focused frontend test and `npm run check` pass.
+- [x] The redundant top navigation is removed.
+- [x] The left navigation has a keyboard-accessible collapse/expand control.
+- [x] Navigation remains usable with clear active-view state.
+- [x] Focused frontend test and `npm run check` pass.
