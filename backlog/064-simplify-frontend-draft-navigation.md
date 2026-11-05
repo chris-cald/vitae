@@ -10,6 +10,9 @@ priority: high
 estimated: 1
 actual: 1
 completed_date: '2026-11-05'
+commits:
+  25d3e8e142ce92570cebd7689d775921f6430f8f: Simplify frontend draft navigation
+  83f78087c540e66df536d795bd80744186168a52: Record wi-064 validation and closure
 links:
   parent: []
   depends_on: []
