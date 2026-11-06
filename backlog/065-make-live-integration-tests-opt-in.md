@@ -1,5 +1,5 @@
 ---
-id: wi-064
+id: wi-065
 title: Make Live Integration Tests Opt-In
 type: work-item
 subtype: bug
@@ -15,7 +15,7 @@ links:
   depends_on: []
   implements: []
   evidence:
-    - '[[record-wi-064-deterministic-integration-validation]]'
+    - '[[record-wi-065-deterministic-integration-validation]]'
 tags:
   - afk
   - backend

@@ -1,6 +1,6 @@
 ---
 $schema: schemas/work-management/frontmatter/record.json
-id: record:wi-064-deterministic-integration-validation
+id: record:wi-065-deterministic-integration-validation
 title: WI-064 deterministic integration validation
 summary: WI-064 deterministic integration validation
 type: record
@@ -24,7 +24,7 @@ Live integration tests are explicit opt-in and every live HTTP request has a fin
 
 ## Subject References
 
-- wi-064
+- wi-065
 - claim:c3c4afb416379fcff4bd550ac893e8846362cc906a0752dea88c2b35864d5e15
 - wi:064
 
