@@ -4,10 +4,12 @@ title: Wire Frontend Draft Interactions
 type: work-item
 subtype: bug
 lifecycle: active
-status: ready
-status_reason: auto
+status: completed
+status_reason: completed
 priority: high
 estimated: 2
+actual: 2
+completed_date: '2026-11-06'
 links:
   parent: []
   depends_on: []
@@ -26,7 +28,7 @@ Visible frontend-draft buttons and links currently do not consistently cause a m
 
 ## Acceptance Criteria
 
-- [ ] Every visible action control either changes mock state, navigates to a relevant view, or is removed.
-- [ ] Interaction behavior is covered by focused DOM tests.
-- [ ] No API calls or real documents are added.
-- [ ] Focused frontend test and `npm run check` pass.
+- [x] Every visible action control either changes mock state, navigates to a relevant view, or is removed.
+- [x] Interaction behavior is covered by focused DOM tests.
+- [x] No API calls or real documents are added.
+- [x] Focused frontend test and `npm run check` pass.
