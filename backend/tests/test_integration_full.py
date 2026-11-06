@@ -1,5 +1,6 @@
 from typing import List, Dict, Any
 import io
+import os
 
 import pytest
 import requests
@@ -13,26 +14,20 @@ Comprehensive integration tests for Vitae backend API endpoints.
 """
 
 BASE_URL = "http://localhost:8000/api/v1"
+REQUEST_TIMEOUT = 5
 PDF_BYTES = b"%PDF-1.4\n%EOF"
 DOCX_BYTES = b"PK\x03\x04"  # DOCX file header
 
 
-def _backend_available() -> bool:
-    try:
-        requests.get(f"{BASE_URL}/resume", timeout=1)
-        return True
-    except requests.RequestException:
-        return False
-
-
 requires_live_backend = pytest.mark.skipif(
-    not _backend_available(), reason="live backend not running on localhost:8000"
+    os.getenv("VITAE_LIVE_INTEGRATION") != "1",
+    reason="set VITAE_LIVE_INTEGRATION=1 to run live backend tests",
 )
 
 
 @pytest.fixture
 def resume_id() -> str:
-    resp = requests.get(f"{BASE_URL}/resume", timeout=5)
+    resp = requests.get(f"{BASE_URL}/resume", timeout=REQUEST_TIMEOUT)
     resp.raise_for_status()
     resumes = resp.json().get("resumes", [])
     if not resumes:
@@ -42,7 +37,7 @@ def resume_id() -> str:
 
 @pytest.fixture
 def job_id() -> str:
-    resp = requests.get(f"{BASE_URL}/job", timeout=5)
+    resp = requests.get(f"{BASE_URL}/job", timeout=REQUEST_TIMEOUT)
     resp.raise_for_status()
     jobs = resp.json().get("jobs", resp.json())
     if not jobs:
@@ -52,10 +47,10 @@ def job_id() -> str:
 
 def _upload_resume_and_list() -> List[Dict[str, Any]]:
     files = {"file": ("test.pdf", io.BytesIO(PDF_BYTES), "application/pdf")}
-    resp = requests.post(f"{BASE_URL}/resume/file", files=files)
+    resp = requests.post(f"{BASE_URL}/resume/file", files=files, timeout=REQUEST_TIMEOUT)
     assert resp.status_code == 200, resp.text
     assert "message" in resp.json()
-    resp = requests.get(f"{BASE_URL}/resume")
+    resp = requests.get(f"{BASE_URL}/resume", timeout=REQUEST_TIMEOUT)
     assert resp.status_code == 200
     assert "resumes" in resp.json()
     resume_list = resp.json()["resumes"]
@@ -67,10 +62,11 @@ def _upload_job_and_list() -> List[Dict[str, Any]]:
     resp = requests.post(
         f"{BASE_URL}/job/text",
         json={"job_text": "Software Engineer", "name": "Software Engineer"},
+        timeout=REQUEST_TIMEOUT,
     )
     assert resp.status_code == 200, resp.text
     assert "job_id" in resp.json()
-    resp = requests.get(f"{BASE_URL}/job")
+    resp = requests.get(f"{BASE_URL}/job", timeout=REQUEST_TIMEOUT)
     assert resp.status_code == 200
     jobs = resp.json().get("jobs", resp.json())
     assert isinstance(jobs, list)
@@ -118,14 +114,14 @@ def test_job_upload_and_list() -> None:
 def test_job_fit_flow(resume_id: str, job_id: str) -> None:
     """Test job-fit analysis creation and retrieval."""
     payload = {"resume_id": resume_id, "job_id": job_id}
-    resp = requests.post(f"{BASE_URL}/job-fit", json=payload)
+    resp = requests.post(f"{BASE_URL}/job-fit", json=payload, timeout=REQUEST_TIMEOUT)
     assert resp.status_code in (201, 400, 404, 422), resp.text
     if resp.status_code == 201:
         job_fit = resp.json()
         job_fit_id = job_fit.get("id")
-        resp2 = requests.get(f"{BASE_URL}/job-fit/{job_fit_id}")
+        resp2 = requests.get(f"{BASE_URL}/job-fit/{job_fit_id}", timeout=REQUEST_TIMEOUT)
         assert resp2.status_code == 200
-        resp3 = requests.get(f"{BASE_URL}/job-fit/{job_fit_id}/score")
+        resp3 = requests.get(f"{BASE_URL}/job-fit/{job_fit_id}/score", timeout=REQUEST_TIMEOUT)
         assert resp3.status_code in (200, 404)
 
 

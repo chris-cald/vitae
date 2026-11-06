@@ -12,6 +12,8 @@ links:
   parent: []
   depends_on: []
   implements: []
+  evidence:
+    - '[[record-wi-064-deterministic-integration-validation]]'
 tags:
   - afk
   - backend
@@ -24,7 +26,7 @@ tags:
 
 ## Acceptance Criteria
 
-- [ ] `npm run check` does not run live-backend requests by default, even when localhost:8000 responds.
-- [ ] An explicit environment opt-in enables live integration tests.
-- [ ] Live integration HTTP requests use finite timeouts.
-- [ ] `npm run check` passes.
+- [x] `npm run check` does not run live-backend requests by default, even when localhost:8000 responds.
+- [x] An explicit environment opt-in enables live integration tests.
+- [x] Live integration HTTP requests use finite timeouts.
+- [x] `npm run check` passes.
