@@ -12,6 +12,8 @@ links:
   parent: []
   depends_on: []
   implements: []
+  evidence:
+    - '[[record-wi-063-mock-interaction-validation]]'
 tags:
   - afk
   - frontend
