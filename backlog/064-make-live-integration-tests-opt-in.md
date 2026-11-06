@@ -4,10 +4,12 @@ title: Make Live Integration Tests Opt-In
 type: work-item
 subtype: bug
 lifecycle: active
-status: ready
-status_reason: planned
+status: completed
+status_reason: completed
 priority: high
 estimated: 1
+actual: 1
+completed_date: '2026-11-06'
 links:
   parent: []
   depends_on: []
