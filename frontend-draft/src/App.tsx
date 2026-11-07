@@ -1,17 +1,41 @@
 import { useState } from "react";
+import { CatalogDevelopment, initialCatalogItems } from "./CatalogDevelopment";
 import { activeView, primaryViews, type ViewId } from "./workbench";
 
 const applicationStages = ["New evidence", "Drafting", "Decision review"];
 const placements = ["Resume", "Cover letter", "Interview"] as const;
 type Placement = (typeof placements)[number];
+const applications = [
+  { id: "product", title: "Product strategy", initials: "PS", catalogItem: "market-entry", signal: "Market entry decision", detail: "Clarified a launch decision with cross-functional research", readiness: "Source-backed · Reusable" },
+  { id: "operating", title: "Operating systems", initials: "OS", catalogItem: "gaps", signal: "Operating cadence", detail: "Operating cadence outcome reference", readiness: "Needs evidence and human review" },
+] as const;
+type ApplicationId = typeof applications[number]["id"];
+type ApplicationContext = { placement: Placement; query: string };
 
 export default function App() {
   const [view, setView] = useState<ViewId>("today");
-  const [placement, setPlacement] = useState<Placement>("Resume");
+  const [applicationId, setApplicationId] = useState<ApplicationId>("product");
+  const [applicationContexts, setApplicationContexts] = useState<Record<ApplicationId, ApplicationContext>>({
+    product: { placement: "Resume", query: "" },
+    operating: { placement: "Resume", query: "" },
+  });
+  const application = applications.find((item) => item.id === applicationId)!;
+  const { placement, query: applicationQuery } = applicationContexts[applicationId];
+  function updateApplicationContext(patch: Partial<ApplicationContext>) {
+    setApplicationContexts((contexts) => ({ ...contexts, [applicationId]: { ...contexts[applicationId], ...patch } }));
+  }
   const [todayStarted, setTodayStarted] = useState(false);
-  const [applicationQuery, setApplicationQuery] = useState("");
   const [notice, setNotice] = useState("");
+  const [catalogItems, setCatalogItems] = useState(initialCatalogItems);
+  const [expandedItems, setExpandedItems] = useState<string[]>([]);
+  const [gateMessages, setGateMessages] = useState<Record<string, string>>({});
+  const [returnToApplication, setReturnToApplication] = useState(false);
   const current = activeView(view);
+  function openCatalog(fromApplication = false) {
+    setReturnToApplication(fromApplication);
+    if (fromApplication) setExpandedItems([application.catalogItem]);
+    setView("knowledge");
+  }
 
   return (
     <main className="shell">
@@ -24,7 +48,7 @@ export default function App() {
               aria-current={view === item.id ? "page" : undefined}
               className={`nav-item ${view === item.id ? "selected" : ""}`}
               key={item.id}
-              onClick={() => setView(item.id)}
+              onClick={() => { setView(item.id); setReturnToApplication(false); }}
               type="button"
             >
               <span className="nav-dot" />{item.label}
@@ -59,7 +83,7 @@ export default function App() {
             <button
               aria-pressed={view === item.id}
               key={item.id}
-              onClick={() => setView(item.id)}
+              onClick={() => { setView(item.id); setReturnToApplication(false); }}
               type="button"
             >
               {item.label}
@@ -67,9 +91,11 @@ export default function App() {
           ))}
         </nav>
 
+        {["today", "sources", "catalog"].includes(view) && <div className="catalog-entry"><button className="quiet-button" type="button" onClick={() => openCatalog()}>Open Catalog Development</button></div>}
+        {view === "knowledge" && returnToApplication && <div className="catalog-entry"><button className="quiet-button" type="button" onClick={() => { setView("applications"); setReturnToApplication(false); }}>Return to {application.title} application</button></div>}
         {view === "today" && <TodayView started={todayStarted} onStart={() => setTodayStarted(true)} />}
-        {view === "applications" && <ApplicationWorkspace placement={placement} setPlacement={setPlacement} query={applicationQuery} setQuery={setApplicationQuery} />}
-        {view === "knowledge" && <KnowledgeView />}
+        {view === "applications" && <ApplicationWorkspace application={application} onSelectApplication={setApplicationId} placement={placement} setPlacement={(value) => updateApplicationContext({ placement: value })} query={applicationQuery} setQuery={(value) => updateApplicationContext({ query: value })} onOpenCatalog={() => openCatalog(true)} />}
+        {view === "knowledge" && <CatalogDevelopment items={catalogItems} setItems={setCatalogItems} expanded={expandedItems} setExpanded={setExpandedItems} messages={gateMessages} setMessages={setGateMessages} />}
         {view === "catalog" && <CatalogView />}
         {view === "deliverables" && <DeliverablesView />}
         {(view === "activity" || view === "decisions") && <ActivityView decisionMode={view === "decisions"} />}
@@ -94,13 +120,19 @@ function TodayView({ started, onStart }: { started: boolean; onStart: () => void
 }
 
 function ApplicationWorkspace({
+  application,
+  onSelectApplication,
   placement,
   setPlacement,
   query,
   setQuery,
+  onOpenCatalog,
 }: {
+  application: typeof applications[number];
+  onSelectApplication: (id: ApplicationId) => void;
   placement: Placement;
   setPlacement: (placement: Placement) => void;
+  onOpenCatalog: () => void;
   query: string;
   setQuery: (query: string) => void;
 }) {
@@ -108,8 +140,7 @@ function ApplicationWorkspace({
     <section className="panel applications-panel">
       <div className="panel-heading"><div><p className="eyebrow">APPLICATION RECORDS</p><h2>Application pipeline</h2></div><button type="button">+ Add</button></div>
       <input aria-label="Search applications" className="application-search" onInput={(event) => setQuery(event.currentTarget.value)} placeholder="Search applications" type="search" value={query} />
-      {(!query || "product strategy".includes(query.toLowerCase())) && <button aria-label="Open Product strategy application" className="application active" type="button"><span className="avatar">PS</span><span><strong>Product strategy</strong><small>Stage: evidence placement</small></span><b>72</b></button>}
-      {(!query || "operating systems".includes(query.toLowerCase())) && <button aria-label="Open Operating systems application" className="application" type="button"><span className="avatar slate">OS</span><span><strong>Operating systems</strong><small>Next: reconcile brief</small></span><b>64</b></button>}
+      {applications.filter((item) => item.title.toLowerCase().includes(query.toLowerCase())).map((item) => <button key={item.id} aria-label={`Open ${item.title} application`} aria-pressed={application.id === item.id} className={`application ${application.id === item.id ? "active" : ""}`} onClick={() => onSelectApplication(item.id)} type="button"><span className="avatar">{item.initials}</span><span><strong>{item.title}</strong><small>Stage: evidence placement</small></span></button>)}
       <div className="stage-list">
         {applicationStages.map((stage, index) => <div key={stage}><span>{index + 1}</span>{stage}</div>)}
       </div>
@@ -117,16 +148,17 @@ function ApplicationWorkspace({
     </section>
 
     <section className="panel decision-panel">
-      <div className="panel-heading"><div><p className="eyebrow">DECISION SPACE</p><h2>Product strategy</h2></div><span className="pill amber">Needs review</span></div>
+      <div className="panel-heading"><div><p className="eyebrow">DECISION SPACE</p><h2>{application.title}</h2></div><span className="pill amber">Needs review</span></div>
       <p className="intro">Project the strongest verified signals into each application surface before drafting.</p>
-      <article className="decision-card emphasis"><div><span className="card-kicker">NEXT DECISION</span><h3>Place market-entry evidence</h3><p>Use the outcome narrative where it supports the reader’s next question.</p></div><button type="button">Review</button></article>
+      <article className="decision-card emphasis"><div><span className="card-kicker">NEXT DECISION</span><h3>Review {application.signal} evidence</h3><p>Use the outcome narrative where it supports the reader’s next question.</p></div><button type="button">Review</button></article>
       <article className="decision-card"><div><span className="card-kicker">CONSTRAINT</span><h3>Keep claim scope narrow</h3><p>One proof point per proposition; retain traceability.</p></div><span className="pill">Confirmed</span></article>
       <article className="decision-card"><div><span className="card-kicker">BUNDLE CHECK</span><h3>Three deliverables linked</h3><p>Resume, letter, and interview notes share the same evidence base.</p></div><span className="number">3</span></article>
     </section>
 
     <section className="panel evidence-panel">
-      <div className="panel-heading"><div><p className="eyebrow">EVIDENCE PLACEMENT</p><h2>Product strategy</h2></div><span className="source-count">4 sources</span></div>
-      <div className="evidence-block"><span className="signal">VERIFIED SIGNAL</span><h3>Clarified a launch decision with cross-functional research</h3><p>Confidence: high · Source-backed · Reusable</p></div>
+      <div className="panel-heading"><div><p className="eyebrow">EVIDENCE PLACEMENT</p><h2>{application.title}</h2></div><span className="source-count">Synthetic context</span></div>
+      <div className="evidence-block"><span className="signal">MOCK SIGNAL</span><h3>{application.detail}</h3><p>{application.readiness}</p></div>
+      <button className="quiet-button" type="button" onClick={onOpenCatalog}>Open in Catalog Development</button>
       <p className="placement-label">Project this evidence into</p>
       <div className="choice-row" role="group" aria-label="Evidence placement">
         {placements.map((option) => <button className={placement === option ? "chosen" : ""} key={option} onClick={() => setPlacement(option)} type="button">{option}</button>)}
@@ -135,10 +167,6 @@ function ApplicationWorkspace({
       <button className="primary-button" type="button">Add to {placement}</button>
     </section>
   </div>;
-}
-
-function KnowledgeView() {
-  return <section className="single-view"><p className="eyebrow">CAREER KNOWLEDGE</p><h2>Evidence library</h2><p className="intro">Reusable, source-backed signals are kept separate from application-specific projections.</p><div className="metric-grid"><Metric value="18" label="Verified signals" /><Metric value="6" label="Decision patterns" /><Metric value="4" label="Reusable narratives" /></div><div className="list-card"><strong>Market entry decision</strong><span>Strategy · Research · High confidence</span><button type="button">Open evidence →</button></div></section>;
 }
 
 function CatalogView() {
@@ -157,6 +185,5 @@ function SourcesView() {
   return <section className="single-view"><p className="eyebrow">SOURCES & EVIDENCE</p><h2>Traceable signal ledger</h2><div className="source-table"><div className="table-head"><span>Signal</span><span>Reliability</span><span>Use</span></div><div><strong>Launch research</strong><span>High</span><span>Resume, interview</span></div><div><strong>Stakeholder alignment</strong><span>High</span><span>Cover letter</span></div><div><strong>Operating cadence</strong><span>Medium</span><span>Interview</span></div></div></section>;
 }
 
-function Metric({ value, label }: { value: string; label: string }) { return <div className="metric"><strong>{value}</strong><span>{label}</span></div>; }
 function Deliverable({ name, detail }: { name: string; detail: string }) { return <div className="deliverable"><span className="doc-mark" /> <div><strong>{name}</strong><p>{detail}</p></div><button type="button">Open</button></div>; }
 function Timeline({ title, detail }: { title: string; detail: string }) { return <div className="timeline-item"><span /><div><strong>{title}</strong><p>{detail}</p><small>Today · mock activity</small></div></div>; }
