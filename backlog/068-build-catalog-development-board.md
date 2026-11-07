@@ -1,20 +1,25 @@
 ---
 id: wi-068
 title: Build Catalog Development Board
-summary: "Deliver the Figma-aligned mock-only Catalog Development lifecycle in the frontend draft: intake, Seeds, evidence and gaps, formalized episodes, Catalog assets, and gated decisions."
+summary: 'Deliver the Figma-aligned mock-only Catalog Development lifecycle in the frontend draft: intake, Seeds, evidence and gaps, formalized episodes, Catalog assets, and gated decisions.'
 type: work-item
 subtype: story
 lifecycle: active
-status: ready
-status_reason: user-authorized-dual-lifecycle-remediation
+status: completed
+status_reason: completed
 priority: critical
 estimated: 5
+completed_date: '2026-11-07'
+commits:
+  c33cf33ac09be20efb5d7e338e077f076458e7ee: Reviewed mock-only Catalog Development lifecycle; eight frontend-draft files
 links:
   parent:
     - '[[050-deliver-job-search-application-funnel-slice]]'
   reference:
     - '[[../docs/prd/mvp-book-of-work-to-application-loop]]'
     - '[[054-add-career-inventory-and-curation-slice]]'
+  evidence:
+    - '[[record-wi-068-local-validation]]'
 tags:
   - afk
   - frontend
@@ -34,20 +39,20 @@ Make Catalog Development a first-class workbench that guides a candidate from in
 
 ## Tasks
 
-- [ ] Replace the current shallow Career knowledge view with a board that makes the Catalog Development stages visible: Consider, Seeds, Evidence & gaps, Episodes, and Catalog assets.
-- [ ] Add synthetic cards with expandable details: provenance-safe source metadata, supporting evidence, unresolved gaps, related career goals or targets, and next action.
-- [ ] Add mock-only transition gates that explain what information, evidence, or human review is required before an item can advance.
-- [ ] Connect Catalog Development from Today, Career knowledge, Sources & evidence, Catalog, and the mock application evidence-placement flow.
-- [ ] Add focused DOM tests for board navigation, card expansion, and one blocked/one allowed transition.
+- [x] Replace the current shallow Career knowledge view with a board that makes the Catalog Development stages visible: Consider, Seeds, Evidence & gaps, Episodes, and Catalog assets.
+- [x] Add synthetic cards with expandable details: provenance-safe source metadata, supporting evidence, unresolved gaps, related career goals or targets, and next action.
+- [x] Add mock-only transition gates that explain what information, evidence, or human review is required before an item can advance.
+- [x] Connect Catalog Development from Today, Career knowledge, Sources & evidence, Catalog, and the mock application evidence-placement flow.
+- [x] Add focused DOM tests for board navigation, card expansion, and one blocked/one allowed transition.
 
 ## Acceptance Criteria
 
-- [ ] A user can enter Catalog Development from the workbench navigation and see the complete lifecycle as a board of cards.
-- [ ] Each card can expand to show its state, safe source/evidence metadata, gaps, and next action without rendering raw resume, job, or source content.
-- [ ] A gated transition explains the missing requirement or required human decision; an eligible mock item advances and updates its displayed status.
-- [ ] The existing application evidence-placement view can open a relevant Catalog Development item and return to the application context.
-- [ ] The draft remains mock-only: no production frontend changes, backend/API calls, real documents, or PII.
-- [ ] Focused draft tests and `npm run check` pass.
+- [x] A user can enter Catalog Development from the workbench navigation and see the complete lifecycle as a board of cards.
+- [x] Each card can expand to show its state, safe source/evidence metadata, gaps, and next action without rendering raw resume, job, or source content.
+- [x] A gated transition explains the missing requirement or required human decision; an eligible mock item advances and updates its displayed status.
+- [x] The existing application evidence-placement view can open a relevant Catalog Development item and return to the application context.
+- [x] The draft remains mock-only: no production frontend changes, backend/API calls, real documents, or PII.
+- [x] Focused draft tests and `npm run check` pass.
 
 ## Relationships
 
