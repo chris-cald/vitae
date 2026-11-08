@@ -15,6 +15,8 @@ import {
   removeProjection,
   nextAction,
   references,
+  remediationAsset,
+  missingBundleSurfaces,
   type Connected,
   type Application,
   type Surface,
@@ -56,7 +58,7 @@ export default function App() {
     setError("");
   }
   function catalog(id?: string, returning = true) {
-    setExpanded(id ? [id] : returning ? [app.remediation] : []);
+    setExpanded(id ? [id] : returning ? [remediationAsset(state, app)] : []);
     setReturnTo(returning ? appId : undefined);
     setView("knowledge");
     setError("");
@@ -295,6 +297,11 @@ export default function App() {
                         {p.stale ? "Stale" : "Grounded"}
                         <p>{p.scope}</p>
                         <small>{p.referenceIds.join(", ")}</small>
+                        {p.stale && (
+                          <button onClick={() => catalog(p.assetId)}>
+                            Remediate {p.assetId} on {p.surface}
+                          </button>
+                        )}
                         <button
                           onClick={() =>
                             run((s) => refreshProjection(s, app.id, p.id))
@@ -702,13 +709,19 @@ function BundleDetails({ bundle: b }: { bundle: Bundle }) {
           {!b.blocks.some((block) => block.surface === surface.id) && (
             <p>
               No factual block placed.{" "}
-              {surface.id === "communication"
-                ? "Synthetic communication draft: Thank you for considering this application."
-                : ""}
+              {surface.id !== "interview" &&
+                "Required: choose this surface, add eligible support, then reassemble."}
             </p>
           )}
         </section>
       ))}
+      {missingBundleSurfaces(b).length > 0 && (
+        <p>
+          Missing required factual surfaces:{" "}
+          {missingBundleSurfaces(b).join(", ")}. Review and readiness are
+          blocked.
+        </p>
+      )}
       <h4>Manifest</h4>
       <ul>
         {b.manifest.map((m) => (

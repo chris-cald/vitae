@@ -65,3 +65,57 @@ The model intentionally uses explicit fixture reference metadata and human
 attestation, not semantic fact verification or provider output. Source-kind,
 per-criterion references and revision gates are enforced; real-world truth is not
 inferred from synthetic text. State is session-local and resets on reload.
+
+## Independent review remediation (four P2 findings)
+
+The first implementation was **request changes**, not approved. All four findings
+were reproduced in `test/review-regressions.test.mjs` before fixes;
+`review-red.txt` records four failures. The corrective behavior is:
+
+1. Reassembly replaces a reviewable artifact, marks fit stale, and demotes `ready`
+   to `draft`. It does not manufacture a lifecycle event. Re-review and explicit
+   ready confirmation are required; submitted snapshots remain untouched.
+2. Gap remediation chooses the actual ungrounded dependency, preferring the
+   active surface. Each stale projection also offers a targeted remediation
+   control. Application ID, search and placement surface survive the round trip.
+3. The board uses the same grounding predicate as remediation. Stale projections
+   appear in Build support, never Ready to reuse. Source republication alone is
+   insufficient: the dependent projection must be explicitly refreshed.
+4. Current bundle review/readiness require factual blocks on **both resume and
+   communication**, with provenance. Missing surfaces expose specific blockers
+   and placement/reassembly guidance. The presentation-only greeting was removed;
+   required output blocks are represented in the manifest and submitted snapshot.
+
+Frozen pre-remediation tests are preserved byte-for-byte in `review-frozen/`
+with verified SHA256 hashes. Active success-path tests only gain explicit
+placements needed by the stricter output contract; their previous assertions are
+retained. Four new regressions are independently executable. Trailing whitespace
+in historical text receipts was normalized without changing result meaning.
+
+Post-fix results: `review-green.txt` records the focused regressions;
+`review-draft-check.txt` records the explicit draft check (20 domain/DOM tests,
+TypeScript, production build) under Node 22.17.0 / npm 10.9.2.
+
+### Root dependency history and parent-owned later evidence
+
+The worker's earlier command was:
+
+```sh
+export PATH=/Users/macos/.local/share/fnm/node-versions/v22.17.0/installation/bin:/tmp/vitae-wi068-tools:$PATH UV_OFFLINE=1
+npm run check
+```
+
+No dependency setup preceded that worker attempt. It failed at
+`uv --directory backend run --locked --no-sync python -m pytest` with missing
+pytest, as preserved in `root-check.txt`.
+
+Subsequently the parent ran documented `npm run setup` using pinned Node
+22.17.0/npm 10.9.2 and locked uv dependencies, then `npm run check`. The parent
+reported **both exit 0** after setup; this supersedes the dependency blocker, not
+the original historical receipt. Completed parent logs are
+`/tmp/vitae-wi069-pinned-setup.log` and
+`/tmp/vitae-wi069-root-check-after-setup.log`. Parent will capture these in gated
+evidence; the worker did not duplicate setup/check or overwrite the failure.
+
+Independent re-review, clean-checkout rehearsal, WI-070 browser/design validation,
+closure and integration still remain parent-owned. No approval or delivery claim.

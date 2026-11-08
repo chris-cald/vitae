@@ -113,6 +113,8 @@ test("two complete application flows share catalog remediation without sharing d
   );
   await select("Select factual asset", "seed-incomplete");
   await click("Add to Interview");
+  await click("Cover letter");
+  await click("Add to Cover letter");
   await click("Assemble bundle");
   await click("Review bundle");
   await click("Mark ready");
@@ -140,6 +142,8 @@ test("two complete application flows share catalog remediation without sharing d
   await click("Review bundle");
   assert.match(text(), /Blocked:.*unsupported/i);
   await click("Exclude unsupported claim");
+  await click("Resume");
+  await click("Add to Resume");
   await click("Assemble bundle");
   await click("Review bundle");
   await click("Mark ready");

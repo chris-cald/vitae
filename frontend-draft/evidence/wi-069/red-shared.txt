@@ -18,9 +18,9 @@
 test at frontend-draft/test/connected.test.mjs:54:1
 ✖ shared fixture dependencies invalidate both applications while unrelated revisions stay current (3.167334ms)
   AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
-  
+
     assert.ok(s.applications.every(a=>a.projections.some(p=>p.assetId==='asset-shared')))
-  
+
       at TestContext.<anonymous> (file:///Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-069/frontend-draft/test/connected.test.mjs:56:9)
       at Test.runInAsyncScope (node:async_hooks:226:14)
       at Test.run (node:internal/test_runner/test:1402:25)

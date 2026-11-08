@@ -253,6 +253,30 @@ export function eligible(a: Asset) {
     !assetGaps(a).length
   );
 }
+// One grounding predicate is shared by readiness, remediation and the board.
+export function grounded(s: Connected, p: Projection) {
+  const asset = getAsset(s, p.assetId);
+  return !p.stale && eligible(asset) && asset.revision === p.sourceRevision;
+}
+export function remediationAsset(s: Connected, a: Application) {
+  const stale = a.projections.filter((p) => !grounded(s, p));
+  return (
+    (stale.find((p) => p.surface === a.surface) || stale[0])?.assetId ||
+    (!eligible(getAsset(s, a.selectedAsset)) ? a.selectedAsset : a.remediation)
+  );
+}
+export function missingBundleSurfaces(b: Bundle) {
+  return (["resume", "communication"] as const).filter(
+    (surface) =>
+      !b.blocks.some(
+        (block) =>
+          block.surface === surface &&
+          !block.unresolved &&
+          block.assetId &&
+          block.referenceIds.length
+      )
+  );
+}
 function invalidate(a: Application) {
   a.revision++;
   a.fit.stale = true;
@@ -434,15 +458,13 @@ export function resolveClaim(
 export function assemble(s: Connected, id: string) {
   const a = getApp(s, id);
   const blocks: Bundle["blocks"] = a.projections.map((p) => {
-    const asset = getAsset(s, p.assetId);
     return {
       surface: p.surface,
       text: p.scope,
       assetId: p.assetId,
       sourceRevision: p.sourceRevision,
       referenceIds: [...p.referenceIds],
-      unresolved:
-        p.stale || !eligible(asset) || asset.revision !== p.sourceRevision,
+      unresolved: !grounded(s, p),
     };
   });
   if (a.unsupported)
@@ -452,6 +474,9 @@ export function assemble(s: Connected, id: string) {
       referenceIds: [],
       unresolved: true,
     });
+  // Assembly replaces the reviewable artifact, so prior readiness no longer applies.
+  a.fit.stale = true;
+  if (a.status === "ready") a.status = "draft";
   a.bundle = {
     revision: a.revision,
     reviewed: false,
@@ -471,18 +496,18 @@ function currentBundle(s: Connected, a: Application) {
   if (
     a.unsupported ||
     a.bundle.unsupported.length ||
-    a.projections.some(
-      (p) =>
-        p.stale ||
-        !eligible(getAsset(s, p.assetId)) ||
-        p.sourceRevision !== getAsset(s, p.assetId).revision
-    )
+    a.projections.some((p) => !grounded(s, p))
   )
     throw Error(
       "Resolve unsupported claims and stale sources; review is not evidence"
     );
-  if (!a.projections.length)
-    throw Error("Bundle needs at least one eligible factual projection");
+  const missing = missingBundleSurfaces(a.bundle);
+  if (missing.length)
+    throw Error(
+      `Bundle missing required factual surfaces: ${missing.join(
+        ", "
+      )}. Place eligible support on each surface and reassemble.`
+    );
   return a.bundle;
 }
 export function reviewBundle(s: Connected, id: string) {
@@ -501,6 +526,11 @@ export function nextAction(a: Application) {
   if (!a.bundle || a.bundle.stale) return "Assemble current supported bundle";
   if (a.unsupported || a.bundle.unsupported.length)
     return "Resolve unsupported claims";
+  const missing = missingBundleSurfaces(a.bundle);
+  if (missing.length)
+    return `Place eligible support on ${missing.join(
+      " and "
+    )}, then reassemble`;
   if (!a.bundle.reviewed) return "Review current bundle";
   return a.status === "ready"
     ? "Confirm submission date and channel"

@@ -32,9 +32,9 @@
 test at test/connected.test.mjs:54:1
 ✖ shared fixture dependencies invalidate both applications while unrelated revisions stay current (3.421875ms)
   AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
-  
+
     assert.ok(s.applications.every(a=>a.projections.some(p=>p.assetId==='asset-shared')))
-  
+
       at TestContext.<anonymous> (file:///Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-069/frontend-draft/test/connected.test.mjs:56:9)
       at Test.runInAsyncScope (node:async_hooks:226:14)
       at Test.run (node:internal/test_runner/test:1402:25)
@@ -66,9 +66,9 @@ test at test/connected.test.mjs:88:1
 test at test/workbench.test.mjs:31:1
 ✖ sidebar navigation and Product strategy evidence placement are interactive (80.593042ms)
   AssertionError [ERR_ASSERTION]: The input did not match the regular expression /Priority in progress/. Input:
-  
+
   'V vitaeWORKBENCHTodayApplicationsCareer knowledgeCatalogDeliverablesActivityDecisionsSources & evidenceMock workspaceSynthetic · in memory · no API callsCAREER OPERATING SYSTEMApplicationsSynthetic session onlyNew applicationApplication pipeline+ AddSearch applicationsProduct strategydraftOperating systemsdraftView all applications →Product strategyCollapse application detailsCanonical status: draftWorking step: Assemble current supported bundleTarget requirementsExplain launch decisions and research leadershipTarget/JD context only — never factual evidence.Supporting assetsGapsIncreased revenue by 80% (unconfirmed synthetic claim)Remediate support gapExclude unsupported claimReplace with selected supported scopeNotes referenceSave note referenceNotes (not evidence): NoneBundleFit review: Stale / not reviewed · Next action: Assemble current supported bundleAssemble bundleReview bundle Mark readySubmitRecord interviewRecord follow-upRecord outcomeWithdrawDecisionsMaterial eventsNo confirmed material events.EVIDENCE PLACEMENTProduct strategyEligible factual CatalogAssets only. Projections are derived wording, never evidence.Open in Catalog DevelopmentResumeCover letterInterviewSelect factual assetWorkshop reflection · Not eligibleStakeholder alignment · Not eligibleOperating cadence · Not eligibleResearch synthesis · EligibleMarket entry decision · EligibleDuplicate synthetic reminder · Not eligibleProjection draftResumeClarified a synthetic launch decision with researchAdd to Resume'
-  
+
       at TestContext.<anonymous> (file:///Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-069/frontend-draft/test/workbench.test.mjs:49:10)
       at async Test.run (node:internal/test_runner/test:1409:7)
       at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {
@@ -97,9 +97,9 @@ test at test/workbench.test.mjs:68:1
 test at test/workbench.test.mjs:90:1
 ✖ Catalog Development is reachable from each workbench entry and exposes safe expandable cards (32.293708ms)
   AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
-  
+
     assert.ok(document.querySelector(`[aria-label="${stage}"]`))
-  
+
       at TestContext.<anonymous> (file:///Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-069/frontend-draft/test/workbench.test.mjs:99:12)
       at async Test.run (node:internal/test_runner/test:1409:7)
       at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {

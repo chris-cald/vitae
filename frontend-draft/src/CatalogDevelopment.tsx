@@ -5,6 +5,7 @@ import {
   references,
   assetGaps,
   eligible,
+  grounded,
   triageAsset,
   primeAsset,
   editAsset,
@@ -268,22 +269,27 @@ export function CatalogDevelopment({
                   </article>
                 );
               })}
-            {stage === "Ready to reuse" &&
-              state.applications.flatMap((app) =>
-                app.projections.map((p) => (
+            {state.applications.flatMap((app) =>
+              app.projections
+                .filter(
+                  (p) =>
+                    stage ===
+                    (grounded(state, p) ? "Ready to reuse" : "Build support")
+                )
+                .map((p) => (
                   <article className="catalog-card" key={p.id}>
                     <h4>Projection · {app.title}</h4>
                     <p>Derived wording, never factual evidence · {p.surface}</p>
                     <p>{p.scope}</p>
                     <p>
                       {p.assetId}@{p.sourceRevision} ·{" "}
-                      {p.stale
+                      {!grounded(state, p)
                         ? "Stale — refresh from reviewed source"
                         : "Grounded wording"}
                     </p>
                   </article>
                 ))
-              )}
+            )}
           </section>
         ))}
       </div>

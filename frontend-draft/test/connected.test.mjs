@@ -44,6 +44,7 @@ test("two independent applications require current supported reviewed bundles an
   assemble(s, "app-a");
   assert.throws(() => reviewBundle(s, "app-a"), /unsupported/i);
   s.applications[0].unsupported = "";
+  place(s, "app-a", "communication", "asset-shared");
   assemble(s, "app-a");
   reviewBundle(s, "app-a");
   transition(s, "app-a", "ready", { confirmed: true, token: "ready-a" });
@@ -123,6 +124,7 @@ test("formalization demands evidence for every criterion and human review of cur
   reviewAsset(s, "seed-incomplete");
   publishAsset(s, "seed-incomplete");
   place(s, "app-b", "communication", "seed-incomplete");
+  place(s, "app-b", "resume", "seed-incomplete");
   assemble(s, "app-b");
   reviewBundle(s, "app-b");
   const unrelated = JSON.stringify(s.applications[1].bundle);
@@ -146,10 +148,15 @@ test("shared fixture dependencies invalidate both applications while unrelated r
     true
   );
   place(s, c.id, "resume", "asset-unrelated");
+  place(s, c.id, "communication", "asset-unrelated");
   assemble(s, c.id);
   reviewBundle(s, c.id);
   const independent = JSON.stringify(c);
   resolveClaim(s, "app-a", "exclude");
+  // Required surfaces use independent support so this test isolates the shared dependency.
+  place(s, "app-a", "resume", "asset-unrelated");
+  place(s, "app-a", "communication", "asset-unrelated");
+  place(s, "app-b", "communication", "asset-unrelated");
   for (const a of s.applications.slice(0, 2)) {
     assemble(s, a.id);
     reviewBundle(s, a.id);
@@ -217,6 +224,8 @@ test("projection edits are local; unsupported claims need exclusion or supported
   const s = createConnected();
   const a = s.applications[0],
     b = s.applications[1];
+  place(s, b.id, "communication", "asset-unrelated");
+  place(s, a.id, "communication", "asset-unrelated");
   assemble(s, b.id);
   reviewBundle(s, b.id);
   const before = JSON.stringify(b);

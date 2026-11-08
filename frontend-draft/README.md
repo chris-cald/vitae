@@ -63,8 +63,11 @@ separate requirements, drafts, search, surfaces, notes, decisions and events.
   source IDs/revisions and reference IDs, targeting-only JD context, manifest,
   support summary and unresolved claims. Unsupported wording can be excluded or
   replaced with an eligible asset's actual supported scope; review cannot bless
-  an unsupported claim. Empty communication surfaces show only a nonfactual
-  synthetic salutation, not fabricated accomplishments.
+  an unsupported claim. Both resume and communication require factual blocks
+  with eligible provenance before review/readiness. Missing surfaces show an
+  actionable blocker, not presentation-only filler. Reassembly replaces the
+  reviewable artifact, marks fit stale and demotes ready to draft until reviewed
+  and explicitly marked ready again.
 
 WI-068's Consider maps to Evidence inbox; Seeds to disposition-focused Triage;
 Evidence & gaps and Episodes are reconciled into Build support with explicit
