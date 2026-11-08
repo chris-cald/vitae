@@ -1,0 +1,50 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import { createConnected, createApplication, assemble, reviewBundle, transition, place, reviewAsset, publishAsset, editAsset } from '../src/connected.ts';
+
+test('two independent applications require current supported reviewed bundles and explicit material confirmation', () => {
+ const s = createConnected();
+ const a = createApplication(s, { title: 'Synthetic platform role', requirements: 'Reliability' }, false);
+ assert.equal(a, undefined); assert.equal(s.applications.length, 2);
+ const c = createApplication(s, { title: 'Synthetic new role', requirements: 'Delivery' }, true);
+ assert.equal(s.applications.length, 3); assert.equal(c.status, 'draft');
+ assert.throws(() => transition(s, 'app-a', 'ready', {}), /bundle/i);
+ place(s, 'app-a', 'resume', 'asset-shared');
+ assert.throws(() => place(s, 'app-a', 'resume', 'asset-shared'), /already/i);
+ assert.throws(() => place(s, 'app-a', 'resume', 'seed-incomplete'), /eligible/i);
+ assemble(s, 'app-a');
+ assert.throws(() => reviewBundle(s, 'app-a'), /unsupported/i);
+ s.applications[0].unsupported = '';
+ assemble(s, 'app-a'); reviewBundle(s, 'app-a');
+ transition(s, 'app-a', 'ready', { confirmed: true, token: 'ready-a' });
+ assert.throws(() => transition(s, 'app-a', 'submitted', { confirmed: true }), /date|channel/i);
+ const input = { confirmed: true, date: '2026-02-01', channel: 'Synthetic portal', token: 'submit-a' };
+ transition(s, 'app-a', 'submitted', input); transition(s, 'app-a', 'submitted', input);
+ assert.equal(s.applications[0].events.filter(e => e.kind === 'submitted').length, 1);
+ assert.equal(s.applications[1].status, 'draft');
+ const snapshot = JSON.stringify(s.applications[0].submitted);
+ editAsset(s, 'asset-shared', { scope: 'Narrow supported scope' });
+ assert.equal(JSON.stringify(s.applications[0].submitted), snapshot);
+ assert.equal(s.applications[0].bundle.stale, true);
+ assert.throws(() => transition(s, 'app-a', 'interviewing', { confirmed: true }), /date|detail/i);
+ transition(s, 'app-a', 'interviewing', { confirmed: true, date:'2026-02-03', detail:'Synthetic panel', token:'interview' });
+ transition(s, 'app-a', 'follow-up', { confirmed:true, date:'2026-02-04', detail:'Synthetic thank you', token:'follow' });
+ transition(s, 'app-a', 'closed', { confirmed:true, date:'2026-02-05', detail:'Not selected', token:'outcome' });
+ assert.equal(s.applications[0].status, 'closed');
+});
+
+test('formalization demands evidence for every criterion and human review of current scope', () => {
+ const s=createConnected();
+ assert.throws(() => publishAsset(s,'seed-incomplete'), /review|criteria/i);
+ editAsset(s,'seed-incomplete',{scope:'Synthetic delivery episode', objective:'Improve delivery', responsibility:'Owned tests', outcome:'Released', significance:'Repeatable checks', evidence:{objective:['ref-objective'],responsibility:['ref-responsibility'],outcome:['ref-outcome'],significance:[]}});
+ assert.throws(() => reviewAsset(s,'seed-incomplete'), /significance/i);
+ editAsset(s,'seed-incomplete',{ evidence:{objective:['ref-objective'],responsibility:['ref-responsibility'],outcome:['ref-outcome'],significance:['ref-significance']}});
+ reviewAsset(s,'seed-incomplete'); publishAsset(s,'seed-incomplete');
+ place(s,'app-b','communication','seed-incomplete'); assemble(s,'app-b'); reviewBundle(s,'app-b');
+ const unrelated=JSON.stringify(s.applications[1].bundle);
+ editAsset(s,'asset-shared',{scope:'Changed scope'});
+ assert.equal(JSON.stringify(s.applications[1].bundle),unrelated);
+ editAsset(s,'seed-incomplete',{scope:'Changed episode'});
+ assert.throws(() => publishAsset(s,'seed-incomplete'), /review/i);
+ assert.equal(s.applications[1].bundle.stale,true);
+});
