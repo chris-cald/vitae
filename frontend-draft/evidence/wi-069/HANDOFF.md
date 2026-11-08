@@ -51,8 +51,11 @@ no pixel-parity assertion is made. Independent browser/design review is WI-070.
 
 ## Remaining gates / limits
 
-Root `npm run check` was dispatched with pinned Node/npm and offline uv. Its result
-is tracked separately as `root-check.txt`; it is not replaced by the draft check.
+Root `npm run check` FAILED with pinned Node 22.17.0 / npm 10.9.2 and offline uv.
+The backend command created its local virtualenv, then failed with
+`No module named pytest`. Production frontend tests/typecheck/lint/build were not
+reached. The complete receipt is `root-check.txt`; this is a missing-dependency
+blocker, not a passing root gate. The draft check does not replace it.
 Clean-checkout `npm run pilot:rehearse`, independent review, WI-070 validation,
 closure and integration remain parent-owned gates. This worktree initially had
 neither backend/.venv nor production frontend/node_modules. No claim of root or

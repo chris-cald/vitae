@@ -1,0 +1,11 @@
+
+> check
+> npm run test:backend && npm run test:frontend && npm run typecheck && npm run lint && npm --prefix frontend run build
+
+
+> test:backend
+> uv --directory backend run --locked --no-sync python -m pytest
+
+Using CPython 3.12.15 interpreter at: /opt/homebrew/opt/python@3.12/bin/python3.12
+Creating virtual environment at: .venv
+/Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-069/backend/.venv/bin/python: No module named pytest
