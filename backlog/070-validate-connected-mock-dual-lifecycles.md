@@ -8,7 +8,6 @@ lifecycle: active
 status: ready
 status_reason: prioritized
 priority: critical
-estimated: 5
 links:
   reference:
     - '[[050-deliver-job-search-application-funnel-slice]]'

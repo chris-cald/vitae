@@ -8,7 +8,6 @@ lifecycle: active
 status: running
 status_reason: review
 priority: critical
-estimated: 8
 commits:
   557ddb5: Independently reviewed connected mock lifecycles and four red-first acceptance fixes
 links:
