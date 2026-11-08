@@ -5,8 +5,8 @@ summary: Complete synthetic Application lifecycle and shared Catalog-to-projecti
 type: work-item
 subtype: story
 lifecycle: active
-status: ready
-status_reason: prioritized
+status: running
+status_reason: implementation
 priority: critical
 estimated: 8
 links:
