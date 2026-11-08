@@ -6,14 +6,22 @@ import { JSDOM } from "jsdom";
 import App from "../src/App.tsx";
 
 const button = (root, label) =>
-  [...root.querySelectorAll("button")].find((element) => element.textContent === label);
+  [...root.querySelectorAll("button")].find(
+    (element) => element.textContent === label
+  );
 const sidebarButton = (document, label) =>
-  button(document.querySelector('nav[aria-label="Primary workbench views"]'), label);
+  button(
+    document.querySelector('nav[aria-label="Primary workbench views"]'),
+    label
+  );
 
 async function renderApp() {
-  const dom = new JSDOM("<!doctype html><html><body><div id=\"root\"></div></body></html>", {
-    url: "http://localhost/",
-  });
+  const dom = new JSDOM(
+    '<!doctype html><html><body><div id="root"></div></body></html>',
+    {
+      url: "http://localhost/",
+    }
+  );
   Object.assign(globalThis, {
     window: dom.window,
     document: dom.window.document,
@@ -21,212 +29,254 @@ async function renderApp() {
     Event: dom.window.Event,
     IS_REACT_ACT_ENVIRONMENT: true,
   });
-  Object.defineProperty(globalThis, "navigator", { configurable: true, value: dom.window.navigator });
+  Object.defineProperty(globalThis, "navigator", {
+    configurable: true,
+    value: dom.window.navigator,
+  });
 
   const root = createRoot(document.getElementById("root"));
   await act(async () => root.render(createElement(App)));
   return { dom, root };
 }
 
-test("sidebar navigation and Product strategy evidence placement are interactive", async (t) => {
-  const { dom, root } = await renderApp();
-  t.after(async () => {
-    await act(async () => root.unmount());
-    dom.window.close();
-  });
-
-  assert.equal(sidebarButton(document, "Today")?.getAttribute("aria-current"), "page");
-  assert.match(document.body.textContent, /Today’s priorities/);
-  assert.doesNotMatch(document.body.textContent, /Evidence placement/);
-
-  await act(async () => sidebarButton(document, "Career knowledge").click());
-  assert.equal(document.querySelector("h1")?.textContent, "Career knowledge");
-  assert.match(document.body.textContent, /Catalog Development/);
-  assert.equal(sidebarButton(document, "Career knowledge")?.getAttribute("aria-current"), "page");
-
-  await act(async () => sidebarButton(document, "Today").click());
-  await act(async () => button(document, "Start next priority").click());
-  assert.match(document.body.textContent, /Priority in progress/);
-
-  await act(async () => sidebarButton(document, "Applications").click());
-  assert.match(document.body.textContent, /Application pipeline/);
-  assert.match(document.body.textContent, /Product strategy/);
-  const search = document.querySelector('input[aria-label="Search applications"]');
-  await act(async () => {
-    Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, "value").set.call(search, "operating");
-    search.dispatchEvent(new Event("input", { bubbles: true }));
-  });
-  const records = [...document.querySelectorAll(".applications-panel .application")].map((item) => item.textContent);
-  assert.equal(records.some((record) => record.includes("Product strategy")), false);
-  assert.equal(records.some((record) => record.includes("Operating systems")), true);
-
-  await act(async () => button(document, "Cover letter").click());
-  assert.match(document.querySelector(".projection")?.textContent, /Cover letter/);
-  assert.equal(button(document, "Add to Cover letter")?.textContent, "Add to Cover letter");
-});
-
-test("mock action controls publish a status", async (t) => {
-  const { dom, root } = await renderApp();
-  t.after(async () => { await act(async () => root.unmount()); dom.window.close(); });
-  await act(async () => button(document, "New application").click());
-  assert.match(document.querySelector('[role="status"]')?.textContent, /Mock application created/);
-  await act(async () => sidebarButton(document, "Applications").click());
-  for (const label of ["+ Add", "View all applications →", "Review", "Cover letter", "Add to Cover letter"]) {
-    await act(async () => button(document, label).click());
-    assert.match(document.querySelector('[role="status"]')?.textContent, /Mock action recorded/);
-  }
-});
-
+// WI-068 regression intents retained; WI-069 replaces entity-type columns and
+// generic success notices with readiness semantics and real guarded actions.
 const card = (id) => document.querySelector(`[data-catalog-item="${id}"]`);
 async function click(label, scope = document) {
-  assert.ok(button(scope, label), `Missing button: ${label}`);
-  await act(async () => button(scope, label).click());
+  const b = button(scope, label);
+  assert.ok(b, `Missing ${label}`);
+  await act(() => b.click());
 }
 async function fixture(t) {
   const { dom, root } = await renderApp();
-  t.after(async () => { await act(async () => root.unmount()); dom.window.close(); });
+  t.after(async () => {
+    await act(() => root.unmount());
+    dom.window.close();
+  });
+}
+async function input(label, value) {
+  const el = document.querySelector(`[aria-label="${label}"]`);
+  assert.ok(el);
+  await act(() => {
+    Object.getOwnPropertyDescriptor(
+      window.HTMLInputElement.prototype,
+      "value"
+    ).set.call(el, value);
+    el.dispatchEvent(new Event("input", { bubbles: true }));
+  });
+}
+async function supply(id, criterion) {
+  const el = card(id).querySelector(
+    `[aria-label="${criterion} evidence ${id}"]`
+  );
+  await act(() => {
+    el.value = `ref-${criterion}`;
+    el.dispatchEvent(new Event("change", { bubbles: true }));
+  });
+}
+async function support(id) {
+  for (const c of ["objective", "responsibility", "outcome", "significance"]) {
+    await input(`${c} ${id}`, `Synthetic ${c}`);
+    await supply(id, c);
+  }
 }
 
-test("Catalog Development is reachable from each workbench entry and exposes safe expandable cards", async (t) => {
+test("single accessible navigation, priorities and placement remain interactive", async (t) => {
+  await fixture(t);
+  assert.equal(document.querySelectorAll("nav").length, 1);
+  assert.equal(
+    sidebarButton(document, "Today").getAttribute("aria-current"),
+    "page"
+  );
+  await click("Start next priority");
+  assert.match(document.body.textContent, /Application pipeline/);
+  await click("Cover letter");
+  assert.match(
+    document.querySelector(".projection").textContent,
+    /Cover letter/
+  );
+  await input("Search applications", "operating");
+  assert.equal(document.querySelectorAll("[data-application]").length, 1);
+});
+test("navigation and cancelled creation never manufacture material events", async (t) => {
+  await fixture(t);
+  await click("New application");
+  await click("Cancel creation");
+  for (const label of [
+    "Applications",
+    "Sources & evidence",
+    "Decisions",
+    "Deliverables",
+    "Activity",
+  ])
+    await act(() => sidebarButton(document, label).click());
+  assert.equal(
+    (document.body.textContent.match(/No confirmed material events/g) || [])
+      .length,
+    2
+  );
+  assert.doesNotMatch(
+    document.body.textContent,
+    /Mock action recorded|Mock application created/
+  );
+});
+test("all entry points expose four readiness columns with expandable safe metadata", async (t) => {
   await fixture(t);
   for (const entry of ["Today", "Sources & evidence", "Catalog"]) {
-    await act(async () => sidebarButton(document, entry).click());
+    await act(() => sidebarButton(document, entry).click());
     await click("Open Catalog Development");
-    assert.ok(document.querySelector('[aria-label="Catalog Development board"]'));
+    assert.ok(
+      document.querySelector('[aria-label="Catalog Development board"]')
+    );
   }
-  await act(async () => sidebarButton(document, "Career knowledge").click());
-  for (const stage of ["Consider", "Seeds", "Evidence & gaps", "Episodes", "Catalog assets"]) {
+  for (const stage of [
+    "Evidence inbox",
+    "Triage",
+    "Build support",
+    "Ready to reuse",
+  ])
     assert.ok(document.querySelector(`[aria-label="${stage}"]`));
-  }
-  for (const id of ["intake", "seed", "gaps", "episode", "market-entry"]) {
-    const item = card(id);
-    const toggle = item.querySelector('button[aria-expanded]');
-    assert.equal(toggle.getAttribute("aria-expanded"), "false");
-    await act(async () => toggle.click());
-    for (const label of ["State", "Source metadata", "Supporting evidence", "Unresolved gaps", "Related target", "Next action"]) assert.match(item.textContent, new RegExp(label));
-    assert.match(item.textContent, /Synthetic/);
-    await act(async () => toggle.click());
+  for (const id of [
+    "intake",
+    "seed",
+    "seed-incomplete",
+    "asset-unrelated",
+    "asset-shared",
+  ]) {
+    const toggle = card(id).querySelector("[aria-expanded]");
+    await act(() => toggle.click());
+    for (const label of [
+      "State",
+      "Source metadata",
+      "Supporting evidence",
+      "Unresolved gaps",
+      "Related target",
+      "Next action",
+    ])
+      assert.match(card(id).textContent, new RegExp(label));
+    await act(() => toggle.click());
     assert.equal(toggle.getAttribute("aria-expanded"), "false");
   }
 });
-
-test("gates block missing evidence and require human review before advancing eligible episodes", async (t) => {
+test("publication blocks incomplete evidence and requires current human review", async (t) => {
   await fixture(t);
-  await act(async () => sidebarButton(document, "Career knowledge").click());
-  await click("Expand Operating cadence", card("gaps"));
-  await click("Advance to Episodes", card("gaps"));
-  assert.match(card("gaps").textContent, /Blocked: Add an outcome evidence reference/);
-  assert.equal(card("gaps").closest('section[aria-label]').getAttribute("aria-label"), "Evidence & gaps");
-  await click("Confirm human review", card("gaps"));
-  await click("Advance to Episodes", card("gaps"));
-  assert.match(card("gaps").textContent, /Blocked: Add an outcome evidence reference/);
-  assert.equal(card("gaps").closest('section[aria-label]').getAttribute("aria-label"), "Evidence & gaps");
-  await click("Expand Research synthesis", card("episode"));
-  await click("Advance to Catalog assets", card("episode"));
-  assert.match(card("episode").textContent, /Blocked: Confirm human review/);
-  await click("Confirm human review", card("episode"));
-  await click("Advance to Catalog assets", card("episode"));
-  assert.equal(card("episode").closest('section[aria-label]').getAttribute("aria-label"), "Catalog assets");
-  assert.match(card("episode").textContent, /State: Catalog assets/);
-  await act(async () => sidebarButton(document, "Today").click());
-  await click("Open Catalog Development");
-  assert.equal(card("episode").closest('section[aria-label]').getAttribute("aria-label"), "Catalog assets");
+  await click("Career knowledge");
+  await click("Expand Operating cadence", card("seed-incomplete"));
+  await click("Publish CatalogAsset", card("seed-incomplete"));
+  assert.match(
+    document.querySelector('[role="alert"]').textContent,
+    /criteria incomplete/
+  );
+  await support("seed-incomplete");
+  await click("Publish CatalogAsset", card("seed-incomplete"));
+  assert.match(
+    document.querySelector('[role="alert"]').textContent,
+    /Human review/
+  );
+  await click("Review current revision", card("seed-incomplete"));
+  await click("Publish CatalogAsset", card("seed-incomplete"));
+  assert.match(card("seed-incomplete").textContent, /State: Ready to reuse/);
 });
-
-test("application evidence opens the relevant asset and returns with placement and search intact", async (t) => {
+test("application evidence round trip retains selected surface and search", async (t) => {
   await fixture(t);
-  await act(async () => sidebarButton(document, "Applications").click());
+  await click("Applications");
   await click("Interview");
-  const search = document.querySelector('input[aria-label="Search applications"]');
-  await act(async () => {
-    Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, "value").set.call(search, "product");
-    search.dispatchEvent(new Event("input", { bubbles: true }));
-  });
+  await input("Search applications", "product");
   await click("Open in Catalog Development");
-  assert.equal(card("market-entry").querySelector('[aria-expanded]').getAttribute("aria-expanded"), "true");
+  assert.equal(
+    card("asset-shared")
+      .querySelector("[aria-expanded]")
+      .getAttribute("aria-expanded"),
+    "true"
+  );
   await click("Return to Product strategy application");
-  assert.match(document.querySelector(".projection").textContent, /Interview/);
-  assert.equal(document.querySelector('input[aria-label="Search applications"]').value, "product");
+  assert.equal(
+    document.querySelector(".projection strong").textContent,
+    "Interview"
+  );
+  assert.equal(
+    document.querySelector('[aria-label="Search applications"]').value,
+    "product"
+  );
 });
-
-async function searchApplications(value) {
-  const search = document.querySelector('input[aria-label="Search applications"]');
-  await act(async () => {
-    Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, "value").set.call(search, value);
-    search.dispatchEvent(new Event("input", { bubbles: true }));
-  });
-}
-async function supplyEvidence(id) {
-  const select = card(id).querySelector('select[aria-label="Synthetic outcome evidence"]');
-  assert.ok(select, "Missing synthetic evidence selector");
-  await act(async () => {
-    select.value = "outcome";
-    select.dispatchEvent(new Event("change", { bubbles: true }));
-  });
-}
-
-test("blocked evidence can be supplied locally, clears its gap and requires fresh human review", async (t) => {
+test("editing support clears prior publication review, never the evidence requirement", async (t) => {
   await fixture(t);
-  await act(async () => sidebarButton(document, "Career knowledge").click());
-  await click("Expand Operating cadence", card("gaps"));
-  await click("Advance to Episodes", card("gaps"));
-  assert.match(card("gaps").textContent, /Blocked: Add an outcome evidence reference/);
-  await click("Confirm human review", card("gaps"));
-  await supplyEvidence("gaps");
-  assert.match(card("gaps").textContent, /EV-SYN-gaps/);
-  assert.match(card("gaps").textContent, /Unresolved gapsNone recorded/);
-  await click("Advance to Episodes", card("gaps"));
-  assert.match(card("gaps").textContent, /Blocked: Confirm human review/);
-  await click("Confirm human review", card("gaps"));
-  await click("Advance to Episodes", card("gaps"));
-  assert.match(card("gaps").textContent, /State: Episodes/);
-  assert.match(card("seed").textContent, /State: Seeds/);
+  await click("Career knowledge");
+  await click("Expand Operating cadence", card("seed-incomplete"));
+  await support("seed-incomplete");
+  await click("Review current revision", card("seed-incomplete"));
+  await input("outcome seed-incomplete", "Revised synthetic outcome");
+  await click("Publish CatalogAsset", card("seed-incomplete"));
+  assert.match(
+    document.querySelector('[role="alert"]').textContent,
+    /Human review/
+  );
+  await click("Review current revision", card("seed-incomplete"));
+  await click("Publish CatalogAsset", card("seed-incomplete"));
+  assert.match(card("seed-incomplete").textContent, /State: Ready to reuse/);
 });
-
-test("Workshop reflection can complete the entire lifecycle without a dead end", async (t) => {
+test("Workshop reflection completes disposition, per-criterion support, review and publication", async (t) => {
   await fixture(t);
-  await act(async () => sidebarButton(document, "Career knowledge").click());
+  await click("Career knowledge");
   await click("Expand Workshop reflection", card("intake"));
-  for (const next of ["Seeds", "Evidence & gaps"]) {
-    await click("Confirm human review", card("intake"));
-    await click(`Advance to ${next}`, card("intake"));
-  }
-  await click("Advance to Episodes", card("intake"));
-  assert.match(card("intake").textContent, /Blocked: Add an outcome evidence reference/);
-  await supplyEvidence("intake");
-  for (const next of ["Episodes", "Catalog assets"]) {
-    await click("Confirm human review", card("intake"));
-    await click(`Advance to ${next}`, card("intake"));
-    assert.match(card("intake").textContent, new RegExp(`State: ${next}`));
-  }
+  await click("Move to Triage", card("intake"));
+  await click("Develop scoped claim", card("intake"));
+  assert.match(document.querySelector('[role="alert"]').textContent, /scope/);
+  await input("Claim scope intake", "Facilitated a synthetic workshop");
+  await click("Develop scoped claim", card("intake"));
+  await support("intake");
+  await click("Review current revision", card("intake"));
+  await click("Publish CatalogAsset", card("intake"));
+  assert.match(card("intake").textContent, /State: Ready to reuse/);
+  await click("Applications");
+  const option = document.querySelector(
+    '[aria-label="Select factual asset"] option[value="intake"]'
+  );
+  assert.match(option.textContent, /Eligible/);
 });
-
-test("two application contexts retain their own search and placement through Catalog round trips", async (t) => {
+test("two application contexts retain independent search and surface through Catalog return", async (t) => {
   await fixture(t);
-  await act(async () => sidebarButton(document, "Applications").click());
+  await click("Applications");
   await click("Interview");
-  await searchApplications("systems");
-  await act(async () => document.querySelector('[aria-label="Open Operating systems application"]').click());
-  assert.equal(document.querySelector(".evidence-panel h2").textContent, "Operating systems");
-  assert.equal(document.querySelector('input[aria-label="Search applications"]').value, "");
-  assert.equal(document.querySelector(".projection strong").textContent, "Resume");
+  await input("Search applications", "systems");
+  await act(() =>
+    document
+      .querySelector('[aria-label="Open Operating systems application"]')
+      .click()
+  );
+  assert.equal(
+    document.querySelector('[aria-label="Search applications"]').value,
+    ""
+  );
   await click("Cover letter");
-  await searchApplications("product");
+  await input("Search applications", "product");
   await click("Open in Catalog Development");
-  assert.equal(card("gaps").querySelector('[aria-expanded]').getAttribute("aria-expanded"), "true");
-  assert.equal(card("market-entry").querySelector('[aria-expanded]').getAttribute("aria-expanded"), "false");
+  assert.equal(
+    card("seed-incomplete")
+      .querySelector("[aria-expanded]")
+      .getAttribute("aria-expanded"),
+    "true"
+  );
   await click("Return to Operating systems application");
-  assert.equal(document.querySelector(".evidence-panel h2").textContent, "Operating systems");
-  assert.equal(document.querySelector(".projection strong").textContent, "Cover letter");
-  assert.equal(document.querySelector('input[aria-label="Search applications"]').value, "product");
-  await act(async () => document.querySelector('[aria-label="Open Product strategy application"]').click());
-  assert.equal(document.querySelector(".evidence-panel h2").textContent, "Product strategy");
-  assert.equal(document.querySelector(".projection strong").textContent, "Interview");
-  assert.equal(document.querySelector('input[aria-label="Search applications"]').value, "systems");
-  await click("Open in Catalog Development");
-  assert.equal(card("market-entry").querySelector('[aria-expanded]').getAttribute("aria-expanded"), "true");
-  assert.equal(card("gaps").querySelector('[aria-expanded]').getAttribute("aria-expanded"), "false");
-  await click("Return to Product strategy application");
-  assert.equal(document.querySelector(".projection strong").textContent, "Interview");
-  assert.equal(document.querySelector('input[aria-label="Search applications"]').value, "systems");
+  assert.equal(
+    document.querySelector(".projection strong").textContent,
+    "Cover letter"
+  );
+  assert.equal(
+    document.querySelector('[aria-label="Search applications"]').value,
+    "product"
+  );
+  await act(() =>
+    document
+      .querySelector('[aria-label="Open Product strategy application"]')
+      .click()
+  );
+  assert.equal(
+    document.querySelector(".projection strong").textContent,
+    "Interview"
+  );
+  assert.equal(
+    document.querySelector('[aria-label="Search applications"]').value,
+    "systems"
+  );
 });

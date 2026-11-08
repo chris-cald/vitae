@@ -38,3 +38,49 @@ CHROMIUM=/absolute/path/to/chrome-headless-shell node frontend-draft/test/mobile
 It checks rendered control visibility and interaction at 390px and 480px. It is
 an explicit browser gate, separate from the JSDOM suite; it does not assert Figma
 visual parity. Stop the dev server after validation.
+
+## Connected synthetic lifecycles (WI-069)
+
+`src/connected.ts` is the shared, typed in-memory domain for every draft view.
+Reloading resets the session. Use invented text only; nothing is uploaded or
+fetched. The two initial applications share one published asset and have
+separate requirements, drafts, search, surfaces, notes, decisions and events.
+
+- **Application cycle:** New application / Add → confirm Target → choose eligible
+  support and surface → assemble → resolve unsupported claims → review → ready →
+  confirm submission date/channel → interview/follow-up/outcome, or withdrawal.
+  Action forms are incremental. Cancel does not record a material event.
+- **Catalog cycle:** Evidence inbox → Triage (choose scope/disposition) → Build
+  support (objective, responsibility, outcome, significance, each corroborated)
+  → review current revision → publish → Ready to reuse. Reviewed discard retains
+  its reason and is never eligible. A gap opens the relevant card and returns to
+  the same application and surface.
+- **Revision rules:** Support/scope edits revoke source review/publication and
+  stale only dependent projections, fits and bundles. Republish the source,
+  explicitly refresh each affected projection, reassemble and review. Submitted
+  snapshots do not change. Projected wording is never an independent source.
+- **Bundle inspection:** Resume, communication and interview blocks expose
+  source IDs/revisions and reference IDs, targeting-only JD context, manifest,
+  support summary and unresolved claims. Unsupported wording can be excluded or
+  replaced with an eligible asset's actual supported scope; review cannot bless
+  an unsupported claim. Empty communication surfaces show only a nonfactual
+  synthetic salutation, not fabricated accomplishments.
+
+WI-068's Consider maps to Evidence inbox; Seeds to disposition-focused Triage;
+Evidence & gaps and Episodes are reconciled into Build support with explicit
+per-criterion formalization; Catalog assets becomes Ready to reuse, separately
+labeling factual assets and grounded wording projections. Entity kinds are not
+board statuses. Existing Catalog-return, search/surface isolation, local support
+selection and human-review gates remain regression-tested under these semantics.
+
+Material activity means confirmed creation and lifecycle actions (ready,
+submission, interview, follow-up, outcome, withdrawal). Draft placement, notes,
+bundle assembly/review and claim decisions update their inspectable records;
+navigation, edits and cancellation do not manufacture lifecycle events.
+
+Validation: `npm --prefix frontend-draft run check` runs domain/DOM tests,
+TypeScript and build. The real-Chromium mobile gate above checks 390px and 480px,
+including visible creation controls, full evidence promotion and Catalog return.
+Figma exports informed board readiness/color grouping; no visual-parity claim.
+WI-070 owns independent browser/design validation. This is not live UAT or
+completion of WI-050/WI-057.

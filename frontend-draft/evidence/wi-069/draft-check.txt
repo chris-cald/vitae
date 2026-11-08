@@ -1,0 +1,128 @@
+v22.17.0
+10.9.2
+
+> vitae-frontend-draft@0.0.0 check
+> npm test && npm run build
+
+
+> vitae-frontend-draft@0.0.0 test
+> tsx --test test/*.test.mjs
+
+TAP version 13
+# Subtest: creation is inline, cancellable, distinct and does not fabricate activity
+ok 1 - creation is inline, cancellable, distinct and does not fabricate activity
+  ---
+  duration_ms: 103.792709
+  type: 'test'
+  ...
+# Subtest: two complete application flows share catalog remediation without sharing drafts, search or surface
+ok 2 - two complete application flows share catalog remediation without sharing drafts, search or surface
+  ---
+  duration_ms: 215.923875
+  type: 'test'
+  ...
+# Subtest: two independent applications require current supported reviewed bundles and explicit material confirmation
+ok 3 - two independent applications require current supported reviewed bundles and explicit material confirmation
+  ---
+  duration_ms: 2.586209
+  type: 'test'
+  ...
+# Subtest: formalization demands evidence for every criterion and human review of current scope
+ok 4 - formalization demands evidence for every criterion and human review of current scope
+  ---
+  duration_ms: 0.417417
+  type: 'test'
+  ...
+# Subtest: shared fixture dependencies invalidate both applications while unrelated revisions stay current
+ok 5 - shared fixture dependencies invalidate both applications while unrelated revisions stay current
+  ---
+  duration_ms: 0.411291
+  type: 'test'
+  ...
+# Subtest: inbox priming and reviewed discard keep readiness separate from types and reject wrong-criterion evidence
+ok 6 - inbox priming and reviewed discard keep readiness separate from types and reject wrong-criterion evidence
+  ---
+  duration_ms: 0.327
+  type: 'test'
+  ...
+# Subtest: projection edits are local; unsupported claims need exclusion or supported replacement, not review
+ok 7 - projection edits are local; unsupported claims need exclusion or supported replacement, not review
+  ---
+  duration_ms: 0.233167
+  type: 'test'
+  ...
+# Subtest: invalid transitions, missing confirmation, invalid dates, terminal changes and duplicate material confirmations
+ok 8 - invalid transitions, missing confirmation, invalid dates, terminal changes and duplicate material confirmations
+  ---
+  duration_ms: 0.152917
+  type: 'test'
+  ...
+# Subtest: single accessible navigation, priorities and placement remain interactive
+ok 9 - single accessible navigation, priorities and placement remain interactive
+  ---
+  duration_ms: 89.899833
+  type: 'test'
+  ...
+# Subtest: navigation and cancelled creation never manufacture material events
+ok 10 - navigation and cancelled creation never manufacture material events
+  ---
+  duration_ms: 31.095666
+  type: 'test'
+  ...
+# Subtest: all entry points expose four readiness columns with expandable safe metadata
+ok 11 - all entry points expose four readiness columns with expandable safe metadata
+  ---
+  duration_ms: 59.439625
+  type: 'test'
+  ...
+# Subtest: publication blocks incomplete evidence and requires current human review
+ok 12 - publication blocks incomplete evidence and requires current human review
+  ---
+  duration_ms: 49.908875
+  type: 'test'
+  ...
+# Subtest: application evidence round trip retains selected surface and search
+ok 13 - application evidence round trip retains selected surface and search
+  ---
+  duration_ms: 29.261417
+  type: 'test'
+  ...
+# Subtest: editing support clears prior publication review, never the evidence requirement
+ok 14 - editing support clears prior publication review, never the evidence requirement
+  ---
+  duration_ms: 45.524542
+  type: 'test'
+  ...
+# Subtest: Workshop reflection completes disposition, per-criterion support, review and publication
+ok 15 - Workshop reflection completes disposition, per-criterion support, review and publication
+  ---
+  duration_ms: 48.124792
+  type: 'test'
+  ...
+# Subtest: two application contexts retain independent search and surface through Catalog return
+ok 16 - two application contexts retain independent search and surface through Catalog return
+  ---
+  duration_ms: 35.254667
+  type: 'test'
+  ...
+1..16
+# tests 16
+# suites 0
+# pass 16
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 1204.944917
+
+> vitae-frontend-draft@0.0.0 build
+> tsc --noEmit && vite build
+
+rolldown-vite v7.2.5 building client environment for production...
+[2Ktransforming...✓ 18 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                   0.40 kB │ gzip:  0.27 kB
+dist/assets/index-DcqpGG8M.css   11.83 kB │ gzip:  3.26 kB
+dist/assets/index-DL2Ik3aM.js   248.02 kB │ gzip: 76.24 kB
+✓ built in 85ms

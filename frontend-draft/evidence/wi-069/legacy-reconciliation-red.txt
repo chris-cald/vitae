@@ -1,0 +1,159 @@
+
+> vitae-frontend-draft@0.0.0 test
+> tsx --test test/*.test.mjs
+
+✔ creation is inline, cancellable, distinct and does not fabricate activity (90.926333ms)
+✔ two complete application flows share catalog remediation without sharing drafts, search or surface (132.527959ms)
+✔ two independent applications require current supported reviewed bundles and explicit material confirmation (2.774333ms)
+✔ formalization demands evidence for every criterion and human review of current scope (0.400792ms)
+✖ shared fixture dependencies invalidate both applications while unrelated revisions stay current (3.421875ms)
+✔ inbox priming and reviewed discard keep readiness separate from types and reject wrong-criterion evidence (0.295792ms)
+✖ projection edits are local; unsupported claims need exclusion or supported replacement, not review (0.11ms)
+✔ invalid transitions, missing confirmation, invalid dates, terminal changes and duplicate material confirmations (0.184041ms)
+✖ sidebar navigation and Product strategy evidence placement are interactive (80.593042ms)
+✖ mock action controls publish a status (14.709041ms)
+✖ Catalog Development is reachable from each workbench entry and exposes safe expandable cards (32.293708ms)
+✖ gates block missing evidence and require human review before advancing eligible episodes (10.281583ms)
+✖ application evidence opens the relevant asset and returns with placement and search intact (17.039208ms)
+✖ blocked evidence can be supplied locally, clears its gap and requires fresh human review (14.337375ms)
+✖ Workshop reflection can complete the entire lifecycle without a dead end (12.098667ms)
+✖ two application contexts retain their own search and placement through Catalog round trips (21.969833ms)
+ℹ tests 16
+ℹ suites 0
+ℹ pass 6
+ℹ fail 10
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 840.357958
+
+✖ failing tests:
+
+test at test/connected.test.mjs:54:1
+✖ shared fixture dependencies invalidate both applications while unrelated revisions stay current (3.421875ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(s.applications.every(a=>a.projections.some(p=>p.assetId==='asset-shared')))
+  
+      at TestContext.<anonymous> (file:///Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-069/frontend-draft/test/connected.test.mjs:56:9)
+      at Test.runInAsyncScope (node:async_hooks:226:14)
+      at Test.run (node:internal/test_runner/test:1402:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:974:18)
+      at Test.postRun (node:internal/test_runner/test:1542:19)
+      at Test.run (node:internal/test_runner/test:1467:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at test/connected.test.mjs:88:1
+✖ projection edits are local; unsupported claims need exclusion or supported replacement, not review (0.11ms)
+  Error: Bundle needs at least one eligible factual projection
+      at currentBundle (/Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-069/frontend-draft/src/connected.ts:100:33)
+      at reviewBundle (/Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-069/frontend-draft/src/connected.ts:103:76)
+      at TestContext.<anonymous> (file:///Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-069/frontend-draft/test/connected.test.mjs:90:19)
+      at Test.runInAsyncScope (node:async_hooks:226:14)
+      at Test.run (node:internal/test_runner/test:1402:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:974:18)
+      at Test.postRun (node:internal/test_runner/test:1542:19)
+      at Test.run (node:internal/test_runner/test:1467:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7)
+
+test at test/workbench.test.mjs:31:1
+✖ sidebar navigation and Product strategy evidence placement are interactive (80.593042ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /Priority in progress/. Input:
+  
+  'V vitaeWORKBENCHTodayApplicationsCareer knowledgeCatalogDeliverablesActivityDecisionsSources & evidenceMock workspaceSynthetic · in memory · no API callsCAREER OPERATING SYSTEMApplicationsSynthetic session onlyNew applicationApplication pipeline+ AddSearch applicationsProduct strategydraftOperating systemsdraftView all applications →Product strategyCollapse application detailsCanonical status: draftWorking step: Assemble current supported bundleTarget requirementsExplain launch decisions and research leadershipTarget/JD context only — never factual evidence.Supporting assetsGapsIncreased revenue by 80% (unconfirmed synthetic claim)Remediate support gapExclude unsupported claimReplace with selected supported scopeNotes referenceSave note referenceNotes (not evidence): NoneBundleFit review: Stale / not reviewed · Next action: Assemble current supported bundleAssemble bundleReview bundle Mark readySubmitRecord interviewRecord follow-upRecord outcomeWithdrawDecisionsMaterial eventsNo confirmed material events.EVIDENCE PLACEMENTProduct strategyEligible factual CatalogAssets only. Projections are derived wording, never evidence.Open in Catalog DevelopmentResumeCover letterInterviewSelect factual assetWorkshop reflection · Not eligibleStakeholder alignment · Not eligibleOperating cadence · Not eligibleResearch synthesis · EligibleMarket entry decision · EligibleDuplicate synthetic reminder · Not eligibleProjection draftResumeClarified a synthetic launch decision with researchAdd to Resume'
+  
+      at TestContext.<anonymous> (file:///Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-069/frontend-draft/test/workbench.test.mjs:49:10)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'V vitaeWORKBENCHTodayApplicationsCareer knowledgeCatalogDeliverablesActivityDecisionsSources & evidenceMock workspaceSynthetic · in memory · no API callsCAREER OPERATING SYSTEMApplicationsSynthetic session onlyNew applicationApplication pipeline+ AddSearch applicationsProduct strategydraftOperating systemsdraftView all applications →Product strategyCollapse application detailsCanonical status: draftWorking step: Assemble current supported bundleTarget requirementsExplain launch decisions and research leadershipTarget/JD context only — never factual evidence.Supporting assetsGapsIncreased revenue by 80% (unconfirmed synthetic claim)Remediate support gapExclude unsupported claimReplace with selected supported scopeNotes referenceSave note referenceNotes (not evidence): NoneBundleFit review: Stale / not reviewed · Next action: Assemble current supported bundleAssemble bundleReview bundle Mark readySubmitRecord interviewRecord follow-upRecord outcomeWithdrawDecisionsMaterial eventsNo confirmed material events.EVIDENCE PLACEMENTProduct strategyEligible factual CatalogAssets only. Projections are derived wording, never evidence.Open in Catalog DevelopmentResumeCover letterInterviewSelect factual assetWorkshop reflection · Not eligibleStakeholder alignment · Not eligibleOperating cadence · Not eligibleResearch synthesis · EligibleMarket entry decision · EligibleDuplicate synthetic reminder · Not eligibleProjection draftResumeClarified a synthetic launch decision with researchAdd to Resume',
+    expected: /Priority in progress/,
+    operator: 'match',
+    diff: 'simple'
+  }
+
+test at test/workbench.test.mjs:68:1
+✖ mock action controls publish a status (14.709041ms)
+  AssertionError [ERR_ASSERTION]: The "string" argument must be of type string. Received type undefined (undefined)
+      at TestContext.<anonymous> (file:///Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-069/frontend-draft/test/workbench.test.mjs:72:10)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: /Mock application created/,
+    operator: 'match',
+    diff: 'simple'
+  }
+
+test at test/workbench.test.mjs:90:1
+✖ Catalog Development is reachable from each workbench entry and exposes safe expandable cards (32.293708ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(document.querySelector(`[aria-label="${stage}"]`))
+  
+      at TestContext.<anonymous> (file:///Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-069/frontend-draft/test/workbench.test.mjs:99:12)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: null,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at test/workbench.test.mjs:113:1
+✖ gates block missing evidence and require human review before advancing eligible episodes (10.281583ms)
+  TypeError [Error]: Cannot read properties of null (reading 'querySelectorAll')
+      at button (file:///Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-069/frontend-draft/test/workbench.test.mjs:9:12)
+      at click (file:///Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-069/frontend-draft/test/workbench.test.mjs:82:13)
+      at TestContext.<anonymous> (file:///Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-069/frontend-draft/test/workbench.test.mjs:116:9)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7)
+
+test at test/workbench.test.mjs:136:1
+✖ application evidence opens the relevant asset and returns with placement and search intact (17.039208ms)
+  TypeError [Error]: Cannot read properties of null (reading 'querySelector')
+      at TestContext.<anonymous> (file:///Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-069/frontend-draft/test/workbench.test.mjs:146:36)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7)
+
+test at test/workbench.test.mjs:168:1
+✖ blocked evidence can be supplied locally, clears its gap and requires fresh human review (14.337375ms)
+  TypeError [Error]: Cannot read properties of null (reading 'querySelectorAll')
+      at button (file:///Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-069/frontend-draft/test/workbench.test.mjs:9:12)
+      at click (file:///Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-069/frontend-draft/test/workbench.test.mjs:82:13)
+      at TestContext.<anonymous> (file:///Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-069/frontend-draft/test/workbench.test.mjs:171:9)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7)
+
+test at test/workbench.test.mjs:186:1
+✖ Workshop reflection can complete the entire lifecycle without a dead end (12.098667ms)
+  AssertionError [ERR_ASSERTION]: Missing button: Confirm human review
+      at click (file:///Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-069/frontend-draft/test/workbench.test.mjs:82:10)
+      at TestContext.<anonymous> (file:///Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-069/frontend-draft/test/workbench.test.mjs:191:11)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at test/workbench.test.mjs:204:1
+✖ two application contexts retain their own search and placement through Catalog round trips (21.969833ms)
+  TypeError [Error]: Cannot read properties of null (reading 'querySelector')
+      at TestContext.<anonymous> (file:///Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-069/frontend-draft/test/workbench.test.mjs:216:28)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7)

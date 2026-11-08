@@ -1,0 +1,16 @@
+✔ creation is inline, cancellable, distinct and does not fabricate activity (92.040334ms)
+✔ two complete application flows share catalog remediation without sharing drafts, search or surface (124.854ms)
+✔ two independent applications require current supported reviewed bundles and explicit material confirmation (2.291708ms)
+✔ formalization demands evidence for every criterion and human review of current scope (0.531916ms)
+✔ shared fixture dependencies invalidate both applications while unrelated revisions stay current (0.408583ms)
+✔ inbox priming and reviewed discard keep readiness separate from types and reject wrong-criterion evidence (0.246542ms)
+✔ projection edits are local; unsupported claims need exclusion or supported replacement, not review (0.189625ms)
+✔ invalid transitions, missing confirmation, invalid dates, terminal changes and duplicate material confirmations (0.152834ms)
+ℹ tests 8
+ℹ suites 0
+ℹ pass 8
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 816.157916
