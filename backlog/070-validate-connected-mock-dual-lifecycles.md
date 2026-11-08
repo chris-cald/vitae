@@ -6,7 +6,7 @@ type: work-item
 subtype: story
 lifecycle: active
 status: ready
-status_reason: user-authorized-independent-mock-validation
+status_reason: prioritized
 priority: critical
 estimated: 5
 links:
