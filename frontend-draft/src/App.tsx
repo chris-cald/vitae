@@ -15,6 +15,9 @@ import {
   removeProjection,
   nextAction,
   references,
+  criteria,
+  assetGaps,
+  grounded,
   remediationAsset,
   missingBundleSurfaces,
   type Connected,
@@ -573,25 +576,126 @@ export default function App() {
               are ineligible factual sources.
             </p>
             {references.map((r) => (
-              <article className="list-card" key={r.id}>
+              <article
+                className="list-card"
+                id={`reference-${r.id}`}
+                key={r.id}
+              >
                 <strong>{r.title}</strong>
                 <span>
                   {r.id} · supports {r.criterion}
                 </span>
               </article>
             ))}
-            {state.assets.map((a) => (
-              <article className="list-card" key={a.id}>
-                <strong>{a.title}</strong>
-                <span>
-                  {a.kind} · {eligible(a) ? "Eligible" : "Not eligible"} ·
-                  revision {a.revision}
-                </span>
-                <button onClick={() => catalog(a.id, false)}>
-                  Inspect {a.title}
-                </button>
-              </article>
-            ))}
+            {state.assets.map((a) => {
+              const placements = state.applications.flatMap((application) =>
+                application.projections
+                  .filter((p) => p.assetId === a.id)
+                  .map((projection) => ({ application, projection }))
+              );
+              return (
+                <article
+                  className="catalog-card"
+                  aria-label={`${a.title} source links`}
+                  key={a.id}
+                >
+                  <h3>{a.title}</h3>
+                  <p>
+                    {a.kind} · {eligible(a) ? "Eligible" : "Not eligible"} ·
+                    revision {a.revision}
+                  </p>
+                  <p>Claim scope: {a.scope || "No claim scope supplied"}</p>
+                  {!eligible(a) && (
+                    <p>
+                      {a.disposition === "discard"
+                        ? `Reviewed discard — not factual evidence: ${a.discardReason}`
+                        : assetGaps(a).join("; ") ||
+                          "Current human review and publication required"}
+                    </p>
+                  )}
+                  <h4>Current criterion/reference associations</h4>
+                  {criteria.map((criterion) => (
+                    <section
+                      aria-label={`${criterion} support`}
+                      key={criterion}
+                    >
+                      <h4>{criterion}</h4>
+                      <p>{a[criterion] || "No criterion statement supplied"}</p>
+                      {a.evidence[criterion].length ? (
+                        <ul>
+                          {a.evidence[criterion].map((id) => {
+                            const reference = references.find(
+                              (r) => r.id === id && r.criterion === criterion
+                            );
+                            return (
+                              <li key={id}>
+                                {reference ? (
+                                  <a href={`#reference-${reference.id}`}>
+                                    {reference.id} · {reference.title}
+                                  </a>
+                                ) : (
+                                  `${id} — unsupported reference for ${criterion}`
+                                )}
+                              </li>
+                            );
+                          })}
+                        </ul>
+                      ) : (
+                        <p>No supporting reference</p>
+                      )}
+                    </section>
+                  ))}
+                  <h4>Current application placements</h4>
+                  {placements.length ? (
+                    <ul aria-label="Current application placements">
+                      {placements.map(({ application, projection }) => {
+                        const surface = surfaces.find(
+                          (item) => item.id === projection.surface
+                        )!.label;
+                        return (
+                          <li key={projection.id}>
+                            <p>
+                              {application.title} · {surface} ·{" "}
+                              {grounded(state, projection)
+                                ? "Grounded"
+                                : "Stale — source review/publication and projection refresh required"}
+                            </p>
+                            <p>
+                              Placed source: {projection.assetId}@
+                              {projection.sourceRevision}
+                            </p>
+                            <p>
+                              Placed reference snapshot:{" "}
+                              {projection.referenceIds.join(", ")}
+                            </p>
+                            <button
+                              onClick={() => {
+                                setAppId(application.id);
+                                run((s) =>
+                                  Object.assign(getApp(s, application.id), {
+                                    surface: projection.surface,
+                                    selectedAsset: a.id,
+                                    expanded: true,
+                                  })
+                                );
+                                navigate("applications");
+                              }}
+                            >
+                              Open {application.title} {surface} placement
+                            </button>
+                          </li>
+                        );
+                      })}
+                    </ul>
+                  ) : (
+                    <p>No application placements</p>
+                  )}
+                  <button onClick={() => catalog(a.id, false)}>
+                    Inspect {a.title}
+                  </button>
+                </article>
+              );
+            })}
           </section>
         )}
         {view === "deliverables" && (
