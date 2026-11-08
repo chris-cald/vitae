@@ -10,7 +10,7 @@ status_reason: prioritized
 priority: critical
 estimated: 5
 links:
-  parent:
+  reference:
     - '[[050-deliver-job-search-application-funnel-slice]]'
   depends_on:
     - '[[069-complete-connected-mock-dual-lifecycles]]'
@@ -25,6 +25,10 @@ tags:
 # Validate Connected Mock Dual Lifecycles
 
 Independent validator, not WI-069 implementer, must read WI-069 acceptance verbatim and verify every criterion against artifacts. Use a dedicated worktree. No production code, provider/vault/real data access, push or stash operations. WI-050 and WI-057 remain HITL live UAT, not completed by mock evidence.
+
+## Parent / Context
+
+This authorized independent mock-validation scope supports WI-050. The supported metadata reference preserves that context; it is not a hierarchy or completion of WI-050. Original authorization: `user-authorized-independent-mock-validation`.
 
 ## Acceptance Criteria
 
