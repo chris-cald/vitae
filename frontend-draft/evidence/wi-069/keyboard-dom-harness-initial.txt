@@ -1,0 +1,84 @@
+TAP version 13
+# TypeError: activeElement$1.attachEvent is not a function
+#     at handleEventsForInputEventPolyfill (/Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-069/frontend-draft/node_modules/react-dom/cjs/react-dom-client.development.js:3755:27)
+#     at /Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-069/frontend-draft/node_modules/react-dom/cjs/react-dom-client.development.js:21299:15
+#     at batchedUpdates$1 (/Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-069/frontend-draft/node_modules/react-dom/cjs/react-dom-client.development.js:3437:40)
+#     at dispatchEventForPluginEventSystem (/Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-069/frontend-draft/node_modules/react-dom/cjs/react-dom-client.development.js:21008:7)
+#     at dispatchEvent (/Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-069/frontend-draft/node_modules/react-dom/cjs/react-dom-client.development.js:26142:11)
+#     at dispatchDiscreteEvent (/Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-069/frontend-draft/node_modules/react-dom/cjs/react-dom-client.development.js:26110:11)
+#     at HTMLDivElement.callTheUserObjectsOperation (/Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-069/frontend-draft/node_modules/jsdom/lib/generated/idl/EventListener.js:26:30)
+#     at innerInvokeEventListeners (/Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-069/frontend-draft/node_modules/jsdom/lib/jsdom/living/events/EventTarget-impl.js:378:16)
+#     at invokeEventListeners (/Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-069/frontend-draft/node_modules/jsdom/lib/jsdom/living/events/EventTarget-impl.js:320:3)
+#     at HTMLInputElementImpl._dispatch (/Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-069/frontend-draft/node_modules/jsdom/lib/jsdom/living/events/EventTarget-impl.js:269:9)
+# Subtest: typing retains focus and published state; save applies one revision and only dependent invalidation
+not ok 1 - typing retains focus and published state; save applies one revision and only dependent invalidation
+  ---
+  duration_ms: 126.149
+  type: 'test'
+  location: '/Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-069/frontend-draft/test/catalog-edit.test.mjs:30:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected "actual" to be reference-equal to "expected":
+    + actual - expected
+
+    + HTMLBodyElement {}
+    - HTMLInputElement {
+    -   '__reactEvents$6wmjdx2gtvh': Set(1) {
+    -     'invalid__bubble'
+    -   },
+    -   _valueTracker: {
+    -     getValue: [Function: getValue],
+    -     setValue: [Function: setValue],
+    -     stopTracking: [Function: stopTracking]
+    -   },
+    -   value: [Getter/Setter: 'Clarified a synthetic launch decision with research ']
+    - }
+
+  code: 'ERR_TEST_FAILURE'
+  ...
+# TypeError: activeElement$1.detachEvent is not a function
+#     at stopWatchingForValueChange (/Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-069/frontend-draft/node_modules/react-dom/cjs/react-dom-client.development.js:3728:26)
+#     at handleEventsForInputEventPolyfill (/Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-069/frontend-draft/node_modules/react-dom/cjs/react-dom-client.development.js:3752:12)
+#     at /Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-069/frontend-draft/node_modules/react-dom/cjs/react-dom-client.development.js:21299:15
+#     at batchedUpdates$1 (/Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-069/frontend-draft/node_modules/react-dom/cjs/react-dom-client.development.js:3437:40)
+#     at dispatchEventForPluginEventSystem (/Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-069/frontend-draft/node_modules/react-dom/cjs/react-dom-client.development.js:21008:7)
+#     at dispatchEvent (/Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-069/frontend-draft/node_modules/react-dom/cjs/react-dom-client.development.js:26142:11)
+#     at dispatchDiscreteEvent (/Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-069/frontend-draft/node_modules/react-dom/cjs/react-dom-client.development.js:26110:11)
+#     at HTMLDivElement.callTheUserObjectsOperation (/Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-069/frontend-draft/node_modules/jsdom/lib/generated/idl/EventListener.js:26:30)
+#     at innerInvokeEventListeners (/Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-069/frontend-draft/node_modules/jsdom/lib/jsdom/living/events/EventTarget-impl.js:378:16)
+#     at invokeEventListeners (/Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-069/frontend-draft/node_modules/jsdom/lib/jsdom/living/events/EventTarget-impl.js:320:3)
+# Subtest: criterion and evidence drafts cancel or revert without revision/demotion/events
+not ok 2 - criterion and evidence drafts cancel or revert without revision/demotion/events
+  ---
+  duration_ms: 25.962542
+  type: 'test'
+  location: '/Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-069/frontend-draft/test/catalog-edit.test.mjs:44:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected "actual" to be reference-equal to "expected":
+    + actual - expected
+
+    + HTMLBodyElement {}
+    - HTMLInputElement {
+    -   '__reactEvents$6wmjdx2gtvh': Set(1) {
+    -     'invalid__bubble'
+    -   },
+    -   _valueTracker: {
+    -     getValue: [Function: getValue],
+    -     setValue: [Function: setValue],
+    -     stopTracking: [Function: stopTracking]
+    -   },
+    -   value: [Getter/Setter: 'Synthetic objective of launch research ']
+    - }
+
+  code: 'ERR_TEST_FAILURE'
+  ...
+1..2
+# tests 2
+# suites 0
+# pass 0
+# fail 2
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 1056.875
