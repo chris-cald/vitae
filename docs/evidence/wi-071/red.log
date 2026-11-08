@@ -1,0 +1,79 @@
+F                                                                        [100%]
+=================================== FAILURES ===================================
+_____ test_upload_regression_rejects_hostile_database_and_cleans_each_test _____
+
+tmp_path = PosixPath('/private/var/folders/n9/jd6_rpdj5p3fxyq0dgr1wvbh0000gn/T/pytest-of-macos/pytest-135/test_upload_regression_rejects0')
+
+    def test_upload_regression_rejects_hostile_database_and_cleans_each_test(tmp_path):
+        backend = Path(__file__).resolve().parents[1]
+        sentinel = tmp_path / "hostile.db"
+        sentinel.write_bytes(b"synthetic sentinel: never a database")
+        scratch = tmp_path / "scratch"
+        scratch.mkdir()
+        (tmp_path / "resource_guard.py").write_text(GUARD)
+        # Deliberately do not copy or inspect the caller's environment/credentials.
+        env = {
+            "PATH": str(Path(sys.executable).parent) + os.pathsep + "/usr/bin:/bin",
+            "PYTHONPATH": os.pathsep.join((str(tmp_path), str(backend))),
+            "PYTEST_DISABLE_PLUGIN_AUTOLOAD": "1",
+            "PYTHON_DOTENV_DISABLED": "1",
+            "DATABASE_URL": f"sqlite+aiosqlite:///{sentinel}",
+            "TMPDIR": str(scratch),
+            "HOME": str(scratch),
+            "LITELLM_LOCAL_MODEL_COST_MAP": "True",
+        }
+        target = "tests/test_integration_full.py::test_resume_upload_and_list"
+        result = subprocess.run(
+            [sys.executable, "-m", "pytest", "-q", "-p", "resource_guard",
+             "--keep-duplicates", target, target],
+            cwd=backend, env=env, capture_output=True, text=True,
+        )
+        assert sentinel.read_bytes() == b"synthetic sentinel: never a database"
+>       assert result.returncode == 0, result.stdout + result.stderr
+E       AssertionError:
+E         ==================================== ERRORS ====================================
+E         _______________ ERROR collecting tests/test_integration_full.py ________________
+E         tests/test_integration_full.py:9: in <module>
+E             from src.main import app
+E         src/main.py:2: in <module>
+E             from src.api.router.v1 import (
+E         src/api/router/v1/__init__.py:4: in <module>
+E             from .resume import resume_router
+E         src/api/router/v1/resume.py:12: in <module>
+E             from src.services import ResumeService
+E         src/services/__init__.py:2: in <module>
+E             from .resume_service import ResumeService
+E         src/services/resume_service.py:5: in <module>
+E             from db.db import AsyncSessionLocal
+E         db/db.py:13: in <module>
+E             engine = create_async_engine(DATABASE_URL, echo=False)
+E                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E         /private/var/folders/n9/jd6_rpdj5p3fxyq0dgr1wvbh0000gn/T/pytest-of-macos/pytest-135/test_upload_regression_rejects0/resource_guard.py:22: in engine
+E             allowed(parsed.database)
+E         /private/var/folders/n9/jd6_rpdj5p3fxyq0dgr1wvbh0000gn/T/pytest-of-macos/pytest-135/test_upload_regression_rejects0/resource_guard.py:15: in allowed
+E             assert path.is_relative_to(root), "unsafe database initialization/connection blocked"
+E         E   AssertionError: unsafe database initialization/connection blocked
+E         E   assert False
+E         E    +  where False = is_relative_to(PosixPath('/private/var/folders/n9/jd6_rpdj5p3fxyq0dgr1wvbh0000gn/T/pytest-of-macos/pytest-135/test_upload_regression_rejects0/scratch'))
+E         E    +    where is_relative_to = PosixPath('/private/var/folders/n9/jd6_rpdj5p3fxyq0dgr1wvbh0000gn/T/pytest-of-macos/pytest-135/test_upload_regression_rejects0/hostile.db').is_relative_to
+E         =============================== warnings summary ===============================
+E         .venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+E           /Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-071/backend/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+E             from starlette.testclient import TestClient as TestClient  # noqa
+E
+E         -- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+E         =========================== short test summary info ============================
+E         ERROR tests/test_integration_full.py - AssertionError: unsafe database initia...
+E         1 warning, 1 error in 1.69s
+E         ERROR: found no collectors for /Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-071/backend/tests/test_integration_full.py::test_resume_upload_and_list
+E
+E         ERROR: found no collectors for /Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-071/backend/tests/test_integration_full.py::test_resume_upload_and_list
+E
+E
+E       assert 4 == 0
+E        +  where 4 = CompletedProcess(args=['/Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-071/back...i-050-catalog-lifecycle/.a5c/worktrees/wi-071/backend/tests/test_integration_full.py::test_resume_upload_and_list\n\n').returncode
+
+tests/test_test_resource_isolation.py:91: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_test_resource_isolation.py::test_upload_regression_rejects_hostile_database_and_cleans_each_test
+1 failed in 4.51s

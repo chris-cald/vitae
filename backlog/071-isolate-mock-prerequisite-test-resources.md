@@ -5,8 +5,8 @@ summary: Prevent the synthetic upload regression from accessing configured datab
 type: work-item
 subtype: bug
 lifecycle: active
-status: ready
-status_reason: prioritized
+status: running
+status_reason: implementation
 priority: critical
 estimated: 2
 links:
