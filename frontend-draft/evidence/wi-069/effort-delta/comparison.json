@@ -1,0 +1,35 @@
+{
+  "schema_load_errors": {
+    "baseline": 86,
+    "candidate": 86,
+    "identical": true
+  },
+  "schema_violations": {
+    "baseline": 0,
+    "candidate": 0,
+    "identical": true
+  },
+  "parse_errors": {
+    "baseline": 0,
+    "candidate": 0,
+    "identical": true
+  },
+  "duplicate_ids": {
+    "baseline": 0,
+    "candidate": 0,
+    "identical": true
+  },
+  "unresolved_wikilinks": {
+    "baseline": 0,
+    "candidate": 0,
+    "identical": true
+  },
+  "full_lint_identical": true,
+  "base": "55584829b257f2ca9a8ff79f354c9b67b9719621",
+  "candidate": "f86d0791b4c64e3bffa11891e6cb9e1dd46fc6d1",
+  "normalization": "Only absolute checkout root in audit errors and process ID in Node warning; no diagnostics removed",
+  "global_pass": false,
+  "scoped_lint_exit": 0,
+  "composed_schema_tests": 9,
+  "upstream_defect": "WI-60527"
+}
