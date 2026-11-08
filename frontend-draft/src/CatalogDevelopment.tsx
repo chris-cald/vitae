@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useLayoutEffect, useRef, useState } from "react";
 import {
   criteria,
   stages,
@@ -13,7 +13,21 @@ import {
   reviewAsset,
   publishAsset,
   type Connected,
+  type Asset,
+  type Criterion,
 } from "./connected";
+
+type AssetDraft = Pick<Asset, "scope" | Criterion | "evidence">;
+function editable(a: Asset): AssetDraft {
+  return {
+    scope: a.scope,
+    objective: a.objective,
+    responsibility: a.responsibility,
+    outcome: a.outcome,
+    significance: a.significance,
+    evidence: a.evidence,
+  };
+}
 
 export function CatalogDevelopment({
   state,
@@ -29,6 +43,27 @@ export function CatalogDevelopment({
   const [discardReasons, setDiscardReasons] = useState<Record<string, string>>(
     {}
   );
+  const [drafts, setDrafts] = useState<Record<string, AssetDraft>>({});
+  const focusAfterCommit = useRef<string | null>(null);
+  useLayoutEffect(() => {
+    if (focusAfterCommit.current) {
+      document.getElementById(focusAfterCommit.current)?.focus();
+      focusAfterCommit.current = null;
+    }
+  }, [state.assets, drafts]);
+  function requireSaved(dirty: boolean, action: (s: Connected) => void) {
+    run((s) => {
+      if (dirty) throw Error("Save or cancel unsaved edits before this action");
+      action(s);
+    });
+  }
+  function clearDraft(id: string) {
+    setDrafts((current) => {
+      const next = { ...current };
+      delete next[id];
+      return next;
+    });
+  }
   return (
     <section
       className="catalog-development"
@@ -50,6 +85,9 @@ export function CatalogDevelopment({
               .map((a) => {
                 const open = expanded.includes(a.id),
                   gaps = assetGaps(a);
+                const draft = drafts[a.id] || editable(a);
+                const dirty =
+                  JSON.stringify(draft) !== JSON.stringify(editable(a));
                 return (
                   <article
                     className="catalog-card"
@@ -118,17 +156,45 @@ export function CatalogDevelopment({
                           </p>
                         ) : (
                           <>
+                            <p>
+                              Edits are local until Save revision. Cancel or
+                              leaving Catalog discards unsaved edits.
+                            </p>
+                            {dirty && (
+                              <p role="status">
+                                Unsaved edits — current published revision is
+                                unchanged. Save or cancel before
+                                review/publication.
+                              </p>
+                            )}
+                            <button
+                              id={`save-revision-${a.id}`}
+                              onClick={() => {
+                                if (dirty) {
+                                  focusAfterCommit.current = `save-revision-${a.id}`;
+                                  run((s) => editAsset(s, a.id, draft));
+                                }
+                                clearDraft(a.id);
+                              }}
+                            >
+                              Save revision
+                            </button>
+                            <button onClick={() => clearDraft(a.id)}>
+                              Cancel edits
+                            </button>
                             <label>
                               Claim scope
                               <input
                                 aria-label={`Claim scope ${a.id}`}
-                                value={a.scope}
+                                value={draft.scope}
                                 onInput={(e) =>
-                                  run((s) =>
-                                    editAsset(s, a.id, {
+                                  setDrafts({
+                                    ...drafts,
+                                    [a.id]: {
+                                      ...draft,
                                       scope: e.currentTarget.value,
-                                    })
-                                  )
+                                    },
+                                  })
                                 }
                               />
                             </label>
@@ -140,7 +206,11 @@ export function CatalogDevelopment({
                             </p>
                             {stage === "Evidence inbox" && (
                               <button
-                                onClick={() => run((s) => triageAsset(s, a.id))}
+                                onClick={() =>
+                                  requireSaved(dirty, (s) =>
+                                    triageAsset(s, a.id)
+                                  )
+                                }
                               >
                                 Move to Triage
                               </button>
@@ -148,7 +218,9 @@ export function CatalogDevelopment({
                             {stage === "Triage" && (
                               <button
                                 onClick={() =>
-                                  run((s) => primeAsset(s, a.id, a.scope))
+                                  requireSaved(dirty, (s) =>
+                                    primeAsset(s, a.id, a.scope)
+                                  )
                                 }
                               >
                                 Develop scoped claim
@@ -164,13 +236,15 @@ export function CatalogDevelopment({
                                       Episode {c}
                                       <input
                                         aria-label={`${c} ${a.id}`}
-                                        value={a[c]}
+                                        value={draft[c]}
                                         onInput={(e) =>
-                                          run((s) =>
-                                            editAsset(s, a.id, {
+                                          setDrafts({
+                                            ...drafts,
+                                            [a.id]: {
+                                              ...draft,
                                               [c]: e.currentTarget.value,
-                                            })
-                                          )
+                                            },
+                                          })
                                         }
                                       />
                                     </label>
@@ -178,17 +252,19 @@ export function CatalogDevelopment({
                                       Corroborating reference
                                       <select
                                         aria-label={`${c} evidence ${a.id}`}
-                                        value={a.evidence[c][0] || ""}
+                                        value={draft.evidence[c][0] || ""}
                                         onChange={(e) => {
                                           const value = e.currentTarget.value;
-                                          run((s) =>
-                                            editAsset(s, a.id, {
+                                          setDrafts({
+                                            ...drafts,
+                                            [a.id]: {
+                                              ...draft,
                                               evidence: {
-                                                ...a.evidence,
+                                                ...draft.evidence,
                                                 [c]: value ? [value] : [],
                                               },
-                                            })
-                                          );
+                                            },
+                                          });
                                         }}
                                       >
                                         <option value="">
@@ -218,14 +294,18 @@ export function CatalogDevelopment({
                                 </p>
                                 <button
                                   onClick={() =>
-                                    run((s) => reviewAsset(s, a.id))
+                                    requireSaved(dirty, (s) =>
+                                      reviewAsset(s, a.id)
+                                    )
                                   }
                                 >
                                   Review current revision
                                 </button>
                                 <button
                                   onClick={() =>
-                                    run((s) => publishAsset(s, a.id))
+                                    requireSaved(dirty, (s) =>
+                                      publishAsset(s, a.id)
+                                    )
                                   }
                                 >
                                   Publish CatalogAsset
@@ -249,7 +329,7 @@ export function CatalogDevelopment({
                               </label>
                               <button
                                 onClick={() =>
-                                  run((s) =>
+                                  requireSaved(dirty, (s) =>
                                     discardAsset(
                                       s,
                                       a.id,

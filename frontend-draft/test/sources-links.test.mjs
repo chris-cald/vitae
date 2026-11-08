@@ -119,6 +119,10 @@ test("Sources links criteria to references and live two-application usage, inclu
   );
   await click("Inspect Market entry decision");
   await select("objective evidence asset-shared", "");
+  await click(
+    "Save revision",
+    document.querySelector('[data-catalog-item="asset-shared"]')
+  );
   await click("Sources & evidence");
   assert.match(source("Market entry decision").textContent, /Not eligible/);
   assert.match(

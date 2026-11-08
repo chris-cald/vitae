@@ -168,6 +168,7 @@ test("publication blocks incomplete evidence and requires current human review",
     /criteria incomplete/
   );
   await support("seed-incomplete");
+  await click("Save revision", card("seed-incomplete"));
   await click("Publish CatalogAsset", card("seed-incomplete"));
   assert.match(
     document.querySelector('[role="alert"]').textContent,
@@ -204,8 +205,10 @@ test("editing support clears prior publication review, never the evidence requir
   await click("Career knowledge");
   await click("Expand Operating cadence", card("seed-incomplete"));
   await support("seed-incomplete");
+  await click("Save revision", card("seed-incomplete"));
   await click("Review current revision", card("seed-incomplete"));
   await input("outcome seed-incomplete", "Revised synthetic outcome");
+  await click("Save revision", card("seed-incomplete"));
   await click("Publish CatalogAsset", card("seed-incomplete"));
   assert.match(
     document.querySelector('[role="alert"]').textContent,
@@ -223,8 +226,10 @@ test("Workshop reflection completes disposition, per-criterion support, review a
   await click("Develop scoped claim", card("intake"));
   assert.match(document.querySelector('[role="alert"]').textContent, /scope/);
   await input("Claim scope intake", "Facilitated a synthetic workshop");
+  await click("Save revision", card("intake"));
   await click("Develop scoped claim", card("intake"));
   await support("intake");
+  await click("Save revision", card("intake"));
   await click("Review current revision", card("intake"));
   await click("Publish CatalogAsset", card("intake"));
   assert.match(card("intake").textContent, /State: Ready to reuse/);

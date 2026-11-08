@@ -98,6 +98,7 @@ test("P2 a selected unrelated dependency gap opens the affected asset and preser
     "Claim scope asset-unrelated",
     "Narrower synthetic research scope"
   );
+  await click("Save revision", card("asset-unrelated"));
   await click("Applications");
   await click("Remediate support gap");
   assert.equal(
@@ -117,6 +118,7 @@ test("P2 stale projections leave Ready to reuse until their source is republishe
   await click("Career knowledge");
   await click("Expand Market entry decision");
   await input("Claim scope asset-shared", "Narrower synthetic launch decision");
+  await click("Save revision", card("asset-shared"));
   const ready = document.querySelector('[aria-label="Ready to reuse"]');
   assert.doesNotMatch(ready.textContent, /Projection · Product strategy/);
   assert.match(

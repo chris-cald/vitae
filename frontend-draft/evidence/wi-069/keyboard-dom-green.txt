@@ -1,0 +1,22 @@
+TAP version 13
+# Subtest: typing retains focus and published state; save applies one revision and only dependent invalidation
+ok 1 - typing retains focus and published state; save applies one revision and only dependent invalidation
+  ---
+  duration_ms: 202.068834
+  type: 'test'
+  ...
+# Subtest: criterion and evidence drafts cancel or revert without revision/demotion/events
+ok 2 - criterion and evidence drafts cancel or revert without revision/demotion/events
+  ---
+  duration_ms: 51.355875
+  type: 'test'
+  ...
+1..2
+# tests 2
+# suites 0
+# pass 2
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 806.591458

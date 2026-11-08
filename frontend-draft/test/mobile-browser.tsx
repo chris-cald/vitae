@@ -62,6 +62,7 @@ try {
       select.dispatchEvent(new Event("change", { bubbles: true }));
     });
   }
+  click("Save revision", card);
   click("Review current revision", card);
   click("Publish CatalogAsset", card);
   card = document.querySelector('[data-catalog-item="seed-incomplete"]')!;

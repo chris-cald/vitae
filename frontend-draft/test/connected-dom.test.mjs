@@ -104,6 +104,7 @@ test("two complete application flows share catalog remediation without sharing d
     await input(`${criterion} seed-incomplete`, `Synthetic ${criterion}`);
     await select(`${criterion} evidence seed-incomplete`, `ref-${criterion}`);
   }
+  await click("Save revision", card("seed-incomplete"));
   await click("Review current revision", card("seed-incomplete"));
   await click("Publish CatalogAsset", card("seed-incomplete"));
   await click("Return to Operating systems application");
