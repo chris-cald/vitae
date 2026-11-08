@@ -10,11 +10,10 @@ status_reason: implementation
 priority: critical
 estimated: 8
 links:
-  parent:
-    - '[[050-deliver-job-search-application-funnel-slice]]'
   depends_on:
     - '[[068-build-catalog-development-board]]'
   reference:
+    - '[[050-deliver-job-search-application-funnel-slice]]'
     - '[[064-simplify-frontend-draft-navigation]]'
     - '[[067-make-sources-and-evidence-actionable]]'
 tags:
@@ -27,6 +26,10 @@ tags:
 # Complete Connected Mock Dual Lifecycles
 
 Implement intertwined Application lifecycle and Catalog-to-bundle work as ONE bounded stateful synthetic reference implementation in `frontend-draft/`. Start from reviewed WI-068 foundation 024f508. Preserve its working evidence gates and application-return behavior; adapt the board framing deliberately. No backend/API calls, real documents, remote content, production frontend changes, persistence requirement, generalized workflow engine, or claim of full MVP/live UAT completion. WI-050 and WI-057 remain outside closure scope.
+
+## Parent / Context
+
+This authorized mock-only child scope supports WI-050. The supported metadata reference preserves that context; it is not a hierarchy or completion of WI-050. Original authorization: `user-authorized-mock-dual-lifecycle`.
 
 ## Design and provenance
 
