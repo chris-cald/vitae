@@ -1,15 +1,17 @@
 import pytest
 
+from db.db import init_db
+
 from src.services import job_service as job_service_module
 from src.services.job_service import JobService
 
 
 @pytest.mark.asyncio
-async def test_job_upload_uses_local_parse_fallback_when_model_unavailable(monkeypatch, tmp_path):
+async def test_job_upload_uses_local_parse_fallback_when_model_unavailable(monkeypatch, isolated_test_resources):
+    await init_db()
     def fail_llm(prompt):
         raise RuntimeError("provider unavailable")
 
-    monkeypatch.setenv("UPLOAD_DIR", str(tmp_path))
     monkeypatch.setenv("VITAE_LOCAL_PARSE_FALLBACK", "1")
     monkeypatch.setattr(job_service_module, "call_llm_stub", fail_llm)
 

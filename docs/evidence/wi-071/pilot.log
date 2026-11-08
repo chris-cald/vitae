@@ -1,0 +1,449 @@
+Clean checkout revision: e7f90af2c0a1e62476c66d2fa7e12287f886ee93
+v22.17.0
+10.9.2
+
+> pilot:rehearse
+> npm run test:release && npm run check && npm run test:schema && npm run test:career-core && npm run validate:backlog
+
+
+> test:release
+> node --test test/release-validation.test.mjs
+
+TAP version 13
+# Subtest: root validation uses the locked backend environment and frontend TS gates
+ok 1 - root validation uses the locked backend environment and frontend TS gates
+  ---
+  duration_ms: 0.564083
+  type: 'test'
+  ...
+# Subtest: rehearsal verifies the documented synthetic demo contract
+ok 2 - rehearsal verifies the documented synthetic demo contract
+  ---
+  duration_ms: 1.725916
+  type: 'test'
+  ...
+1..2
+# tests 2
+# suites 0
+# pass 2
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 354.688667
+
+> check
+> npm run test:backend && npm run test:frontend && npm run typecheck && npm run lint && npm --prefix frontend run build
+
+
+> test:backend
+> uv --directory backend run --locked --no-sync python -m pytest
+
+============================= test session starts ==============================
+platform darwin -- Python 3.12.15, pytest-9.1.1, pluggy-1.7.0
+rootdir: /Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-071/backend
+configfile: pyproject.toml
+plugins: asyncio-1.4.0, anyio-4.15.1
+asyncio: mode=Mode.STRICT, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+collected 131 items
+
+tests/test_application_bundle_service.py ..........                      [  7%]
+tests/test_book_of_work_adapter.py ....                                  [ 10%]
+tests/test_career_inventory_service.py .........                         [ 17%]
+tests/test_expanded_mvp_uat_api.py .                                     [ 18%]
+tests/test_expanded_mvp_uat_service.py ..                                [ 19%]
+tests/test_generation_input_resolver.py ...                              [ 22%]
+tests/test_integration.py sss                                            [ 24%]
+tests/test_integration_full.py .ss                                       [ 26%]
+tests/test_job_fit_service.py .                                          [ 27%]
+tests/test_job_service_local_fallback.py .                               [ 28%]
+tests/test_litellm_config.py .                                           [ 29%]
+tests/test_mvp_application_loop_api.py .                                 [ 29%]
+tests/test_mvp_application_loop_service.py ..                            [ 31%]
+tests/test_pi_openai_bridge.py ...                                       [ 33%]
+tests/test_privacy_logging.py ...                                        [ 35%]
+tests/test_profile_category_detection.py ..                              [ 37%]
+tests/test_resume_service_local_fallback.py .                            [ 38%]
+tests/test_runtime_activity_dispatch.py ..                               [ 39%]
+tests/test_runtime_execution_adapter.py ....                             [ 42%]
+tests/test_runtime_execution_api.py ........................             [ 61%]
+tests/test_runtime_execution_contract.py ........................        [ 79%]
+tests/test_runtime_execution_migration.py .                              [ 80%]
+tests/test_runtime_workflow_contract.py ....                             [ 83%]
+tests/test_temporal_worker_config.py ...                                 [ 85%]
+tests/test_temporal_worker_entrypoint.py ..                              [ 87%]
+tests/test_test_resource_isolation.py .                                  [ 87%]
+tests/test_uat_evidence.py ..............                                [ 98%]
+tests/test_upload_routes.py ..                                           [100%]
+
+=============================== warnings summary ===============================
+.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-071/backend/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+tests/test_job_service_local_fallback.py::test_job_upload_uses_local_parse_fallback_when_model_unavailable
+  /Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-071/backend/src/services/job_service.py:208: PydanticDeprecatedSince20: The `__fields__` attribute is deprecated, use the `model_fields` class property instead. Deprecated in Pydantic V2.0 to be removed in V3.0. See Pydantic V2 Migration Guide at https://errors.pydantic.dev/2.14/migration/
+    job_fields = set(JobModel.__fields__.keys())
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+================== 126 passed, 5 skipped, 2 warnings in 7.86s ==================
+
+> test:frontend
+> npm --prefix frontend run test:behavior
+
+
+> frontend@0.0.0 test:behavior
+> node --test test/*.test.mjs
+
+TAP version 13
+# Subtest: job-fit API flow scopes bundle detail and material events
+ok 1 - job-fit API flow scopes bundle detail and material events
+  ---
+  duration_ms: 11.763375
+  type: 'test'
+  ...
+# Subtest: runtime execution API sends opaque workflow control only
+ok 2 - runtime execution API sends opaque workflow control only
+  ---
+  duration_ms: 1.3525
+  type: 'test'
+  ...
+# Subtest: runtime controls let a user start and cancel an opaque refresh execution
+ok 3 - runtime controls let a user start and cancel an opaque refresh execution
+  ---
+  duration_ms: 24.046916
+  type: 'test'
+  ...
+# Subtest: runtime controls reuse an idempotency key after an uncertain start error
+ok 4 - runtime controls reuse an idempotency key after an uncertain start error
+  ---
+  duration_ms: 10.21425
+  type: 'test'
+  ...
+# Subtest: runtime controls restore an opaque execution after remounting in the same authorization scope
+ok 5 - runtime controls restore an opaque execution after remounting in the same authorization scope
+  ---
+  duration_ms: 16.202292
+  type: 'test'
+  ...
+# Subtest: runtime controls ignore a completed start from a prior authorization scope
+ok 6 - runtime controls ignore a completed start from a prior authorization scope
+  ---
+  duration_ms: 8.389042
+  type: 'test'
+  ...
+# Subtest: runtime controls reuse a pending idempotency key after remounting
+ok 7 - runtime controls reuse a pending idempotency key after remounting
+  ---
+  duration_ms: 12.114583
+  type: 'test'
+  ...
+# Subtest: runtime controls isolate a pending retry by authorization scope and clear a corrected-token error
+ok 8 - runtime controls isolate a pending retry by authorization scope and clear a corrected-token error
+  ---
+  duration_ms: 9.905417
+  type: 'test'
+  ...
+# Subtest: career inventory lets users refresh a displayed Book of Work state
+ok 9 - career inventory lets users refresh a displayed Book of Work state
+  ---
+  duration_ms: 8.210166
+  type: 'test'
+  ...
+# Subtest: career inventory API uses metadata-only AFK actions
+ok 10 - career inventory API uses metadata-only AFK actions
+  ---
+  duration_ms: 1.026375
+  type: 'test'
+  ...
+# Subtest: workspace ignores create, refresh, and event responses from a prior job fit
+ok 11 - workspace ignores create, refresh, and event responses from a prior job fit
+  ---
+  duration_ms: 25.62325
+  type: 'test'
+  ...
+# Subtest: workspace marks a stale Book of Work source without exposing its path
+ok 12 - workspace marks a stale Book of Work source without exposing its path
+  ---
+  duration_ms: 10.667833
+  type: 'test'
+  ...
+# Subtest: workspace labels target context as non-evidence after creating a bundle
+ok 13 - workspace labels target context as non-evidence after creating a bundle
+  ---
+  duration_ms: 5.636541
+  type: 'test'
+  ...
+# Subtest: ESM config files avoid CommonJS globals
+ok 14 - ESM config files avoid CommonJS globals
+  ---
+  duration_ms: 0.776458
+  type: 'test'
+  ...
+# Subtest: uses one accessible responsive collapsible left navigation
+ok 15 - uses one accessible responsive collapsible left navigation
+  ---
+  duration_ms: 0.48775
+  type: 'test'
+  ...
+# Subtest: collapses and changes the active view through native buttons
+ok 16 - collapses and changes the active view through native buttons
+  ---
+  duration_ms: 50.546333
+  type: 'test'
+  ...
+# Subtest: starts collapsed on mobile with distinct visible navigation labels
+ok 17 - starts collapsed on mobile with distinct visible navigation labels
+  ---
+  duration_ms: 14.32225
+  type: 'test'
+  ...
+# Subtest: Playwright/Cucumber UAT fixture is wired to WI-040 evidence
+ok 18 - Playwright/Cucumber UAT fixture is wired to WI-040 evidence
+  ---
+  duration_ms: 0.842167
+  type: 'test'
+  ...
+# Subtest: local UAT orchestrator has CI-friendly phases and artifact capture
+ok 19 - local UAT orchestrator has CI-friendly phases and artifact capture
+  ---
+  duration_ms: 1.114334
+  type: 'test'
+  ...
+1..19
+# tests 19
+# suites 0
+# pass 19
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 460.281417
+
+> typecheck
+> npm --prefix frontend run typecheck
+
+
+> frontend@0.0.0 typecheck
+> tsc --noEmit
+
+
+> lint
+> npm --prefix frontend run lint
+
+
+> frontend@0.0.0 lint
+> eslint .
+
+
+> frontend@0.0.0 build
+> vite build
+
+rolldown-vite v7.2.5 building client environment for production...
+
+transforming...✓ 40 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                   0.45 kB │ gzip:  0.29 kB
+dist/assets/index-BKi8opIH.css   28.11 kB │ gzip:  6.12 kB
+dist/assets/index-CdFm2bi6.js   263.73 kB │ gzip: 79.42 kB
+✓ built in 290ms
+
+> test:schema
+> node --test schemas/career/test/canonical-domain-contract.test.mjs
+
+TAP version 13
+# Subtest: vendored templjs packages include immutable provenance and license notices
+ok 1 - vendored templjs packages include immutable provenance and license notices
+  ---
+  duration_ms: 0.893
+  type: 'test'
+  ...
+# Subtest: SourceAsset accepts a provenance-addressable career source
+ok 2 - SourceAsset accepts a provenance-addressable career source
+  ---
+  duration_ms: 28.687375
+  type: 'test'
+  ...
+# Subtest: SourceAsset rejects a source without an immutable source reference
+ok 3 - SourceAsset rejects a source without an immutable source reference
+  ---
+  duration_ms: 14.262834
+  type: 'test'
+  ...
+# Subtest: the default SourceAsset template is valid templjs and renders the source identity
+ok 4 - the default SourceAsset template is valid templjs and renders the source identity
+  ---
+  duration_ms: 302.55725
+  type: 'test'
+  ...
+# Subtest: anonymized Obsidian Seed fixtures preserve vault metadata and harvest provenance
+ok 5 - anonymized Obsidian Seed fixtures preserve vault metadata and harvest provenance
+  ---
+  duration_ms: 16.64875
+  type: 'test'
+  ...
+# Subtest: one SourceAsset can harvest multiple distinct Seed topics
+ok 6 - one SourceAsset can harvest multiple distinct Seed topics
+  ---
+  duration_ms: 11.236666
+  type: 'test'
+  ...
+# Subtest: the six core-loop fixtures validate and render through their default templates
+ok 7 - the six core-loop fixtures validate and render through their default templates
+  ---
+  duration_ms: 712.094
+  type: 'test'
+  ...
+# Subtest: confirmed Episodes are validated CatalogAssets with structured episode evidence
+ok 8 - confirmed Episodes are validated CatalogAssets with structured episode evidence
+  ---
+  duration_ms: 8.568625
+  type: 'test'
+  ...
+# Subtest: a Projection requires validated CatalogAsset derivation and cannot be first factual evidence
+ok 9 - a Projection requires validated CatalogAsset derivation and cannot be first factual evidence
+  ---
+  duration_ms: 8.508417
+  type: 'test'
+  ...
+# Subtest: embedded fit mappings and application-bundled deliverables preserve claim provenance
+ok 10 - embedded fit mappings and application-bundled deliverables preserve claim provenance
+  ---
+  duration_ms: 55.015542
+  type: 'test'
+  ...
+# Subtest: Fit-analysis requirement mappings accept structured generation gaps and reject extras
+ok 11 - Fit-analysis requirement mappings accept structured generation gaps and reject extras
+  ---
+  duration_ms: 8.4025
+  type: 'test'
+  ...
+# Subtest: promotion requires substantiation and a validated CatalogAsset, never a Projection
+ok 12 - promotion requires substantiation and a validated CatalogAsset, never a Projection
+  ---
+  duration_ms: 8.452167
+  type: 'test'
+  ...
+# Subtest: Applications and ApplicationRecords reference general Notes rather than embedded prose or SourceAssets
+ok 13 - Applications and ApplicationRecords reference general Notes rather than embedded prose or SourceAssets
+  ---
+  duration_ms: 33.948459
+  type: 'test'
+  ...
+# Subtest: generic Deliverables cannot claim the cover-letter deliverable type
+ok 14 - generic Deliverables cannot claim the cover-letter deliverable type
+  ---
+  duration_ms: 7.80425
+  type: 'test'
+  ...
+# Subtest: Deliverable templates render each content block support or confirmation state
+ok 15 - Deliverable templates render each content block support or confirmation state
+  ---
+  duration_ms: 277.963667
+  type: 'test'
+  ...
+# Subtest: Notes capture general discovered details without becoming Evidence
+ok 16 - Notes capture general discovered details without becoming Evidence
+  ---
+  duration_ms: 143.337541
+  type: 'test'
+  ...
+# Subtest: catalog-distillation Workflows declare the ordered Harvest, Cull, Prime, and Substantiate stage contracts
+ok 17 - catalog-distillation Workflows declare the ordered Harvest, Cull, Prime, and Substantiate stage contracts
+  ---
+  duration_ms: 11.346
+  type: 'test'
+  ...
+# Subtest: WorkflowRuns distinguish one execution from its definition and retain only safe output telemetry
+ok 18 - WorkflowRuns distinguish one execution from its definition and retain only safe output telemetry
+  ---
+  duration_ms: 270.78225
+  type: 'test'
+  ...
+# Subtest: WorkflowRun approval and promotion guards preserve destructive-cull and validated-CatalogAsset boundaries
+ok 19 - WorkflowRun approval and promotion guards preserve destructive-cull and validated-CatalogAsset boundaries
+  ---
+  duration_ms: 0.661625
+  type: 'test'
+  ...
+# Subtest: the canonical registry gives every MVP type its own schema and default templjs template
+ok 20 - the canonical registry gives every MVP type its own schema and default templjs template
+  ---
+  duration_ms: 3172.022625
+  type: 'test'
+  ...
+1..20
+# tests 20
+# suites 0
+# pass 20
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 5184.538209
+
+> test:career-core
+> node --experimental-strip-types --test services/career-core/test/*.test.ts
+
+TAP version 13
+# (node:20274) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: keeps model-proposed Seed, CatalogAsset, and pebble outcomes distinct for one source
+ok 1 - keeps model-proposed Seed, CatalogAsset, and pebble outcomes distinct for one source
+  ---
+  duration_ms: 0.792
+  type: 'test'
+  ...
+# Subtest: does not materialize a model-proposed CatalogAsset without human approval and evidence
+ok 2 - does not materialize a model-proposed CatalogAsset without human approval and evidence
+  ---
+  duration_ms: 0.210709
+  type: 'test'
+  ...
+# Subtest: rejects duplicate topic IDs so one topic has only one current outcome
+ok 3 - rejects duplicate topic IDs so one topic has only one current outcome
+  ---
+  duration_ms: 0.072583
+  type: 'test'
+  ...
+# Subtest: rejects blank evidence and unknown model-proposed outcomes
+ok 4 - rejects blank evidence and unknown model-proposed outcomes
+  ---
+  duration_ms: 0.081667
+  type: 'test'
+  ...
+# Subtest: does not provide automatic Seed promotion
+ok 5 - does not provide automatic Seed promotion
+  ---
+  duration_ms: 0.133125
+  type: 'test'
+  ...
+1..5
+# tests 5
+# suites 0
+# pass 5
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 85.213416
+
+> validate:backlog
+> dv backlog validate --dir backlog --fail-on error
+
+(node:20306) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+Backlog Audit Report
+===================
+files=155 duplicate_ids=0 unresolved_wikilinks=0 parse_errors=0 schema_violations=0 no_inbound_active=6
+
+No-Inbound Active Candidates:
+- backlog/012-split-scoring-from-recommendation-generation.md | status=ready | id=wi-012
+- backlog/013-prototype-career-graph-projection-for-bullets-and-requirements.md | status=ready | id=wi-013
+- backlog/014-introduce-typed-frontend-backend-api-contract.md | status=ready | id=wi-014
+- backlog/015-evaluate-templjs-backed-resume-variant-rendering.md | status=ready | id=wi-015
+- backlog/017-integrate-agent-workflows-for-work-order-execution.md | status=ready | id=wi-017
+- backlog/018-add-adr-prd-frontmatter-validation-tooling.md | status=ready | id=wi-018
+
+exit_code=0
