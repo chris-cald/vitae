@@ -1,14 +1,14 @@
 ---
 id: wi-070
 title: Validate Connected Mock Dual Lifecycles
-summary: Independently validate synthetic dual-flow behavior, browser access, design inspiration and guarded main integration.
+summary: Independently validate WI-069 mock journeys, visual intent, isolation and release gates.
 type: work-item
 subtype: story
 lifecycle: active
 status: ready
-status_reason: awaits-connected-mock-implementation
+status_reason: user-authorized-independent-mock-validation
 priority: critical
-estimated: 3
+estimated: 5
 links:
   parent:
     - '[[050-deliver-job-search-application-funnel-slice]]'
@@ -17,26 +17,23 @@ links:
 tags:
   - afk
   - frontend
-  - validation
   - mock-only
+  - validation
+  - privacy
 ---
 
 # Validate Connected Mock Dual Lifecycles
 
-Independent validation child for WI-069, not a second implementation of its intertwined features. Use a dedicated worktree rooted at the integrated reviewed implementation; independent reviewer must differ from implementer. Read WI-069 original criteria verbatim. Scope is the local synthetic `frontend-draft/` reference application only. No production APIs/persistence, real data, push, stash changes, unknown worktree deletion or full MVP/live-UAT completion claims.
+Independent validator, not WI-069 implementer, must read WI-069 acceptance verbatim and verify every criterion against artifacts. Use a dedicated worktree. No production code, provider/vault/real data access, push or stash operations. WI-050 and WI-057 remain HITL live UAT, not completed by mock evidence.
 
 ## Acceptance Criteria
 
-- [ ] Independently review exact implementation revisions against every original WI-069 criterion. Findings receive test-first remediation and re-review; tests assert domain outcomes rather than generic notices or button existence.
-- [ ] Real Chromium pointer and keyboard journeys cover create/cancel, blocked and allowed gates, review, submission with date/channel, interview, follow-up, outcome and withdrawal; navigation/cancel/edit emit no material events, repeated confirmation emits no duplicate, and two application records stay isolated.
-- [ ] Real Chromium covers application gap -> Catalog priming/substantiation/publication -> original application/surface return -> eligible projection -> inspectable resume/communication bundle -> unsupported-claim correction -> current-revision review. Verify selective staleness and immutable submitted snapshots.
-- [ ] Desktop plus 390px and 480px layouts retain essential controls, readable expanding details/forms, visible keyboard focus and sensible focus after dismissal. Capture synthetic screenshots for collapsed/expanded cards, blocked/allowed gates, bundle review and cross-flow return. Assert no external networking or backend/API requests; allow only local assets/tooling.
-- [ ] Record genuine read-only Figma-to-screen comparison with intentional differences. Verified board26:754 work columns are Evidence inbox, Triage, Build support, Ready to reuse; entity kinds are not statuses, and grounded Projections are not factual evidence. Inspect page0:1 and frames application21:178, decision21:276, source21:355, deliverable21:428, timeline21:506, catalog21:587, evidence placement29:969. Use live reference or honestly sourced exports/cached verified snapshots; a transport failure remains an explicit visual-evidence gap, never fabricated parity. User requests inspiration, not pixel equality.
-- [ ] Focused/domain/DOM tests, explicit draft check, browser gates, root check and clean-checkout pilot pass at recorded SHAs. Root gates do not replace draft gates. Record actual commands, outcomes, warnings, evidence and skipped scope.
-- [ ] After independent approval, fetch origin, reconcile any real divergence explicitly, perform normal guarded local integration into main, and validate the integrated result. Preserve user stash/unknown worktrees and record exact committed SHAs and cleanup disposition. No push. Completed-active local closure is distinct from provider/merged-PR archive; do not call provider finalize without real publication evidence.
+- [ ] Real Chromium journeys at desktop, 390 and 480 widths exercise pointer and keyboard focus, two independent applications, guided creation/cancel, required-field blockers, every canonical transition and event deduplication.
+- [ ] Exercise Catalog priming, criterion evidence, episode formalization, current-revision publication review, reviewed discard, application/surface-specific placement, gap remediation return, eligibility exclusions, grounded projections, unsupported bundle claims, selective revision invalidation and immutable submitted snapshots.
+- [ ] Verify Today, Sources, Decisions, Deliverables and Activity derive consistent shared state; no generic Mock action recorded proof or false success.
+- [ ] Capture screenshots of blocked and allowed gates and cross-flow. Compare genuinely with live read-only Figma channel 7kka page 0:1 board26:754 and frames21:178,21:276,21:355,21:428,21:506,21:587,29:969. Document intentional differences; no unsupported pixel parity claim. Entity types are not sequential statuses; board uses readiness/disposition/support/validation gates.
+- [ ] Prove mock-network isolation with browser request evidence; local tooling/assets only.
+- [ ] Run focused tests, explicit npm --prefix frontend-draft run check, root npm run check and clean-checkout npm run pilot:rehearse using pinned dependencies. Preserve logs, screenshots and inspectable evidence manifest.
+- [ ] Independent acceptance/review identifies failures honestly. Record evidence and scoped commits with supported DV transition/finalize/claim release. Main integration only after evidence/review/closure gates, fetch origin before normal merge, rerun gates, no push or stash changes.
 
-## Evidence and authority
-
-User authorizes scoped work-item provisioning, implementation/evidence/closure commits and normal main merge after gates. WI-068 is completed foundation024f508 and must not be reopened or represented as unverified work. WI-050/WI-057 remain outside closure. Do not change original acceptance text to fit implementation. Review reports and synthetic screenshots may be tracked in scoped docs/artifacts, never secrets or private runtime state.
-
-The installed Babysitter-DV process is under the original repository `.a5c/processes/babysitter-dv/process.mjs`. Use runtime CLI `/Users/macos/Library/pnpm/doc-vader-runtime/dist/cli/doc-vader.js`. Preserve immutable input and failed evidence if lifecycle transitions make final replay mismatch; supported append-only administrative seal is only available after verified complete local delivery, not as a product gate substitute.
+WI-069 owns implementation; report remediation to orchestrator rather than silently implementing it here. Missing Figma access or failed validation is a blocker, not permission to fabricate evidence.
