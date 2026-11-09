@@ -1,0 +1,47 @@
+
+> vitae-frontend-draft@0.0.0 test
+> tsx --test test/*.test.mjs
+
+node:internal/modules/esm/resolve:241
+    throw new ERR_MODULE_NOT_FOUND(
+          ^
+
+Error [ERR_MODULE_NOT_FOUND]: Cannot find module '/Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-069/frontend-draft/src/connected.ts' imported from /Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-069/frontend-draft/test/connected.test.mjs
+    at finalizeResolution (node:internal/modules/esm/resolve:241:11)
+    at moduleResolve (node:internal/modules/esm/resolve:846:10)
+    at defaultResolve (node:internal/modules/esm/resolve:973:11)
+    at #cachedDefaultResolve (node:internal/modules/esm/loader:752:20)
+    at #resolveAndMaybeBlockOnLoaderThread (node:internal/modules/esm/loader:772:38)
+    at nextStep (node:internal/modules/customization_hooks:189:26)
+    at resolveBaseSync (file:///Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-069/frontend-draft/node_modules/tsx/dist/register-nyXW-TH3.mjs:2:11092)
+    at resolveDirectorySync (file:///Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-069/frontend-draft/node_modules/tsx/dist/register-nyXW-TH3.mjs:2:12398)
+    at resolveTsPathsSync (file:///Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-069/frontend-draft/node_modules/tsx/dist/register-nyXW-TH3.mjs:2:13605)
+    at resolve (file:///Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-069/frontend-draft/node_modules/tsx/dist/register-nyXW-TH3.mjs:2:16832) {
+  code: 'ERR_MODULE_NOT_FOUND',
+  url: 'file:///Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-069/frontend-draft/src/connected.ts'
+}
+
+Node.js v26.12.0
+✖ test/connected.test.mjs (104.67975ms)
+✔ sidebar navigation and Product strategy evidence placement are interactive (93.020958ms)
+✔ mock action controls publish a status (23.617375ms)
+✔ Catalog Development is reachable from each workbench entry and exposes safe expandable cards (43.264458ms)
+✔ gates block missing evidence and require human review before advancing eligible episodes (34.795084ms)
+✔ application evidence opens the relevant asset and returns with placement and search intact (18.406334ms)
+✔ blocked evidence can be supplied locally, clears its gap and requires fresh human review (19.236625ms)
+✔ Workshop reflection can complete the entire lifecycle without a dead end (24.584084ms)
+✔ two application contexts retain their own search and placement through Catalog round trips (26.571333ms)
+ℹ tests 9
+ℹ suites 0
+ℹ pass 8
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1091.6605
+
+✖ failing tests:
+
+test at test/connected.test.mjs:1:1
+✖ test/connected.test.mjs (104.67975ms)
+  'test failed'

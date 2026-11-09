@@ -1,0 +1,216 @@
+
+> check
+> npm run test:backend && npm run test:frontend && npm run typecheck && npm run lint && npm --prefix frontend run build
+
+
+> test:backend
+> uv --directory backend run --locked --no-sync python -m pytest
+
+============================= test session starts ==============================
+platform darwin -- Python 3.12.15, pytest-9.1.1, pluggy-1.7.0
+rootdir: /Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-069/backend
+configfile: pyproject.toml
+plugins: asyncio-1.4.0, anyio-4.15.1
+asyncio: mode=Mode.STRICT, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+collected 130 items
+
+tests/test_application_bundle_service.py ..........                      [  7%]
+tests/test_book_of_work_adapter.py ....                                  [ 10%]
+tests/test_career_inventory_service.py .........                         [ 17%]
+tests/test_expanded_mvp_uat_api.py .                                     [ 18%]
+tests/test_expanded_mvp_uat_service.py ..                                [ 20%]
+tests/test_generation_input_resolver.py ...                              [ 22%]
+tests/test_integration.py sss                                            [ 24%]
+tests/test_integration_full.py .ss                                       [ 26%]
+tests/test_job_fit_service.py .                                          [ 27%]
+tests/test_job_service_local_fallback.py .                               [ 28%]
+tests/test_litellm_config.py .                                           [ 29%]
+tests/test_mvp_application_loop_api.py .                                 [ 30%]
+tests/test_mvp_application_loop_service.py ..                            [ 31%]
+tests/test_pi_openai_bridge.py ...                                       [ 33%]
+tests/test_privacy_logging.py ...                                        [ 36%]
+tests/test_profile_category_detection.py ..                              [ 37%]
+tests/test_resume_service_local_fallback.py .                            [ 38%]
+tests/test_runtime_activity_dispatch.py ..                               [ 40%]
+tests/test_runtime_execution_adapter.py ....                             [ 43%]
+tests/test_runtime_execution_api.py ........................             [ 61%]
+tests/test_runtime_execution_contract.py ........................        [ 80%]
+tests/test_runtime_execution_migration.py .                              [ 80%]
+tests/test_runtime_workflow_contract.py ....                             [ 83%]
+tests/test_temporal_worker_config.py ...                                 [ 86%]
+tests/test_temporal_worker_entrypoint.py ..                              [ 87%]
+tests/test_uat_evidence.py ..............                                [ 98%]
+tests/test_upload_routes.py ..                                           [100%]
+
+=============================== warnings summary ===============================
+.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-069/backend/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+tests/test_job_service_local_fallback.py::test_job_upload_uses_local_parse_fallback_when_model_unavailable
+  /Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-069/backend/src/services/job_service.py:208: PydanticDeprecatedSince20: The `__fields__` attribute is deprecated, use the `model_fields` class property instead. Deprecated in Pydantic V2.0 to be removed in V3.0. See Pydantic V2 Migration Guide at https://errors.pydantic.dev/2.14/migration/
+    job_fields = set(JobModel.__fields__.keys())
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+================= 125 passed, 5 skipped, 2 warnings in 44.87s ==================
+
+> test:frontend
+> npm --prefix frontend run test:behavior
+
+
+> frontend@0.0.0 test:behavior
+> node --test test/*.test.mjs
+
+TAP version 13
+# Subtest: job-fit API flow scopes bundle detail and material events
+ok 1 - job-fit API flow scopes bundle detail and material events
+  ---
+  duration_ms: 12.525834
+  type: 'test'
+  ...
+# Subtest: runtime execution API sends opaque workflow control only
+ok 2 - runtime execution API sends opaque workflow control only
+  ---
+  duration_ms: 1.155208
+  type: 'test'
+  ...
+# Subtest: runtime controls let a user start and cancel an opaque refresh execution
+ok 3 - runtime controls let a user start and cancel an opaque refresh execution
+  ---
+  duration_ms: 23.973
+  type: 'test'
+  ...
+# Subtest: runtime controls reuse an idempotency key after an uncertain start error
+ok 4 - runtime controls reuse an idempotency key after an uncertain start error
+  ---
+  duration_ms: 10.194292
+  type: 'test'
+  ...
+# Subtest: runtime controls restore an opaque execution after remounting in the same authorization scope
+ok 5 - runtime controls restore an opaque execution after remounting in the same authorization scope
+  ---
+  duration_ms: 14.829209
+  type: 'test'
+  ...
+# Subtest: runtime controls ignore a completed start from a prior authorization scope
+ok 6 - runtime controls ignore a completed start from a prior authorization scope
+  ---
+  duration_ms: 7.945875
+  type: 'test'
+  ...
+# Subtest: runtime controls reuse a pending idempotency key after remounting
+ok 7 - runtime controls reuse a pending idempotency key after remounting
+  ---
+  duration_ms: 12.5255
+  type: 'test'
+  ...
+# Subtest: runtime controls isolate a pending retry by authorization scope and clear a corrected-token error
+ok 8 - runtime controls isolate a pending retry by authorization scope and clear a corrected-token error
+  ---
+  duration_ms: 9.737292
+  type: 'test'
+  ...
+# Subtest: career inventory lets users refresh a displayed Book of Work state
+ok 9 - career inventory lets users refresh a displayed Book of Work state
+  ---
+  duration_ms: 9.614667
+  type: 'test'
+  ...
+# Subtest: career inventory API uses metadata-only AFK actions
+ok 10 - career inventory API uses metadata-only AFK actions
+  ---
+  duration_ms: 0.882958
+  type: 'test'
+  ...
+# Subtest: workspace ignores create, refresh, and event responses from a prior job fit
+ok 11 - workspace ignores create, refresh, and event responses from a prior job fit
+  ---
+  duration_ms: 26.892042
+  type: 'test'
+  ...
+# Subtest: workspace marks a stale Book of Work source without exposing its path
+ok 12 - workspace marks a stale Book of Work source without exposing its path
+  ---
+  duration_ms: 9.143084
+  type: 'test'
+  ...
+# Subtest: workspace labels target context as non-evidence after creating a bundle
+ok 13 - workspace labels target context as non-evidence after creating a bundle
+  ---
+  duration_ms: 5.638584
+  type: 'test'
+  ...
+# Subtest: ESM config files avoid CommonJS globals
+ok 14 - ESM config files avoid CommonJS globals
+  ---
+  duration_ms: 1.099
+  type: 'test'
+  ...
+# Subtest: uses one accessible responsive collapsible left navigation
+ok 15 - uses one accessible responsive collapsible left navigation
+  ---
+  duration_ms: 0.465583
+  type: 'test'
+  ...
+# Subtest: collapses and changes the active view through native buttons
+ok 16 - collapses and changes the active view through native buttons
+  ---
+  duration_ms: 48.609917
+  type: 'test'
+  ...
+# Subtest: starts collapsed on mobile with distinct visible navigation labels
+ok 17 - starts collapsed on mobile with distinct visible navigation labels
+  ---
+  duration_ms: 13.553708
+  type: 'test'
+  ...
+# Subtest: Playwright/Cucumber UAT fixture is wired to WI-040 evidence
+ok 18 - Playwright/Cucumber UAT fixture is wired to WI-040 evidence
+  ---
+  duration_ms: 1.318916
+  type: 'test'
+  ...
+# Subtest: local UAT orchestrator has CI-friendly phases and artifact capture
+ok 19 - local UAT orchestrator has CI-friendly phases and artifact capture
+  ---
+  duration_ms: 1.975208
+  type: 'test'
+  ...
+1..19
+# tests 19
+# suites 0
+# pass 19
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 461.139583
+
+> typecheck
+> npm --prefix frontend run typecheck
+
+
+> frontend@0.0.0 typecheck
+> tsc --noEmit
+
+
+> lint
+> npm --prefix frontend run lint
+
+
+> frontend@0.0.0 lint
+> eslint .
+
+
+> frontend@0.0.0 build
+> vite build
+
+rolldown-vite v7.2.5 building client environment for production...
+[2K
+transforming...✓ 40 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                   0.45 kB │ gzip:  0.29 kB
+dist/assets/index-BKi8opIH.css   28.11 kB │ gzip:  6.12 kB
+dist/assets/index-CdFm2bi6.js   263.73 kB │ gzip: 79.42 kB
+✓ built in 725ms

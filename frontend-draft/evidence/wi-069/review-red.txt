@@ -1,0 +1,95 @@
+TAP version 13
+# Subtest: P2 reassembly cannot leave ready status paired with an unreviewed bundle
+not ok 1 - P2 reassembly cannot leave ready status paired with an unreviewed bundle
+  ---
+  duration_ms: 1.167
+  type: 'test'
+  location: '/Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-069/frontend-draft/test/review-regressions.test.mjs:60:1'
+  failureType: 'testCodeFailure'
+  error: 'ready requires both current bundle and fit review'
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  actual: false
+  operator: '=='
+  stack: |-
+    TestContext.<anonymous> (file:///Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-069/frontend-draft/test/review-regressions.test.mjs:65:9)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.start (node:internal/test_runner/test:944:17)
+    startSubtestAfterBootstrap (node:internal/test_runner/harness:296:17)
+  ...
+# Subtest: P2 a selected unrelated dependency gap opens the affected asset and preserves application/surface
+not ok 2 - P2 a selected unrelated dependency gap opens the affected asset and preserves application/surface
+  ---
+  duration_ms: 109.062166
+  type: 'test'
+  location: '/Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-069/frontend-draft/test/review-regressions.test.mjs:67:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+
+    'false' !== 'true'
+
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 'true'
+  actual: 'false'
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-069/frontend-draft/test/review-regressions.test.mjs:71:9)
+    async Test.run (node:internal/test_runner/test:1054:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: P2 stale projections leave Ready to reuse until their source is republished and projection refreshed
+not ok 3 - P2 stale projections leave Ready to reuse until their source is republished and projection refreshed
+  ---
+  duration_ms: 22.074958
+  type: 'test'
+  location: '/Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-069/frontend-draft/test/review-regressions.test.mjs:74:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    The input was expected to not match the regular expression /Projection · Product strategy/. Input:
+
+    'Ready to reuseResearch synthesisState: Ready to reuse · Kind: CatalogAsset · Revision 1Expand Research synthesisProjection · Product strategyDerived wording, never factual evidence · interviewClarified a synthetic launch decision with researchasset-shared@1 · Stale — refresh from reviewed sourceProjection · Operating systemsDerived wording, never factual evidence · resumeClarified a synthetic launch decision with researchasset-shared@1 · Stale — refresh from reviewed source'
+
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected:
+  actual: 'Ready to reuseResearch synthesisState: Ready to reuse · Kind: CatalogAsset · Revision 1Expand Research synthesisProjection · Product strategyDerived wording, never factual evidence · interviewClarified a synthetic launch decision with researchasset-shared@1 · Stale — refresh from reviewed sourceProjection · Operating systemsDerived wording, never factual evidence · resumeClarified a synthetic launch decision with researchasset-shared@1 · Stale — refresh from reviewed source'
+  operator: 'doesNotMatch'
+  stack: |-
+    TestContext.<anonymous> (file:///Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-069/frontend-draft/test/review-regressions.test.mjs:77:9)
+    async Test.run (node:internal/test_runner/test:1054:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: P2 readiness needs factual resume AND communication blocks in manifest and submitted snapshot
+not ok 4 - P2 readiness needs factual resume AND communication blocks in manifest and submitted snapshot
+  ---
+  duration_ms: 0.274042
+  type: 'test'
+  location: '/Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-069/frontend-draft/test/review-regressions.test.mjs:84:1'
+  failureType: 'testCodeFailure'
+  error: 'Missing expected exception.'
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected:
+  operator: 'throws'
+  stack: |-
+    TestContext.<anonymous> (file:///Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-069/frontend-draft/test/review-regressions.test.mjs:86:9)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+1..4
+# tests 4
+# suites 0
+# pass 0
+# fail 4
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 733.34125

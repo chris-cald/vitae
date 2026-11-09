@@ -1,0 +1,133 @@
+TAP version 13
+# Subtest: browser runner bounds both viewport processes to 60 seconds without changing arguments
+not ok 1 - browser runner bounds both viewport processes to 60 seconds without changing arguments
+  ---
+  duration_ms: 4.95475
+  type: 'test'
+  location: '/Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-069/frontend-draft/test/mobile-runner.test.mjs:34:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly deep-equal:
+    + actual - expected
+    ... Skipped lines
+
+      [
+        '/synthetic/chromium',
+        [
+          '--headless',
+          '--no-sandbox',
+    ...
+          encoding: 'utf8',
+    -     timeout: 60000
+        }
+      ]
+
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected:
+    0: '/synthetic/chromium'
+    1:
+      0: '--headless'
+      1: '--no-sandbox'
+      2: '--disable-gpu'
+      3: '--window-size=390,844'
+      4: '--dump-dom'
+      5: 'http://127.0.0.1:5178/test/mobile.html'
+    2:
+      encoding: 'utf8'
+      timeout: 60000
+  actual:
+    0: '/synthetic/chromium'
+    1:
+      0: '--headless'
+      1: '--no-sandbox'
+      2: '--disable-gpu'
+      3: '--window-size=390,844'
+      4: '--dump-dom'
+      5: 'http://127.0.0.1:5178/test/mobile.html'
+    2:
+      encoding: 'utf8'
+  operator: 'deepStrictEqual'
+  stack: |-
+    file:///Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-069/frontend-draft/test/mobile-runner.test.mjs:39:14
+    async withBrowserResult (file:///Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-069/frontend-draft/test/mobile-runner.test.mjs:18:5)
+    async TestContext.<anonymous> (file:///Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-069/frontend-draft/test/mobile-runner.test.mjs:35:3)
+    async Test.run (node:internal/test_runner/test:1054:7)
+    async startSubtestAfterBootstrap (node:internal/test_runner/harness:296:3)
+  ...
+# Subtest: browser runner reports ETIMEDOUT before checking status or parsing stdout
+not ok 2 - browser runner reports ETIMEDOUT before checking status or parsing stdout
+  ---
+  duration_ms: 2.984792
+  type: 'test'
+  location: '/Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-069/frontend-draft/test/mobile-runner.test.mjs:49:3'
+  failureType: 'testCodeFailure'
+  error: |-
+    The input did not match the regular expression /Synthetic spawn failure: ETIMEDOUT/. Input:
+
+    'AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n' +
+      '\n' +
+      'null !== 0\n'
+
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected:
+  actual:
+  error: |-
+    Expected values to be strictly equal:
+
+    null !== 0
+
+  stack: |-
+    file:///Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-069/frontend-draft/test/mobile.browser.mjs?case=browser%20runner%20reports%20ETIMEDOUT%20before%20checking%20status%20or%20parsing%20stdout:8:10
+    ModuleJob.run (node:internal/modules/esm/module_job:329:25)
+    async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:644:26)
+    async waitForActual (node:assert:565:5)
+    async Function.rejects (node:assert:686:25)
+    async file:///Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-069/frontend-draft/test/mobile-runner.test.mjs:52:7
+    async withBrowserResult (file:///Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-069/frontend-draft/test/mobile-runner.test.mjs:18:5)
+    async TestContext.<anonymous> (file:///Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-069/frontend-draft/test/mobile-runner.test.mjs:51:5)
+    async Test.run (node:internal/test_runner/test:1054:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  operator: 'rejects'
+  stack: |-
+    async file:///Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-069/frontend-draft/test/mobile-runner.test.mjs:52:7
+    async withBrowserResult (file:///Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-069/frontend-draft/test/mobile-runner.test.mjs:18:5)
+    async TestContext.<anonymous> (file:///Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-069/frontend-draft/test/mobile-runner.test.mjs:51:5)
+    async Test.run (node:internal/test_runner/test:1054:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: browser runner reports ENOENT before checking status or parsing stdout
+not ok 3 - browser runner reports ENOENT before checking status or parsing stdout
+  ---
+  duration_ms: 1.113666
+  type: 'test'
+  location: '/Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-069/frontend-draft/test/mobile-runner.test.mjs:49:3'
+  failureType: 'testCodeFailure'
+  error: 'Missing expected rejection.'
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected:
+  operator: 'rejects'
+  stack: |-
+    async file:///Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-069/frontend-draft/test/mobile-runner.test.mjs:52:7
+    async withBrowserResult (file:///Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-069/frontend-draft/test/mobile-runner.test.mjs:18:5)
+    async TestContext.<anonymous> (file:///Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-069/frontend-draft/test/mobile-runner.test.mjs:51:5)
+    async Test.run (node:internal/test_runner/test:1054:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: browser runner still rejects nonzero status without a spawn error
+ok 4 - browser runner still rejects nonzero status without a spawn error
+  ---
+  duration_ms: 1.261292
+  type: 'test'
+  ...
+1..4
+# tests 4
+# suites 0
+# pass 1
+# fail 3
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 56.110667

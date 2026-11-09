@@ -1,0 +1,27 @@
+{
+  "validatedCommit": "c5f263232ea3ea6388544aa4900b5c3cfff8328f",
+  "cleanCheckout": "/tmp/vitae-wi069-clean-rehearsal",
+  "artifacts": [
+    {
+      "source": "/tmp/vitae-wi069-pinned-setup.log",
+      "originalSha256": "ee24cf530dec1b2b3774b091181b9100809024df332589bd98e7abd499dc5502",
+      "artifact": "pinned-setup.txt",
+      "sha256": "ee24cf530dec1b2b3774b091181b9100809024df332589bd98e7abd499dc5502",
+      "normalization": "trailing whitespace only"
+    },
+    {
+      "source": "/tmp/vitae-wi069-root-check-after-setup.log",
+      "originalSha256": "fe66b568a9b90b3537df1209e936efc5b9670a3a9c66edfb3d4948049baff123",
+      "artifact": "root-check-after-setup.txt",
+      "sha256": "7187aafac530ad24b8b70ab09c5e91226a0a6dcbb3884c0a89599d456d216496",
+      "normalization": "trailing whitespace only"
+    },
+    {
+      "source": "/tmp/vitae-wi069-clean-rehearsal.log",
+      "originalSha256": "c1f2ecc68282bc4442ec4ac1e255e61b9b263c491d87c64e6ed25ed0d8a6c8c5",
+      "artifact": "clean-checkout-rehearsal.txt",
+      "sha256": "f821f2b942e8069a32decf66d8e141c9bd15c4548ca31baf1cffa298c0750d23",
+      "normalization": "trailing whitespace only"
+    }
+  ]
+}

@@ -74,11 +74,10 @@ def _upload_job_and_list() -> List[Dict[str, Any]]:
 
 
 def test_resume_upload_and_list(
-    monkeypatch: pytest.MonkeyPatch, tmp_path: Any
+    monkeypatch: pytest.MonkeyPatch, isolated_test_resources
 ) -> None:
     """Upload through the app with the explicit local parse fallback."""
     monkeypatch.setenv("VITAE_LOCAL_PARSE_FALLBACK", "1")
-    monkeypatch.setenv("UPLOAD_DIR", str(tmp_path))
 
     def unavailable_model(_: str) -> str:
         raise RuntimeError("model unavailable")
@@ -91,7 +90,7 @@ def test_resume_upload_and_list(
         )
         assert response.status_code == 200, response.text
         resume_id = response.json()["resume_id"]
-        assert (tmp_path / resume_id).is_file()
+        assert (isolated_test_resources / resume_id).is_file()
 
         offset = 0
         while True:

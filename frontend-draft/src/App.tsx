@@ -1,162 +1,841 @@
 import { useState } from "react";
+import { CatalogDevelopment } from "./CatalogDevelopment";
 import { activeView, primaryViews, type ViewId } from "./workbench";
+import {
+  createConnected,
+  createApplication,
+  getApp,
+  eligible,
+  place,
+  assemble,
+  reviewBundle,
+  transition,
+  resolveClaim,
+  refreshProjection,
+  removeProjection,
+  nextAction,
+  references,
+  criteria,
+  assetGaps,
+  grounded,
+  remediationAsset,
+  missingBundleSurfaces,
+  type Connected,
+  type Application,
+  type Surface,
+  type Status,
+  type Bundle,
+} from "./connected";
 
-const applicationStages = ["New evidence", "Drafting", "Decision review"];
-const placements = ["Resume", "Cover letter", "Interview"] as const;
-type Placement = (typeof placements)[number];
-
+const surfaces: { label: string; id: Surface }[] = [
+  { label: "Resume", id: "resume" },
+  { label: "Cover letter", id: "communication" },
+  { label: "Interview", id: "interview" },
+];
 export default function App() {
-  const [view, setView] = useState<ViewId>("today");
-  const [placement, setPlacement] = useState<Placement>("Resume");
-  const [todayStarted, setTodayStarted] = useState(false);
-  const [applicationQuery, setApplicationQuery] = useState("");
-  const [notice, setNotice] = useState("");
-  const current = activeView(view);
-
+  const [state, setState] = useState(createConnected),
+    [view, setView] = useState<ViewId>("today"),
+    [appId, setAppId] = useState("app-a");
+  const [expanded, setExpanded] = useState<string[]>([]),
+    [returnTo, setReturnTo] = useState<string>(),
+    [error, setError] = useState("");
+  const [creating, setCreating] = useState(false),
+    [target, setTarget] = useState({ title: "", requirements: "" });
+  const app = getApp(state, appId);
+  function run(action: (s: Connected) => void) {
+    const draft = structuredClone(state);
+    try {
+      action(draft);
+      setState(draft);
+      setError("");
+    } catch (e) {
+      setError(`Blocked: ${e instanceof Error ? e.message : "Invalid action"}`);
+    }
+  }
+  function update(patch: Partial<Application>) {
+    run((s) => Object.assign(getApp(s, appId), patch));
+  }
+  function navigate(id: ViewId) {
+    setView(id);
+    setReturnTo(undefined);
+    setError("");
+  }
+  function catalog(id?: string, returning = true) {
+    setExpanded(id ? [id] : returning ? [remediationAsset(state, app)] : []);
+    setReturnTo(returning ? appId : undefined);
+    setView("knowledge");
+    setError("");
+  }
+  function begin(kind: Status | "follow-up") {
+    update({
+      action: {
+        kind,
+        date: "",
+        channel: "",
+        detail: "",
+        token: `${app.id}-${kind}-${state.nextId}`,
+      },
+    });
+  }
+  function startCreation() {
+    setTarget({ title: "", requirements: "" });
+    setCreating(true);
+    setError("");
+  }
   return (
     <main className="shell">
       <aside className="sidebar">
-        <div className="brand"><span>V</span> vitae</div>
+        <div className="brand">
+          <span>V</span> vitae
+        </div>
         <p className="sidebar-label">WORKBENCH</p>
         <nav aria-label="Primary workbench views">
           {primaryViews.map((item) => (
             <button
-              aria-current={view === item.id ? "page" : undefined}
               className={`nav-item ${view === item.id ? "selected" : ""}`}
+              aria-current={view === item.id ? "page" : undefined}
               key={item.id}
-              onClick={() => setView(item.id)}
-              type="button"
-            >
-              <span className="nav-dot" />{item.label}
-            </button>
-          ))}
-        </nav>
-        <div className="sidebar-foot">
-          <strong>Mock workspace</strong>
-          <span>Local-only draft · no API calls</span>
-        </div>
-      </aside>
-
-      <section className="main-area" onClick={(event) => {
-        const button = (event.target as HTMLElement).closest("button");
-        const label = button?.getAttribute("aria-label") ?? button?.textContent?.trim();
-        if (label && label !== "New application") setNotice(`Mock action recorded: ${label}`);
-      }}>
-        <header className="topbar">
-          <div>
-            <p className="eyebrow">CAREER OPERATING SYSTEM</p>
-            <h1>{current.label}</h1>
-          </div>
-          <div className="top-actions">
-            <span className="status"><i /> Evidence synced</span>
-            <button className="quiet-button" onClick={() => setNotice("Mock application created")} type="button">New application</button>
-          </div>
-        </header>
-
-        {notice && <p className="mock-notice" role="status">{notice}</p>}
-        <nav className="top-nav" aria-label="Workbench shortcuts">
-          {primaryViews.map((item) => (
-            <button
-              aria-pressed={view === item.id}
-              key={item.id}
-              onClick={() => setView(item.id)}
-              type="button"
+              onClick={() => navigate(item.id)}
             >
               {item.label}
             </button>
           ))}
         </nav>
-
-        {view === "today" && <TodayView started={todayStarted} onStart={() => setTodayStarted(true)} />}
-        {view === "applications" && <ApplicationWorkspace placement={placement} setPlacement={setPlacement} query={applicationQuery} setQuery={setApplicationQuery} />}
-        {view === "knowledge" && <KnowledgeView />}
-        {view === "catalog" && <CatalogView />}
-        {view === "deliverables" && <DeliverablesView />}
-        {(view === "activity" || view === "decisions") && <ActivityView decisionMode={view === "decisions"} />}
-        {view === "sources" && <SourcesView />}
+        <div className="sidebar-foot">
+          <strong>Mock workspace</strong>
+          <span>Synthetic · in memory · no API calls</span>
+        </div>
+      </aside>
+      <section className="main-area">
+        <header className="topbar">
+          <div>
+            <p className="eyebrow">CAREER OPERATING SYSTEM</p>
+            <h1>{activeView(view).label}</h1>
+          </div>
+          <div className="top-actions">
+            <span className="status">Synthetic session only</span>
+            <button className="quiet-button" onClick={startCreation}>
+              New application
+            </button>
+          </div>
+        </header>
+        {error && (
+          <p className="mock-notice" role="alert">
+            {error}
+          </p>
+        )}
+        {creating && (
+          <section className="single-view" aria-label="Create synthetic Target">
+            <h2>Create synthetic Target</h2>
+            <p>
+              Use invented context only. Target requirements are not factual
+              evidence.
+            </p>
+            <label>
+              Target title
+              <input
+                aria-label="Target title"
+                value={target.title}
+                onInput={(e) =>
+                  setTarget({ ...target, title: e.currentTarget.value })
+                }
+              />
+            </label>
+            <label>
+              Target requirements
+              <textarea
+                aria-label="Target requirements"
+                value={target.requirements}
+                onInput={(e) =>
+                  setTarget({ ...target, requirements: e.currentTarget.value })
+                }
+              />
+            </label>
+            <button
+              onClick={() =>
+                run((s) => {
+                  const created = createApplication(s, target, true)!;
+                  setAppId(created.id);
+                  setCreating(false);
+                  setView("applications");
+                })
+              }
+            >
+              Confirm creation
+            </button>
+            <button
+              onClick={() => {
+                setCreating(false);
+                setError("");
+              }}
+            >
+              Cancel creation
+            </button>
+          </section>
+        )}
+        {["today", "sources", "catalog"].includes(view) && (
+          <div className="catalog-entry">
+            <button onClick={() => catalog(undefined, false)}>
+              Open Catalog Development
+            </button>
+          </div>
+        )}
+        {view === "knowledge" && (
+          <>
+            {returnTo && (
+              <button
+                className="quiet-button"
+                onClick={() => {
+                  setAppId(returnTo);
+                  setReturnTo(undefined);
+                  setView("applications");
+                  setError("");
+                }}
+              >
+                Return to {getApp(state, returnTo).title} application
+              </button>
+            )}
+            <CatalogDevelopment
+              state={state}
+              run={run}
+              expanded={expanded}
+              setExpanded={setExpanded}
+            />
+          </>
+        )}
+        {view === "today" && (
+          <section className="single-view">
+            <h2>Today’s priorities</h2>
+            <p className="intro">
+              Live work queue from this synthetic session.
+            </p>
+            {state.applications.map((a) => (
+              <article className="decision-card" key={a.id}>
+                <div>
+                  <h3>{a.title}</h3>
+                  <p>
+                    {a.status} · {nextAction(a)}
+                  </p>
+                </div>
+                <button
+                  onClick={() => {
+                    setAppId(a.id);
+                    navigate("applications");
+                  }}
+                >
+                  Work on {a.title}
+                </button>
+              </article>
+            ))}
+            <button onClick={() => navigate("applications")}>
+              Start next priority
+            </button>
+          </section>
+        )}
+        {(view === "applications" || view === "catalog") && (
+          <div className="workspace">
+            <section className="panel applications-panel">
+              <div className="panel-heading">
+                <h2>Application pipeline</h2>
+                <button onClick={startCreation}>+ Add</button>
+              </div>
+              <label>
+                Search applications
+                <input
+                  type="search"
+                  aria-label="Search applications"
+                  value={app.query}
+                  onInput={(e) => update({ query: e.currentTarget.value })}
+                />
+              </label>
+              {state.applications
+                .filter((a) =>
+                  a.title.toLowerCase().includes(app.query.toLowerCase())
+                )
+                .map((a) => (
+                  <article data-application={a.id} key={a.id}>
+                    <button
+                      className={`application ${
+                        appId === a.id ? "active" : ""
+                      }`}
+                      aria-label={`Open ${a.title} application`}
+                      aria-expanded={appId === a.id && a.expanded}
+                      aria-controls={`application-${a.id}`}
+                      onClick={() => {
+                        setAppId(a.id);
+                        run((s) => {
+                          getApp(s, a.id).expanded = true;
+                        });
+                      }}
+                    >
+                      <span>{a.title}</span>
+                      <small>{a.status}</small>
+                    </button>
+                  </article>
+                ))}
+              <button onClick={() => update({ query: "" })}>
+                View all applications →
+              </button>
+            </section>
+            <section
+              className="panel decision-panel"
+              id={`application-${app.id}`}
+            >
+              <h2>{app.title}</h2>
+              <button onClick={() => update({ expanded: !app.expanded })}>
+                {app.expanded ? "Collapse" : "Expand"} application details
+              </button>
+              {app.expanded && (
+                <>
+                  <p>Canonical status: {app.status}</p>
+                  <p>Working step: {nextAction(app)}</p>
+                  <h3>Target requirements</h3>
+                  <p>{app.requirements}</p>
+                  <p>Target/JD context only — never factual evidence.</p>
+                  <h3>Supporting assets</h3>
+                  <ul>
+                    {app.projections.map((p) => (
+                      <li key={p.id}>
+                        {p.assetId}@{p.sourceRevision} · {p.surface} ·{" "}
+                        {p.stale ? "Stale" : "Grounded"}
+                        <p>{p.scope}</p>
+                        <small>{p.referenceIds.join(", ")}</small>
+                        {p.stale && (
+                          <button onClick={() => catalog(p.assetId)}>
+                            Remediate {p.assetId} on {p.surface}
+                          </button>
+                        )}
+                        <button
+                          onClick={() =>
+                            run((s) => refreshProjection(s, app.id, p.id))
+                          }
+                        >
+                          Review and refresh {p.surface} projection
+                        </button>
+                        <button
+                          onClick={() =>
+                            run((s) => removeProjection(s, app.id, p.id))
+                          }
+                        >
+                          Remove {p.surface} projection
+                        </button>
+                      </li>
+                    ))}
+                  </ul>
+                  <h3>Gaps</h3>
+                  <p>
+                    {app.unsupported ||
+                      (!app.projections.length
+                        ? "No factual support placed"
+                        : "Check source revisions and bundle review")}
+                  </p>
+                  <button onClick={() => catalog()}>
+                    Remediate support gap
+                  </button>
+                  {app.unsupported && (
+                    <>
+                      <button
+                        onClick={() =>
+                          run((s) => resolveClaim(s, app.id, "exclude"))
+                        }
+                      >
+                        Exclude unsupported claim
+                      </button>
+                      <button
+                        onClick={() =>
+                          run((s) =>
+                            resolveClaim(
+                              s,
+                              app.id,
+                              "supported",
+                              app.selectedAsset
+                            )
+                          )
+                        }
+                      >
+                        Replace with selected supported scope
+                      </button>
+                    </>
+                  )}
+                  <label>
+                    Notes reference
+                    <input
+                      aria-label="Application notes"
+                      value={app.noteDraft}
+                      onInput={(e) =>
+                        update({ noteDraft: e.currentTarget.value })
+                      }
+                    />
+                  </label>
+                  <button
+                    onClick={() =>
+                      run((s) => {
+                        const a = getApp(s, app.id);
+                        if (!a.noteDraft.trim())
+                          throw Error("Supply a synthetic note reference");
+                        if (!a.notes.includes(a.noteDraft.trim()))
+                          a.notes.push(a.noteDraft.trim());
+                        a.noteDraft = "";
+                      })
+                    }
+                  >
+                    Save note reference
+                  </button>
+                  <p>Notes (not evidence): {app.notes.join(", ") || "None"}</p>
+                  <h3>Bundle</h3>
+                  <p>
+                    Fit review:{" "}
+                    {app.fit.stale ? "Stale / not reviewed" : "Current"} · Next
+                    action: {nextAction(app)}
+                  </p>
+                  <button onClick={() => run((s) => assemble(s, app.id))}>
+                    Assemble bundle
+                  </button>
+                  <button onClick={() => run((s) => reviewBundle(s, app.id))}>
+                    Review bundle
+                  </button>
+                  {app.bundle && <BundleDetails bundle={app.bundle} />}{" "}
+                  {app.submitted && (
+                    <details>
+                      <summary>Immutable submitted snapshot</summary>
+                      <BundleDetails bundle={app.submitted} />
+                    </details>
+                  )}
+                  <div className="actions">
+                    <button onClick={() => begin("ready")}>Mark ready</button>
+                    <button onClick={() => begin("submitted")}>Submit</button>
+                    <button onClick={() => begin("interviewing")}>
+                      Record interview
+                    </button>
+                    <button onClick={() => begin("follow-up")}>
+                      Record follow-up
+                    </button>
+                    <button onClick={() => begin("closed")}>
+                      Record outcome
+                    </button>
+                    <button onClick={() => begin("withdrawn")}>Withdraw</button>
+                  </div>
+                  {app.action && (
+                    <fieldset>
+                      <legend>Confirm {app.action.kind}</legend>
+                      <p>
+                        Only confirmation records a material event. Missing
+                        information blocks transition.
+                      </p>
+                      {app.action.kind !== "ready" && (
+                        <>
+                          <label>
+                            Action date
+                            <input
+                              type="date"
+                              aria-label="Action date"
+                              value={app.action.date}
+                              onInput={(e) =>
+                                update({
+                                  action: {
+                                    ...app.action!,
+                                    date: e.currentTarget.value,
+                                  },
+                                })
+                              }
+                            />
+                          </label>
+                          {app.action.kind === "submitted" ? (
+                            <label>
+                              Submission channel
+                              <input
+                                aria-label="Submission channel"
+                                value={app.action.channel}
+                                onInput={(e) =>
+                                  update({
+                                    action: {
+                                      ...app.action!,
+                                      channel: e.currentTarget.value,
+                                    },
+                                  })
+                                }
+                              />
+                            </label>
+                          ) : (
+                            <label>
+                              Action detail
+                              <input
+                                aria-label="Action detail"
+                                value={app.action.detail}
+                                onInput={(e) =>
+                                  update({
+                                    action: {
+                                      ...app.action!,
+                                      detail: e.currentTarget.value,
+                                    },
+                                  })
+                                }
+                              />
+                            </label>
+                          )}
+                        </>
+                      )}
+                      <button
+                        onClick={() =>
+                          run((s) => {
+                            transition(s, app.id, app.action!.kind, {
+                              ...app.action!,
+                              confirmed: true,
+                            });
+                            getApp(s, app.id).action = undefined;
+                            s.nextId++;
+                          })
+                        }
+                      >
+                        Confirm {app.action.kind}
+                      </button>
+                      <button onClick={() => update({ action: undefined })}>
+                        Cancel action
+                      </button>
+                    </fieldset>
+                  )}
+                  <h3>Decisions</h3>
+                  <ul>
+                    {app.decisions.map((d, i) => (
+                      <li key={i}>{d}</li>
+                    ))}
+                  </ul>
+                  <h3>Material events</h3>
+                  <Events application={app} />
+                </>
+              )}
+            </section>
+            <section className="panel evidence-panel">
+              <p className="eyebrow">EVIDENCE PLACEMENT</p>
+              <h2>{app.title}</h2>
+              <p className="intro">
+                Eligible factual CatalogAssets only. Projections are derived
+                wording, never evidence.
+              </p>
+              <button onClick={() => catalog()}>
+                Open in Catalog Development
+              </button>
+              <div
+                className="choice-row"
+                role="group"
+                aria-label="Evidence placement"
+              >
+                {surfaces.map((surface) => (
+                  <button
+                    key={surface.id}
+                    className={app.surface === surface.id ? "chosen" : ""}
+                    aria-pressed={app.surface === surface.id}
+                    onClick={() => update({ surface: surface.id })}
+                  >
+                    {surface.label}
+                  </button>
+                ))}
+              </div>
+              <label>
+                Select factual asset
+                <select
+                  aria-label="Select factual asset"
+                  value={app.selectedAsset}
+                  onChange={(e) =>
+                    update({ selectedAsset: e.currentTarget.value })
+                  }
+                >
+                  {state.assets.map((a) => (
+                    <option key={a.id} value={a.id}>
+                      {a.title} · {eligible(a) ? "Eligible" : "Not eligible"}
+                    </option>
+                  ))}
+                </select>
+              </label>
+              <div className="projection">
+                <span>Projection draft</span>
+                <strong>
+                  {surfaces.find((p) => p.id === app.surface)!.label}
+                </strong>
+                <p>
+                  {state.assets.find((a) => a.id === app.selectedAsset)
+                    ?.scope || "No supported claim scope"}
+                </p>
+              </div>
+              <button
+                className="primary-button"
+                onClick={() =>
+                  run((s) => place(s, app.id, app.surface, app.selectedAsset))
+                }
+              >
+                Add to {surfaces.find((p) => p.id === app.surface)!.label}
+              </button>
+            </section>
+          </div>
+        )}
+        {view === "sources" && (
+          <section className="single-view">
+            <h2>Traceable signal ledger</h2>
+            <p>
+              All references are synthetic metadata. Notes and Target context
+              are ineligible factual sources.
+            </p>
+            {references.map((r) => (
+              <article
+                className="list-card"
+                id={`reference-${r.id}`}
+                key={r.id}
+              >
+                <strong>{r.title}</strong>
+                <span>
+                  {r.id} · supports {r.criterion}
+                </span>
+              </article>
+            ))}
+            {state.assets.map((a) => {
+              const placements = state.applications.flatMap((application) =>
+                application.projections
+                  .filter((p) => p.assetId === a.id)
+                  .map((projection) => ({ application, projection }))
+              );
+              return (
+                <article
+                  className="catalog-card"
+                  aria-label={`${a.title} source links`}
+                  key={a.id}
+                >
+                  <h3>{a.title}</h3>
+                  <p>
+                    {a.kind} · {eligible(a) ? "Eligible" : "Not eligible"} ·
+                    revision {a.revision}
+                  </p>
+                  <p>Claim scope: {a.scope || "No claim scope supplied"}</p>
+                  {!eligible(a) && (
+                    <p>
+                      {a.disposition === "discard"
+                        ? `Reviewed discard — not factual evidence: ${a.discardReason}`
+                        : assetGaps(a).join("; ") ||
+                          "Current human review and publication required"}
+                    </p>
+                  )}
+                  <h4>Current criterion/reference associations</h4>
+                  {criteria.map((criterion) => (
+                    <section
+                      aria-label={`${criterion} support`}
+                      key={criterion}
+                    >
+                      <h4>{criterion}</h4>
+                      <p>{a[criterion] || "No criterion statement supplied"}</p>
+                      {a.evidence[criterion].length ? (
+                        <ul>
+                          {a.evidence[criterion].map((id) => {
+                            const reference = references.find(
+                              (r) => r.id === id && r.criterion === criterion
+                            );
+                            return (
+                              <li key={id}>
+                                {reference ? (
+                                  <a href={`#reference-${reference.id}`}>
+                                    {reference.id} · {reference.title}
+                                  </a>
+                                ) : (
+                                  `${id} — unsupported reference for ${criterion}`
+                                )}
+                              </li>
+                            );
+                          })}
+                        </ul>
+                      ) : (
+                        <p>No supporting reference</p>
+                      )}
+                    </section>
+                  ))}
+                  <h4>Current application placements</h4>
+                  {placements.length ? (
+                    <ul aria-label="Current application placements">
+                      {placements.map(({ application, projection }) => {
+                        const surface = surfaces.find(
+                          (item) => item.id === projection.surface
+                        )!.label;
+                        return (
+                          <li key={projection.id}>
+                            <p>
+                              {application.title} · {surface} ·{" "}
+                              {grounded(state, projection)
+                                ? "Grounded"
+                                : "Stale — source review/publication and projection refresh required"}
+                            </p>
+                            <p>
+                              Placed source: {projection.assetId}@
+                              {projection.sourceRevision}
+                            </p>
+                            <p>
+                              Placed reference snapshot:{" "}
+                              {projection.referenceIds.join(", ")}
+                            </p>
+                            <button
+                              onClick={() => {
+                                setAppId(application.id);
+                                run((s) =>
+                                  Object.assign(getApp(s, application.id), {
+                                    surface: projection.surface,
+                                    selectedAsset: a.id,
+                                    expanded: true,
+                                  })
+                                );
+                                navigate("applications");
+                              }}
+                            >
+                              Open {application.title} {surface} placement
+                            </button>
+                          </li>
+                        );
+                      })}
+                    </ul>
+                  ) : (
+                    <p>No application placements</p>
+                  )}
+                  <button onClick={() => catalog(a.id, false)}>
+                    Inspect {a.title}
+                  </button>
+                </article>
+              );
+            })}
+          </section>
+        )}
+        {view === "deliverables" && (
+          <section className="single-view">
+            <h2>Application bundles</h2>
+            {state.applications.map((a) => (
+              <article key={a.id}>
+                <h3>{a.title}</h3>
+                {a.bundle ? (
+                  <BundleDetails bundle={a.bundle} />
+                ) : (
+                  <p>No bundle assembled</p>
+                )}
+                <p>{nextAction(a)}</p>
+                {a.submitted && (
+                  <details>
+                    <summary>Submitted snapshot · {a.title}</summary>
+                    <BundleDetails bundle={a.submitted} />
+                  </details>
+                )}
+                <button
+                  onClick={() => {
+                    setAppId(a.id);
+                    navigate("applications");
+                  }}
+                >
+                  Open {a.title} bundle workspace
+                </button>
+              </article>
+            ))}
+          </section>
+        )}
+        {view === "decisions" && (
+          <section className="single-view">
+            <h2>Evidence decisions</h2>
+            {state.applications.map((a) => (
+              <article key={a.id}>
+                <h3>{a.title}</h3>
+                <p>
+                  {a.unsupported || "No unresolved synthetic claim"} ·{" "}
+                  {nextAction(a)}
+                </p>
+                <ul>
+                  {a.decisions.map((d, i) => (
+                    <li key={i}>{d}</li>
+                  ))}
+                </ul>
+                <button
+                  onClick={() => {
+                    setAppId(a.id);
+                    navigate("applications");
+                  }}
+                >
+                  Resolve {a.title}
+                </button>
+              </article>
+            ))}
+          </section>
+        )}
+        {view === "activity" && (
+          <section className="single-view">
+            <h2>Application lifecycle</h2>
+            {state.applications.map((a) => (
+              <article key={a.id}>
+                <h3>
+                  {a.title} · {a.status}
+                </h3>
+                <Events application={a} />
+              </article>
+            ))}
+          </section>
+        )}
       </section>
     </main>
   );
 }
-
-function TodayView({ started, onStart }: { started: boolean; onStart: () => void }) {
-  return <section className="single-view">
-    <p className="eyebrow">PERSONAL WORK QUEUE</p>
-    <h2>Today’s priorities</h2>
-    <p className="intro">Three focused steps keep the current application moving without losing the broader career record.</p>
-    <button className="primary-button" onClick={onStart} type="button">{started ? "Priority in progress" : "Start next priority"}</button>
+function Events({ application }: { application: Application }) {
+  return application.events.length ? (
+    <ol>
+      {application.events.map((e) => (
+        <li key={e.id}>
+          {e.date} · {e.kind} · {e.detail}
+        </li>
+      ))}
+    </ol>
+  ) : (
+    <p>No confirmed material events.</p>
+  );
+}
+function BundleDetails({ bundle: b }: { bundle: Bundle }) {
+  return (
     <div className="bundle">
-      <div className="deliverable"><span className="doc-mark" /><div><strong>Review market-entry evidence</strong><p>Product strategy · 15 minutes · due next</p></div><span className="pill amber">Next</span></div>
-      <div className="deliverable"><span className="doc-mark" /><div><strong>Confirm claim scope</strong><p>Product strategy · waiting for your decision</p></div><span className="pill">Queued</span></div>
-      <div className="deliverable"><span className="doc-mark" /><div><strong>Read interview brief</strong><p>Operating systems · prepared for Thursday</p></div><span className="pill">Later</span></div>
+      <p>
+        Revision {b.revision} ·{" "}
+        {b.stale ? "Stale" : b.reviewed ? "Reviewed" : "Needs review"}
+      </p>
+      <h4>JD-context summary (targeting only)</h4>
+      <p>{b.context}</p>
+      {surfaces.map((surface) => (
+        <section key={surface.id}>
+          <h4>{surface.label} blocks</h4>
+          {b.blocks
+            .filter((block) => block.surface === surface.id)
+            .map((block, i) => (
+              <div className="projection" key={i}>
+                <p>{block.text}</p>
+                <p>
+                  {block.unresolved
+                    ? "UNRESOLVED CONFIRMATION — not evidence"
+                    : `Eligible provenance: ${block.assetId}@${block.sourceRevision}`}
+                </p>
+                <small>{block.referenceIds.join(", ")}</small>
+              </div>
+            ))}
+          {!b.blocks.some((block) => block.surface === surface.id) && (
+            <p>
+              No factual block placed.{" "}
+              {surface.id !== "interview" &&
+                "Required: choose this surface, add eligible support, then reassemble."}
+            </p>
+          )}
+        </section>
+      ))}
+      {missingBundleSurfaces(b).length > 0 && (
+        <p>
+          Missing required factual surfaces:{" "}
+          {missingBundleSurfaces(b).join(", ")}. Review and readiness are
+          blocked.
+        </p>
+      )}
+      <h4>Manifest</h4>
+      <ul>
+        {b.manifest.map((m) => (
+          <li key={m}>{m}</li>
+        ))}
+      </ul>
+      <h4>Source/support summary</h4>
+      <p>{b.support.join(", ") || "No factual support"}</p>
+      <h4>Unsupported claims</h4>
+      <p>{b.unsupported.join("; ") || "None"}</p>
     </div>
-  </section>;
+  );
 }
-
-function ApplicationWorkspace({
-  placement,
-  setPlacement,
-  query,
-  setQuery,
-}: {
-  placement: Placement;
-  setPlacement: (placement: Placement) => void;
-  query: string;
-  setQuery: (query: string) => void;
-}) {
-  return <div className="workspace">
-    <section className="panel applications-panel">
-      <div className="panel-heading"><div><p className="eyebrow">APPLICATION RECORDS</p><h2>Application pipeline</h2></div><button type="button">+ Add</button></div>
-      <input aria-label="Search applications" className="application-search" onInput={(event) => setQuery(event.currentTarget.value)} placeholder="Search applications" type="search" value={query} />
-      {(!query || "product strategy".includes(query.toLowerCase())) && <button aria-label="Open Product strategy application" className="application active" type="button"><span className="avatar">PS</span><span><strong>Product strategy</strong><small>Stage: evidence placement</small></span><b>72</b></button>}
-      {(!query || "operating systems".includes(query.toLowerCase())) && <button aria-label="Open Operating systems application" className="application" type="button"><span className="avatar slate">OS</span><span><strong>Operating systems</strong><small>Next: reconcile brief</small></span><b>64</b></button>}
-      <div className="stage-list">
-        {applicationStages.map((stage, index) => <div key={stage}><span>{index + 1}</span>{stage}</div>)}
-      </div>
-      <button className="all-link" type="button">View all applications →</button>
-    </section>
-
-    <section className="panel decision-panel">
-      <div className="panel-heading"><div><p className="eyebrow">DECISION SPACE</p><h2>Product strategy</h2></div><span className="pill amber">Needs review</span></div>
-      <p className="intro">Project the strongest verified signals into each application surface before drafting.</p>
-      <article className="decision-card emphasis"><div><span className="card-kicker">NEXT DECISION</span><h3>Place market-entry evidence</h3><p>Use the outcome narrative where it supports the reader’s next question.</p></div><button type="button">Review</button></article>
-      <article className="decision-card"><div><span className="card-kicker">CONSTRAINT</span><h3>Keep claim scope narrow</h3><p>One proof point per proposition; retain traceability.</p></div><span className="pill">Confirmed</span></article>
-      <article className="decision-card"><div><span className="card-kicker">BUNDLE CHECK</span><h3>Three deliverables linked</h3><p>Resume, letter, and interview notes share the same evidence base.</p></div><span className="number">3</span></article>
-    </section>
-
-    <section className="panel evidence-panel">
-      <div className="panel-heading"><div><p className="eyebrow">EVIDENCE PLACEMENT</p><h2>Product strategy</h2></div><span className="source-count">4 sources</span></div>
-      <div className="evidence-block"><span className="signal">VERIFIED SIGNAL</span><h3>Clarified a launch decision with cross-functional research</h3><p>Confidence: high · Source-backed · Reusable</p></div>
-      <p className="placement-label">Project this evidence into</p>
-      <div className="choice-row" role="group" aria-label="Evidence placement">
-        {placements.map((option) => <button className={placement === option ? "chosen" : ""} key={option} onClick={() => setPlacement(option)} type="button">{option}</button>)}
-      </div>
-      <div className="projection"><span>Projection</span><strong>{placement}</strong><p>{placement === "Resume" ? "A concise accomplishment with outcome context." : placement === "Cover letter" ? "A narrative bridge between strategy and motivation." : "A story prompt with decision, action, and result."}</p></div>
-      <button className="primary-button" type="button">Add to {placement}</button>
-    </section>
-  </div>;
-}
-
-function KnowledgeView() {
-  return <section className="single-view"><p className="eyebrow">CAREER KNOWLEDGE</p><h2>Evidence library</h2><p className="intro">Reusable, source-backed signals are kept separate from application-specific projections.</p><div className="metric-grid"><Metric value="18" label="Verified signals" /><Metric value="6" label="Decision patterns" /><Metric value="4" label="Reusable narratives" /></div><div className="list-card"><strong>Market entry decision</strong><span>Strategy · Research · High confidence</span><button type="button">Open evidence →</button></div></section>;
-}
-
-function CatalogView() {
-  return <section className="single-view"><p className="eyebrow">CATALOG / PROJECTION BUILDER</p><h2>Build a targeted projection</h2><div className="builder"><div><span>1</span><strong>Select evidence</strong><p>Market entry decision</p></div><div><span>2</span><strong>Choose audience</strong><p>Product strategy reviewer</p></div><div><span>3</span><strong>Choose surface</strong><p>Resume accomplishment</p></div></div><button className="primary-button" type="button">Create draft projection</button></section>;
-}
-
-function DeliverablesView() {
-  return <section className="single-view"><p className="eyebrow">DELIVERABLE BUNDLE</p><h2>Product strategy package</h2><div className="bundle"><Deliverable name="Resume" detail="3 evidence projections · ready to review" /><Deliverable name="Cover letter" detail="1 narrative thread · draft" /><Deliverable name="Interview brief" detail="4 source-backed stories · prepared" /></div><button className="primary-button" type="button">Review bundle</button></section>;
-}
-
-function ActivityView({ decisionMode }: { decisionMode: boolean }) {
-  return <section className="single-view"><p className="eyebrow">{decisionMode ? "DECISION RECONCILIATION" : "ACTIVITY TIMELINE"}</p><h2>{decisionMode ? "Resolve evidence choices" : "Application lifecycle"}</h2><div className="timeline"><Timeline title="Evidence mapped" detail="Market-entry signal linked to Product strategy" /><Timeline title="Decision requested" detail="Choose the best surface for the verified outcome" /><Timeline title={decisionMode ? "Reconcile projection" : "Deliverable review"} detail={decisionMode ? "Confirm claim scope before bundle generation" : "Bundle remains ready for final review"} /></div></section>;
-}
-
-function SourcesView() {
-  return <section className="single-view"><p className="eyebrow">SOURCES & EVIDENCE</p><h2>Traceable signal ledger</h2><div className="source-table"><div className="table-head"><span>Signal</span><span>Reliability</span><span>Use</span></div><div><strong>Launch research</strong><span>High</span><span>Resume, interview</span></div><div><strong>Stakeholder alignment</strong><span>High</span><span>Cover letter</span></div><div><strong>Operating cadence</strong><span>Medium</span><span>Interview</span></div></div></section>;
-}
-
-function Metric({ value, label }: { value: string; label: string }) { return <div className="metric"><strong>{value}</strong><span>{label}</span></div>; }
-function Deliverable({ name, detail }: { name: string; detail: string }) { return <div className="deliverable"><span className="doc-mark" /> <div><strong>{name}</strong><p>{detail}</p></div><button type="button">Open</button></div>; }
-function Timeline({ title, detail }: { title: string; detail: string }) { return <div className="timeline-item"><span /><div><strong>{title}</strong><p>{detail}</p><small>Today · mock activity</small></div></div>; }

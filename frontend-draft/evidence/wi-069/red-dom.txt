@@ -1,0 +1,81 @@
+
+> vitae-frontend-draft@0.0.0 test
+> tsx --test test/*.test.mjs
+
+✖ creation is inline, cancellable, distinct and does not fabricate activity (70.238792ms)
+✖ two complete application flows share catalog remediation without sharing drafts, search or surface (30.75575ms)
+node:internal/modules/esm/resolve:241
+    throw new ERR_MODULE_NOT_FOUND(
+          ^
+
+Error [ERR_MODULE_NOT_FOUND]: Cannot find module '/Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-069/frontend-draft/src/connected.ts' imported from /Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-069/frontend-draft/test/connected.test.mjs
+    at finalizeResolution (node:internal/modules/esm/resolve:241:11)
+    at moduleResolve (node:internal/modules/esm/resolve:846:10)
+    at defaultResolve (node:internal/modules/esm/resolve:973:11)
+    at #cachedDefaultResolve (node:internal/modules/esm/loader:752:20)
+    at #resolveAndMaybeBlockOnLoaderThread (node:internal/modules/esm/loader:772:38)
+    at nextStep (node:internal/modules/customization_hooks:189:26)
+    at resolveBaseSync (file:///Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-069/frontend-draft/node_modules/tsx/dist/register-nyXW-TH3.mjs:2:11092)
+    at resolveDirectorySync (file:///Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-069/frontend-draft/node_modules/tsx/dist/register-nyXW-TH3.mjs:2:12398)
+    at resolveTsPathsSync (file:///Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-069/frontend-draft/node_modules/tsx/dist/register-nyXW-TH3.mjs:2:13605)
+    at resolve (file:///Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-069/frontend-draft/node_modules/tsx/dist/register-nyXW-TH3.mjs:2:16832) {
+  code: 'ERR_MODULE_NOT_FOUND',
+  url: 'file:///Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-069/frontend-draft/src/connected.ts'
+}
+
+Node.js v26.12.0
+✖ test/connected.test.mjs (110.046292ms)
+✔ sidebar navigation and Product strategy evidence placement are interactive (98.5725ms)
+✔ mock action controls publish a status (22.785708ms)
+✔ Catalog Development is reachable from each workbench entry and exposes safe expandable cards (33.748041ms)
+✔ gates block missing evidence and require human review before advancing eligible episodes (28.451917ms)
+✔ application evidence opens the relevant asset and returns with placement and search intact (16.429167ms)
+✔ blocked evidence can be supplied locally, clears its gap and requires fresh human review (22.5805ms)
+✔ Workshop reflection can complete the entire lifecycle without a dead end (24.1895ms)
+✔ two application contexts retain their own search and placement through Catalog round trips (29.119417ms)
+ℹ tests 11
+ℹ suites 0
+ℹ pass 8
+ℹ fail 3
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1174.653625
+
+✖ failing tests:
+
+test at test/connected-dom.test.mjs:19:1
+✖ creation is inline, cancellable, distinct and does not fabricate activity (70.238792ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+
+  2 !== 1
+
+      at TestContext.<anonymous> (file:///Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-069/frontend-draft/test/connected-dom.test.mjs:20:24)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 2,
+    expected: 1,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at test/connected-dom.test.mjs:27:1
+✖ two complete application flows share catalog remediation without sharing drafts, search or surface (30.75575ms)
+  AssertionError [ERR_ASSERTION]: Missing Open Operating systems application
+      at click (file:///Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-069/frontend-draft/test/connected-dom.test.mjs:15:128)
+      at TestContext.<anonymous> (file:///Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-069/frontend-draft/test/connected-dom.test.mjs:29:8)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at test/connected.test.mjs:1:1
+✖ test/connected.test.mjs (110.046292ms)
+  'test failed'

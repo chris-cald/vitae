@@ -1,0 +1,26 @@
+[
+  {
+    "artifact": "candidate-lint.txt",
+    "rawSha256": "2a14c898d820be1668588740625cd6a2fc179a577752ecf3c9a688ece2e1bbb6",
+    "storedSha256": "06277ccfbc5e7162be9f8a19a669a72c806cb5ca7b17f7040481136bebba124f",
+    "normalization": "Trailing blank lines at EOF only; full diagnostics retained"
+  },
+  {
+    "artifact": "scoped-lint.txt",
+    "rawSha256": "eae7ef413b72bcfbf75a6f06fa10962893cc48ce4218671565989f22f1ae942c",
+    "storedSha256": "6d4780b5a443c5108919345894cdc07738ec0463e4f7526f382d68b87d45105d",
+    "normalization": "Trailing blank lines at EOF only; full diagnostics retained"
+  },
+  {
+    "artifact": "composed-schema-tests.txt",
+    "rawSha256": "fb058bd3ed671a43f5cfa8cb0ef45c114872316e9b12e070b8cebdd85f03f866",
+    "storedSha256": "fb058bd3ed671a43f5cfa8cb0ef45c114872316e9b12e070b8cebdd85f03f866",
+    "normalization": "Trailing blank lines at EOF only; full diagnostics retained"
+  },
+  {
+    "artifact": "base-lint.txt",
+    "rawSha256": "6d01f1e32ce8e3d37ef32710068ab03460d09e7b0590111e8494388d8e93e984",
+    "storedSha256": "6417de5f2de9678b69288fbe3d2971ab24f48ab8a27a4353ca30c89126597201",
+    "normalization": "Trailing blank lines at EOF only; full diagnostics retained"
+  }
+]
