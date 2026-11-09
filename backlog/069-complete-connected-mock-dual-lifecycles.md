@@ -5,11 +5,13 @@ summary: Complete synthetic Application lifecycle and shared Catalog-to-projecti
 type: work-item
 subtype: story
 lifecycle: active
-status: running
-status_reason: review
+status: completed
+status_reason: completed
 priority: critical
+completed_date: '2026-11-09'
 commits:
   557ddb5: Independently reviewed connected mock lifecycles and four red-first acceptance fixes
+  058c46247b6393da005b4160fdf018132cc0ce5b: Exact provider-approved consolidated implementation, squash mapping to PR20 d422e0c recorded in evidence
 links:
   depends_on:
     - '[[068-build-catalog-development-board]]'
@@ -19,6 +21,9 @@ links:
     - '[[067-make-sources-and-evidence-actionable]]'
   evidence:
     - '[[record-wi-069-local-validation]]'
+    - '[[record-wi-069-provider-merged]]'
+  pull_requests:
+    - https://github.com/chris-cald/vitae/pull/20
 tags:
   - afk
   - frontend
@@ -64,6 +69,13 @@ Read this specification at runtime verbatim for implementation/review. Author fa
 ## Publication authorized — review in progress
 
 The user explicitly authorized scoped branch publication, real pull requests and merges after required CI/review gates. Force-push and stash changes remain prohibited. No policy exception is being used: terminal completion requires a real linked PR, measured actual effort and genuine timestamped terminal evidence. The rejected local-only closure and lint failure are preserved; supported transition restored running/review. The leftover attempted completion date was removed as metadata cleanup, not a lifecycle transition. Source approval and validation evidence remain genuine. Prerequisite publication and WI-069 provider-gated merge precede dependent WI-070 independent browser/visual validation; WI-050 and WI-057 remain HITL.
+
+## Provider-backed completion
+
+- 2026-11-09: Closed as completed with evidence in backlog/audit/auditing-backlog-report.json.
+- The real global audit is NOT green: 86 legacy schema-load errors are preserved. The clean-base/candidate baseline is identical; scoped WI069/070/071 lint and composed-schema validation pass under the DV TTR-approved delta contract. See [[record-wi-069-provider-merged]] for exact PR/source/squash mapping and postmerge checks.
+- PR20 merged source `058c46247b6393da005b4160fdf018132cc0ce5b` as `d422e0c98d1ab523102c25baa0611b9487bb3709`; postmerge draft/schema/root/pilot checks passed. WI070 full browser/Figma acceptance remains separately gated; WI050/WI057 remain HITL.
+- Archive is deferred because `finalizeWorkItem` still unconditionally requires numeric actual effort, contrary to the optional-effort schema. No value is invented and no archive gate is bypassed. Completed-active and verified claim release are the TTR-approved route.
 
 ## Acceptance evidence
 

@@ -1,0 +1,675 @@
+{
+  "generated_at": "2026-11-09T03:42:58.205Z",
+  "options": {
+    "backlogDir": "/Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-069/backlog",
+    "rootDir": "/Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-069",
+    "format": "json",
+    "failOn": "error",
+    "includeArchive": false,
+    "profile": "ci",
+    "profiles": [
+      "ci"
+    ]
+  },
+  "totals": {
+    "files": 158,
+    "duplicate_ids": 0,
+    "unresolved_wikilinks": 0,
+    "parse_errors": 0,
+    "no_inbound_active": 7,
+    "schema_violations": 0
+  },
+  "duplicate_ids": [],
+  "unresolved_wikilinks": [],
+  "parse_errors": [],
+  "no_inbound_active": [
+    {
+      "file": "backlog/012-split-scoring-from-recommendation-generation.md",
+      "id": "wi-012",
+      "status": "ready",
+      "title": "Split Scoring from Recommendation Generation"
+    },
+    {
+      "file": "backlog/013-prototype-career-graph-projection-for-bullets-and-requirements.md",
+      "id": "wi-013",
+      "status": "ready",
+      "title": "Prototype Career Graph Projection for Bullets and Requirements"
+    },
+    {
+      "file": "backlog/014-introduce-typed-frontend-backend-api-contract.md",
+      "id": "wi-014",
+      "status": "ready",
+      "title": "Introduce Typed Frontend Backend API Contract"
+    },
+    {
+      "file": "backlog/015-evaluate-templjs-backed-resume-variant-rendering.md",
+      "id": "wi-015",
+      "status": "ready",
+      "title": "Evaluate templjs Backed Resume Variant Rendering"
+    },
+    {
+      "file": "backlog/017-integrate-agent-workflows-for-work-order-execution.md",
+      "id": "wi-017",
+      "status": "ready",
+      "title": "Integrate agent-workflows for Work Order Execution"
+    },
+    {
+      "file": "backlog/018-add-adr-prd-frontmatter-validation-tooling.md",
+      "id": "wi-018",
+      "status": "ready",
+      "title": "Add ADR PRD Frontmatter Validation Tooling"
+    },
+    {
+      "file": "backlog/070-validate-connected-mock-dual-lifecycles.md",
+      "id": "wi-070",
+      "status": "ready",
+      "title": "Validate Connected Mock Dual Lifecycles"
+    }
+  ],
+  "schema_violations": [],
+  "schema_load_errors": [
+    {
+      "file": "backlog/009-remove-pii-bearing-model-logs.md",
+      "schema": "schemas/work-management/frontmatter/work-item.json",
+      "errors": [
+        "(schema-load) ENOENT: no such file or directory, open '/Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-069/schemas/work-management/frontmatter/work-item.json'"
+      ]
+    },
+    {
+      "file": "backlog/010-define-career-artifact-and-record-schema.md",
+      "schema": "schemas/work-management/frontmatter/work-item.json",
+      "errors": [
+        "(schema-load) ENOENT: no such file or directory, open '/Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-069/schemas/work-management/frontmatter/work-item.json'"
+      ]
+    },
+    {
+      "file": "backlog/011-add-provenance-fields-to-job-fit-analysis-outputs.md",
+      "schema": "schemas/work-management/frontmatter/work-item.json",
+      "errors": [
+        "(schema-load) ENOENT: no such file or directory, open '/Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-069/schemas/work-management/frontmatter/work-item.json'"
+      ]
+    },
+    {
+      "file": "backlog/012-split-scoring-from-recommendation-generation.md",
+      "schema": "schemas/work-management/frontmatter/work-item.json",
+      "errors": [
+        "(schema-load) ENOENT: no such file or directory, open '/Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-069/schemas/work-management/frontmatter/work-item.json'"
+      ]
+    },
+    {
+      "file": "backlog/013-prototype-career-graph-projection-for-bullets-and-requirements.md",
+      "schema": "schemas/work-management/frontmatter/work-item.json",
+      "errors": [
+        "(schema-load) ENOENT: no such file or directory, open '/Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-069/schemas/work-management/frontmatter/work-item.json'"
+      ]
+    },
+    {
+      "file": "backlog/014-introduce-typed-frontend-backend-api-contract.md",
+      "schema": "schemas/work-management/frontmatter/work-item.json",
+      "errors": [
+        "(schema-load) ENOENT: no such file or directory, open '/Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-069/schemas/work-management/frontmatter/work-item.json'"
+      ]
+    },
+    {
+      "file": "backlog/015-evaluate-templjs-backed-resume-variant-rendering.md",
+      "schema": "schemas/work-management/frontmatter/work-item.json",
+      "errors": [
+        "(schema-load) ENOENT: no such file or directory, open '/Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-069/schemas/work-management/frontmatter/work-item.json'"
+      ]
+    },
+    {
+      "file": "backlog/016-define-doc-vader-compatible-evidence-records-for-applications.md",
+      "schema": "schemas/work-management/frontmatter/work-item.json",
+      "errors": [
+        "(schema-load) ENOENT: no such file or directory, open '/Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-069/schemas/work-management/frontmatter/work-item.json'"
+      ]
+    },
+    {
+      "file": "backlog/017-integrate-agent-workflows-for-work-order-execution.md",
+      "schema": "schemas/work-management/frontmatter/work-item.json",
+      "errors": [
+        "(schema-load) ENOENT: no such file or directory, open '/Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-069/schemas/work-management/frontmatter/work-item.json'"
+      ]
+    },
+    {
+      "file": "backlog/018-add-adr-prd-frontmatter-validation-tooling.md",
+      "schema": "schemas/work-management/frontmatter/work-item.json",
+      "errors": [
+        "(schema-load) ENOENT: no such file or directory, open '/Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-069/schemas/work-management/frontmatter/work-item.json'"
+      ]
+    },
+    {
+      "file": "backlog/019-reconcile-planning-docs-and-backlog-with-canonical-mvp-scope.md",
+      "schema": "schemas/work-management/frontmatter/work-item.json",
+      "errors": [
+        "(schema-load) ENOENT: no such file or directory, open '/Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-069/schemas/work-management/frontmatter/work-item.json'"
+      ]
+    },
+    {
+      "file": "backlog/020-define-canonical-vitae-domain-model-and-obsidian-mapping.md",
+      "schema": "schemas/work-management/frontmatter/work-item.json",
+      "errors": [
+        "(schema-load) ENOENT: no such file or directory, open '/Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-069/schemas/work-management/frontmatter/work-item.json'"
+      ]
+    },
+    {
+      "file": "backlog/021-preserve-seed-model-compatibility-and-harvest-fixtures.md",
+      "schema": "schemas/work-management/frontmatter/work-item.json",
+      "errors": [
+        "(schema-load) ENOENT: no such file or directory, open '/Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-069/schemas/work-management/frontmatter/work-item.json'"
+      ]
+    },
+    {
+      "file": "backlog/022-define-harvest-cull-prime-and-substantiate-workflow-contracts.md",
+      "schema": "schemas/work-management/frontmatter/work-item.json",
+      "errors": [
+        "(schema-load) ENOENT: no such file or directory, open '/Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-069/schemas/work-management/frontmatter/work-item.json'"
+      ]
+    },
+    {
+      "file": "backlog/023-implement-target-requirement-projection-and-catalog-fit-slice.md",
+      "schema": "schemas/work-management/frontmatter/work-item.json",
+      "errors": [
+        "(schema-load) ENOENT: no such file or directory, open '/Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-069/schemas/work-management/frontmatter/work-item.json'"
+      ]
+    },
+    {
+      "file": "backlog/024-classify-misalignments-into-harvest-cull-prime-and-substantiate-actions.md",
+      "schema": "schemas/work-management/frontmatter/work-item.json",
+      "errors": [
+        "(schema-load) ENOENT: no such file or directory, open '/Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-069/schemas/work-management/frontmatter/work-item.json'"
+      ]
+    },
+    {
+      "file": "backlog/025-generate-source-backed-resume-and-communication-deliverables.md",
+      "schema": "schemas/work-management/frontmatter/work-item.json",
+      "errors": [
+        "(schema-load) ENOENT: no such file or directory, open '/Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-069/schemas/work-management/frontmatter/work-item.json'"
+      ]
+    },
+    {
+      "file": "backlog/026-track-one-application-with-lightweight-material-records.md",
+      "schema": "schemas/work-management/frontmatter/work-item.json",
+      "errors": [
+        "(schema-load) ENOENT: no such file or directory, open '/Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-069/schemas/work-management/frontmatter/work-item.json'"
+      ]
+    },
+    {
+      "file": "backlog/027-adopt-privacy-safe-durable-temporal-execution.md",
+      "schema": "schemas/work-management/frontmatter/work-item.json",
+      "errors": [
+        "(schema-load) ENOENT: no such file or directory, open '/Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-069/schemas/work-management/frontmatter/work-item.json'"
+      ]
+    },
+    {
+      "file": "backlog/028-define-temporal-execution-boundary-and-threat-model.md",
+      "schema": "schemas/work-management/frontmatter/work-item.json",
+      "errors": [
+        "(schema-load) ENOENT: no such file or directory, open '/Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-069/schemas/work-management/frontmatter/work-item.json'"
+      ]
+    },
+    {
+      "file": "backlog/029-build-runtime-execution-adapter-and-pii-safe-payload-contract.md",
+      "schema": "schemas/work-management/frontmatter/work-item.json",
+      "errors": [
+        "(schema-load) ENOENT: no such file or directory, open '/Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-069/schemas/work-management/frontmatter/work-item.json'"
+      ]
+    },
+    {
+      "file": "backlog/030-create-isolated-temporal-worker-bootstrap-and-configuration-seam.md",
+      "schema": "schemas/work-management/frontmatter/work-item.json",
+      "errors": [
+        "(schema-load) ENOENT: no such file or directory, open '/Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-069/schemas/work-management/frontmatter/work-item.json'"
+      ]
+    },
+    {
+      "file": "backlog/031-implement-idempotent-runtimeexecution-ledger-and-safe-status-api.md",
+      "schema": "schemas/work-management/frontmatter/work-item.json",
+      "errors": [
+        "(schema-load) ENOENT: no such file or directory, open '/Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-069/schemas/work-management/frontmatter/work-item.json'"
+      ]
+    },
+    {
+      "file": "backlog/032-deliver-opt-in-async-job-fit-vertical-slice.md",
+      "schema": "schemas/work-management/frontmatter/work-item.json",
+      "errors": [
+        "(schema-load) ENOENT: no such file or directory, open '/Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-069/schemas/work-management/frontmatter/work-item.json'"
+      ]
+    },
+    {
+      "file": "backlog/033-build-human-review-signal-bridge.md",
+      "schema": "schemas/work-management/frontmatter/work-item.json",
+      "errors": [
+        "(schema-load) ENOENT: no such file or directory, open '/Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-069/schemas/work-management/frontmatter/work-item.json'"
+      ]
+    },
+    {
+      "file": "backlog/034-implement-durable-harvest-runtime-slice.md",
+      "schema": "schemas/work-management/frontmatter/work-item.json",
+      "errors": [
+        "(schema-load) ENOENT: no such file or directory, open '/Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-069/schemas/work-management/frontmatter/work-item.json'"
+      ]
+    },
+    {
+      "file": "backlog/035-implement-durable-cull-and-prime-runtime-slice.md",
+      "schema": "schemas/work-management/frontmatter/work-item.json",
+      "errors": [
+        "(schema-load) ENOENT: no such file or directory, open '/Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-069/schemas/work-management/frontmatter/work-item.json'"
+      ]
+    },
+    {
+      "file": "backlog/036-implement-substantiation-and-guarded-catalog-publication.md",
+      "schema": "schemas/work-management/frontmatter/work-item.json",
+      "errors": [
+        "(schema-load) ENOENT: no such file or directory, open '/Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-069/schemas/work-management/frontmatter/work-item.json'"
+      ]
+    },
+    {
+      "file": "backlog/037-implement-required-durable-runtime-for-target-and-catalog-fit.md",
+      "schema": "schemas/work-management/frontmatter/work-item.json",
+      "errors": [
+        "(schema-load) ENOENT: no such file or directory, open '/Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-069/schemas/work-management/frontmatter/work-item.json'"
+      ]
+    },
+    {
+      "file": "backlog/038-implement-required-durable-runtime-for-deliverable-generation.md",
+      "schema": "schemas/work-management/frontmatter/work-item.json",
+      "errors": [
+        "(schema-load) ENOENT: no such file or directory, open '/Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-069/schemas/work-management/frontmatter/work-item.json'"
+      ]
+    },
+    {
+      "file": "backlog/039-implement-required-scheduled-application-automation-for-wi-026.md",
+      "schema": "schemas/work-management/frontmatter/work-item.json",
+      "errors": [
+        "(schema-load) ENOENT: no such file or directory, open '/Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-069/schemas/work-management/frontmatter/work-item.json'"
+      ]
+    },
+    {
+      "file": "backlog/040-complete-production-hardening-and-temporal-adoption-decision.md",
+      "schema": "schemas/work-management/frontmatter/work-item.json",
+      "errors": [
+        "(schema-load) ENOENT: no such file or directory, open '/Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-069/schemas/work-management/frontmatter/work-item.json'"
+      ]
+    },
+    {
+      "file": "backlog/041-add-uat-evidence-capture-harness.md",
+      "schema": "schemas/work-management/frontmatter/work-item.json",
+      "errors": [
+        "(schema-load) ENOENT: no such file or directory, open '/Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-069/schemas/work-management/frontmatter/work-item.json'"
+      ]
+    },
+    {
+      "file": "backlog/042-author-local-podman-uat-fixture.md",
+      "schema": "schemas/work-management/frontmatter/work-item.json",
+      "errors": [
+        "(schema-load) ENOENT: no such file or directory, open '/Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-069/schemas/work-management/frontmatter/work-item.json'"
+      ]
+    },
+    {
+      "file": "backlog/043-add-ci-friendly-uat-orchestrator.md",
+      "schema": "schemas/work-management/frontmatter/work-item.json",
+      "errors": [
+        "(schema-load) ENOENT: no such file or directory, open '/Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-069/schemas/work-management/frontmatter/work-item.json'"
+      ]
+    },
+    {
+      "file": "backlog/045-fix-local-compose-resume-upload.md",
+      "schema": "schemas/work-management/frontmatter/work-item.json",
+      "errors": [
+        "(schema-load) ENOENT: no such file or directory, open '/Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-069/schemas/work-management/frontmatter/work-item.json'"
+      ]
+    },
+    {
+      "file": "backlog/046-include-pi-bridge-in-local-compose.md",
+      "schema": "schemas/work-management/frontmatter/work-item.json",
+      "errors": [
+        "(schema-load) ENOENT: no such file or directory, open '/Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-069/schemas/work-management/frontmatter/work-item.json'"
+      ]
+    },
+    {
+      "file": "backlog/047-complete-p0-reconciliation.md",
+      "schema": "schemas/work-management/frontmatter/work-item.json",
+      "errors": [
+        "(schema-load) ENOENT: no such file or directory, open '/Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-069/schemas/work-management/frontmatter/work-item.json'"
+      ]
+    },
+    {
+      "file": "backlog/048-refresh-p0-source-of-truth-docs.md",
+      "schema": "schemas/work-management/frontmatter/work-item.json",
+      "errors": [
+        "(schema-load) ENOENT: no such file or directory, open '/Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-069/schemas/work-management/frontmatter/work-item.json'"
+      ]
+    },
+    {
+      "file": "backlog/049-align-runtime-execution-temporal-truth.md",
+      "schema": "schemas/work-management/frontmatter/work-item.json",
+      "errors": [
+        "(schema-load) ENOENT: no such file or directory, open '/Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-069/schemas/work-management/frontmatter/work-item.json'"
+      ]
+    },
+    {
+      "file": "backlog/050-deliver-job-search-application-funnel-slice.md",
+      "schema": "schemas/work-management/frontmatter/work-item.json",
+      "errors": [
+        "(schema-load) ENOENT: no such file or directory, open '/Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-069/schemas/work-management/frontmatter/work-item.json'"
+      ]
+    },
+    {
+      "file": "backlog/051-add-application-bundle-record-slice.md",
+      "schema": "schemas/work-management/frontmatter/work-item.json",
+      "errors": [
+        "(schema-load) ENOENT: no such file or directory, open '/Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-069/schemas/work-management/frontmatter/work-item.json'"
+      ]
+    },
+    {
+      "file": "backlog/052-enforce-generation-source-eligibility.md",
+      "schema": "schemas/work-management/frontmatter/work-item.json",
+      "errors": [
+        "(schema-load) ENOENT: no such file or directory, open '/Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-069/schemas/work-management/frontmatter/work-item.json'"
+      ]
+    },
+    {
+      "file": "backlog/053-generate-draft-application-bundle-artifacts.md",
+      "schema": "schemas/work-management/frontmatter/work-item.json",
+      "errors": [
+        "(schema-load) ENOENT: no such file or directory, open '/Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-069/schemas/work-management/frontmatter/work-item.json'"
+      ]
+    },
+    {
+      "file": "backlog/054-add-career-inventory-and-curation-slice.md",
+      "schema": "schemas/work-management/frontmatter/work-item.json",
+      "errors": [
+        "(schema-load) ENOENT: no such file or directory, open '/Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-069/schemas/work-management/frontmatter/work-item.json'"
+      ]
+    },
+    {
+      "file": "backlog/055-add-application-bundle-workspace.md",
+      "schema": "schemas/work-management/frontmatter/work-item.json",
+      "errors": [
+        "(schema-load) ENOENT: no such file or directory, open '/Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-069/schemas/work-management/frontmatter/work-item.json'"
+      ]
+    },
+    {
+      "file": "backlog/056-connect-career-refresh-and-runtime-ux.md",
+      "schema": "schemas/work-management/frontmatter/work-item.json",
+      "errors": [
+        "(schema-load) ENOENT: no such file or directory, open '/Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-069/schemas/work-management/frontmatter/work-item.json'"
+      ]
+    },
+    {
+      "file": "backlog/057-run-live-full-loop-mvp-uat.md",
+      "schema": "schemas/work-management/frontmatter/work-item.json",
+      "errors": [
+        "(schema-load) ENOENT: no such file or directory, open '/Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-069/schemas/work-management/frontmatter/work-item.json'"
+      ]
+    },
+    {
+      "file": "backlog/058-repair-babysitter-dv-run-closeout.md",
+      "schema": "schemas/work-management/frontmatter/work-item.json",
+      "errors": [
+        "(schema-load) ENOENT: no such file or directory, open '/Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-069/schemas/work-management/frontmatter/work-item.json'"
+      ]
+    },
+    {
+      "file": "backlog/059-make-release-validation-reproducible.md",
+      "schema": "schemas/work-management/frontmatter/work-item.json",
+      "errors": [
+        "(schema-load) ENOENT: no such file or directory, open '/Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-069/schemas/work-management/frontmatter/work-item.json'"
+      ]
+    },
+    {
+      "file": "backlog/060-draft-figma-based-frontend.md",
+      "schema": "schemas/work-management/frontmatter/work-item.json",
+      "errors": [
+        "(schema-load) ENOENT: no such file or directory, open '/Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-069/schemas/work-management/frontmatter/work-item.json'"
+      ]
+    },
+    {
+      "file": "backlog/061-repair-resume-upload-fallback.md",
+      "schema": "schemas/work-management/frontmatter/work-item.json",
+      "errors": [
+        "(schema-load) ENOENT: no such file or directory, open '/Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-069/schemas/work-management/frontmatter/work-item.json'"
+      ]
+    },
+    {
+      "file": "backlog/062-separate-today-from-applications.md",
+      "schema": "schemas/work-management/frontmatter/work-item.json",
+      "errors": [
+        "(schema-load) ENOENT: no such file or directory, open '/Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-069/schemas/work-management/frontmatter/work-item.json'"
+      ]
+    },
+    {
+      "file": "backlog/063-wire-frontend-draft-interactions.md",
+      "schema": "schemas/work-management/frontmatter/work-item.json",
+      "errors": [
+        "(schema-load) ENOENT: no such file or directory, open '/Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-069/schemas/work-management/frontmatter/work-item.json'"
+      ]
+    },
+    {
+      "file": "backlog/064-simplify-frontend-draft-navigation.md",
+      "schema": "schemas/work-management/frontmatter/work-item.json",
+      "errors": [
+        "(schema-load) ENOENT: no such file or directory, open '/Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-069/schemas/work-management/frontmatter/work-item.json'"
+      ]
+    },
+    {
+      "file": "backlog/065-make-live-integration-tests-opt-in.md",
+      "schema": "schemas/work-management/frontmatter/work-item.json",
+      "errors": [
+        "(schema-load) ENOENT: no such file or directory, open '/Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-069/schemas/work-management/frontmatter/work-item.json'"
+      ]
+    },
+    {
+      "file": "backlog/067-make-sources-and-evidence-actionable.md",
+      "schema": "schemas/work-management/frontmatter/work-item.json",
+      "errors": [
+        "(schema-load) ENOENT: no such file or directory, open '/Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-069/schemas/work-management/frontmatter/work-item.json'"
+      ]
+    },
+    {
+      "file": "backlog/068-build-catalog-development-board.md",
+      "schema": "schemas/work-management/frontmatter/work-item.json",
+      "errors": [
+        "(schema-load) ENOENT: no such file or directory, open '/Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-069/schemas/work-management/frontmatter/work-item.json'"
+      ]
+    },
+    {
+      "file": "backlog/069-complete-connected-mock-dual-lifecycles.md",
+      "schema": "schemas/work-management/frontmatter/work-item.json",
+      "errors": [
+        "(schema-load) ENOENT: no such file or directory, open '/Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-069/schemas/work-management/frontmatter/work-item.json'"
+      ]
+    },
+    {
+      "file": "backlog/070-validate-connected-mock-dual-lifecycles.md",
+      "schema": "schemas/work-management/frontmatter/work-item.json",
+      "errors": [
+        "(schema-load) ENOENT: no such file or directory, open '/Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-069/schemas/work-management/frontmatter/work-item.json'"
+      ]
+    },
+    {
+      "file": "backlog/071-isolate-mock-prerequisite-test-resources.md",
+      "schema": "schemas/work-management/frontmatter/work-item.json",
+      "errors": [
+        "(schema-load) ENOENT: no such file or directory, open '/Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-069/schemas/work-management/frontmatter/work-item.json'"
+      ]
+    },
+    {
+      "file": "backlog/records/record-clean-validation-passed.md",
+      "schema": "schemas/work-management/frontmatter/record.json",
+      "errors": [
+        "(schema-load) ENOENT: no such file or directory, open '/Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-069/schemas/work-management/frontmatter/record.json'"
+      ]
+    },
+    {
+      "file": "backlog/records/record-interactive-frontend-draft-validated.md",
+      "schema": "schemas/work-management/frontmatter/record.json",
+      "errors": [
+        "(schema-load) ENOENT: no such file or directory, open '/Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-069/schemas/work-management/frontmatter/record.json'"
+      ]
+    },
+    {
+      "file": "backlog/records/record-today-and-applications-rework-validated.md",
+      "schema": "schemas/work-management/frontmatter/record.json",
+      "errors": [
+        "(schema-load) ENOENT: no such file or directory, open '/Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-069/schemas/work-management/frontmatter/record.json'"
+      ]
+    },
+    {
+      "file": "backlog/records/record-wi-051-focused-validation-and-independent-review-passed-after-remediation.md",
+      "schema": "schemas/work-management/frontmatter/record.json",
+      "errors": [
+        "(schema-load) ENOENT: no such file or directory, open '/Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-069/schemas/work-management/frontmatter/record.json'"
+      ]
+    },
+    {
+      "file": "backlog/records/record-wi-052-source-eligibility-validation-and-independent-review-passed-after-remediation.md",
+      "schema": "schemas/work-management/frontmatter/record.json",
+      "errors": [
+        "(schema-load) ENOENT: no such file or directory, open '/Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-069/schemas/work-management/frontmatter/record.json'"
+      ]
+    },
+    {
+      "file": "backlog/records/record-wi-053-draft-bundle-artifacts-validation-and-review-passed.md",
+      "schema": "schemas/work-management/frontmatter/record.json",
+      "errors": [
+        "(schema-load) ENOENT: no such file or directory, open '/Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-069/schemas/work-management/frontmatter/record.json'"
+      ]
+    },
+    {
+      "file": "backlog/records/record-wi-054-historical-synthetic-validation.md",
+      "schema": "schemas/work-management/frontmatter/record.json",
+      "errors": [
+        "(schema-load) ENOENT: no such file or directory, open '/Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-069/schemas/work-management/frontmatter/record.json'"
+      ]
+    },
+    {
+      "file": "backlog/records/record-wi-054-publisher-authorization.md",
+      "schema": "schemas/work-management/frontmatter/record.json",
+      "errors": [
+        "(schema-load) ENOENT: no such file or directory, open '/Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-069/schemas/work-management/frontmatter/record.json'"
+      ]
+    },
+    {
+      "file": "backlog/records/record-wi-054-synthetic-inventory-validation-passed.md",
+      "schema": "schemas/work-management/frontmatter/record.json",
+      "errors": [
+        "(schema-load) ENOENT: no such file or directory, open '/Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-069/schemas/work-management/frontmatter/record.json'"
+      ]
+    },
+    {
+      "file": "backlog/records/record-wi-055-historical-approval.md",
+      "schema": "schemas/work-management/frontmatter/record.json",
+      "errors": [
+        "(schema-load) ENOENT: no such file or directory, open '/Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-069/schemas/work-management/frontmatter/record.json'"
+      ]
+    },
+    {
+      "file": "backlog/records/record-wi-055-validation-passed.md",
+      "schema": "schemas/work-management/frontmatter/record.json",
+      "errors": [
+        "(schema-load) ENOENT: no such file or directory, open '/Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-069/schemas/work-management/frontmatter/record.json'"
+      ]
+    },
+    {
+      "file": "backlog/records/record-wi-056-implementation-validation.md",
+      "schema": "schemas/work-management/frontmatter/record.json",
+      "errors": [
+        "(schema-load) ENOENT: no such file or directory, open '/Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-069/schemas/work-management/frontmatter/record.json'"
+      ]
+    },
+    {
+      "file": "backlog/records/record-wi-058-source-integration-validation.md",
+      "schema": "schemas/work-management/frontmatter/record.json",
+      "errors": [
+        "(schema-load) ENOENT: no such file or directory, open '/Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-069/schemas/work-management/frontmatter/record.json'"
+      ]
+    },
+    {
+      "file": "backlog/records/record-wi-059-historical-approval.md",
+      "schema": "schemas/work-management/frontmatter/record.json",
+      "errors": [
+        "(schema-load) ENOENT: no such file or directory, open '/Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-069/schemas/work-management/frontmatter/record.json'"
+      ]
+    },
+    {
+      "file": "backlog/records/record-wi-059-historical-ci-validation.md",
+      "schema": "schemas/work-management/frontmatter/record.json",
+      "errors": [
+        "(schema-load) ENOENT: no such file or directory, open '/Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-069/schemas/work-management/frontmatter/record.json'"
+      ]
+    },
+    {
+      "file": "backlog/records/record-wi-063-mock-interaction-validation.md",
+      "schema": "schemas/work-management/frontmatter/record.json",
+      "errors": [
+        "(schema-load) ENOENT: no such file or directory, open '/Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-069/schemas/work-management/frontmatter/record.json'"
+      ]
+    },
+    {
+      "file": "backlog/records/record-wi-064-final-independent-review.md",
+      "schema": "schemas/work-management/frontmatter/record.json",
+      "errors": [
+        "(schema-load) ENOENT: no such file or directory, open '/Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-069/schemas/work-management/frontmatter/record.json'"
+      ]
+    },
+    {
+      "file": "backlog/records/record-wi-064-frontend-navigation-validation.md",
+      "schema": "schemas/work-management/frontmatter/record.json",
+      "errors": [
+        "(schema-load) ENOENT: no such file or directory, open '/Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-069/schemas/work-management/frontmatter/record.json'"
+      ]
+    },
+    {
+      "file": "backlog/records/record-wi-064-independent-review.md",
+      "schema": "schemas/work-management/frontmatter/record.json",
+      "errors": [
+        "(schema-load) ENOENT: no such file or directory, open '/Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-069/schemas/work-management/frontmatter/record.json'"
+      ]
+    },
+    {
+      "file": "backlog/records/record-wi-065-deterministic-integration-validation.md",
+      "schema": "schemas/work-management/frontmatter/record.json",
+      "errors": [
+        "(schema-load) ENOENT: no such file or directory, open '/Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-069/schemas/work-management/frontmatter/record.json'"
+      ]
+    },
+    {
+      "file": "backlog/records/record-wi-067-independent-review-approved.md",
+      "schema": "schemas/work-management/frontmatter/record.json",
+      "errors": [
+        "(schema-load) ENOENT: no such file or directory, open '/Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-069/schemas/work-management/frontmatter/record.json'"
+      ]
+    },
+    {
+      "file": "backlog/records/record-wi-067-persistence-validation-passed.md",
+      "schema": "schemas/work-management/frontmatter/record.json",
+      "errors": [
+        "(schema-load) ENOENT: no such file or directory, open '/Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-069/schemas/work-management/frontmatter/record.json'"
+      ]
+    },
+    {
+      "file": "backlog/records/record-wi-067-validation-passed.md",
+      "schema": "schemas/work-management/frontmatter/record.json",
+      "errors": [
+        "(schema-load) ENOENT: no such file or directory, open '/Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-069/schemas/work-management/frontmatter/record.json'"
+      ]
+    },
+    {
+      "file": "backlog/records/record-wi-068-local-validation.md",
+      "schema": "schemas/work-management/frontmatter/record.json",
+      "errors": [
+        "(schema-load) ENOENT: no such file or directory, open '/Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-069/schemas/work-management/frontmatter/record.json'"
+      ]
+    },
+    {
+      "file": "backlog/records/record-wi-069-local-validation.md",
+      "schema": "schemas/work-management/frontmatter/record.json",
+      "errors": [
+        "(schema-load) ENOENT: no such file or directory, open '/Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-069/schemas/work-management/frontmatter/record.json'"
+      ]
+    }
+  ],
+  "exit_code": 0
+}
