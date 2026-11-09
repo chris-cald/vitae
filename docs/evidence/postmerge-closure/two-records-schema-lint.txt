@@ -1,0 +1,4 @@
+
+Validating 2 backlog frontmatter file(s) against JSON schema...
+
+✅ All backlog frontmatter files passed schema validation

@@ -1,0 +1,28 @@
+{
+  "baseline": "backlog/audit/auditing-backlog-report.json",
+  "after": "docs/evidence/postmerge-closure/after-records-audit.json",
+  "normalization": "checkout root only; raw reports retained",
+  "baseline_load_errors": 86,
+  "after_load_errors": 88,
+  "added": [
+    {
+      "file": "backlog/records/record-wi-069-provider-merged.md",
+      "schema": "schemas/work-management/frontmatter/record.json",
+      "errors": [
+        "(schema-load) ENOENT: no such file or directory, open '<CHECKOUT>/schemas/work-management/frontmatter/record.json'"
+      ]
+    },
+    {
+      "file": "backlog/records/record-wi-071-provider-merged.md",
+      "schema": "schemas/work-management/frontmatter/record.json",
+      "errors": [
+        "(schema-load) ENOENT: no such file or directory, open '<CHECKOUT>/schemas/work-management/frontmatter/record.json'"
+      ]
+    }
+  ],
+  "removed": [],
+  "schema_violations": 0,
+  "global_pass": false,
+  "closure_publication_authorized": false,
+  "decision": "WAIT for WI-60527 per DV TTR; no two-record exception"
+}
