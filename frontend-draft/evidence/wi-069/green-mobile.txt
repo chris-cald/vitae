@@ -1,0 +1,2 @@
+<output id="result" data-result="pass">PASS: essential Catalog controls visible and clickable at 390px</output>
+<output id="result" data-result="pass">PASS: essential Catalog controls visible and clickable at 480px</output>

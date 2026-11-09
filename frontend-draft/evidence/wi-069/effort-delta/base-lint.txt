@@ -1,0 +1,1130 @@
+(node:96030) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+Validating 158 backlog frontmatter file(s) against JSON schema...
+
+❌ 009-remove-pii-bearing-model-logs.md
+   [error] (root): must have required property 'actual' params={"missingProperty":"actual"}
+   [error] (root): must match "then" schema params={"failingKeyword":"then"}
+   [error] (root): must match "then" schema params={"failingKeyword":"then"}
+
+❌ 019-reconcile-planning-docs-and-backlog-with-canonical-mvp-scope.md
+   [error] (root): must have required property 'actual' params={"missingProperty":"actual"}
+   [error] (root): must match "then" schema params={"failingKeyword":"then"}
+   [error] (root): must match "then" schema params={"failingKeyword":"then"}
+
+❌ 020-define-canonical-vitae-domain-model-and-obsidian-mapping.md
+   [error] (root): must have required property 'actual' params={"missingProperty":"actual"}
+   [error] (root): must match "then" schema params={"failingKeyword":"then"}
+   [error] (root): must match "then" schema params={"failingKeyword":"then"}
+
+❌ 021-preserve-seed-model-compatibility-and-harvest-fixtures.md
+   [error] (root): must have required property 'actual' params={"missingProperty":"actual"}
+   [error] (root): must match "then" schema params={"failingKeyword":"then"}
+   [error] (root): must match "then" schema params={"failingKeyword":"then"}
+
+❌ 022-define-harvest-cull-prime-and-substantiate-workflow-contracts.md
+   [error] (root): must have required property 'actual' params={"missingProperty":"actual"}
+   [error] (root): must match "then" schema params={"failingKeyword":"then"}
+   [error] (root): must match "then" schema params={"failingKeyword":"then"}
+
+❌ 023-implement-target-requirement-projection-and-catalog-fit-slice.md
+   [error] (root): must have required property 'actual' params={"missingProperty":"actual"}
+   [error] (root): must match "then" schema params={"failingKeyword":"then"}
+   [error] (root): must match "then" schema params={"failingKeyword":"then"}
+
+❌ 024-classify-misalignments-into-harvest-cull-prime-and-substantiate-actions.md
+   [error] (root): must have required property 'actual' params={"missingProperty":"actual"}
+   [error] (root): must match "then" schema params={"failingKeyword":"then"}
+   [error] (root): must match "then" schema params={"failingKeyword":"then"}
+
+❌ 025-generate-source-backed-resume-and-communication-deliverables.md
+   [error] (root): must have required property 'actual' params={"missingProperty":"actual"}
+   [error] (root): must match "then" schema params={"failingKeyword":"then"}
+   [error] (root): must match "then" schema params={"failingKeyword":"then"}
+
+❌ 026-track-one-application-with-lightweight-material-records.md
+   [error] (root): must have required property 'actual' params={"missingProperty":"actual"}
+   [error] (root): must match "then" schema params={"failingKeyword":"then"}
+   [error] (root): must match "then" schema params={"failingKeyword":"then"}
+
+❌ 027-adopt-privacy-safe-durable-temporal-execution.md
+   [error] /links: must NOT have additional properties params={"additionalProperty":"implements"}
+   [error] (root): must have required property 'actual' params={"missingProperty":"actual"}
+   [error] (root): must match "then" schema params={"failingKeyword":"then"}
+   [error] /links: must NOT have additional properties params={"additionalProperty":"implements"}
+   [error] (root): must match "then" schema params={"failingKeyword":"then"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"id"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"title"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"type"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"subtype"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"lifecycle"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"status"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"status_reason"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"priority"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"estimated"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"links"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"tags"}
+
+❌ 028-define-temporal-execution-boundary-and-threat-model.md
+   [error] /links: must NOT have additional properties params={"additionalProperty":"parent"}
+   [error] /links: must NOT have additional properties params={"additionalProperty":"implements"}
+   [error] /status_reason: must be equal to one of the allowed values params={"allowedValues":["completed","obsolete","superseded","redundant","cancelled"]}
+   [error] (root): must match "then" schema params={"failingKeyword":"then"}
+   [error] /lifecycle: must be equal to constant params={"allowedValue":"draft"}
+   [error] /status: must be equal to one of the allowed values params={"allowedValues":["draft","aborted"]}
+   [error] /status: must be equal to one of the allowed values params={"allowedValues":["ready","running","paused","completed","aborted"]}
+   [error] /lifecycle: must be equal to constant params={"allowedValue":"evergreen"}
+   [error] /status: must be equal to one of the allowed values params={"allowedValues":["ready","running","paused","completed","aborted"]}
+   [error] /lifecycle: must be equal to constant params={"allowedValue":"inactive"}
+   [error] /status: must be equal to one of the allowed values params={"allowedValues":["completed","aborted"]}
+   [error] (root): must match a schema in anyOf
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"id"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"title"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"type"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"subtype"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"lifecycle"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"status"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"status_reason"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"priority"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"estimated"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"links"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"tags"}
+
+❌ 029-build-runtime-execution-adapter-and-pii-safe-payload-contract.md
+   [error] /links: must NOT have additional properties params={"additionalProperty":"parent"}
+   [error] /links: must NOT have additional properties params={"additionalProperty":"implements"}
+   [error] /status_reason: must be equal to one of the allowed values params={"allowedValues":["completed","obsolete","superseded","redundant","cancelled"]}
+   [error] (root): must match "then" schema params={"failingKeyword":"then"}
+   [error] /lifecycle: must be equal to constant params={"allowedValue":"draft"}
+   [error] /status: must be equal to one of the allowed values params={"allowedValues":["draft","aborted"]}
+   [error] /status: must be equal to one of the allowed values params={"allowedValues":["ready","running","paused","completed","aborted"]}
+   [error] /lifecycle: must be equal to constant params={"allowedValue":"evergreen"}
+   [error] /status: must be equal to one of the allowed values params={"allowedValues":["ready","running","paused","completed","aborted"]}
+   [error] /lifecycle: must be equal to constant params={"allowedValue":"inactive"}
+   [error] /status: must be equal to one of the allowed values params={"allowedValues":["completed","aborted"]}
+   [error] (root): must match a schema in anyOf
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"id"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"title"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"type"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"subtype"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"lifecycle"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"status"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"status_reason"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"priority"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"estimated"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"links"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"tags"}
+
+❌ 030-create-isolated-temporal-worker-bootstrap-and-configuration-seam.md
+   [error] /links: must NOT have additional properties params={"additionalProperty":"parent"}
+   [error] /links: must NOT have additional properties params={"additionalProperty":"implements"}
+   [error] (root): must have required property 'actual' params={"missingProperty":"actual"}
+   [error] (root): must match "then" schema params={"failingKeyword":"then"}
+   [error] /links: must NOT have additional properties params={"additionalProperty":"parent"}
+   [error] /links: must NOT have additional properties params={"additionalProperty":"implements"}
+   [error] (root): must match "then" schema params={"failingKeyword":"then"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"id"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"title"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"type"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"subtype"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"lifecycle"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"status"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"status_reason"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"priority"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"estimated"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"links"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"tags"}
+   [error] /links/depends_on: Dependency '[[028-define-temporal-execution-boundary-and-threat-model]]' (wi-028: Define Temporal Execution Boundary and Threat Model) must be terminal before work item can enter 'completed' but is 'closed'
+   [error] /links/depends_on: Dependency '[[029-build-runtime-execution-adapter-and-pii-safe-payload-contract]]' (wi-029: Build Runtime Execution Adapter and PII-Safe Payload Contract) must be terminal before work item can enter 'completed' but is 'closed'
+
+❌ 031-implement-idempotent-runtimeexecution-ledger-and-safe-status-api.md
+   [error] /links: must NOT have additional properties params={"additionalProperty":"parent"}
+   [error] /links: must NOT have additional properties params={"additionalProperty":"implements"}
+   [error] (root): must have required property 'actual' params={"missingProperty":"actual"}
+   [error] (root): must match "then" schema params={"failingKeyword":"then"}
+   [error] /links: must NOT have additional properties params={"additionalProperty":"parent"}
+   [error] /links: must NOT have additional properties params={"additionalProperty":"implements"}
+   [error] (root): must match "then" schema params={"failingKeyword":"then"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"id"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"title"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"type"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"subtype"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"lifecycle"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"status"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"status_reason"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"priority"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"estimated"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"links"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"tags"}
+   [error] /links/depends_on: Dependency '[[029-build-runtime-execution-adapter-and-pii-safe-payload-contract]]' (wi-029: Build Runtime Execution Adapter and PII-Safe Payload Contract) must be terminal before work item can enter 'completed' but is 'closed'
+
+❌ 032-deliver-opt-in-async-job-fit-vertical-slice.md
+   [error] /links: must NOT have additional properties params={"additionalProperty":"parent"}
+   [error] /links: must NOT have additional properties params={"additionalProperty":"implements"}
+   [error] (root): must have required property 'actual' params={"missingProperty":"actual"}
+   [error] (root): must match "then" schema params={"failingKeyword":"then"}
+   [error] /links: must NOT have additional properties params={"additionalProperty":"parent"}
+   [error] /links: must NOT have additional properties params={"additionalProperty":"implements"}
+   [error] (root): must match "then" schema params={"failingKeyword":"then"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"id"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"title"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"type"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"subtype"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"lifecycle"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"status"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"status_reason"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"priority"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"estimated"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"links"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"tags"}
+   [error] /links/depends_on: Dependency '[[029-build-runtime-execution-adapter-and-pii-safe-payload-contract]]' (wi-029: Build Runtime Execution Adapter and PII-Safe Payload Contract) must be terminal before work item can enter 'completed' but is 'closed'
+
+❌ 033-build-human-review-signal-bridge.md
+   [error] /links: must NOT have additional properties params={"additionalProperty":"parent"}
+   [error] /links: must NOT have additional properties params={"additionalProperty":"implements"}
+   [error] (root): must have required property 'actual' params={"missingProperty":"actual"}
+   [error] (root): must match "then" schema params={"failingKeyword":"then"}
+   [error] /links: must NOT have additional properties params={"additionalProperty":"parent"}
+   [error] /links: must NOT have additional properties params={"additionalProperty":"implements"}
+   [error] (root): must match "then" schema params={"failingKeyword":"then"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"id"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"title"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"type"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"subtype"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"lifecycle"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"status"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"status_reason"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"priority"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"estimated"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"links"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"tags"}
+   [error] /links/depends_on: Dependency '[[029-build-runtime-execution-adapter-and-pii-safe-payload-contract]]' (wi-029: Build Runtime Execution Adapter and PII-Safe Payload Contract) must be terminal before work item can enter 'completed' but is 'closed'
+
+❌ 034-implement-durable-harvest-runtime-slice.md
+   [error] /links: must NOT have additional properties params={"additionalProperty":"parent"}
+   [error] /links: must NOT have additional properties params={"additionalProperty":"implements"}
+   [error] (root): must have required property 'actual' params={"missingProperty":"actual"}
+   [error] (root): must match "then" schema params={"failingKeyword":"then"}
+   [error] /links: must NOT have additional properties params={"additionalProperty":"parent"}
+   [error] /links: must NOT have additional properties params={"additionalProperty":"implements"}
+   [error] (root): must match "then" schema params={"failingKeyword":"then"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"id"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"title"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"type"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"subtype"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"lifecycle"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"status"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"status_reason"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"priority"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"estimated"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"links"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"tags"}
+   [error] /links/depends_on: Dependency '[[029-build-runtime-execution-adapter-and-pii-safe-payload-contract]]' (wi-029: Build Runtime Execution Adapter and PII-Safe Payload Contract) must be terminal before work item can enter 'completed' but is 'closed'
+
+❌ 035-implement-durable-cull-and-prime-runtime-slice.md
+   [error] /links: must NOT have additional properties params={"additionalProperty":"parent"}
+   [error] /links: must NOT have additional properties params={"additionalProperty":"implements"}
+   [error] (root): must have required property 'actual' params={"missingProperty":"actual"}
+   [error] (root): must match "then" schema params={"failingKeyword":"then"}
+   [error] /links: must NOT have additional properties params={"additionalProperty":"parent"}
+   [error] /links: must NOT have additional properties params={"additionalProperty":"implements"}
+   [error] (root): must match "then" schema params={"failingKeyword":"then"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"id"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"title"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"type"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"subtype"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"lifecycle"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"status"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"status_reason"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"priority"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"estimated"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"links"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"tags"}
+
+❌ 036-implement-substantiation-and-guarded-catalog-publication.md
+   [error] /links: must NOT have additional properties params={"additionalProperty":"parent"}
+   [error] /links: must NOT have additional properties params={"additionalProperty":"implements"}
+   [error] (root): must have required property 'actual' params={"missingProperty":"actual"}
+   [error] (root): must match "then" schema params={"failingKeyword":"then"}
+   [error] /links: must NOT have additional properties params={"additionalProperty":"parent"}
+   [error] /links: must NOT have additional properties params={"additionalProperty":"implements"}
+   [error] (root): must match "then" schema params={"failingKeyword":"then"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"id"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"title"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"type"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"subtype"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"lifecycle"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"status"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"status_reason"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"priority"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"estimated"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"links"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"tags"}
+
+❌ 037-implement-required-durable-runtime-for-target-and-catalog-fit.md
+   [error] /links: must NOT have additional properties params={"additionalProperty":"parent"}
+   [error] /links: must NOT have additional properties params={"additionalProperty":"implements"}
+   [error] (root): must have required property 'actual' params={"missingProperty":"actual"}
+   [error] (root): must match "then" schema params={"failingKeyword":"then"}
+   [error] /links: must NOT have additional properties params={"additionalProperty":"parent"}
+   [error] /links: must NOT have additional properties params={"additionalProperty":"implements"}
+   [error] (root): must match "then" schema params={"failingKeyword":"then"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"id"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"title"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"type"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"subtype"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"lifecycle"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"status"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"status_reason"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"priority"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"estimated"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"links"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"tags"}
+
+❌ 038-implement-required-durable-runtime-for-deliverable-generation.md
+   [error] /links: must NOT have additional properties params={"additionalProperty":"parent"}
+   [error] /links: must NOT have additional properties params={"additionalProperty":"implements"}
+   [error] (root): must have required property 'actual' params={"missingProperty":"actual"}
+   [error] (root): must match "then" schema params={"failingKeyword":"then"}
+   [error] /links: must NOT have additional properties params={"additionalProperty":"parent"}
+   [error] /links: must NOT have additional properties params={"additionalProperty":"implements"}
+   [error] (root): must match "then" schema params={"failingKeyword":"then"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"id"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"title"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"type"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"subtype"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"lifecycle"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"status"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"status_reason"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"priority"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"estimated"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"links"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"tags"}
+
+❌ 039-implement-required-scheduled-application-automation-for-wi-026.md
+   [error] /links: must NOT have additional properties params={"additionalProperty":"parent"}
+   [error] /links: must NOT have additional properties params={"additionalProperty":"implements"}
+   [error] (root): must have required property 'actual' params={"missingProperty":"actual"}
+   [error] (root): must match "then" schema params={"failingKeyword":"then"}
+   [error] /links: must NOT have additional properties params={"additionalProperty":"parent"}
+   [error] /links: must NOT have additional properties params={"additionalProperty":"implements"}
+   [error] (root): must match "then" schema params={"failingKeyword":"then"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"id"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"title"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"type"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"subtype"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"lifecycle"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"status"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"status_reason"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"priority"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"estimated"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"links"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"tags"}
+
+❌ 040-complete-production-hardening-and-temporal-adoption-decision.md
+   [error] /links: must NOT have additional properties params={"additionalProperty":"parent"}
+   [error] /links: must NOT have additional properties params={"additionalProperty":"implements"}
+   [error] (root): must have required property 'actual' params={"missingProperty":"actual"}
+   [error] (root): must match "then" schema params={"failingKeyword":"then"}
+   [error] /links: must NOT have additional properties params={"additionalProperty":"parent"}
+   [error] /links: must NOT have additional properties params={"additionalProperty":"implements"}
+   [error] (root): must match "then" schema params={"failingKeyword":"then"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"id"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"title"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"type"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"subtype"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"lifecycle"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"status"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"status_reason"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"priority"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"estimated"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"links"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"tags"}
+
+❌ 041-add-uat-evidence-capture-harness.md
+   [error] /links: must NOT have additional properties params={"additionalProperty":"parent"}
+   [error] /links: must NOT have additional properties params={"additionalProperty":"implements"}
+   [error] (root): must have required property 'actual' params={"missingProperty":"actual"}
+   [error] (root): must match "then" schema params={"failingKeyword":"then"}
+   [error] /links: must NOT have additional properties params={"additionalProperty":"parent"}
+   [error] /links: must NOT have additional properties params={"additionalProperty":"implements"}
+   [error] (root): must match "then" schema params={"failingKeyword":"then"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"id"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"title"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"type"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"subtype"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"lifecycle"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"status"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"status_reason"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"priority"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"estimated"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"links"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"tags"}
+
+❌ 042-author-local-podman-uat-fixture.md
+   [error] /links: must NOT have additional properties params={"additionalProperty":"parent"}
+   [error] (root): must have required property 'actual' params={"missingProperty":"actual"}
+   [error] (root): must match "then" schema params={"failingKeyword":"then"}
+   [error] /links: must NOT have additional properties params={"additionalProperty":"parent"}
+   [error] (root): must match "then" schema params={"failingKeyword":"then"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"id"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"title"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"type"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"subtype"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"lifecycle"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"status"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"status_reason"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"priority"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"estimated"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"links"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"tags"}
+
+❌ 043-add-ci-friendly-uat-orchestrator.md
+   [error] /links: must NOT have additional properties params={"additionalProperty":"parent"}
+   [error] (root): must have required property 'actual' params={"missingProperty":"actual"}
+   [error] (root): must match "then" schema params={"failingKeyword":"then"}
+   [error] /links: must NOT have additional properties params={"additionalProperty":"parent"}
+   [error] (root): must match "then" schema params={"failingKeyword":"then"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"id"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"title"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"type"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"subtype"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"lifecycle"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"status"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"status_reason"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"priority"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"estimated"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"links"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"tags"}
+
+❌ 044-add-local-compose-instance.md
+   /type: Unsupported frontmatter type '<missing>'. Supported types: [document, work-item]
+
+❌ 045-fix-local-compose-resume-upload.md
+   [error] /links: must NOT have additional properties params={"additionalProperty":"parent"}
+   [error] /links: must NOT have additional properties params={"additionalProperty":"parent"}
+   [error] (root): must match "then" schema params={"failingKeyword":"then"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"id"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"title"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"type"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"subtype"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"lifecycle"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"status"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"status_reason"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"priority"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"links"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"tags"}
+
+❌ 046-include-pi-bridge-in-local-compose.md
+   [error] /links: must NOT have additional properties params={"additionalProperty":"parent"}
+   [error] /links: must NOT have additional properties params={"additionalProperty":"parent"}
+   [error] (root): must match "then" schema params={"failingKeyword":"then"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"id"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"title"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"type"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"subtype"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"lifecycle"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"status"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"status_reason"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"priority"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"links"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"tags"}
+
+❌ 048-refresh-p0-source-of-truth-docs.md
+   [error] /links: must NOT have additional properties params={"additionalProperty":"parent"}
+   [error] (root): must have required property 'actual' params={"missingProperty":"actual"}
+   [error] (root): must match "then" schema params={"failingKeyword":"then"}
+   [error] /links: must NOT have additional properties params={"additionalProperty":"parent"}
+   [error] (root): must match "then" schema params={"failingKeyword":"then"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"id"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"title"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"summary"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"type"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"subtype"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"lifecycle"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"status"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"status_reason"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"priority"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"estimated"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"links"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"tags"}
+
+❌ 049-align-runtime-execution-temporal-truth.md
+   [error] /links: must NOT have additional properties params={"additionalProperty":"parent"}
+   [error] (root): must have required property 'actual' params={"missingProperty":"actual"}
+   [error] (root): must match "then" schema params={"failingKeyword":"then"}
+   [error] /links: must NOT have additional properties params={"additionalProperty":"parent"}
+   [error] (root): must match "then" schema params={"failingKeyword":"then"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"id"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"title"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"summary"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"type"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"subtype"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"lifecycle"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"status"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"status_reason"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"priority"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"estimated"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"links"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"tags"}
+
+❌ 050-deliver-job-search-application-funnel-slice.md
+   [error] /links: must NOT have additional properties params={"additionalProperty":"parent"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"title"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"summary"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"type"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"subtype"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"status_reason"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"priority"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"estimated"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"links"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"tags"}
+
+❌ 051-add-application-bundle-record-slice.md
+   [error] /links: must NOT have additional properties params={"additionalProperty":"parent"}
+   [error] /links: must NOT have additional properties params={"additionalProperty":"parent"}
+   [error] (root): must match "then" schema params={"failingKeyword":"then"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"id"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"title"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"summary"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"assignee"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"type"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"subtype"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"lifecycle"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"status"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"status_reason"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"priority"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"estimated"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"actual"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"completed_date"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"commits"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"links"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"tags"}
+
+❌ 052-enforce-generation-source-eligibility.md
+   [error] /links: must NOT have additional properties params={"additionalProperty":"parent"}
+   [error] /links: must NOT have additional properties params={"additionalProperty":"parent"}
+   [error] (root): must match "then" schema params={"failingKeyword":"then"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"id"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"title"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"summary"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"assignee"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"type"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"subtype"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"lifecycle"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"status"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"status_reason"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"priority"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"estimated"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"actual"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"completed_date"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"commits"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"links"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"tags"}
+
+❌ 053-generate-draft-application-bundle-artifacts.md
+   [error] /links: must NOT have additional properties params={"additionalProperty":"parent"}
+   [error] /links: must NOT have additional properties params={"additionalProperty":"parent"}
+   [error] (root): must match "then" schema params={"failingKeyword":"then"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"id"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"title"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"summary"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"type"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"subtype"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"lifecycle"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"status"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"status_reason"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"priority"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"estimated"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"actual"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"completed_date"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"commits"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"links"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"tags"}
+
+❌ 054-add-career-inventory-and-curation-slice.md
+   [error] /links: must NOT have additional properties params={"additionalProperty":"parent"}
+   [error] /links: must NOT have additional properties params={"additionalProperty":"parent"}
+   [error] (root): must match "then" schema params={"failingKeyword":"then"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"id"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"title"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"summary"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"type"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"subtype"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"lifecycle"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"status"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"status_reason"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"priority"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"estimated"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"actual"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"completed_date"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"commits"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"links"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"tags"}
+
+❌ 055-add-application-bundle-workspace.md
+   [error] /links: must NOT have additional properties params={"additionalProperty":"parent"}
+   [error] /links: must NOT have additional properties params={"additionalProperty":"parent"}
+   [error] (root): must match "then" schema params={"failingKeyword":"then"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"id"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"title"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"summary"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"type"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"subtype"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"lifecycle"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"status"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"status_reason"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"priority"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"completed_date"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"commits"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"links"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"tags"}
+
+❌ 056-connect-career-refresh-and-runtime-ux.md
+   [error] /links: must NOT have additional properties params={"additionalProperty":"parent"}
+   [error] /links: must NOT have additional properties params={"additionalProperty":"parent"}
+   [error] (root): must match "then" schema params={"failingKeyword":"then"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"id"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"title"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"summary"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"type"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"subtype"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"lifecycle"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"status"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"status_reason"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"priority"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"estimated"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"actual"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"completed_date"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"links"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"tags"}
+
+❌ 057-run-live-full-loop-mvp-uat.md
+   [error] /links: must NOT have additional properties params={"additionalProperty":"parent"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"title"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"summary"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"type"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"subtype"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"status_reason"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"priority"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"estimated"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"links"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"tags"}
+
+❌ 059-make-release-validation-reproducible.md
+   [error] /links: must NOT have additional properties params={"additionalProperty":"parent"}
+   [error] /links: must NOT have additional properties params={"additionalProperty":"parent"}
+   [error] (root): must match "then" schema params={"failingKeyword":"then"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"id"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"title"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"summary"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"type"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"subtype"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"lifecycle"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"status"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"status_reason"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"priority"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"estimated"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"actual"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"completed_date"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"commits"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"links"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"tags"}
+
+❌ 060-draft-figma-based-frontend.md
+   [error] /links: must NOT have additional properties params={"additionalProperty":"parent"}
+   [error] /links: must NOT have additional properties params={"additionalProperty":"implements"}
+   [error] /links/depends_on: must NOT have fewer than 1 items params={"limit":1}
+   [error] /links: must NOT have additional properties params={"additionalProperty":"parent"}
+   [error] /links: must NOT have additional properties params={"additionalProperty":"implements"}
+   [error] /links/depends_on: must NOT have fewer than 1 items params={"limit":1}
+   [error] (root): must match "then" schema params={"failingKeyword":"then"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"id"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"title"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"type"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"subtype"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"lifecycle"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"status"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"status_reason"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"priority"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"estimated"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"actual"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"completed_date"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"links"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"tags"}
+
+❌ 062-separate-today-from-applications.md
+   [error] /links: must NOT have additional properties params={"additionalProperty":"parent"}
+   [error] /links: must NOT have additional properties params={"additionalProperty":"implements"}
+   [error] /links/depends_on: must NOT have fewer than 1 items params={"limit":1}
+   [error] /links: must NOT have additional properties params={"additionalProperty":"parent"}
+   [error] /links: must NOT have additional properties params={"additionalProperty":"implements"}
+   [error] /links/depends_on: must NOT have fewer than 1 items params={"limit":1}
+   [error] (root): must match "then" schema params={"failingKeyword":"then"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"id"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"title"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"type"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"subtype"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"lifecycle"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"status"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"status_reason"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"priority"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"estimated"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"actual"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"completed_date"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"links"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"tags"}
+
+❌ 063-wire-frontend-draft-interactions.md
+   [error] /links: must NOT have additional properties params={"additionalProperty":"parent"}
+   [error] /links: must NOT have additional properties params={"additionalProperty":"implements"}
+   [error] /links/depends_on: must NOT have fewer than 1 items params={"limit":1}
+   [error] /links: must NOT have additional properties params={"additionalProperty":"parent"}
+   [error] /links: must NOT have additional properties params={"additionalProperty":"implements"}
+   [error] /links/depends_on: must NOT have fewer than 1 items params={"limit":1}
+   [error] (root): must match "then" schema params={"failingKeyword":"then"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"id"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"title"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"type"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"subtype"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"lifecycle"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"status"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"status_reason"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"priority"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"estimated"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"actual"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"completed_date"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"links"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"tags"}
+
+❌ 064-simplify-frontend-draft-navigation.md
+   [error] /links: must NOT have additional properties params={"additionalProperty":"parent"}
+   [error] /links: must NOT have additional properties params={"additionalProperty":"implements"}
+   [error] /links/depends_on: must NOT have fewer than 1 items params={"limit":1}
+   [error] /links: must NOT have additional properties params={"additionalProperty":"parent"}
+   [error] /links: must NOT have additional properties params={"additionalProperty":"implements"}
+   [error] /links/depends_on: must NOT have fewer than 1 items params={"limit":1}
+   [error] (root): must match "then" schema params={"failingKeyword":"then"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"id"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"title"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"type"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"subtype"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"lifecycle"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"status"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"status_reason"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"priority"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"estimated"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"actual"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"completed_date"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"commits"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"links"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"tags"}
+
+❌ 065-make-live-integration-tests-opt-in.md
+   [error] /links: must NOT have additional properties params={"additionalProperty":"parent"}
+   [error] /links: must NOT have additional properties params={"additionalProperty":"implements"}
+   [error] /links/depends_on: must NOT have fewer than 1 items params={"limit":1}
+   [error] /links: must NOT have additional properties params={"additionalProperty":"parent"}
+   [error] /links: must NOT have additional properties params={"additionalProperty":"implements"}
+   [error] /links/depends_on: must NOT have fewer than 1 items params={"limit":1}
+   [error] (root): must match "then" schema params={"failingKeyword":"then"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"id"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"title"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"type"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"subtype"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"lifecycle"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"status"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"status_reason"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"priority"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"estimated"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"actual"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"completed_date"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"links"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"tags"}
+
+❌ 067-make-sources-and-evidence-actionable.md
+   [error] /links: must NOT have additional properties params={"additionalProperty":"parent"}
+   [error] /links: must NOT have additional properties params={"additionalProperty":"implements"}
+   [error] /links/depends_on: must NOT have fewer than 1 items params={"limit":1}
+   [error] /links: must NOT have additional properties params={"additionalProperty":"parent"}
+   [error] /links: must NOT have additional properties params={"additionalProperty":"implements"}
+   [error] /links/depends_on: must NOT have fewer than 1 items params={"limit":1}
+   [error] (root): must match "then" schema params={"failingKeyword":"then"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"id"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"title"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"type"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"subtype"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"lifecycle"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"status"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"status_reason"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"priority"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"estimated"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"actual"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"completed_date"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"links"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"tags"}
+
+❌ 068-build-catalog-development-board.md
+   [error] /links: must NOT have additional properties params={"additionalProperty":"parent"}
+   [error] (root): must have required property 'actual' params={"missingProperty":"actual"}
+   [error] (root): must match "then" schema params={"failingKeyword":"then"}
+   [error] /links: must NOT have additional properties params={"additionalProperty":"parent"}
+   [error] (root): must match "then" schema params={"failingKeyword":"then"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"id"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"title"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"summary"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"type"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"subtype"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"lifecycle"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"status"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"status_reason"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"priority"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"estimated"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"completed_date"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"commits"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"links"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"tags"}
+
+❌ 1.1.1.EmbeddingCategoryDetection.md: No YAML frontmatter found
+
+❌ 1.1.EmbeddingCategoryDetection.md: No YAML frontmatter found
+
+❌ 1.2.1.RuleBasedFallback.md: No YAML frontmatter found
+
+❌ 1.2.RuleBasedFallback.md: No YAML frontmatter found
+
+❌ 1.3.1.ExposeCategoriesAPI.md: No YAML frontmatter found
+
+❌ 1.3.ExposeCategoriesAPI.md: No YAML frontmatter found
+
+❌ 1.CategoryDetection.md: No YAML frontmatter found
+
+❌ 2.1.1.EmbeddingGeneration.md: No YAML frontmatter found
+
+❌ 2.1.EmbeddingGeneration.md: No YAML frontmatter found
+
+❌ 2.2.1.SectionOverallScoring.md: No YAML frontmatter found
+
+❌ 2.2.SectionOverallScoring.md: No YAML frontmatter found
+
+❌ 2.3.1.PerCategoryFit.md: No YAML frontmatter found
+
+❌ 2.3.PerCategoryFit.md: No YAML frontmatter found
+
+❌ 2.4.1.HybridScoring.md: No YAML frontmatter found
+
+❌ 2.4.HybridScoring.md: No YAML frontmatter found
+
+❌ 2.SemanticScoring.md: No YAML frontmatter found
+
+❌ 3.1.1.SectionFeedback.md: No YAML frontmatter found
+
+❌ 3.1.SectionFeedback.md: No YAML frontmatter found
+
+❌ 3.2.1.GapOpportunity.md: No YAML frontmatter found
+
+❌ 3.2.GapOpportunity.md: No YAML frontmatter found
+
+❌ 3.3.1.ActionableSuggestions.md: No YAML frontmatter found
+
+❌ 3.3.ActionableSuggestions.md: No YAML frontmatter found
+
+❌ 3.FeedbackGapAnalysis.md: No YAML frontmatter found
+
+❌ 4.1.1.RelevanceRanking.md: No YAML frontmatter found
+
+❌ 4.1.RelevanceRanking.md: No YAML frontmatter found
+
+❌ 4.2.1.RedundancyDetection.md: No YAML frontmatter found
+
+❌ 4.2.RedundancyDetection.md: No YAML frontmatter found
+
+❌ 4.3.1.EditSuggestions.md: No YAML frontmatter found
+
+❌ 4.3.EditSuggestions.md: No YAML frontmatter found
+
+❌ 4.ContentOptimization.md: No YAML frontmatter found
+
+❌ 5.1.1.DynamicPrompt.md: No YAML frontmatter found
+
+❌ 5.1.DynamicPrompt.md: No YAML frontmatter found
+
+❌ 5.2.1.TemplateMatching.md: No YAML frontmatter found
+
+❌ 5.2.TemplateMatching.md: No YAML frontmatter found
+
+❌ 5.PromptTemplateSelection.md: No YAML frontmatter found
+
+❌ 6.1.1.SemanticSearch.md: No YAML frontmatter found
+
+❌ 6.1.SemanticSearch.md: No YAML frontmatter found
+
+❌ 6.2.1.AdvancedFiltering.md: No YAML frontmatter found
+
+❌ 6.2.AdvancedFiltering.md: No YAML frontmatter found
+
+❌ 6.SemanticSearch.md: No YAML frontmatter found
+
+❌ 7.1.1.ExposeBackend.md: No YAML frontmatter found
+
+❌ 7.1.ExposeBackend.md: No YAML frontmatter found
+
+❌ 7.2.1.FrontendDisplay.md: No YAML frontmatter found
+
+❌ 7.2.FrontendDisplay.md: No YAML frontmatter found
+
+❌ 7.3.1.InteractiveReview.md: No YAML frontmatter found
+
+❌ 7.3.InteractiveReview.md: No YAML frontmatter found
+
+❌ 7.APIFrontendIntegration.md: No YAML frontmatter found
+
+❌ 8.1.1.TechnicalDocs.md: No YAML frontmatter found
+
+❌ 8.1.TechnicalDocs.md: No YAML frontmatter found
+
+❌ 8.2.1.TestCoverage.md: No YAML frontmatter found
+
+❌ 8.2.TestCoverage.md: No YAML frontmatter found
+
+❌ 8.3.1.UserDevDocs.md: No YAML frontmatter found
+
+❌ 8.3.UserDevDocs.md: No YAML frontmatter found
+
+❌ 8.DocumentationQA.md: No YAML frontmatter found
+
+❌ records/record-wi-051-focused-validation-and-independent-review-passed-after-remediation.md
+   [error] /links/supporting_reference/0: must match pattern "^(?:(?:\[(?<text>.+?)\])?\(?(?:(?<protocol>(?:[^:]+)s?):\/\/)(?:(?<user>[^:\n\r]+):(?<pass>[^@\n\r]+)@)?(?<host>(?:www\.)?(?:[^:\/\n\r]+))(?::(?<port>\d+))?\/?(?<resource>[^?#\n\r]+)?\??(?<query>[^#\n\r]*)?#?(?<anchor>[^\n\r]*)?\)?)$" params={"pattern":"^(?:(?:\\[(?<text>.+?)\\])?\\(?(?:(?<protocol>(?:[^:]+)s?):\\/\\/)(?:(?<user>[^:\\n\\r]+):(?<pass>[^@\\n\\r]+)@)?(?<host>(?:www\\.)?(?:[^:\\/\\n\\r]+))(?::(?<port>\\d+))?\\/?(?<resource>[^?#\\n\\r]+)?\\??(?<query>[^#\\n\\r]*)?#?(?<anchor>[^\\n\\r]*)?\\)?)$"}
+   [error] /links/supporting_reference/0: must match pattern "^\[\[(?<name>[^\]\|\r\n]+)(?:\|(?<title>[^\]\|\r\n]+))?\]\](?<agglu>[^\p{P}\s]*)$" params={"pattern":"^\\[\\[(?<name>[^\\]\\|\\r\\n]+)(?:\\|(?<title>[^\\]\\|\\r\\n]+))?\\]\\](?<agglu>[^\\p{P}\\s]*)$"}
+   [error] /links/supporting_reference/0: must match a schema in anyOf
+   [error] /links/supporting_reference/0: must match exactly one schema in oneOf params={"passingSchemas":[0,1]}
+   [error] /links/supporting_reference/0: must be object params={"type":"object"}
+   [error] /links/supporting_reference/0: must match exactly one schema in oneOf params={"passingSchemas":null}
+   [error] /links/supporting_reference/1: must match pattern "^(?:(?:\[(?<text>.+?)\])?\(?(?:(?<protocol>(?:[^:]+)s?):\/\/)(?:(?<user>[^:\n\r]+):(?<pass>[^@\n\r]+)@)?(?<host>(?:www\.)?(?:[^:\/\n\r]+))(?::(?<port>\d+))?\/?(?<resource>[^?#\n\r]+)?\??(?<query>[^#\n\r]*)?#?(?<anchor>[^\n\r]*)?\)?)$" params={"pattern":"^(?:(?:\\[(?<text>.+?)\\])?\\(?(?:(?<protocol>(?:[^:]+)s?):\\/\\/)(?:(?<user>[^:\\n\\r]+):(?<pass>[^@\\n\\r]+)@)?(?<host>(?:www\\.)?(?:[^:\\/\\n\\r]+))(?::(?<port>\\d+))?\\/?(?<resource>[^?#\\n\\r]+)?\\??(?<query>[^#\\n\\r]*)?#?(?<anchor>[^\\n\\r]*)?\\)?)$"}
+   [error] /links/supporting_reference/1: must match pattern "^\[\[(?<name>[^\]\|\r\n]+)(?:\|(?<title>[^\]\|\r\n]+))?\]\](?<agglu>[^\p{P}\s]*)$" params={"pattern":"^\\[\\[(?<name>[^\\]\\|\\r\\n]+)(?:\\|(?<title>[^\\]\\|\\r\\n]+))?\\]\\](?<agglu>[^\\p{P}\\s]*)$"}
+   [error] /links/supporting_reference/1: must match a schema in anyOf
+   [error] /links/supporting_reference/1: must match exactly one schema in oneOf params={"passingSchemas":[0,1]}
+   [error] /links/supporting_reference/1: must be object params={"type":"object"}
+   [error] /links/supporting_reference/1: must match exactly one schema in oneOf params={"passingSchemas":null}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"title"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"status_reason"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"links"}
+
+❌ records/record-wi-052-source-eligibility-validation-and-independent-review-passed-after-remediation.md
+   [error] /links/supporting_reference/0: must match pattern "^(?:(?:\[(?<text>.+?)\])?\(?(?:(?<protocol>(?:[^:]+)s?):\/\/)(?:(?<user>[^:\n\r]+):(?<pass>[^@\n\r]+)@)?(?<host>(?:www\.)?(?:[^:\/\n\r]+))(?::(?<port>\d+))?\/?(?<resource>[^?#\n\r]+)?\??(?<query>[^#\n\r]*)?#?(?<anchor>[^\n\r]*)?\)?)$" params={"pattern":"^(?:(?:\\[(?<text>.+?)\\])?\\(?(?:(?<protocol>(?:[^:]+)s?):\\/\\/)(?:(?<user>[^:\\n\\r]+):(?<pass>[^@\\n\\r]+)@)?(?<host>(?:www\\.)?(?:[^:\\/\\n\\r]+))(?::(?<port>\\d+))?\\/?(?<resource>[^?#\\n\\r]+)?\\??(?<query>[^#\\n\\r]*)?#?(?<anchor>[^\\n\\r]*)?\\)?)$"}
+   [error] /links/supporting_reference/0: must NOT have more than 128 characters params={"limit":128}
+   [error] /links/supporting_reference/0: must match pattern "^\[\[(?<name>[^\]\|\r\n]+)(?:\|(?<title>[^\]\|\r\n]+))?\]\](?<agglu>[^\p{P}\s]*)$" params={"pattern":"^\\[\\[(?<name>[^\\]\\|\\r\\n]+)(?:\\|(?<title>[^\\]\\|\\r\\n]+))?\\]\\](?<agglu>[^\\p{P}\\s]*)$"}
+   [error] /links/supporting_reference/0: must match a schema in anyOf
+   [error] /links/supporting_reference/0: must match exactly one schema in oneOf params={"passingSchemas":[0,1]}
+   [error] /links/supporting_reference/0: must be object params={"type":"object"}
+   [error] /links/supporting_reference/0: must match exactly one schema in oneOf params={"passingSchemas":null}
+   [error] /links/supporting_reference/1: must match pattern "^(?:(?:\[(?<text>.+?)\])?\(?(?:(?<protocol>(?:[^:]+)s?):\/\/)(?:(?<user>[^:\n\r]+):(?<pass>[^@\n\r]+)@)?(?<host>(?:www\.)?(?:[^:\/\n\r]+))(?::(?<port>\d+))?\/?(?<resource>[^?#\n\r]+)?\??(?<query>[^#\n\r]*)?#?(?<anchor>[^\n\r]*)?\)?)$" params={"pattern":"^(?:(?:\\[(?<text>.+?)\\])?\\(?(?:(?<protocol>(?:[^:]+)s?):\\/\\/)(?:(?<user>[^:\\n\\r]+):(?<pass>[^@\\n\\r]+)@)?(?<host>(?:www\\.)?(?:[^:\\/\\n\\r]+))(?::(?<port>\\d+))?\\/?(?<resource>[^?#\\n\\r]+)?\\??(?<query>[^#\\n\\r]*)?#?(?<anchor>[^\\n\\r]*)?\\)?)$"}
+   [error] /links/supporting_reference/1: must match pattern "^\[\[(?<name>[^\]\|\r\n]+)(?:\|(?<title>[^\]\|\r\n]+))?\]\](?<agglu>[^\p{P}\s]*)$" params={"pattern":"^\\[\\[(?<name>[^\\]\\|\\r\\n]+)(?:\\|(?<title>[^\\]\\|\\r\\n]+))?\\]\\](?<agglu>[^\\p{P}\\s]*)$"}
+   [error] /links/supporting_reference/1: must match a schema in anyOf
+   [error] /links/supporting_reference/1: must match exactly one schema in oneOf params={"passingSchemas":[0,1]}
+   [error] /links/supporting_reference/1: must be object params={"type":"object"}
+   [error] /links/supporting_reference/1: must match exactly one schema in oneOf params={"passingSchemas":null}
+   [error] /links/supporting_reference/2: must match pattern "^(?:(?:\[(?<text>.+?)\])?\(?(?:(?<protocol>(?:[^:]+)s?):\/\/)(?:(?<user>[^:\n\r]+):(?<pass>[^@\n\r]+)@)?(?<host>(?:www\.)?(?:[^:\/\n\r]+))(?::(?<port>\d+))?\/?(?<resource>[^?#\n\r]+)?\??(?<query>[^#\n\r]*)?#?(?<anchor>[^\n\r]*)?\)?)$" params={"pattern":"^(?:(?:\\[(?<text>.+?)\\])?\\(?(?:(?<protocol>(?:[^:]+)s?):\\/\\/)(?:(?<user>[^:\\n\\r]+):(?<pass>[^@\\n\\r]+)@)?(?<host>(?:www\\.)?(?:[^:\\/\\n\\r]+))(?::(?<port>\\d+))?\\/?(?<resource>[^?#\\n\\r]+)?\\??(?<query>[^#\\n\\r]*)?#?(?<anchor>[^\\n\\r]*)?\\)?)$"}
+   [error] /links/supporting_reference/2: must match pattern "^\[\[(?<name>[^\]\|\r\n]+)(?:\|(?<title>[^\]\|\r\n]+))?\]\](?<agglu>[^\p{P}\s]*)$" params={"pattern":"^\\[\\[(?<name>[^\\]\\|\\r\\n]+)(?:\\|(?<title>[^\\]\\|\\r\\n]+))?\\]\\](?<agglu>[^\\p{P}\\s]*)$"}
+   [error] /links/supporting_reference/2: must match a schema in anyOf
+   [error] /links/supporting_reference/2: must match exactly one schema in oneOf params={"passingSchemas":[0,1]}
+   [error] /links/supporting_reference/2: must be object params={"type":"object"}
+   [error] /links/supporting_reference/2: must match exactly one schema in oneOf params={"passingSchemas":null}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"title"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"status_reason"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"links"}
+
+❌ records/record-wi-053-draft-bundle-artifacts-validation-and-review-passed.md
+   [error] /links/supporting_reference/0: must match pattern "^(?:(?:\[(?<text>.+?)\])?\(?(?:(?<protocol>(?:[^:]+)s?):\/\/)(?:(?<user>[^:\n\r]+):(?<pass>[^@\n\r]+)@)?(?<host>(?:www\.)?(?:[^:\/\n\r]+))(?::(?<port>\d+))?\/?(?<resource>[^?#\n\r]+)?\??(?<query>[^#\n\r]*)?#?(?<anchor>[^\n\r]*)?\)?)$" params={"pattern":"^(?:(?:\\[(?<text>.+?)\\])?\\(?(?:(?<protocol>(?:[^:]+)s?):\\/\\/)(?:(?<user>[^:\\n\\r]+):(?<pass>[^@\\n\\r]+)@)?(?<host>(?:www\\.)?(?:[^:\\/\\n\\r]+))(?::(?<port>\\d+))?\\/?(?<resource>[^?#\\n\\r]+)?\\??(?<query>[^#\\n\\r]*)?#?(?<anchor>[^\\n\\r]*)?\\)?)$"}
+   [error] /links/supporting_reference/0: must match pattern "^\[\[(?<name>[^\]\|\r\n]+)(?:\|(?<title>[^\]\|\r\n]+))?\]\](?<agglu>[^\p{P}\s]*)$" params={"pattern":"^\\[\\[(?<name>[^\\]\\|\\r\\n]+)(?:\\|(?<title>[^\\]\\|\\r\\n]+))?\\]\\](?<agglu>[^\\p{P}\\s]*)$"}
+   [error] /links/supporting_reference/0: must match a schema in anyOf
+   [error] /links/supporting_reference/0: must match exactly one schema in oneOf params={"passingSchemas":[0,1]}
+   [error] /links/supporting_reference/0: must be object params={"type":"object"}
+   [error] /links/supporting_reference/0: must match exactly one schema in oneOf params={"passingSchemas":null}
+   [error] /links/supporting_reference/1: must match pattern "^(?:(?:\[(?<text>.+?)\])?\(?(?:(?<protocol>(?:[^:]+)s?):\/\/)(?:(?<user>[^:\n\r]+):(?<pass>[^@\n\r]+)@)?(?<host>(?:www\.)?(?:[^:\/\n\r]+))(?::(?<port>\d+))?\/?(?<resource>[^?#\n\r]+)?\??(?<query>[^#\n\r]*)?#?(?<anchor>[^\n\r]*)?\)?)$" params={"pattern":"^(?:(?:\\[(?<text>.+?)\\])?\\(?(?:(?<protocol>(?:[^:]+)s?):\\/\\/)(?:(?<user>[^:\\n\\r]+):(?<pass>[^@\\n\\r]+)@)?(?<host>(?:www\\.)?(?:[^:\\/\\n\\r]+))(?::(?<port>\\d+))?\\/?(?<resource>[^?#\\n\\r]+)?\\??(?<query>[^#\\n\\r]*)?#?(?<anchor>[^\\n\\r]*)?\\)?)$"}
+   [error] /links/supporting_reference/1: must match pattern "^\[\[(?<name>[^\]\|\r\n]+)(?:\|(?<title>[^\]\|\r\n]+))?\]\](?<agglu>[^\p{P}\s]*)$" params={"pattern":"^\\[\\[(?<name>[^\\]\\|\\r\\n]+)(?:\\|(?<title>[^\\]\\|\\r\\n]+))?\\]\\](?<agglu>[^\\p{P}\\s]*)$"}
+   [error] /links/supporting_reference/1: must match a schema in anyOf
+   [error] /links/supporting_reference/1: must match exactly one schema in oneOf params={"passingSchemas":[0,1]}
+   [error] /links/supporting_reference/1: must be object params={"type":"object"}
+   [error] /links/supporting_reference/1: must match exactly one schema in oneOf params={"passingSchemas":null}
+   [error] /links/supporting_reference/2: must match pattern "^(?:(?:\[(?<text>.+?)\])?\(?(?:(?<protocol>(?:[^:]+)s?):\/\/)(?:(?<user>[^:\n\r]+):(?<pass>[^@\n\r]+)@)?(?<host>(?:www\.)?(?:[^:\/\n\r]+))(?::(?<port>\d+))?\/?(?<resource>[^?#\n\r]+)?\??(?<query>[^#\n\r]*)?#?(?<anchor>[^\n\r]*)?\)?)$" params={"pattern":"^(?:(?:\\[(?<text>.+?)\\])?\\(?(?:(?<protocol>(?:[^:]+)s?):\\/\\/)(?:(?<user>[^:\\n\\r]+):(?<pass>[^@\\n\\r]+)@)?(?<host>(?:www\\.)?(?:[^:\\/\\n\\r]+))(?::(?<port>\\d+))?\\/?(?<resource>[^?#\\n\\r]+)?\\??(?<query>[^#\\n\\r]*)?#?(?<anchor>[^\\n\\r]*)?\\)?)$"}
+   [error] /links/supporting_reference/2: must match pattern "^\[\[(?<name>[^\]\|\r\n]+)(?:\|(?<title>[^\]\|\r\n]+))?\]\](?<agglu>[^\p{P}\s]*)$" params={"pattern":"^\\[\\[(?<name>[^\\]\\|\\r\\n]+)(?:\\|(?<title>[^\\]\\|\\r\\n]+))?\\]\\](?<agglu>[^\\p{P}\\s]*)$"}
+   [error] /links/supporting_reference/2: must match a schema in anyOf
+   [error] /links/supporting_reference/2: must match exactly one schema in oneOf params={"passingSchemas":[0,1]}
+   [error] /links/supporting_reference/2: must be object params={"type":"object"}
+   [error] /links/supporting_reference/2: must match exactly one schema in oneOf params={"passingSchemas":null}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"title"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"status_reason"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"links"}
+
+❌ records/record-wi-054-historical-synthetic-validation.md
+   [error] /links/supporting_reference/3: must match pattern "^(?:(?:\[(?<text>.+?)\])?\(?(?:(?<protocol>(?:[^:]+)s?):\/\/)(?:(?<user>[^:\n\r]+):(?<pass>[^@\n\r]+)@)?(?<host>(?:www\.)?(?:[^:\/\n\r]+))(?::(?<port>\d+))?\/?(?<resource>[^?#\n\r]+)?\??(?<query>[^#\n\r]*)?#?(?<anchor>[^\n\r]*)?\)?)$" params={"pattern":"^(?:(?:\\[(?<text>.+?)\\])?\\(?(?:(?<protocol>(?:[^:]+)s?):\\/\\/)(?:(?<user>[^:\\n\\r]+):(?<pass>[^@\\n\\r]+)@)?(?<host>(?:www\\.)?(?:[^:\\/\\n\\r]+))(?::(?<port>\\d+))?\\/?(?<resource>[^?#\\n\\r]+)?\\??(?<query>[^#\\n\\r]*)?#?(?<anchor>[^\\n\\r]*)?\\)?)$"}
+   [error] /links/supporting_reference/3: must match pattern "^\[\[(?<name>[^\]\|\r\n]+)(?:\|(?<title>[^\]\|\r\n]+))?\]\](?<agglu>[^\p{P}\s]*)$" params={"pattern":"^\\[\\[(?<name>[^\\]\\|\\r\\n]+)(?:\\|(?<title>[^\\]\\|\\r\\n]+))?\\]\\](?<agglu>[^\\p{P}\\s]*)$"}
+   [error] /links/supporting_reference/3: must match a schema in anyOf
+   [error] /links/supporting_reference/3: must match exactly one schema in oneOf params={"passingSchemas":[0,1]}
+   [error] /links/supporting_reference/3: must be object params={"type":"object"}
+   [error] /links/supporting_reference/3: must match exactly one schema in oneOf params={"passingSchemas":null}
+   [error] /links/supporting_reference/4: must match pattern "^(?:(?:\[(?<text>.+?)\])?\(?(?:(?<protocol>(?:[^:]+)s?):\/\/)(?:(?<user>[^:\n\r]+):(?<pass>[^@\n\r]+)@)?(?<host>(?:www\.)?(?:[^:\/\n\r]+))(?::(?<port>\d+))?\/?(?<resource>[^?#\n\r]+)?\??(?<query>[^#\n\r]*)?#?(?<anchor>[^\n\r]*)?\)?)$" params={"pattern":"^(?:(?:\\[(?<text>.+?)\\])?\\(?(?:(?<protocol>(?:[^:]+)s?):\\/\\/)(?:(?<user>[^:\\n\\r]+):(?<pass>[^@\\n\\r]+)@)?(?<host>(?:www\\.)?(?:[^:\\/\\n\\r]+))(?::(?<port>\\d+))?\\/?(?<resource>[^?#\\n\\r]+)?\\??(?<query>[^#\\n\\r]*)?#?(?<anchor>[^\\n\\r]*)?\\)?)$"}
+   [error] /links/supporting_reference/4: must match pattern "^\[\[(?<name>[^\]\|\r\n]+)(?:\|(?<title>[^\]\|\r\n]+))?\]\](?<agglu>[^\p{P}\s]*)$" params={"pattern":"^\\[\\[(?<name>[^\\]\\|\\r\\n]+)(?:\\|(?<title>[^\\]\\|\\r\\n]+))?\\]\\](?<agglu>[^\\p{P}\\s]*)$"}
+   [error] /links/supporting_reference/4: must match a schema in anyOf
+   [error] /links/supporting_reference/4: must match exactly one schema in oneOf params={"passingSchemas":[0,1]}
+   [error] /links/supporting_reference/4: must be object params={"type":"object"}
+   [error] /links/supporting_reference/4: must match exactly one schema in oneOf params={"passingSchemas":null}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"title"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"status_reason"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"links"}
+
+❌ records/record-wi-054-publisher-authorization.md
+   [error] /links/supporting_reference/1: must match pattern "^(?:(?:\[(?<text>.+?)\])?\(?(?:(?<protocol>(?:[^:]+)s?):\/\/)(?:(?<user>[^:\n\r]+):(?<pass>[^@\n\r]+)@)?(?<host>(?:www\.)?(?:[^:\/\n\r]+))(?::(?<port>\d+))?\/?(?<resource>[^?#\n\r]+)?\??(?<query>[^#\n\r]*)?#?(?<anchor>[^\n\r]*)?\)?)$" params={"pattern":"^(?:(?:\\[(?<text>.+?)\\])?\\(?(?:(?<protocol>(?:[^:]+)s?):\\/\\/)(?:(?<user>[^:\\n\\r]+):(?<pass>[^@\\n\\r]+)@)?(?<host>(?:www\\.)?(?:[^:\\/\\n\\r]+))(?::(?<port>\\d+))?\\/?(?<resource>[^?#\\n\\r]+)?\\??(?<query>[^#\\n\\r]*)?#?(?<anchor>[^\\n\\r]*)?\\)?)$"}
+   [error] /links/supporting_reference/1: must match pattern "^\[\[(?<name>[^\]\|\r\n]+)(?:\|(?<title>[^\]\|\r\n]+))?\]\](?<agglu>[^\p{P}\s]*)$" params={"pattern":"^\\[\\[(?<name>[^\\]\\|\\r\\n]+)(?:\\|(?<title>[^\\]\\|\\r\\n]+))?\\]\\](?<agglu>[^\\p{P}\\s]*)$"}
+   [error] /links/supporting_reference/1: must match a schema in anyOf
+   [error] /links/supporting_reference/1: must match exactly one schema in oneOf params={"passingSchemas":[0,1]}
+   [error] /links/supporting_reference/1: must be object params={"type":"object"}
+   [error] /links/supporting_reference/1: must match exactly one schema in oneOf params={"passingSchemas":null}
+   [error] /links/supporting_reference/2: must match pattern "^(?:(?:\[(?<text>.+?)\])?\(?(?:(?<protocol>(?:[^:]+)s?):\/\/)(?:(?<user>[^:\n\r]+):(?<pass>[^@\n\r]+)@)?(?<host>(?:www\.)?(?:[^:\/\n\r]+))(?::(?<port>\d+))?\/?(?<resource>[^?#\n\r]+)?\??(?<query>[^#\n\r]*)?#?(?<anchor>[^\n\r]*)?\)?)$" params={"pattern":"^(?:(?:\\[(?<text>.+?)\\])?\\(?(?:(?<protocol>(?:[^:]+)s?):\\/\\/)(?:(?<user>[^:\\n\\r]+):(?<pass>[^@\\n\\r]+)@)?(?<host>(?:www\\.)?(?:[^:\\/\\n\\r]+))(?::(?<port>\\d+))?\\/?(?<resource>[^?#\\n\\r]+)?\\??(?<query>[^#\\n\\r]*)?#?(?<anchor>[^\\n\\r]*)?\\)?)$"}
+   [error] /links/supporting_reference/2: must match pattern "^\[\[(?<name>[^\]\|\r\n]+)(?:\|(?<title>[^\]\|\r\n]+))?\]\](?<agglu>[^\p{P}\s]*)$" params={"pattern":"^\\[\\[(?<name>[^\\]\\|\\r\\n]+)(?:\\|(?<title>[^\\]\\|\\r\\n]+))?\\]\\](?<agglu>[^\\p{P}\\s]*)$"}
+   [error] /links/supporting_reference/2: must match a schema in anyOf
+   [error] /links/supporting_reference/2: must match exactly one schema in oneOf params={"passingSchemas":[0,1]}
+   [error] /links/supporting_reference/2: must be object params={"type":"object"}
+   [error] /links/supporting_reference/2: must match exactly one schema in oneOf params={"passingSchemas":null}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"title"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"status_reason"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"links"}
+
+❌ records/record-wi-054-synthetic-inventory-validation-passed.md
+   [error] /links/supporting_reference/0: must match pattern "^(?:(?:\[(?<text>.+?)\])?\(?(?:(?<protocol>(?:[^:]+)s?):\/\/)(?:(?<user>[^:\n\r]+):(?<pass>[^@\n\r]+)@)?(?<host>(?:www\.)?(?:[^:\/\n\r]+))(?::(?<port>\d+))?\/?(?<resource>[^?#\n\r]+)?\??(?<query>[^#\n\r]*)?#?(?<anchor>[^\n\r]*)?\)?)$" params={"pattern":"^(?:(?:\\[(?<text>.+?)\\])?\\(?(?:(?<protocol>(?:[^:]+)s?):\\/\\/)(?:(?<user>[^:\\n\\r]+):(?<pass>[^@\\n\\r]+)@)?(?<host>(?:www\\.)?(?:[^:\\/\\n\\r]+))(?::(?<port>\\d+))?\\/?(?<resource>[^?#\\n\\r]+)?\\??(?<query>[^#\\n\\r]*)?#?(?<anchor>[^\\n\\r]*)?\\)?)$"}
+   [error] /links/supporting_reference/0: must match pattern "^\[\[(?<name>[^\]\|\r\n]+)(?:\|(?<title>[^\]\|\r\n]+))?\]\](?<agglu>[^\p{P}\s]*)$" params={"pattern":"^\\[\\[(?<name>[^\\]\\|\\r\\n]+)(?:\\|(?<title>[^\\]\\|\\r\\n]+))?\\]\\](?<agglu>[^\\p{P}\\s]*)$"}
+   [error] /links/supporting_reference/0: must match a schema in anyOf
+   [error] /links/supporting_reference/0: must match exactly one schema in oneOf params={"passingSchemas":[0,1]}
+   [error] /links/supporting_reference/0: must be object params={"type":"object"}
+   [error] /links/supporting_reference/0: must match exactly one schema in oneOf params={"passingSchemas":null}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"title"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"status_reason"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"links"}
+
+❌ records/record-wi-055-historical-approval.md
+   [error] /links/supporting_reference/2: must match pattern "^(?:(?:\[(?<text>.+?)\])?\(?(?:(?<protocol>(?:[^:]+)s?):\/\/)(?:(?<user>[^:\n\r]+):(?<pass>[^@\n\r]+)@)?(?<host>(?:www\.)?(?:[^:\/\n\r]+))(?::(?<port>\d+))?\/?(?<resource>[^?#\n\r]+)?\??(?<query>[^#\n\r]*)?#?(?<anchor>[^\n\r]*)?\)?)$" params={"pattern":"^(?:(?:\\[(?<text>.+?)\\])?\\(?(?:(?<protocol>(?:[^:]+)s?):\\/\\/)(?:(?<user>[^:\\n\\r]+):(?<pass>[^@\\n\\r]+)@)?(?<host>(?:www\\.)?(?:[^:\\/\\n\\r]+))(?::(?<port>\\d+))?\\/?(?<resource>[^?#\\n\\r]+)?\\??(?<query>[^#\\n\\r]*)?#?(?<anchor>[^\\n\\r]*)?\\)?)$"}
+   [error] /links/supporting_reference/2: must match pattern "^\[\[(?<name>[^\]\|\r\n]+)(?:\|(?<title>[^\]\|\r\n]+))?\]\](?<agglu>[^\p{P}\s]*)$" params={"pattern":"^\\[\\[(?<name>[^\\]\\|\\r\\n]+)(?:\\|(?<title>[^\\]\\|\\r\\n]+))?\\]\\](?<agglu>[^\\p{P}\\s]*)$"}
+   [error] /links/supporting_reference/2: must match a schema in anyOf
+   [error] /links/supporting_reference/2: must match exactly one schema in oneOf params={"passingSchemas":[0,1]}
+   [error] /links/supporting_reference/2: must be object params={"type":"object"}
+   [error] /links/supporting_reference/2: must match exactly one schema in oneOf params={"passingSchemas":null}
+   [error] /links/supporting_reference/3: must match pattern "^(?:(?:\[(?<text>.+?)\])?\(?(?:(?<protocol>(?:[^:]+)s?):\/\/)(?:(?<user>[^:\n\r]+):(?<pass>[^@\n\r]+)@)?(?<host>(?:www\.)?(?:[^:\/\n\r]+))(?::(?<port>\d+))?\/?(?<resource>[^?#\n\r]+)?\??(?<query>[^#\n\r]*)?#?(?<anchor>[^\n\r]*)?\)?)$" params={"pattern":"^(?:(?:\\[(?<text>.+?)\\])?\\(?(?:(?<protocol>(?:[^:]+)s?):\\/\\/)(?:(?<user>[^:\\n\\r]+):(?<pass>[^@\\n\\r]+)@)?(?<host>(?:www\\.)?(?:[^:\\/\\n\\r]+))(?::(?<port>\\d+))?\\/?(?<resource>[^?#\\n\\r]+)?\\??(?<query>[^#\\n\\r]*)?#?(?<anchor>[^\\n\\r]*)?\\)?)$"}
+   [error] /links/supporting_reference/3: must match pattern "^\[\[(?<name>[^\]\|\r\n]+)(?:\|(?<title>[^\]\|\r\n]+))?\]\](?<agglu>[^\p{P}\s]*)$" params={"pattern":"^\\[\\[(?<name>[^\\]\\|\\r\\n]+)(?:\\|(?<title>[^\\]\\|\\r\\n]+))?\\]\\](?<agglu>[^\\p{P}\\s]*)$"}
+   [error] /links/supporting_reference/3: must match a schema in anyOf
+   [error] /links/supporting_reference/3: must match exactly one schema in oneOf params={"passingSchemas":[0,1]}
+   [error] /links/supporting_reference/3: must be object params={"type":"object"}
+   [error] /links/supporting_reference/3: must match exactly one schema in oneOf params={"passingSchemas":null}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"title"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"status_reason"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"links"}
+
+❌ records/record-wi-055-validation-passed.md
+   [error] /links/supporting_reference/1: must match pattern "^(?:(?:\[(?<text>.+?)\])?\(?(?:(?<protocol>(?:[^:]+)s?):\/\/)(?:(?<user>[^:\n\r]+):(?<pass>[^@\n\r]+)@)?(?<host>(?:www\.)?(?:[^:\/\n\r]+))(?::(?<port>\d+))?\/?(?<resource>[^?#\n\r]+)?\??(?<query>[^#\n\r]*)?#?(?<anchor>[^\n\r]*)?\)?)$" params={"pattern":"^(?:(?:\\[(?<text>.+?)\\])?\\(?(?:(?<protocol>(?:[^:]+)s?):\\/\\/)(?:(?<user>[^:\\n\\r]+):(?<pass>[^@\\n\\r]+)@)?(?<host>(?:www\\.)?(?:[^:\\/\\n\\r]+))(?::(?<port>\\d+))?\\/?(?<resource>[^?#\\n\\r]+)?\\??(?<query>[^#\\n\\r]*)?#?(?<anchor>[^\\n\\r]*)?\\)?)$"}
+   [error] /links/supporting_reference/1: must match pattern "^\[\[(?<name>[^\]\|\r\n]+)(?:\|(?<title>[^\]\|\r\n]+))?\]\](?<agglu>[^\p{P}\s]*)$" params={"pattern":"^\\[\\[(?<name>[^\\]\\|\\r\\n]+)(?:\\|(?<title>[^\\]\\|\\r\\n]+))?\\]\\](?<agglu>[^\\p{P}\\s]*)$"}
+   [error] /links/supporting_reference/1: must match a schema in anyOf
+   [error] /links/supporting_reference/1: must match exactly one schema in oneOf params={"passingSchemas":[0,1]}
+   [error] /links/supporting_reference/1: must be object params={"type":"object"}
+   [error] /links/supporting_reference/1: must match exactly one schema in oneOf params={"passingSchemas":null}
+   [error] /links/supporting_reference/2: must match pattern "^(?:(?:\[(?<text>.+?)\])?\(?(?:(?<protocol>(?:[^:]+)s?):\/\/)(?:(?<user>[^:\n\r]+):(?<pass>[^@\n\r]+)@)?(?<host>(?:www\.)?(?:[^:\/\n\r]+))(?::(?<port>\d+))?\/?(?<resource>[^?#\n\r]+)?\??(?<query>[^#\n\r]*)?#?(?<anchor>[^\n\r]*)?\)?)$" params={"pattern":"^(?:(?:\\[(?<text>.+?)\\])?\\(?(?:(?<protocol>(?:[^:]+)s?):\\/\\/)(?:(?<user>[^:\\n\\r]+):(?<pass>[^@\\n\\r]+)@)?(?<host>(?:www\\.)?(?:[^:\\/\\n\\r]+))(?::(?<port>\\d+))?\\/?(?<resource>[^?#\\n\\r]+)?\\??(?<query>[^#\\n\\r]*)?#?(?<anchor>[^\\n\\r]*)?\\)?)$"}
+   [error] /links/supporting_reference/2: must match pattern "^\[\[(?<name>[^\]\|\r\n]+)(?:\|(?<title>[^\]\|\r\n]+))?\]\](?<agglu>[^\p{P}\s]*)$" params={"pattern":"^\\[\\[(?<name>[^\\]\\|\\r\\n]+)(?:\\|(?<title>[^\\]\\|\\r\\n]+))?\\]\\](?<agglu>[^\\p{P}\\s]*)$"}
+   [error] /links/supporting_reference/2: must match a schema in anyOf
+   [error] /links/supporting_reference/2: must match exactly one schema in oneOf params={"passingSchemas":[0,1]}
+   [error] /links/supporting_reference/2: must be object params={"type":"object"}
+   [error] /links/supporting_reference/2: must match exactly one schema in oneOf params={"passingSchemas":null}
+   [error] /links/supporting_reference/3: must match pattern "^(?:(?:\[(?<text>.+?)\])?\(?(?:(?<protocol>(?:[^:]+)s?):\/\/)(?:(?<user>[^:\n\r]+):(?<pass>[^@\n\r]+)@)?(?<host>(?:www\.)?(?:[^:\/\n\r]+))(?::(?<port>\d+))?\/?(?<resource>[^?#\n\r]+)?\??(?<query>[^#\n\r]*)?#?(?<anchor>[^\n\r]*)?\)?)$" params={"pattern":"^(?:(?:\\[(?<text>.+?)\\])?\\(?(?:(?<protocol>(?:[^:]+)s?):\\/\\/)(?:(?<user>[^:\\n\\r]+):(?<pass>[^@\\n\\r]+)@)?(?<host>(?:www\\.)?(?:[^:\\/\\n\\r]+))(?::(?<port>\\d+))?\\/?(?<resource>[^?#\\n\\r]+)?\\??(?<query>[^#\\n\\r]*)?#?(?<anchor>[^\\n\\r]*)?\\)?)$"}
+   [error] /links/supporting_reference/3: must match pattern "^\[\[(?<name>[^\]\|\r\n]+)(?:\|(?<title>[^\]\|\r\n]+))?\]\](?<agglu>[^\p{P}\s]*)$" params={"pattern":"^\\[\\[(?<name>[^\\]\\|\\r\\n]+)(?:\\|(?<title>[^\\]\\|\\r\\n]+))?\\]\\](?<agglu>[^\\p{P}\\s]*)$"}
+   [error] /links/supporting_reference/3: must match a schema in anyOf
+   [error] /links/supporting_reference/3: must match exactly one schema in oneOf params={"passingSchemas":[0,1]}
+   [error] /links/supporting_reference/3: must be object params={"type":"object"}
+   [error] /links/supporting_reference/3: must match exactly one schema in oneOf params={"passingSchemas":null}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"title"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"status_reason"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"links"}
+
+❌ records/record-wi-059-historical-approval.md
+   [error] /links/supporting_reference/2: must match pattern "^(?:(?:\[(?<text>.+?)\])?\(?(?:(?<protocol>(?:[^:]+)s?):\/\/)(?:(?<user>[^:\n\r]+):(?<pass>[^@\n\r]+)@)?(?<host>(?:www\.)?(?:[^:\/\n\r]+))(?::(?<port>\d+))?\/?(?<resource>[^?#\n\r]+)?\??(?<query>[^#\n\r]*)?#?(?<anchor>[^\n\r]*)?\)?)$" params={"pattern":"^(?:(?:\\[(?<text>.+?)\\])?\\(?(?:(?<protocol>(?:[^:]+)s?):\\/\\/)(?:(?<user>[^:\\n\\r]+):(?<pass>[^@\\n\\r]+)@)?(?<host>(?:www\\.)?(?:[^:\\/\\n\\r]+))(?::(?<port>\\d+))?\\/?(?<resource>[^?#\\n\\r]+)?\\??(?<query>[^#\\n\\r]*)?#?(?<anchor>[^\\n\\r]*)?\\)?)$"}
+   [error] /links/supporting_reference/2: must match pattern "^\[\[(?<name>[^\]\|\r\n]+)(?:\|(?<title>[^\]\|\r\n]+))?\]\](?<agglu>[^\p{P}\s]*)$" params={"pattern":"^\\[\\[(?<name>[^\\]\\|\\r\\n]+)(?:\\|(?<title>[^\\]\\|\\r\\n]+))?\\]\\](?<agglu>[^\\p{P}\\s]*)$"}
+   [error] /links/supporting_reference/2: must match a schema in anyOf
+   [error] /links/supporting_reference/2: must match exactly one schema in oneOf params={"passingSchemas":[0,1]}
+   [error] /links/supporting_reference/2: must be object params={"type":"object"}
+   [error] /links/supporting_reference/2: must match exactly one schema in oneOf params={"passingSchemas":null}
+   [error] /links/supporting_reference/3: must match pattern "^(?:(?:\[(?<text>.+?)\])?\(?(?:(?<protocol>(?:[^:]+)s?):\/\/)(?:(?<user>[^:\n\r]+):(?<pass>[^@\n\r]+)@)?(?<host>(?:www\.)?(?:[^:\/\n\r]+))(?::(?<port>\d+))?\/?(?<resource>[^?#\n\r]+)?\??(?<query>[^#\n\r]*)?#?(?<anchor>[^\n\r]*)?\)?)$" params={"pattern":"^(?:(?:\\[(?<text>.+?)\\])?\\(?(?:(?<protocol>(?:[^:]+)s?):\\/\\/)(?:(?<user>[^:\\n\\r]+):(?<pass>[^@\\n\\r]+)@)?(?<host>(?:www\\.)?(?:[^:\\/\\n\\r]+))(?::(?<port>\\d+))?\\/?(?<resource>[^?#\\n\\r]+)?\\??(?<query>[^#\\n\\r]*)?#?(?<anchor>[^\\n\\r]*)?\\)?)$"}
+   [error] /links/supporting_reference/3: must match pattern "^\[\[(?<name>[^\]\|\r\n]+)(?:\|(?<title>[^\]\|\r\n]+))?\]\](?<agglu>[^\p{P}\s]*)$" params={"pattern":"^\\[\\[(?<name>[^\\]\\|\\r\\n]+)(?:\\|(?<title>[^\\]\\|\\r\\n]+))?\\]\\](?<agglu>[^\\p{P}\\s]*)$"}
+   [error] /links/supporting_reference/3: must match a schema in anyOf
+   [error] /links/supporting_reference/3: must match exactly one schema in oneOf params={"passingSchemas":[0,1]}
+   [error] /links/supporting_reference/3: must be object params={"type":"object"}
+   [error] /links/supporting_reference/3: must match exactly one schema in oneOf params={"passingSchemas":null}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"title"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"status_reason"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"links"}
+
+❌ records/record-wi-059-historical-ci-validation.md
+   [error] /links/supporting_reference/3: must match pattern "^(?:(?:\[(?<text>.+?)\])?\(?(?:(?<protocol>(?:[^:]+)s?):\/\/)(?:(?<user>[^:\n\r]+):(?<pass>[^@\n\r]+)@)?(?<host>(?:www\.)?(?:[^:\/\n\r]+))(?::(?<port>\d+))?\/?(?<resource>[^?#\n\r]+)?\??(?<query>[^#\n\r]*)?#?(?<anchor>[^\n\r]*)?\)?)$" params={"pattern":"^(?:(?:\\[(?<text>.+?)\\])?\\(?(?:(?<protocol>(?:[^:]+)s?):\\/\\/)(?:(?<user>[^:\\n\\r]+):(?<pass>[^@\\n\\r]+)@)?(?<host>(?:www\\.)?(?:[^:\\/\\n\\r]+))(?::(?<port>\\d+))?\\/?(?<resource>[^?#\\n\\r]+)?\\??(?<query>[^#\\n\\r]*)?#?(?<anchor>[^\\n\\r]*)?\\)?)$"}
+   [error] /links/supporting_reference/3: must match pattern "^\[\[(?<name>[^\]\|\r\n]+)(?:\|(?<title>[^\]\|\r\n]+))?\]\](?<agglu>[^\p{P}\s]*)$" params={"pattern":"^\\[\\[(?<name>[^\\]\\|\\r\\n]+)(?:\\|(?<title>[^\\]\\|\\r\\n]+))?\\]\\](?<agglu>[^\\p{P}\\s]*)$"}
+   [error] /links/supporting_reference/3: must match a schema in anyOf
+   [error] /links/supporting_reference/3: must match exactly one schema in oneOf params={"passingSchemas":[0,1]}
+   [error] /links/supporting_reference/3: must be object params={"type":"object"}
+   [error] /links/supporting_reference/3: must match exactly one schema in oneOf params={"passingSchemas":null}
+   [error] /links/supporting_reference/4: must match pattern "^(?:(?:\[(?<text>.+?)\])?\(?(?:(?<protocol>(?:[^:]+)s?):\/\/)(?:(?<user>[^:\n\r]+):(?<pass>[^@\n\r]+)@)?(?<host>(?:www\.)?(?:[^:\/\n\r]+))(?::(?<port>\d+))?\/?(?<resource>[^?#\n\r]+)?\??(?<query>[^#\n\r]*)?#?(?<anchor>[^\n\r]*)?\)?)$" params={"pattern":"^(?:(?:\\[(?<text>.+?)\\])?\\(?(?:(?<protocol>(?:[^:]+)s?):\\/\\/)(?:(?<user>[^:\\n\\r]+):(?<pass>[^@\\n\\r]+)@)?(?<host>(?:www\\.)?(?:[^:\\/\\n\\r]+))(?::(?<port>\\d+))?\\/?(?<resource>[^?#\\n\\r]+)?\\??(?<query>[^#\\n\\r]*)?#?(?<anchor>[^\\n\\r]*)?\\)?)$"}
+   [error] /links/supporting_reference/4: must match pattern "^\[\[(?<name>[^\]\|\r\n]+)(?:\|(?<title>[^\]\|\r\n]+))?\]\](?<agglu>[^\p{P}\s]*)$" params={"pattern":"^\\[\\[(?<name>[^\\]\\|\\r\\n]+)(?:\\|(?<title>[^\\]\\|\\r\\n]+))?\\]\\](?<agglu>[^\\p{P}\\s]*)$"}
+   [error] /links/supporting_reference/4: must match a schema in anyOf
+   [error] /links/supporting_reference/4: must match exactly one schema in oneOf params={"passingSchemas":[0,1]}
+   [error] /links/supporting_reference/4: must be object params={"type":"object"}
+   [error] /links/supporting_reference/4: must match exactly one schema in oneOf params={"passingSchemas":null}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"title"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"status_reason"}
+   [error] (root): must NOT have unevaluated properties params={"unevaluatedProperty":"links"}
+
+❌ records/record-wi-064-final-independent-review.md
+   [error] /subtype: must be equal to one of the allowed values params={"allowedValues":["evidence","test-result","comment","approval","audit-note"]}
+   [error] /subtype: must match pattern "^x-[a-z0-9]+(?:-[a-z0-9]+)*$" params={"pattern":"^x-[a-z0-9]+(?:-[a-z0-9]+)*$"}
+   [error] /subtype: must match exactly one schema in oneOf params={"passingSchemas":null}
+
+❌ records/record-wi-064-independent-review.md
+   [error] /subtype: must be equal to one of the allowed values params={"allowedValues":["evidence","test-result","comment","approval","audit-note"]}
+   [error] /subtype: must match pattern "^x-[a-z0-9]+(?:-[a-z0-9]+)*$" params={"pattern":"^x-[a-z0-9]+(?:-[a-z0-9]+)*$"}
+   [error] /subtype: must match exactly one schema in oneOf params={"passingSchemas":null}
+
+❌ records/record-wi-067-independent-review-approved.md
+   [error] /subtype: must be equal to one of the allowed values params={"allowedValues":["evidence","test-result","comment","approval","audit-note"]}
+   [error] /subtype: must match pattern "^x-[a-z0-9]+(?:-[a-z0-9]+)*$" params={"pattern":"^x-[a-z0-9]+(?:-[a-z0-9]+)*$"}
+   [error] /subtype: must match exactly one schema in oneOf params={"passingSchemas":null}
+
+❌ temple/01_define_dsl_syntax.md: No YAML frontmatter found
+
+❌ temple/02_query_language_and_schema.md: No YAML frontmatter found
+
+❌ temple/03_data_format_parsers.md: No YAML frontmatter found
+
+❌ temple/04_template_parser_linter.md: No YAML frontmatter found
+
+❌ temple/05_output_format_linters.md: No YAML frontmatter found
+
+❌ temple/06_rendering_engine.md: No YAML frontmatter found
+
+❌ temple/07_error_reporting.md: No YAML frontmatter found
+
+❌ temple/08_cli_editor_integration.md: No YAML frontmatter found
+
+❌ temple/09_template_preprocessing.md: No YAML frontmatter found
+
+❌ temple/10_base_format_detection.md: No YAML frontmatter found
+
+❌ temple/11_integrate_base_linters.md: No YAML frontmatter found
+
+❌ temple/12_diagnostics_mapping.md: No YAML frontmatter found
+
+❌ temple/13_combine_template_and_base_diagnostics.md: No YAML frontmatter found
+
+❌ temple/14_config_support.md: No YAML frontmatter found
+
+❌ temple/15_testing_and_validation.md: No YAML frontmatter found
+
+❌ temple/16_documentation.md: No YAML frontmatter found
+
+❌ temple/temple.md: No YAML frontmatter found
+
+
+❌ Schema validation failed. Please fix the above issues.

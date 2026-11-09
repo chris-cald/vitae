@@ -1,0 +1,79 @@
+
+> vitae-frontend-draft@0.0.0 check
+> npm test && npm run build
+
+
+> vitae-frontend-draft@0.0.0 test
+> tsx --test test/*.test.mjs
+
+TAP version 13
+# Subtest: sidebar navigation and Product strategy evidence placement are interactive
+ok 1 - sidebar navigation and Product strategy evidence placement are interactive
+  ---
+  duration_ms: 99.830625
+  type: 'test'
+  ...
+# Subtest: mock action controls publish a status
+ok 2 - mock action controls publish a status
+  ---
+  duration_ms: 32.2775
+  type: 'test'
+  ...
+# Subtest: Catalog Development is reachable from each workbench entry and exposes safe expandable cards
+ok 3 - Catalog Development is reachable from each workbench entry and exposes safe expandable cards
+  ---
+  duration_ms: 49.524708
+  type: 'test'
+  ...
+# Subtest: gates block missing evidence and require human review before advancing eligible episodes
+ok 4 - gates block missing evidence and require human review before advancing eligible episodes
+  ---
+  duration_ms: 42.542917
+  type: 'test'
+  ...
+# Subtest: application evidence opens the relevant asset and returns with placement and search intact
+ok 5 - application evidence opens the relevant asset and returns with placement and search intact
+  ---
+  duration_ms: 26.006375
+  type: 'test'
+  ...
+# Subtest: blocked evidence can be supplied locally, clears its gap and requires fresh human review
+ok 6 - blocked evidence can be supplied locally, clears its gap and requires fresh human review
+  ---
+  duration_ms: 28.945375
+  type: 'test'
+  ...
+# Subtest: Workshop reflection can complete the entire lifecycle without a dead end
+ok 7 - Workshop reflection can complete the entire lifecycle without a dead end
+  ---
+  duration_ms: 33.844
+  type: 'test'
+  ...
+# Subtest: two application contexts retain their own search and placement through Catalog round trips
+ok 8 - two application contexts retain their own search and placement through Catalog round trips
+  ---
+  duration_ms: 42.446875
+  type: 'test'
+  ...
+1..8
+# tests 8
+# suites 0
+# pass 8
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 1186.948917
+
+> vitae-frontend-draft@0.0.0 build
+> tsc --noEmit && vite build
+
+rolldown-vite v7.2.5 building client environment for production...
+
+transforming...✓ 17 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                   0.40 kB │ gzip:  0.27 kB
+dist/assets/index-DTIPUwiC.css   10.16 kB │ gzip:  2.88 kB
+dist/assets/index-rAWG1Vde.js   238.46 kB │ gzip: 73.46 kB
+✓ built in 326ms

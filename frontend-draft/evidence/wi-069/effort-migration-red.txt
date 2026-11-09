@@ -1,0 +1,98 @@
+TAP version 13
+# Subtest: real authoritative completed-item schema permits omitted effort but enforces conditional actual
+ok 1 - real authoritative completed-item schema permits omitted effort but enforces conditional actual
+  ---
+  duration_ms: 2.795417
+  type: 'test'
+  ...
+# Authoritative schema directory: /Users/macos/Library/pnpm/doc-vader-runtime/schemas/work-management
+# /work-management/frontmatter/work-item sha256=60b1d4d6d404136a3d353d70e691c14e9625f16476b2c8c3664012123115535b
+# /work-management/contracts/work-item-structure sha256=8e98195f1aa5cda400a8dacce001b5e96f76d8ea6c0db02a609ba90be76b955c
+# /work-management/workflows/default/status-policy sha256=1e21f4f09ee95d653398feb9e26d5274a9d0b1a322731a59f307920dbdfbf3cd
+# Subtest: 069-complete-connected-mock-dual-lifecycles.md omits both optional effort fields and conforms to authority
+not ok 2 - 069-complete-connected-mock-dual-lifecycles.md omits both optional effort fields and conforms to authority
+  ---
+  duration_ms: 2.831625
+  type: 'test'
+  location: '/Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-069/doc-packs/vitae-sdlc/test/work-effort.test.mjs:74:3'
+  failureType: 'testCodeFailure'
+  error: |-
+    estimated must be omitted
+
+    true !== false
+
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: false
+  actual: true
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-069/doc-packs/vitae-sdlc/test/work-effort.test.mjs:79:12)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async startSubtestAfterBootstrap (node:internal/test_runner/harness:296:3)
+  ...
+# Subtest: 070-validate-connected-mock-dual-lifecycles.md omits both optional effort fields and conforms to authority
+not ok 3 - 070-validate-connected-mock-dual-lifecycles.md omits both optional effort fields and conforms to authority
+  ---
+  duration_ms: 0.40775
+  type: 'test'
+  location: '/Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-069/doc-packs/vitae-sdlc/test/work-effort.test.mjs:74:3'
+  failureType: 'testCodeFailure'
+  error: |-
+    estimated must be omitted
+
+    true !== false
+
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: false
+  actual: true
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-069/doc-packs/vitae-sdlc/test/work-effort.test.mjs:79:12)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: 071-isolate-mock-prerequisite-test-resources.md omits both optional effort fields and conforms to authority
+not ok 4 - 071-isolate-mock-prerequisite-test-resources.md omits both optional effort fields and conforms to authority
+  ---
+  duration_ms: 0.309833
+  type: 'test'
+  location: '/Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-069/doc-packs/vitae-sdlc/test/work-effort.test.mjs:74:3'
+  failureType: 'testCodeFailure'
+  error: |-
+    estimated must be omitted
+
+    true !== false
+
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: false
+  actual: true
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-069/doc-packs/vitae-sdlc/test/work-effort.test.mjs:79:12)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+1..4
+# tests 4
+# suites 0
+# pass 1
+# fail 3
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 160.973375

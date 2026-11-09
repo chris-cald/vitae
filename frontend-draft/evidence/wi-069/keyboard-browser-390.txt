@@ -1,0 +1,1 @@
+PASS: real Chromium pointer/per-character keyboard focus, unsaved guard, cancel, single save, no-op and no fabricated events

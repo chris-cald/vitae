@@ -1,0 +1,72 @@
+
+> @vitae/doc-pack-sdlc@0.0.0 test
+> node --test test/*.test.mjs
+
+TAP version 13
+# Subtest: pack uses a pinned Doc-Vader schema bundle instead of a sibling checkout
+ok 1 - pack uses a pinned Doc-Vader schema bundle instead of a sibling checkout
+  ---
+  duration_ms: 1.677917
+  type: 'test'
+  ...
+# Subtest: Vitae SDLC document type pack manifest conforms to Doc-Vader pack schema
+ok 2 - Vitae SDLC document type pack manifest conforms to Doc-Vader pack schema
+  ---
+  duration_ms: 42.481875
+  type: 'test'
+  ...
+# Subtest: pack metadata schemas validate routed ADR and PRD template frontmatter
+ok 3 - pack metadata schemas validate routed ADR and PRD template frontmatter
+  ---
+  duration_ms: 28.753292
+  type: 'test'
+  ...
+# Subtest: pack metadata schemas reject cross-routed or unrouted document metadata
+ok 4 - pack metadata schemas reject cross-routed or unrouted document metadata
+  ---
+  duration_ms: 18.097709
+  type: 'test'
+  ...
+# Subtest: pack content schemas validate their examples and reject missing core body content
+ok 5 - pack content schemas validate their examples and reject missing core body content
+  ---
+  duration_ms: 20.76125
+  type: 'test'
+  ...
+# Subtest: real authoritative completed-item schema permits omitted effort but enforces conditional actual
+ok 6 - real authoritative completed-item schema permits omitted effort but enforces conditional actual
+  ---
+  duration_ms: 2.36
+  type: 'test'
+  ...
+# Authoritative schema directory: /Users/macos/Library/pnpm/doc-vader-runtime/schemas/work-management
+# /work-management/frontmatter/work-item sha256=60b1d4d6d404136a3d353d70e691c14e9625f16476b2c8c3664012123115535b
+# /work-management/contracts/work-item-structure sha256=8e98195f1aa5cda400a8dacce001b5e96f76d8ea6c0db02a609ba90be76b955c
+# /work-management/workflows/default/status-policy sha256=1e21f4f09ee95d653398feb9e26d5274a9d0b1a322731a59f307920dbdfbf3cd
+# Subtest: 069-complete-connected-mock-dual-lifecycles.md omits both optional effort fields and conforms to authority
+ok 7 - 069-complete-connected-mock-dual-lifecycles.md omits both optional effort fields and conforms to authority
+  ---
+  duration_ms: 2.937583
+  type: 'test'
+  ...
+# Subtest: 070-validate-connected-mock-dual-lifecycles.md omits both optional effort fields and conforms to authority
+ok 8 - 070-validate-connected-mock-dual-lifecycles.md omits both optional effort fields and conforms to authority
+  ---
+  duration_ms: 0.406042
+  type: 'test'
+  ...
+# Subtest: 071-isolate-mock-prerequisite-test-resources.md omits both optional effort fields and conforms to authority
+ok 9 - 071-isolate-mock-prerequisite-test-resources.md omits both optional effort fields and conforms to authority
+  ---
+  duration_ms: 0.347583
+  type: 'test'
+  ...
+1..9
+# tests 9
+# suites 0
+# pass 9
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 201.262542

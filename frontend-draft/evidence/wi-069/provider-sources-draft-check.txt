@@ -1,0 +1,183 @@
+v22.17.0
+10.9.2
+
+> vitae-frontend-draft@0.0.0 check
+> npm test && npm run build
+
+
+> vitae-frontend-draft@0.0.0 test
+> tsx --test test/*.test.mjs
+
+TAP version 13
+# Subtest: creation is inline, cancellable, distinct and does not fabricate activity
+ok 1 - creation is inline, cancellable, distinct and does not fabricate activity
+  ---
+  duration_ms: 102.852375
+  type: 'test'
+  ...
+# Subtest: two complete application flows share catalog remediation without sharing drafts, search or surface
+ok 2 - two complete application flows share catalog remediation without sharing drafts, search or surface
+  ---
+  duration_ms: 237.711458
+  type: 'test'
+  ...
+# Subtest: two independent applications require current supported reviewed bundles and explicit material confirmation
+ok 3 - two independent applications require current supported reviewed bundles and explicit material confirmation
+  ---
+  duration_ms: 5.428875
+  type: 'test'
+  ...
+# Subtest: formalization demands evidence for every criterion and human review of current scope
+ok 4 - formalization demands evidence for every criterion and human review of current scope
+  ---
+  duration_ms: 1.492458
+  type: 'test'
+  ...
+# Subtest: shared fixture dependencies invalidate both applications while unrelated revisions stay current
+ok 5 - shared fixture dependencies invalidate both applications while unrelated revisions stay current
+  ---
+  duration_ms: 0.538292
+  type: 'test'
+  ...
+# Subtest: inbox priming and reviewed discard keep readiness separate from types and reject wrong-criterion evidence
+ok 6 - inbox priming and reviewed discard keep readiness separate from types and reject wrong-criterion evidence
+  ---
+  duration_ms: 0.344917
+  type: 'test'
+  ...
+# Subtest: projection edits are local; unsupported claims need exclusion or supported replacement, not review
+ok 7 - projection edits are local; unsupported claims need exclusion or supported replacement, not review
+  ---
+  duration_ms: 0.253709
+  type: 'test'
+  ...
+# Subtest: invalid transitions, missing confirmation, invalid dates, terminal changes and duplicate material confirmations
+ok 8 - invalid transitions, missing confirmation, invalid dates, terminal changes and duplicate material confirmations
+  ---
+  duration_ms: 0.1615
+  type: 'test'
+  ...
+# Subtest: browser runner bounds both viewport processes to 60 seconds without changing arguments
+ok 9 - browser runner bounds both viewport processes to 60 seconds without changing arguments
+  ---
+  duration_ms: 14.966084
+  type: 'test'
+  ...
+# Subtest: browser runner reports ETIMEDOUT before checking status or parsing stdout
+ok 10 - browser runner reports ETIMEDOUT before checking status or parsing stdout
+  ---
+  duration_ms: 10.505833
+  type: 'test'
+  ...
+# Subtest: browser runner reports ENOENT before checking status or parsing stdout
+ok 11 - browser runner reports ENOENT before checking status or parsing stdout
+  ---
+  duration_ms: 21.16775
+  type: 'test'
+  ...
+# Subtest: browser runner still rejects nonzero status without a spawn error
+ok 12 - browser runner still rejects nonzero status without a spawn error
+  ---
+  duration_ms: 5.335209
+  type: 'test'
+  ...
+# Subtest: P2 reassembly cannot leave ready status paired with an unreviewed bundle
+ok 13 - P2 reassembly cannot leave ready status paired with an unreviewed bundle
+  ---
+  duration_ms: 1.010709
+  type: 'test'
+  ...
+# Subtest: P2 a selected unrelated dependency gap opens the affected asset and preserves application/surface
+ok 14 - P2 a selected unrelated dependency gap opens the affected asset and preserves application/surface
+  ---
+  duration_ms: 125.931541
+  type: 'test'
+  ...
+# Subtest: P2 stale projections leave Ready to reuse until their source is republished and projection refreshed
+ok 15 - P2 stale projections leave Ready to reuse until their source is republished and projection refreshed
+  ---
+  duration_ms: 50.13225
+  type: 'test'
+  ...
+# Subtest: P2 readiness needs factual resume AND communication blocks in manifest and submitted snapshot
+ok 16 - P2 readiness needs factual resume AND communication blocks in manifest and submitted snapshot
+  ---
+  duration_ms: 0.818291
+  type: 'test'
+  ...
+# Subtest: Sources links criteria to references and live two-application usage, including stale placements
+ok 17 - Sources links criteria to references and live two-application usage, including stale placements
+  ---
+  duration_ms: 165.077458
+  type: 'test'
+  ...
+# Subtest: single accessible navigation, priorities and placement remain interactive
+ok 18 - single accessible navigation, priorities and placement remain interactive
+  ---
+  duration_ms: 86.857875
+  type: 'test'
+  ...
+# Subtest: navigation and cancelled creation never manufacture material events
+ok 19 - navigation and cancelled creation never manufacture material events
+  ---
+  duration_ms: 32.929333
+  type: 'test'
+  ...
+# Subtest: all entry points expose four readiness columns with expandable safe metadata
+ok 20 - all entry points expose four readiness columns with expandable safe metadata
+  ---
+  duration_ms: 77.67825
+  type: 'test'
+  ...
+# Subtest: publication blocks incomplete evidence and requires current human review
+ok 21 - publication blocks incomplete evidence and requires current human review
+  ---
+  duration_ms: 46.800667
+  type: 'test'
+  ...
+# Subtest: application evidence round trip retains selected surface and search
+ok 22 - application evidence round trip retains selected surface and search
+  ---
+  duration_ms: 28.592
+  type: 'test'
+  ...
+# Subtest: editing support clears prior publication review, never the evidence requirement
+ok 23 - editing support clears prior publication review, never the evidence requirement
+  ---
+  duration_ms: 45.480709
+  type: 'test'
+  ...
+# Subtest: Workshop reflection completes disposition, per-criterion support, review and publication
+ok 24 - Workshop reflection completes disposition, per-criterion support, review and publication
+  ---
+  duration_ms: 50.475916
+  type: 'test'
+  ...
+# Subtest: two application contexts retain independent search and surface through Catalog return
+ok 25 - two application contexts retain independent search and surface through Catalog return
+  ---
+  duration_ms: 32.963375
+  type: 'test'
+  ...
+1..25
+# tests 25
+# suites 0
+# pass 25
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 1168.379167
+
+> vitae-frontend-draft@0.0.0 build
+> tsc --noEmit && vite build
+
+rolldown-vite v7.2.5 building client environment for production...
+[2K
+transforming...✓ 18 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                   0.40 kB │ gzip:  0.27 kB
+dist/assets/index-DcqpGG8M.css   11.83 kB │ gzip:  3.26 kB
+dist/assets/index-CDR51hRD.js   250.67 kB │ gzip: 76.92 kB
+✓ built in 85ms

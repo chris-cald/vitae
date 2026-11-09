@@ -1,0 +1,28 @@
+
+> vitae-frontend-draft@0.0.0 test
+> tsx --test test/*.test.mjs
+
+✔ creation is inline, cancellable, distinct and does not fabricate activity (95.162792ms)
+✔ two complete application flows share catalog remediation without sharing drafts, search or surface (125.651208ms)
+✔ two independent applications require current supported reviewed bundles and explicit material confirmation (2.429208ms)
+✔ formalization demands evidence for every criterion and human review of current scope (0.397625ms)
+✔ shared fixture dependencies invalidate both applications while unrelated revisions stay current (0.37775ms)
+✔ inbox priming and reviewed discard keep readiness separate from types and reject wrong-criterion evidence (0.264417ms)
+✔ projection edits are local; unsupported claims need exclusion or supported replacement, not review (0.674334ms)
+✔ invalid transitions, missing confirmation, invalid dates, terminal changes and duplicate material confirmations (0.221125ms)
+✔ single accessible navigation, priorities and placement remain interactive (84.329458ms)
+✔ navigation and cancelled creation never manufacture material events (21.476458ms)
+✔ all entry points expose four readiness columns with expandable safe metadata (42.367709ms)
+✔ publication blocks incomplete evidence and requires current human review (32.267625ms)
+✔ application evidence round trip retains selected surface and search (21.724917ms)
+✔ editing support clears prior publication review, never the evidence requirement (31.714417ms)
+✔ Workshop reflection completes disposition, per-criterion support, review and publication (36.279917ms)
+✔ two application contexts retain independent search and surface through Catalog return (23.928042ms)
+ℹ tests 16
+ℹ suites 0
+ℹ pass 16
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 895.374667

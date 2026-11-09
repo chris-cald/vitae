@@ -1,33 +1,33 @@
 from typing import List, Dict, Any
-import requests
-import pytest
 import io
+import os
+
+import pytest
+import requests
+from fastapi.testclient import TestClient
+
+from src.main import app
+from src.services import resume_service as resume_service_module
 
 """
 Comprehensive integration tests for Vitae backend API endpoints.
 """
 
 BASE_URL = "http://localhost:8000/api/v1"
+REQUEST_TIMEOUT = 5
 PDF_BYTES = b"%PDF-1.4\n%EOF"
 DOCX_BYTES = b"PK\x03\x04"  # DOCX file header
 
 
-def _backend_available() -> bool:
-    try:
-        requests.get(f"{BASE_URL}/resume", timeout=1)
-        return True
-    except requests.RequestException:
-        return False
-
-
-pytestmark = pytest.mark.skipif(
-    not _backend_available(), reason="live backend not running on localhost:8000"
+requires_live_backend = pytest.mark.skipif(
+    os.getenv("VITAE_LIVE_INTEGRATION") != "1",
+    reason="set VITAE_LIVE_INTEGRATION=1 to run live backend tests",
 )
 
 
 @pytest.fixture
 def resume_id() -> str:
-    resp = requests.get(f"{BASE_URL}/resume", timeout=5)
+    resp = requests.get(f"{BASE_URL}/resume", timeout=REQUEST_TIMEOUT)
     resp.raise_for_status()
     resumes = resp.json().get("resumes", [])
     if not resumes:
@@ -37,7 +37,7 @@ def resume_id() -> str:
 
 @pytest.fixture
 def job_id() -> str:
-    resp = requests.get(f"{BASE_URL}/job", timeout=5)
+    resp = requests.get(f"{BASE_URL}/job", timeout=REQUEST_TIMEOUT)
     resp.raise_for_status()
     jobs = resp.json().get("jobs", resp.json())
     if not jobs:
@@ -47,10 +47,10 @@ def job_id() -> str:
 
 def _upload_resume_and_list() -> List[Dict[str, Any]]:
     files = {"file": ("test.pdf", io.BytesIO(PDF_BYTES), "application/pdf")}
-    resp = requests.post(f"{BASE_URL}/resume/file", files=files)
+    resp = requests.post(f"{BASE_URL}/resume/file", files=files, timeout=REQUEST_TIMEOUT)
     assert resp.status_code == 200, resp.text
     assert "message" in resp.json()
-    resp = requests.get(f"{BASE_URL}/resume")
+    resp = requests.get(f"{BASE_URL}/resume", timeout=REQUEST_TIMEOUT)
     assert resp.status_code == 200
     assert "resumes" in resp.json()
     resume_list = resp.json()["resumes"]
@@ -62,37 +62,65 @@ def _upload_job_and_list() -> List[Dict[str, Any]]:
     resp = requests.post(
         f"{BASE_URL}/job/text",
         json={"job_text": "Software Engineer", "name": "Software Engineer"},
+        timeout=REQUEST_TIMEOUT,
     )
     assert resp.status_code == 200, resp.text
     assert "job_id" in resp.json()
-    resp = requests.get(f"{BASE_URL}/job")
+    resp = requests.get(f"{BASE_URL}/job", timeout=REQUEST_TIMEOUT)
     assert resp.status_code == 200
     jobs = resp.json().get("jobs", resp.json())
     assert isinstance(jobs, list)
     return jobs  # type: ignore
 
 
-def test_resume_upload_and_list() -> None:
-    """Test uploading a resume and listing resumes."""
-    _upload_resume_and_list()
+def test_resume_upload_and_list(
+    monkeypatch: pytest.MonkeyPatch, isolated_test_resources
+) -> None:
+    """Upload through the app with the explicit local parse fallback."""
+    monkeypatch.setenv("VITAE_LOCAL_PARSE_FALLBACK", "1")
+
+    def unavailable_model(_: str) -> str:
+        raise RuntimeError("model unavailable")
+
+    monkeypatch.setattr(resume_service_module, "call_llm_stub", unavailable_model)
+    with TestClient(app) as client:
+        response = client.post(
+            "/api/v1/resume/file",
+            files={"file": ("test.pdf", io.BytesIO(PDF_BYTES), "application/pdf")},
+        )
+        assert response.status_code == 200, response.text
+        resume_id = response.json()["resume_id"]
+        assert (isolated_test_resources / resume_id).is_file()
+
+        offset = 0
+        while True:
+            response = client.get(f"/api/v1/resume?limit=100&offset={offset}")
+            assert response.status_code == 200
+            resumes = response.json()["resumes"]
+            if any(resume["resume_id"] == resume_id for resume in resumes):
+                break
+            assert len(resumes) == 100
+            offset += 100
 
 
+@requires_live_backend
 def test_job_upload_and_list() -> None:
     """Test uploading a job and listing jobs."""
     _upload_job_and_list()
 
 
+@requires_live_backend
 def test_job_fit_flow(resume_id: str, job_id: str) -> None:
     """Test job-fit analysis creation and retrieval."""
     payload = {"resume_id": resume_id, "job_id": job_id}
-    resp = requests.post(f"{BASE_URL}/job-fit", json=payload)
+    resp = requests.post(f"{BASE_URL}/job-fit", json=payload, timeout=REQUEST_TIMEOUT)
     assert resp.status_code in (201, 400, 404, 422), resp.text
     if resp.status_code == 201:
         job_fit = resp.json()
         job_fit_id = job_fit.get("id")
-        resp2 = requests.get(f"{BASE_URL}/job-fit/{job_fit_id}")
+        resp2 = requests.get(f"{BASE_URL}/job-fit/{job_fit_id}", timeout=REQUEST_TIMEOUT)
         assert resp2.status_code == 200
-        resp3 = requests.get(f"{BASE_URL}/job-fit/{job_fit_id}/score")
+        resp3 = requests.get(f"{BASE_URL}/job-fit/{job_fit_id}/score", timeout=REQUEST_TIMEOUT)
         assert resp3.status_code in (200, 404)
 
 

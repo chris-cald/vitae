@@ -1,0 +1,50 @@
+✔ two independent applications require current supported reviewed bundles and explicit material confirmation (2.402083ms)
+✔ formalization demands evidence for every criterion and human review of current scope (0.332167ms)
+✖ shared fixture dependencies invalidate both applications while unrelated revisions stay current (3.167334ms)
+✔ inbox priming and reviewed discard keep readiness separate from types and reject wrong-criterion evidence (0.284916ms)
+✖ projection edits are local; unsupported claims need exclusion or supported replacement, not review (0.156333ms)
+✔ invalid transitions, missing confirmation, invalid dates, terminal changes and duplicate material confirmations (0.193709ms)
+ℹ tests 6
+ℹ suites 0
+ℹ pass 4
+ℹ fail 2
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 122.492541
+
+✖ failing tests:
+
+test at frontend-draft/test/connected.test.mjs:54:1
+✖ shared fixture dependencies invalidate both applications while unrelated revisions stay current (3.167334ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+
+    assert.ok(s.applications.every(a=>a.projections.some(p=>p.assetId==='asset-shared')))
+
+      at TestContext.<anonymous> (file:///Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-069/frontend-draft/test/connected.test.mjs:56:9)
+      at Test.runInAsyncScope (node:async_hooks:226:14)
+      at Test.run (node:internal/test_runner/test:1402:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:974:18)
+      at Test.postRun (node:internal/test_runner/test:1542:19)
+      at Test.run (node:internal/test_runner/test:1467:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at frontend-draft/test/connected.test.mjs:88:1
+✖ projection edits are local; unsupported claims need exclusion or supported replacement, not review (0.156333ms)
+  Error: Bundle needs at least one eligible factual projection
+      at currentBundle (/Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-069/frontend-draft/src/connected.ts:100:33)
+      at reviewBundle (/Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-069/frontend-draft/src/connected.ts:103:76)
+      at TestContext.<anonymous> (file:///Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-069/frontend-draft/test/connected.test.mjs:90:19)
+      at Test.runInAsyncScope (node:async_hooks:226:14)
+      at Test.run (node:internal/test_runner/test:1402:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:974:18)
+      at Test.postRun (node:internal/test_runner/test:1542:19)
+      at Test.run (node:internal/test_runner/test:1467:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7)

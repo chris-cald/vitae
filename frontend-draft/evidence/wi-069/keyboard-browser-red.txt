@@ -1,0 +1,19 @@
+node:internal/modules/run_main:123
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: Focus lost while typing Claim scope asset-shared
+
+false !== true
+
+    at type (file:///Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-069/frontend-draft/test/catalog-focus.browser.mjs:23:257)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async file:///Users/macos/dev/personal/chris-cald/vitae-wi-050-catalog-lifecycle/.a5c/worktrees/wi-069/frontend-draft/test/catalog-focus.browser.mjs:30:2 {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: false,
+  expected: true,
+  operator: 'strictEqual'
+}
+
+Node.js v22.17.0

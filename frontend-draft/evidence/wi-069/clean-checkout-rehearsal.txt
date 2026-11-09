@@ -1,0 +1,820 @@
+v22.17.0
+10.9.2
+c5f263232ea3ea6388544aa4900b5c3cfff8328f
+
+> setup
+> npm --prefix frontend ci && npm --prefix vendor/templjs/core ci && npm --prefix vendor/templjs/cli ci && npm --prefix doc-packs/vitae-sdlc ci && uv --directory backend sync --locked
+
+
+added 214 packages, and audited 215 packages in 3s
+
+52 packages are looking for funding
+  run `npm fund` for details
+
+18 vulnerabilities (1 low, 7 moderate, 10 high)
+
+To address issues that do not require attention, run:
+  npm audit fix
+
+To address all issues (including breaking changes), run:
+  npm audit fix --force
+
+Run `npm audit` for details.
+
+added 13 packages, and audited 14 packages in 422ms
+
+2 packages are looking for funding
+  run `npm fund` for details
+
+5 high severity vulnerabilities
+
+To address issues that do not require attention, run:
+  npm audit fix
+
+To address all issues (including breaking changes), run:
+  npm audit fix --force
+
+Run `npm audit` for details.
+
+added 15 packages, and audited 17 packages in 395ms
+
+3 packages are looking for funding
+  run `npm fund` for details
+
+2 high severity vulnerabilities
+
+To address all issues, run:
+  npm audit fix
+
+Run `npm audit` for details.
+
+added 9 packages, and audited 11 packages in 500ms
+
+3 packages are looking for funding
+  run `npm fund` for details
+
+2 high severity vulnerabilities
+
+To address all issues, run:
+  npm audit fix
+
+Run `npm audit` for details.
+Using CPython 3.12.15 interpreter at: /opt/homebrew/opt/python@3.12/bin/python3.12
+Creating virtual environment at: .venv
+Resolved 135 packages in 1ms
+Installed 114 packages in 840ms
+ + aiohappyeyeballs==2.7.1
+ + aiohttp==3.14.5
+ + aiosignal==1.4.0
+ + aiosqlite==0.22.1
+ + alembic==1.20.1
+ + annotated-doc==0.0.5
+ + annotated-types==0.8.0
+ + anyio==4.15.1
+ + attrs==26.1.0
+ + beautifulsoup4==4.15.0
+ + boto3==1.43.118
+ + botocore==1.43.118
+ + certifi==2026.10.19
+ + cffi==2.1.1
+ + charset-normalizer==3.5.2
+ + click==8.5.0
+ + cloudpickle==3.1.2
+ + cryptography==50.0.2
+ + defusedxml==0.7.1
+ + distro==1.9.0
+ + fastapi==0.161.1
+ + fastuuid==0.14.0
+ + filelock==3.32.7
+ + flatbuffers==25.12.19
+ + frozenlist==1.8.0
+ + fsspec==2026.9.0
+ + greenlet==3.5.6
+ + h11==0.16.0
+ + h2==4.4.1
+ + hf-xet==1.7.0
+ + hpack==4.2.0
+ + httpcore==1.0.9
+ + httpx==0.28.1
+ + huggingface-hub==1.33.0
+ + hyperframe==6.1.0
+ + idna==3.20
+ + importlib-metadata==8.9.0
+ + iniconfig==2.3.1
+ + jinja2==3.1.6
+ + jiter==0.17.0
+ + jmespath==1.1.0
+ + joblib==1.6.0
+ + jsonschema==4.26.0
+ + jsonschema-specifications==2025.9.1
+ + litellm==1.106.2
+ + lxml==6.1.3
+ + magika==1.0.3
+ + mako==1.4.3
+ + markdown-it-py==4.2.0
+ + markdownify==1.2.3
+ + markitdown==0.1.9
+ + markupsafe==3.0.4
+ + mdurl==0.1.2
+ + mpmath==1.3.0
+ + multidict==7.1.0
+ + narwhals==2.27.1
+ + networkx==3.7
+ + nexus-rpc==1.4.0
+ + numpy==2.5.4
+ + onnxruntime==1.31.0
+ + openai==2.54.0
+ + opentelemetry-api==1.45.1
+ + packaging==26.3
+ + pdfminer-six==20260107
+ + pluggy==1.7.0
+ + propcache==0.5.4
+ + protobuf==7.36.2
+ + pycparser==3.12
+ + pydantic==2.14.1
+ + pydantic-core==2.50.1
+ + pydantic-settings==2.16.1
+ + pygments==2.21.0
+ + pyjwt==2.15.1
+ + pytest==9.1.1
+ + pytest-asyncio==1.4.0
+ + python-dateutil==2.9.0.post0
+ + python-docx==1.2.0
+ + python-dotenv==1.2.4
+ + python-multipart==0.0.32
+ + pyyaml==6.0.3
+ + referencing==0.37.0
+ + regex==2026.9.29
+ + requests==2.34.2
+ + rich==15.0.0
+ + rpds-py==2026.9.1
+ + s3transfer==0.19.3
+ + safetensors==0.8.0
+ + scikit-learn==1.9.1
+ + scipy==1.18.1
+ + sentence-transformers==6.2.0
+ + setuptools==84.2.1
+ + shellingham==1.5.4
+ + six==1.17.0
+ + sniffio==1.3.1
+ + soupsieve==3.0.4
+ + sqlalchemy==2.1.6
+ + sqlmodel==0.0.48
+ + starlette==1.9.0
+ + sympy==1.14.0
+ + temporalio==1.34.0
+ + threadpoolctl==3.7.0
+ + tiktoken==0.14.0
+ + tokenizers==0.23.3
+ + torch==2.14.1
+ + tqdm==4.70.1
+ + transformers==5.20.2
+ + typer==0.27.3
+ + types-protobuf==7.35.1.20260906
+ + typing-extensions==4.16.0
+ + typing-inspection==0.4.4
+ + urllib3==2.8.0
+ + uvicorn==0.54.0
+ + yarl==1.25.1
+ + zipp==4.1.2
+npm warn EBADENGINE Unsupported engine {
+npm warn EBADENGINE   package: '@asamuzakjp/css-color@7.1.9',
+npm warn EBADENGINE   required: { node: '^22.22.2 || ^24.15.0 || >=26.0.0' },
+npm warn EBADENGINE   current: { node: 'v22.17.0', npm: '10.9.2' }
+npm warn EBADENGINE }
+npm warn EBADENGINE Unsupported engine {
+npm warn EBADENGINE   package: '@asamuzakjp/dom-selector@10.0.5',
+npm warn EBADENGINE   required: { node: '^22.22.2 || ^24.15.0 || >=26.0.0' },
+npm warn EBADENGINE   current: { node: 'v22.17.0', npm: '10.9.2' }
+npm warn EBADENGINE }
+npm warn EBADENGINE Unsupported engine {
+npm warn EBADENGINE   package: 'jsdom@30.1.3',
+npm warn EBADENGINE   required: { node: '^22.22.2 || ^24.15.0 || >=26.0.0' },
+npm warn EBADENGINE   current: { node: 'v22.17.0', npm: '10.9.2' }
+npm warn EBADENGINE }
+npm warn EBADENGINE Unsupported engine {
+npm warn EBADENGINE   package: 'undici@8.12.3',
+npm warn EBADENGINE   required: { node: '>=22.19.0' },
+npm warn EBADENGINE   current: { node: 'v22.17.0', npm: '10.9.2' }
+npm warn EBADENGINE }
+npm warn EBADENGINE Unsupported engine {
+npm warn EBADENGINE   package: 'w3c-xmlserializer@6.0.0',
+npm warn EBADENGINE   required: { node: '^22.22.2 || ^24.15.0 || >=26.0.0' },
+npm warn EBADENGINE   current: { node: 'v22.17.0', npm: '10.9.2' }
+npm warn EBADENGINE }
+npm warn deprecated rolldown-vite@7.2.5: Use 7.3.1 for migration purposes. For the most recent updates, migrate to Vite 8 once you're ready.
+
+added 112 packages, and audited 113 packages in 1s
+
+20 packages are looking for funding
+  run `npm fund` for details
+
+found 0 vulnerabilities
+(node:38653) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+Validating 2 backlog frontmatter file(s) against JSON schema...
+
+❌ 070-validate-connected-mock-dual-lifecycles.md
+   [warn] /status_reason: Status reason changed without changing status
+
+✅ All backlog frontmatter files passed schema validation
+
+⚠️  1 warning(s) reported
+
+> vitae-frontend-draft@0.0.0 check
+> npm test && npm run build
+
+
+> vitae-frontend-draft@0.0.0 test
+> tsx --test test/*.test.mjs
+
+TAP version 13
+# Subtest: creation is inline, cancellable, distinct and does not fabricate activity
+ok 1 - creation is inline, cancellable, distinct and does not fabricate activity
+  ---
+  duration_ms: 103.772792
+  type: 'test'
+  ...
+# Subtest: two complete application flows share catalog remediation without sharing drafts, search or surface
+ok 2 - two complete application flows share catalog remediation without sharing drafts, search or surface
+  ---
+  duration_ms: 247.504834
+  type: 'test'
+  ...
+# Subtest: two independent applications require current supported reviewed bundles and explicit material confirmation
+ok 3 - two independent applications require current supported reviewed bundles and explicit material confirmation
+  ---
+  duration_ms: 3.217416
+  type: 'test'
+  ...
+# Subtest: formalization demands evidence for every criterion and human review of current scope
+ok 4 - formalization demands evidence for every criterion and human review of current scope
+  ---
+  duration_ms: 0.497417
+  type: 'test'
+  ...
+# Subtest: shared fixture dependencies invalidate both applications while unrelated revisions stay current
+ok 5 - shared fixture dependencies invalidate both applications while unrelated revisions stay current
+  ---
+  duration_ms: 0.4425
+  type: 'test'
+  ...
+# Subtest: inbox priming and reviewed discard keep readiness separate from types and reject wrong-criterion evidence
+ok 6 - inbox priming and reviewed discard keep readiness separate from types and reject wrong-criterion evidence
+  ---
+  duration_ms: 0.314667
+  type: 'test'
+  ...
+# Subtest: projection edits are local; unsupported claims need exclusion or supported replacement, not review
+ok 7 - projection edits are local; unsupported claims need exclusion or supported replacement, not review
+  ---
+  duration_ms: 0.239375
+  type: 'test'
+  ...
+# Subtest: invalid transitions, missing confirmation, invalid dates, terminal changes and duplicate material confirmations
+ok 8 - invalid transitions, missing confirmation, invalid dates, terminal changes and duplicate material confirmations
+  ---
+  duration_ms: 0.155708
+  type: 'test'
+  ...
+# Subtest: P2 reassembly cannot leave ready status paired with an unreviewed bundle
+ok 9 - P2 reassembly cannot leave ready status paired with an unreviewed bundle
+  ---
+  duration_ms: 0.991209
+  type: 'test'
+  ...
+# Subtest: P2 a selected unrelated dependency gap opens the affected asset and preserves application/surface
+ok 10 - P2 a selected unrelated dependency gap opens the affected asset and preserves application/surface
+  ---
+  duration_ms: 126.685458
+  type: 'test'
+  ...
+# Subtest: P2 stale projections leave Ready to reuse until their source is republished and projection refreshed
+ok 11 - P2 stale projections leave Ready to reuse until their source is republished and projection refreshed
+  ---
+  duration_ms: 47.08275
+  type: 'test'
+  ...
+# Subtest: P2 readiness needs factual resume AND communication blocks in manifest and submitted snapshot
+ok 12 - P2 readiness needs factual resume AND communication blocks in manifest and submitted snapshot
+  ---
+  duration_ms: 0.757833
+  type: 'test'
+  ...
+# Subtest: single accessible navigation, priorities and placement remain interactive
+ok 13 - single accessible navigation, priorities and placement remain interactive
+  ---
+  duration_ms: 92.29475
+  type: 'test'
+  ...
+# Subtest: navigation and cancelled creation never manufacture material events
+ok 14 - navigation and cancelled creation never manufacture material events
+  ---
+  duration_ms: 28.789125
+  type: 'test'
+  ...
+# Subtest: all entry points expose four readiness columns with expandable safe metadata
+ok 15 - all entry points expose four readiness columns with expandable safe metadata
+  ---
+  duration_ms: 70.320542
+  type: 'test'
+  ...
+# Subtest: publication blocks incomplete evidence and requires current human review
+ok 16 - publication blocks incomplete evidence and requires current human review
+  ---
+  duration_ms: 51.270958
+  type: 'test'
+  ...
+# Subtest: application evidence round trip retains selected surface and search
+ok 17 - application evidence round trip retains selected surface and search
+  ---
+  duration_ms: 37.134792
+  type: 'test'
+  ...
+# Subtest: editing support clears prior publication review, never the evidence requirement
+ok 18 - editing support clears prior publication review, never the evidence requirement
+  ---
+  duration_ms: 46.811917
+  type: 'test'
+  ...
+# Subtest: Workshop reflection completes disposition, per-criterion support, review and publication
+ok 19 - Workshop reflection completes disposition, per-criterion support, review and publication
+  ---
+  duration_ms: 49.987917
+  type: 'test'
+  ...
+# Subtest: two application contexts retain independent search and surface through Catalog return
+ok 20 - two application contexts retain independent search and surface through Catalog return
+  ---
+  duration_ms: 33.139667
+  type: 'test'
+  ...
+1..20
+# tests 20
+# suites 0
+# pass 20
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 1232.804292
+
+> vitae-frontend-draft@0.0.0 build
+> tsc --noEmit && vite build
+
+rolldown-vite v7.2.5 building client environment for production...
+[2K
+transforming...✓ 18 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                   0.40 kB │ gzip:  0.27 kB
+dist/assets/index-DcqpGG8M.css   11.83 kB │ gzip:  3.26 kB
+dist/assets/index-BKH9sAc4.js   248.81 kB │ gzip: 76.46 kB
+✓ built in 444ms
+
+> pilot:rehearse
+> npm run test:release && npm run check && npm run test:schema && npm run test:career-core && npm run validate:backlog
+
+
+> test:release
+> node --test test/release-validation.test.mjs
+
+TAP version 13
+# Subtest: root validation uses the locked backend environment and frontend TS gates
+ok 1 - root validation uses the locked backend environment and frontend TS gates
+  ---
+  duration_ms: 2.329166
+  type: 'test'
+  ...
+# Subtest: rehearsal verifies the documented synthetic demo contract
+ok 2 - rehearsal verifies the documented synthetic demo contract
+  ---
+  duration_ms: 0.920042
+  type: 'test'
+  ...
+1..2
+# tests 2
+# suites 0
+# pass 2
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 455.426625
+
+> check
+> npm run test:backend && npm run test:frontend && npm run typecheck && npm run lint && npm --prefix frontend run build
+
+
+> test:backend
+> uv --directory backend run --locked --no-sync python -m pytest
+
+============================= test session starts ==============================
+platform darwin -- Python 3.12.15, pytest-9.1.1, pluggy-1.7.0
+rootdir: /private/tmp/vitae-wi069-clean-rehearsal/backend
+configfile: pyproject.toml
+plugins: asyncio-1.4.0, anyio-4.15.1
+asyncio: mode=Mode.STRICT, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+collected 130 items
+
+tests/test_application_bundle_service.py ..........                      [  7%]
+tests/test_book_of_work_adapter.py ....                                  [ 10%]
+tests/test_career_inventory_service.py .........                         [ 17%]
+tests/test_expanded_mvp_uat_api.py .                                     [ 18%]
+tests/test_expanded_mvp_uat_service.py ..                                [ 20%]
+tests/test_generation_input_resolver.py ...                              [ 22%]
+tests/test_integration.py sss                                            [ 24%]
+tests/test_integration_full.py .ss                                       [ 26%]
+tests/test_job_fit_service.py .                                          [ 27%]
+tests/test_job_service_local_fallback.py .                               [ 28%]
+tests/test_litellm_config.py .                                           [ 29%]
+tests/test_mvp_application_loop_api.py .                                 [ 30%]
+tests/test_mvp_application_loop_service.py ..                            [ 31%]
+tests/test_pi_openai_bridge.py ...                                       [ 33%]
+tests/test_privacy_logging.py ...                                        [ 36%]
+tests/test_profile_category_detection.py ..                              [ 37%]
+tests/test_resume_service_local_fallback.py .                            [ 38%]
+tests/test_runtime_activity_dispatch.py ..                               [ 40%]
+tests/test_runtime_execution_adapter.py ....                             [ 43%]
+tests/test_runtime_execution_api.py ........................             [ 61%]
+tests/test_runtime_execution_contract.py ........................        [ 80%]
+tests/test_runtime_execution_migration.py .                              [ 80%]
+tests/test_runtime_workflow_contract.py ....                             [ 83%]
+tests/test_temporal_worker_config.py ...                                 [ 86%]
+tests/test_temporal_worker_entrypoint.py ..                              [ 87%]
+tests/test_uat_evidence.py ..............                                [ 98%]
+tests/test_upload_routes.py ..                                           [100%]
+
+=============================== warnings summary ===============================
+.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /private/tmp/vitae-wi069-clean-rehearsal/backend/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+tests/test_job_service_local_fallback.py::test_job_upload_uses_local_parse_fallback_when_model_unavailable
+  /private/tmp/vitae-wi069-clean-rehearsal/backend/src/services/job_service.py:208: PydanticDeprecatedSince20: The `__fields__` attribute is deprecated, use the `model_fields` class property instead. Deprecated in Pydantic V2.0 to be removed in V3.0. See Pydantic V2 Migration Guide at https://errors.pydantic.dev/2.14/migration/
+    job_fields = set(JobModel.__fields__.keys())
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+================= 125 passed, 5 skipped, 2 warnings in 43.23s ==================
+
+> test:frontend
+> npm --prefix frontend run test:behavior
+
+
+> frontend@0.0.0 test:behavior
+> node --test test/*.test.mjs
+
+TAP version 13
+# Subtest: job-fit API flow scopes bundle detail and material events
+ok 1 - job-fit API flow scopes bundle detail and material events
+  ---
+  duration_ms: 12.009167
+  type: 'test'
+  ...
+# Subtest: runtime execution API sends opaque workflow control only
+ok 2 - runtime execution API sends opaque workflow control only
+  ---
+  duration_ms: 1.244958
+  type: 'test'
+  ...
+# Subtest: runtime controls let a user start and cancel an opaque refresh execution
+ok 3 - runtime controls let a user start and cancel an opaque refresh execution
+  ---
+  duration_ms: 23.624791
+  type: 'test'
+  ...
+# Subtest: runtime controls reuse an idempotency key after an uncertain start error
+ok 4 - runtime controls reuse an idempotency key after an uncertain start error
+  ---
+  duration_ms: 10.416208
+  type: 'test'
+  ...
+# Subtest: runtime controls restore an opaque execution after remounting in the same authorization scope
+ok 5 - runtime controls restore an opaque execution after remounting in the same authorization scope
+  ---
+  duration_ms: 14.262083
+  type: 'test'
+  ...
+# Subtest: runtime controls ignore a completed start from a prior authorization scope
+ok 6 - runtime controls ignore a completed start from a prior authorization scope
+  ---
+  duration_ms: 7.735583
+  type: 'test'
+  ...
+# Subtest: runtime controls reuse a pending idempotency key after remounting
+ok 7 - runtime controls reuse a pending idempotency key after remounting
+  ---
+  duration_ms: 11.641291
+  type: 'test'
+  ...
+# Subtest: runtime controls isolate a pending retry by authorization scope and clear a corrected-token error
+ok 8 - runtime controls isolate a pending retry by authorization scope and clear a corrected-token error
+  ---
+  duration_ms: 10.017833
+  type: 'test'
+  ...
+# Subtest: career inventory lets users refresh a displayed Book of Work state
+ok 9 - career inventory lets users refresh a displayed Book of Work state
+  ---
+  duration_ms: 7.53
+  type: 'test'
+  ...
+# Subtest: career inventory API uses metadata-only AFK actions
+ok 10 - career inventory API uses metadata-only AFK actions
+  ---
+  duration_ms: 0.864708
+  type: 'test'
+  ...
+# Subtest: workspace ignores create, refresh, and event responses from a prior job fit
+ok 11 - workspace ignores create, refresh, and event responses from a prior job fit
+  ---
+  duration_ms: 25.538792
+  type: 'test'
+  ...
+# Subtest: workspace marks a stale Book of Work source without exposing its path
+ok 12 - workspace marks a stale Book of Work source without exposing its path
+  ---
+  duration_ms: 9.713333
+  type: 'test'
+  ...
+# Subtest: workspace labels target context as non-evidence after creating a bundle
+ok 13 - workspace labels target context as non-evidence after creating a bundle
+  ---
+  duration_ms: 5.978708
+  type: 'test'
+  ...
+# Subtest: ESM config files avoid CommonJS globals
+ok 14 - ESM config files avoid CommonJS globals
+  ---
+  duration_ms: 0.815083
+  type: 'test'
+  ...
+# Subtest: uses one accessible responsive collapsible left navigation
+ok 15 - uses one accessible responsive collapsible left navigation
+  ---
+  duration_ms: 0.470125
+  type: 'test'
+  ...
+# Subtest: collapses and changes the active view through native buttons
+ok 16 - collapses and changes the active view through native buttons
+  ---
+  duration_ms: 50.205917
+  type: 'test'
+  ...
+# Subtest: starts collapsed on mobile with distinct visible navigation labels
+ok 17 - starts collapsed on mobile with distinct visible navigation labels
+  ---
+  duration_ms: 13.421042
+  type: 'test'
+  ...
+# Subtest: Playwright/Cucumber UAT fixture is wired to WI-040 evidence
+ok 18 - Playwright/Cucumber UAT fixture is wired to WI-040 evidence
+  ---
+  duration_ms: 0.78775
+  type: 'test'
+  ...
+# Subtest: local UAT orchestrator has CI-friendly phases and artifact capture
+ok 19 - local UAT orchestrator has CI-friendly phases and artifact capture
+  ---
+  duration_ms: 0.961125
+  type: 'test'
+  ...
+1..19
+# tests 19
+# suites 0
+# pass 19
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 453.987
+
+> typecheck
+> npm --prefix frontend run typecheck
+
+
+> frontend@0.0.0 typecheck
+> tsc --noEmit
+
+
+> lint
+> npm --prefix frontend run lint
+
+
+> frontend@0.0.0 lint
+> eslint .
+
+
+> frontend@0.0.0 build
+> vite build
+
+rolldown-vite v7.2.5 building client environment for production...
+[2K
+transforming...✓ 40 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                   0.45 kB │ gzip:  0.29 kB
+dist/assets/index-BKi8opIH.css   28.11 kB │ gzip:  6.12 kB
+dist/assets/index-CdFm2bi6.js   263.73 kB │ gzip: 79.42 kB
+✓ built in 882ms
+
+> test:schema
+> node --test schemas/career/test/canonical-domain-contract.test.mjs
+
+TAP version 13
+# Subtest: vendored templjs packages include immutable provenance and license notices
+ok 1 - vendored templjs packages include immutable provenance and license notices
+  ---
+  duration_ms: 0.670583
+  type: 'test'
+  ...
+# Subtest: SourceAsset accepts a provenance-addressable career source
+ok 2 - SourceAsset accepts a provenance-addressable career source
+  ---
+  duration_ms: 30.276208
+  type: 'test'
+  ...
+# Subtest: SourceAsset rejects a source without an immutable source reference
+ok 3 - SourceAsset rejects a source without an immutable source reference
+  ---
+  duration_ms: 15.301875
+  type: 'test'
+  ...
+# Subtest: the default SourceAsset template is valid templjs and renders the source identity
+ok 4 - the default SourceAsset template is valid templjs and renders the source identity
+  ---
+  duration_ms: 264.409292
+  type: 'test'
+  ...
+# Subtest: anonymized Obsidian Seed fixtures preserve vault metadata and harvest provenance
+ok 5 - anonymized Obsidian Seed fixtures preserve vault metadata and harvest provenance
+  ---
+  duration_ms: 15.638625
+  type: 'test'
+  ...
+# Subtest: one SourceAsset can harvest multiple distinct Seed topics
+ok 6 - one SourceAsset can harvest multiple distinct Seed topics
+  ---
+  duration_ms: 10.634417
+  type: 'test'
+  ...
+# Subtest: the six core-loop fixtures validate and render through their default templates
+ok 7 - the six core-loop fixtures validate and render through their default templates
+  ---
+  duration_ms: 679.057875
+  type: 'test'
+  ...
+# Subtest: confirmed Episodes are validated CatalogAssets with structured episode evidence
+ok 8 - confirmed Episodes are validated CatalogAssets with structured episode evidence
+  ---
+  duration_ms: 8.286084
+  type: 'test'
+  ...
+# Subtest: a Projection requires validated CatalogAsset derivation and cannot be first factual evidence
+ok 9 - a Projection requires validated CatalogAsset derivation and cannot be first factual evidence
+  ---
+  duration_ms: 7.34525
+  type: 'test'
+  ...
+# Subtest: embedded fit mappings and application-bundled deliverables preserve claim provenance
+ok 10 - embedded fit mappings and application-bundled deliverables preserve claim provenance
+  ---
+  duration_ms: 76.778667
+  type: 'test'
+  ...
+# Subtest: Fit-analysis requirement mappings accept structured generation gaps and reject extras
+ok 11 - Fit-analysis requirement mappings accept structured generation gaps and reject extras
+  ---
+  duration_ms: 17.548959
+  type: 'test'
+  ...
+# Subtest: promotion requires substantiation and a validated CatalogAsset, never a Projection
+ok 12 - promotion requires substantiation and a validated CatalogAsset, never a Projection
+  ---
+  duration_ms: 8.850083
+  type: 'test'
+  ...
+# Subtest: Applications and ApplicationRecords reference general Notes rather than embedded prose or SourceAssets
+ok 13 - Applications and ApplicationRecords reference general Notes rather than embedded prose or SourceAssets
+  ---
+  duration_ms: 44.813042
+  type: 'test'
+  ...
+# Subtest: generic Deliverables cannot claim the cover-letter deliverable type
+ok 14 - generic Deliverables cannot claim the cover-letter deliverable type
+  ---
+  duration_ms: 8.6335
+  type: 'test'
+  ...
+# Subtest: Deliverable templates render each content block support or confirmation state
+ok 15 - Deliverable templates render each content block support or confirmation state
+  ---
+  duration_ms: 279.041667
+  type: 'test'
+  ...
+# Subtest: Notes capture general discovered details without becoming Evidence
+ok 16 - Notes capture general discovered details without becoming Evidence
+  ---
+  duration_ms: 135.263833
+  type: 'test'
+  ...
+# Subtest: catalog-distillation Workflows declare the ordered Harvest, Cull, Prime, and Substantiate stage contracts
+ok 17 - catalog-distillation Workflows declare the ordered Harvest, Cull, Prime, and Substantiate stage contracts
+  ---
+  duration_ms: 10.187125
+  type: 'test'
+  ...
+# Subtest: WorkflowRuns distinguish one execution from its definition and retain only safe output telemetry
+ok 18 - WorkflowRuns distinguish one execution from its definition and retain only safe output telemetry
+  ---
+  duration_ms: 272.0555
+  type: 'test'
+  ...
+# Subtest: WorkflowRun approval and promotion guards preserve destructive-cull and validated-CatalogAsset boundaries
+ok 19 - WorkflowRun approval and promotion guards preserve destructive-cull and validated-CatalogAsset boundaries
+  ---
+  duration_ms: 0.624417
+  type: 'test'
+  ...
+# Subtest: the canonical registry gives every MVP type its own schema and default templjs template
+ok 20 - the canonical registry gives every MVP type its own schema and default templjs template
+  ---
+  duration_ms: 2902.329208
+  type: 'test'
+  ...
+1..20
+# tests 20
+# suites 0
+# pass 20
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 4863.43525
+
+> test:career-core
+> node --experimental-strip-types --test services/career-core/test/*.test.ts
+
+TAP version 13
+# (node:40572) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: keeps model-proposed Seed, CatalogAsset, and pebble outcomes distinct for one source
+ok 1 - keeps model-proposed Seed, CatalogAsset, and pebble outcomes distinct for one source
+  ---
+  duration_ms: 0.854334
+  type: 'test'
+  ...
+# Subtest: does not materialize a model-proposed CatalogAsset without human approval and evidence
+ok 2 - does not materialize a model-proposed CatalogAsset without human approval and evidence
+  ---
+  duration_ms: 0.214041
+  type: 'test'
+  ...
+# Subtest: rejects duplicate topic IDs so one topic has only one current outcome
+ok 3 - rejects duplicate topic IDs so one topic has only one current outcome
+  ---
+  duration_ms: 0.075791
+  type: 'test'
+  ...
+# Subtest: rejects blank evidence and unknown model-proposed outcomes
+ok 4 - rejects blank evidence and unknown model-proposed outcomes
+  ---
+  duration_ms: 0.088042
+  type: 'test'
+  ...
+# Subtest: does not provide automatic Seed promotion
+ok 5 - does not provide automatic Seed promotion
+  ---
+  duration_ms: 0.157917
+  type: 'test'
+  ...
+1..5
+# tests 5
+# suites 0
+# pass 5
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 96.933834
+
+> validate:backlog
+> dv backlog validate --dir backlog --fail-on error
+
+(node:40592) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+Backlog Audit Report
+===================
+files=156 duplicate_ids=0 unresolved_wikilinks=0 parse_errors=0 schema_violations=0 no_inbound_active=7
+
+No-Inbound Active Candidates:
+- backlog/012-split-scoring-from-recommendation-generation.md | status=ready | id=wi-012
+- backlog/013-prototype-career-graph-projection-for-bullets-and-requirements.md | status=ready | id=wi-013
+- backlog/014-introduce-typed-frontend-backend-api-contract.md | status=ready | id=wi-014
+- backlog/015-evaluate-templjs-backed-resume-variant-rendering.md | status=ready | id=wi-015
+- backlog/017-integrate-agent-workflows-for-work-order-execution.md | status=ready | id=wi-017
+- backlog/018-add-adr-prd-frontmatter-validation-tooling.md | status=ready | id=wi-018
+- backlog/070-validate-connected-mock-dual-lifecycles.md | status=ready | id=wi-070
+
+exit_code=0

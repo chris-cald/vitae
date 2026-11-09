@@ -1,30 +1,25 @@
+import os
+
 import pytest
 import requests
 
 BASE_URL = "http://localhost:8000/api/v1"
-
-
-def _backend_available() -> bool:
-    try:
-        requests.get(f"{BASE_URL}/resume", timeout=1)
-        return True
-    except requests.RequestException:
-        return False
-
+REQUEST_TIMEOUT = 5
 
 pytestmark = pytest.mark.skipif(
-    not _backend_available(), reason="live backend not running on localhost:8000"
+    os.getenv("VITAE_LIVE_INTEGRATION") != "1",
+    reason="set VITAE_LIVE_INTEGRATION=1 to run live backend tests",
 )
 
 
 def test_resume_list():
-    resp = requests.get(f"{BASE_URL}/resume")
+    resp = requests.get(f"{BASE_URL}/resume", timeout=REQUEST_TIMEOUT)
     assert resp.status_code == 200
     assert "resumes" in resp.json()
 
 
 def test_job_list():
-    resp = requests.get(f"{BASE_URL}/job")
+    resp = requests.get(f"{BASE_URL}/job", timeout=REQUEST_TIMEOUT)
     assert resp.status_code == 200
     assert "jobs" in resp.json() or resp.json() == []
 
@@ -32,7 +27,7 @@ def test_job_list():
 def test_job_fit_post():
     # This is a stub; you should create valid resume/job entries first
     payload = {"resume_id": "fake_id", "job_id": "fake_id"}
-    resp = requests.post(f"{BASE_URL}/job-fit", json=payload)
+    resp = requests.post(f"{BASE_URL}/job-fit", json=payload, timeout=REQUEST_TIMEOUT)
     assert resp.status_code in (400, 404, 422)
 
 
