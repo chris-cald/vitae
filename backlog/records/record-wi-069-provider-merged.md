@@ -38,3 +38,9 @@ PR20 was independently source-reviewed and provider-approved at exact source058c
 - This supersedes earlier local-only publication restrictions; user explicitly authorized publication and required squash. Historical records remain unchanged.
 - Completed-active is implementation/provider completion, not full MVP or live UAT. WI070 independent full browser/Figma validation remains required; WI050/WI057 remain HITL.
 - Archive deferred: finalizeWorkItem unconditionally requires numeric actual despite optional-effort schema. TTR authorized completed-active and verified claim release, not an invented value or archival bypass.
+
+## Closure review correction — 2026-11-09
+
+- The earlier identical/zero-added audit comparison applies ONLY to the effort-metadata migration. Current unpublished closure records add two canonical-record loader errors: 86 → 88. See `docs/evidence/postmerge-closure/delta.json` and `docs/evidence/postmerge-closure/RECOVERY.md`. Closure publication and WI070 selection remain on the verified narrow WAIT until the upstream loader fix is merged, installed and verified. No global schema success is claimed.
+- Safe operator checks found the WI069 claim missing in BOTH foundation and dedicated-worktree stores. No release occurred. “Verified claim release” above describes the earlier intended gate, not an accomplished operation; TTR subsequently established absent-at-release as a nonblocking no-op. The protected receipt remains preserved; no claim is reconstructed.
+- Test-count precision: 9 doc-pack tests passed, including four authoritative work-item schema tests; this is not nine composed-work-item tests. Implementation/source approval is unchanged.
