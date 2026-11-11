@@ -39,3 +39,7 @@ Independent reviewer09745b5c approved exactf17329135a1a175cd1cb4c9484ab7775f07b5
 - Estimated and actual omitted per explicit user policy; no invented effort values.
 - Archive deferred under DV TTR guidance because finalize incorrectly requires numeric actual unconditionally; completed-active is supported after genuine PR evidence and scoped schema lint.
 - Independent WI070 full browser/Figma acceptance remains pending, and WI050/WI057 live UAT stays HITL.
+
+## Closure review correction — 2026-11-09
+
+The identical/zero-added comparison above applies ONLY to the earlier effort-metadata migration, not current unpublished closure. Two new canonical records produce 86 → 88 schema-load errors; see `docs/evidence/postmerge-closure/delta.json` and `docs/evidence/postmerge-closure/RECOVERY.md`. Both new records pass authoritative direct schema lint, but that does not waive the global loader gate. Closure publication and WI070 selection remain on the verified narrow WAIT until the upstream fix is merged, installed and verified. Test-count precision: 9 doc-pack tests passed, including four authoritative work-item schema tests—not nine composed-work-item tests. Original receipts remain unchanged.
