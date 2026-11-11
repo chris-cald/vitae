@@ -1,0 +1,971 @@
+{
+  "base_commit": "1d64b6246bbe269089d5f6040f1bd26754a6cc54",
+  "files": [
+    {
+      "file": "backlog/009-remove-pii-bearing-model-logs.md",
+      "sha256": "2e909efedd88ca742969e655cfac3ad1680daa891c206b4c3a32ea518e837c31",
+      "frontmatter": "---\nid: wi-009\ntitle: Remove PII-Bearing Model Logs\nsummary: Remove or redact prompt, raw response, extracted content, and source-text logging from model and semantic-detection paths so Vitae honors its privacy invariants.\ntype: work-item\nsubtype: task\nlifecycle: active\nstatus: completed\nstatus_reason: accepted\npriority: critical\nestimated: 2\nlinks:\n  reference:\n    - '[[../AGENTS]]'\n    - '[[../docs/prd/career-workflow-platform-boundaries]]'\ntags:\n  - privacy\n  - logging\n  - ai-ml\n  - backend\n---\n",
+      "body_sha256": "657a92ad78a8851297da681419f7e1a48fa397b7b0ca6e9df2d16fcffed7af8d"
+    },
+    {
+      "file": "backlog/010-define-career-artifact-and-record-schema.md",
+      "sha256": "d549166cdc7215870b28c21edbb339096d70707cd510780f1f76d5f781da09c2",
+      "frontmatter": "---\nid: wi-010\ntitle: Define Career Artifact and Record Schema\nsummary: Define the first schema-backed model for career artifacts, records, events, evidence, decisions, and generated outputs.\ntype: work-item\nsubtype: story\nlifecycle: active\nstatus: ready\nstatus_reason: auto\npriority: high\nestimated: 4\nlinks:\n  reference:\n    - '[[../docs/prd/career-workflow-platform-boundaries]]'\n    - '[[../docs/adr/0001-vitae-system-boundaries]]'\n    - '[[../docs/adr/0002-career-graph-and-provenance]]'\ntags:\n  - schema\n  - career-artifact\n  - records\n  - data-model\n---\n",
+      "body_sha256": "c5ab955fb1ab2bf0fe3aabc2aa9d582954e523db006f8346b5749fce2d6b5398"
+    },
+    {
+      "file": "backlog/011-add-provenance-fields-to-job-fit-analysis-outputs.md",
+      "sha256": "d28f572d53c957a3c7e2f9b6a12df7c4af6f4afc517faad22a561c6c28e3a735",
+      "frontmatter": "---\nid: wi-011\ntitle: Add Provenance Fields to Job Fit Analysis Outputs\nsummary: Add source evidence, match method, confidence, and traceability fields to job-fit mappings and analysis outputs.\ntype: work-item\nsubtype: story\nlifecycle: active\nstatus: ready\nstatus_reason: auto\npriority: high\nestimated: 5\nlinks:\n  depends_on:\n    - '[[010-define-career-artifact-and-record-schema]]'\n  reference:\n    - '[[../docs/adr/0002-career-graph-and-provenance]]'\n    - '[[../docs/prd/career-workflow-platform-boundaries]]'\ntags:\n  - provenance\n  - job-fit\n  - api\n  - backend\n---\n",
+      "body_sha256": "4999948beeaddbe1e65fc76b52848cdca56d8690319ea4e9e474b5a98c673c3d"
+    },
+    {
+      "file": "backlog/012-split-scoring-from-recommendation-generation.md",
+      "sha256": "807d21e680ca23b3da6e7ec6f8256e421fd3d1f23aa27698934a87106c1a25b0",
+      "frontmatter": "---\nid: wi-012\ntitle: Split Scoring from Recommendation Generation\nsummary: Separate stable fit-scoring facts from generated feedback and edit recommendations so scoring remains explainable while recommendations can iterate.\ntype: work-item\nsubtype: story\nlifecycle: active\nstatus: ready\nstatus_reason: auto\npriority: high\nestimated: 5\nlinks:\n  depends_on:\n    - '[[010-define-career-artifact-and-record-schema]]'\n  reference:\n    - '[[../docs/prd/career-workflow-platform-boundaries]]'\ntags:\n  - scoring\n  - recommendations\n  - backend\n  - product\n---\n",
+      "body_sha256": "d011bc10f5b6a47540017f9c4516708aeb31d269ed1b712709aca638f367fd54"
+    },
+    {
+      "file": "backlog/013-prototype-career-graph-projection-for-bullets-and-requirements.md",
+      "sha256": "6f9ec8f9b5e9797b2475563dfebfd2b99d4920b0d9e37b7f1ca2ce123dd2b0df",
+      "frontmatter": "---\nid: wi-013\ntitle: Prototype Career Graph Projection for Bullets and Requirements\nsummary: Prototype a provenance-preserving graph slice connecting resume bullets, job requirements, evidence nodes, match edges, and score inputs.\ntype: work-item\nsubtype: spike\nlifecycle: active\nstatus: ready\nstatus_reason: auto\npriority: high\nestimated: 6\nlinks:\n  depends_on:\n    - '[[011-add-provenance-fields-to-job-fit-analysis-outputs]]'\n  reference:\n    - '[[../docs/adr/0002-career-graph-and-provenance]]'\ntags:\n  - career-graph\n  - provenance\n  - semantify\n  - context-graph\n---\n",
+      "body_sha256": "843acf65aecd95fe5b8ce18aacda6ee1faf8278c0dcf9ba4a4395e12a48b3592"
+    },
+    {
+      "file": "backlog/014-introduce-typed-frontend-backend-api-contract.md",
+      "sha256": "d044d544370f4bc4e79050cde63c85d69126cf3f0c2a9ec3a686ecf8b1333007",
+      "frontmatter": "---\nid: wi-014\ntitle: Introduce Typed Frontend Backend API Contract\nsummary: Replace loose frontend API payloads with typed request and response contracts aligned with current FastAPI routes and backend schemas.\ntype: work-item\nsubtype: story\nlifecycle: active\nstatus: ready\nstatus_reason: auto\npriority: medium\nestimated: 4\nlinks:\n  reference:\n    - '[[../docs/prd/career-workflow-platform-boundaries]]'\ntags:\n  - api\n  - frontend\n  - backend\n  - types\n---\n",
+      "body_sha256": "6e2ce712610aa17a78e361bd13a6af402c6aee313425b56503cc0989041bad57"
+    },
+    {
+      "file": "backlog/015-evaluate-templjs-backed-resume-variant-rendering.md",
+      "sha256": "811297150199ac92119ad0edf23fa25598c42f5b7ab329608a9834552ec61289",
+      "frontmatter": "---\nid: wi-015\ntitle: Evaluate templjs Backed Resume Variant Rendering\nsummary: Evaluate using templjs for schema-aware resume variant, cover letter, brief, and prompt bundle rendering.\ntype: work-item\nsubtype: spike\nlifecycle: active\nstatus: ready\nstatus_reason: auto\npriority: medium\nestimated: 4\nlinks:\n  depends_on:\n    - '[[010-define-career-artifact-and-record-schema]]'\n  reference:\n    - '[[../docs/adr/0001-vitae-system-boundaries]]'\n    - '[[../docs/prd/career-workflow-platform-boundaries]]'\ntags:\n  - templjs\n  - rendering\n  - resume-variants\n  - document-generation\n---\n",
+      "body_sha256": "ec580137112b46dd45744b07c2c4648df8b09055a1cfbaa541dbd1419e438887"
+    },
+    {
+      "file": "backlog/016-define-doc-vader-compatible-evidence-records-for-applications.md",
+      "sha256": "7aae9f2ede7b54954ad4bc15d27c8a5c80e88f5b72ec393fabd26d0243eae453",
+      "frontmatter": "---\nid: wi-016\ntitle: Define doc-vader Compatible Evidence Records for Applications\nsummary: Define evidence, decision, comment, validation, and application-event records for Vitae application workflows using doc-vader-compatible lifecycle concepts.\ntype: work-item\nsubtype: story\nlifecycle: active\nstatus: ready\nstatus_reason: auto\npriority: medium\nestimated: 4\nlinks:\n  depends_on:\n    - '[[010-define-career-artifact-and-record-schema]]'\n  reference:\n    - '[[../docs/adr/0001-vitae-system-boundaries]]'\n    - '[[../docs/prd/career-workflow-platform-boundaries]]'\ntags:\n  - doc-vader\n  - evidence\n  - applications\n  - lifecycle\n---\n",
+      "body_sha256": "78856ef03131c35ffcaa033c30a92a1267afdc2f703b9fa8d77dd04cd5eb7c71"
+    },
+    {
+      "file": "backlog/017-integrate-agent-workflows-for-work-order-execution.md",
+      "sha256": "eb3ac45f4be87c8444c6f1a42fb7fbf6445842468a3a8965182523f76e758d75",
+      "frontmatter": "---\nid: wi-017\ntitle: Integrate agent-workflows for Work Order Execution\nsummary: Define and prototype how Vitae or its Obsidian-backed work orders can delegate bounded execution to agent-workflows.\ntype: work-item\nsubtype: spike\nlifecycle: active\nstatus: ready\nstatus_reason: auto\npriority: medium\nestimated: 5\nlinks:\n  depends_on:\n    - '[[016-define-doc-vader-compatible-evidence-records-for-applications]]'\n  reference:\n    - '[[../docs/adr/0001-vitae-system-boundaries]]'\n    - '[[../docs/prd/career-workflow-platform-boundaries]]'\ntags:\n  - agent-workflows\n  - work-orders\n  - orchestration\n  - execution\n---\n",
+      "body_sha256": "dca28c2dff155cdd3a58730ff54626487d52bc998971514819ae5fd070a91610"
+    },
+    {
+      "file": "backlog/018-add-adr-prd-frontmatter-validation-tooling.md",
+      "sha256": "809b1b5f45fd6a9f71d543e37471d6bd2449c8e73d841ac70c8e914397a5a07a",
+      "frontmatter": "---\nid: wi-018\ntitle: Add ADR PRD Frontmatter Validation Tooling\nsummary: Add local validation for canonical ADR and PRD frontmatter against the new documentation JSON Schemas.\ntype: work-item\nsubtype: task\nlifecycle: active\nstatus: ready\nstatus_reason: auto\npriority: medium\nestimated: 3\nlinks:\n  reference:\n    - '[[../docs/documentation-standards]]'\n    - '[[../schemas/docs/adr.schema.json]]'\n    - '[[../schemas/docs/prd.schema.json]]'\ntags:\n  - documentation\n  - schema\n  - validation\n  - tooling\n---\n",
+      "body_sha256": "4fea0a5bfdaa9cc6fbd543aa064c7cdaee439c52be15f336617579e41bf1d6b8"
+    },
+    {
+      "file": "backlog/019-reconcile-planning-docs-and-backlog-with-canonical-mvp-scope.md",
+      "sha256": "fc3283bf31cb123a5825df0836233b2a84c12844223e6e707e670bc8068f100c",
+      "frontmatter": "---\nid: wi-019\ntitle: Reconcile Planning Docs and Backlog With Canonical MVP Scope\nsummary: Update existing broad planning artifacts so future AFK work follows the canonical BookOfWork-to-Application MVP scope and does not reintroduce work-item or persistence-authority drift.\ntype: work-item\nsubtype: task\nlifecycle: active\nstatus: completed\nstatus_reason: accepted\npriority: critical\nestimated: 2\nlinks:\n  reference:\n    - '[[../docs/adr/0003-canonical-vitae-domain-and-workflow-boundary]]'\n    - '[[../docs/prd/mvp-book-of-work-to-application-loop]]'\n    - '[[../docs/wayfinder/vitae-mvp-map]]'\ntags:\n  - mvp\n  - documentation\n  - planning\n  - canonical-domain\n---\n",
+      "body_sha256": "a2993719d42a2e7531ee388832ecc4bc36284f4739e9b0cb14ef3abe4a2cd826"
+    },
+    {
+      "file": "backlog/020-define-canonical-vitae-domain-model-and-obsidian-mapping.md",
+      "sha256": "f823e94a05a2c5d9e624bd15a70a31bd0450f76657444d8bfd0064782f161e8f",
+      "frontmatter": "---\nid: wi-020\ntitle: Define Canonical Vitae Domain Model and Obsidian Mapping\nsummary: Define MVP canonical Vitae domain types and map existing Obsidian Career Knowledge models plus current Vitae backend expectations into those types.\ntype: work-item\nsubtype: story\nlifecycle: active\nstatus: completed\nstatus_reason: accepted\npriority: critical\nestimated: 5\nlinks:\n  reference:\n    - '[[../docs/adr/0003-canonical-vitae-domain-and-workflow-boundary]]'\n    - '[[../docs/prd/mvp-book-of-work-to-application-loop]]'\n    - '[[../docs/wayfinder/vitae-mvp-map]]'\ntags:\n  - mvp\n  - data-model\n  - obsidian-adapter\n  - canonical-domain\n---\n",
+      "body_sha256": "882f80d8d9754e7b822dbbb40075eacffa595121748dfda2952040bacc8623b6"
+    },
+    {
+      "file": "backlog/021-preserve-seed-model-compatibility-and-harvest-fixtures.md",
+      "sha256": "b5cb928059273b6ba507142bab74fe892a50121747fb8be942d911482abce5ae",
+      "frontmatter": "---\nid: wi-021\ntitle: Preserve Seed Model Compatibility and Harvest Fixtures\nsummary: Capture the existing Obsidian Seed structure as the MVP Seed contract and create harvest fixtures from Book of Work SourceAssets.\ntype: work-item\nsubtype: story\nlifecycle: active\nstatus: completed\nstatus_reason: completed\npriority: high\nestimated: 4\nlinks:\n  depends_on:\n    - '[[020-define-canonical-vitae-domain-model-and-obsidian-mapping]]'\n  reference:\n    - '[[../docs/adr/0003-canonical-vitae-domain-and-workflow-boundary]]'\n    - '[[../docs/prd/mvp-book-of-work-to-application-loop]]'\ntags:\n  - mvp\n  - seeds\n  - harvesting\n  - fixtures\n---\n",
+      "body_sha256": "60dc122a00ef06bdf7506c9c5fa8e4947d014f4efa3f73db5bd2c0b050ca92b2"
+    },
+    {
+      "file": "backlog/022-define-harvest-cull-prime-and-substantiate-workflow-contracts.md",
+      "sha256": "26af8c26f7841ed62e61f5dd1f7cb884738994fad254c4251e83f460877a581b",
+      "frontmatter": "---\nid: wi-022\ntitle: Define Harvest Cull Prime and Substantiate Workflow Contracts\nsummary: Define MVP Workflow definitions and WorkflowRun outputs for the harvest, cull, prime, and substantiate process without introducing in-product work items.\ntype: work-item\nsubtype: story\nlifecycle: active\nstatus: completed\nstatus_reason: completed\npriority: high\nestimated: 4\nlinks:\n  depends_on:\n    - '[[021-preserve-seed-model-compatibility-and-harvest-fixtures]]'\n  reference:\n    - '[[../docs/adr/0003-canonical-vitae-domain-and-workflow-boundary]]'\n    - '[[../docs/prd/mvp-book-of-work-to-application-loop]]'\ntags:\n  - mvp\n  - workflow\n  - catalog\n  - process\n---\n",
+      "body_sha256": "3a491d929752d9031b998b964756eef36ffef60164d76b94a190efd4fbc58844"
+    },
+    {
+      "file": "backlog/023-implement-target-requirement-projection-and-catalog-fit-slice.md",
+      "sha256": "5cf6cbcea5fcfcf3e6d76f3a6aba86a187ed65365203903c1de81f6e349deeef",
+      "frontmatter": "---\nid: wi-023\ntitle: Implement Target Requirement Projection and Catalog Fit Slice\nsummary: Implement or prototype the smallest target-role fit slice by projecting Requirements from one Target and matching them against CatalogAssets with evidence and provenance.\ntype: work-item\nsubtype: story\nlifecycle: active\nstatus: completed\nstatus_reason: accepted\npriority: high\nestimated: 6\nlinks:\n  depends_on:\n    - '[[020-define-canonical-vitae-domain-model-and-obsidian-mapping]]'\n    - '[[022-define-harvest-cull-prime-and-substantiate-workflow-contracts]]'\n  reference:\n    - '[[../docs/prd/mvp-book-of-work-to-application-loop]]'\n    - '[[../docs/adr/0002-career-graph-and-provenance]]'\n    - '[[../docs/adr/0003-canonical-vitae-domain-and-workflow-boundary]]'\ntags:\n  - mvp\n  - fit-analysis\n  - requirements\n  - catalog\n---\n",
+      "body_sha256": "62127797ef7a2a415e7fcb8628df28d1c4e2318491eb10ecf91b919c4ce410a5"
+    },
+    {
+      "file": "backlog/024-classify-misalignments-into-harvest-cull-prime-and-substantiate-actions.md",
+      "sha256": "1e15df25164acc9d84904ca064cbcf17ede76d90255fc8082d7210ce5c927cf3",
+      "frontmatter": "---\nid: wi-024\ntitle: Classify Misalignments Into Harvest Cull Prime and Substantiate Actions\nsummary: Classify fit-analysis gaps and weak matches into product action categories that drive the next user step without creating work items for every activity.\ntype: work-item\nsubtype: story\nlifecycle: active\nstatus: completed\nstatus_reason: accepted\npriority: high\nestimated: 4\nlinks:\n  depends_on:\n    - '[[023-implement-target-requirement-projection-and-catalog-fit-slice]]'\n  reference:\n    - '[[../docs/prd/mvp-book-of-work-to-application-loop]]'\n    - '[[../docs/adr/0003-canonical-vitae-domain-and-workflow-boundary]]'\ntags:\n  - mvp\n  - misalignment\n  - recommendations\n  - catalog\n---\n",
+      "body_sha256": "199643a871335905ce9b5ac5b9a1e618022bf47a710476a4534611597f3b8f74"
+    },
+    {
+      "file": "backlog/025-generate-source-backed-resume-and-communication-deliverables.md",
+      "sha256": "e8bce1849a4e6ee171d90ffbac2a5d8276865535ebd67ffa9d757096ba85b648",
+      "frontmatter": "---\nid: wi-025\ntitle: Generate Source-Backed Resume and Communication Deliverables\nsummary: Generate one resume variant and one communication artifact from CatalogAssets, FitAnalysis, and Misalignment Recommendations while preserving source references and confirmation flags.\ntype: work-item\nsubtype: story\nlifecycle: active\nstatus: completed\nstatus_reason: accepted\npriority: high\nestimated: 6\nlinks:\n  depends_on:\n    - '[[023-implement-target-requirement-projection-and-catalog-fit-slice]]'\n    - '[[024-classify-misalignments-into-harvest-cull-prime-and-substantiate-actions]]'\n  reference:\n    - '[[../docs/prd/mvp-book-of-work-to-application-loop]]'\n    - '[[../docs/adr/0003-canonical-vitae-domain-and-workflow-boundary]]'\ntags:\n  - mvp\n  - deliverables\n  - resume\n  - generation\n---\n",
+      "body_sha256": "5738bfadae1f4d551336bb91b5d57f7713ac408f8fe85d81953059381fad8fda"
+    },
+    {
+      "file": "backlog/026-track-one-application-with-lightweight-material-records.md",
+      "sha256": "08b02508b1d733eefc4968b2f29cf16e32c85a58c5f451b3b3196858c0fa0cb2",
+      "frontmatter": "---\nid: wi-026\ntitle: Track One Application With Lightweight Material Records\nsummary: Add or prototype lightweight Application tracking that links Target, Deliverables, notes, material status changes, and outcomes without requiring a record for every state change.\ntype: work-item\nsubtype: story\nlifecycle: active\nstatus: completed\nstatus_reason: accepted\npriority: medium\nestimated: 5\nlinks:\n  depends_on:\n    - '[[025-generate-source-backed-resume-and-communication-deliverables]]'\n  reference:\n    - '[[../docs/prd/mvp-book-of-work-to-application-loop]]'\n    - '[[../docs/adr/0003-canonical-vitae-domain-and-workflow-boundary]]'\ntags:\n  - mvp\n  - applications\n  - records\n  - tracking\n---\n",
+      "body_sha256": "6f5311ba34ec3a8336779a1b51cdef3a404f4624292538fbb8d6c0e46a9796e2"
+    },
+    {
+      "file": "backlog/027-adopt-privacy-safe-durable-temporal-execution.md",
+      "sha256": "dfa8246a859aad51819caebb1e167eb20787826d092f9904a6c452b64c9a5194",
+      "frontmatter": "---\nid: wi-027\ntitle: Adopt Privacy-Safe Durable Temporal Execution\ntype: work-item\nsubtype: epic\nlifecycle: active\nstatus: completed\nstatus_reason: WI-040 accepted self-hosted-first MVP/UAT evidence on 2026-09-30\npriority: high\nestimated: 21\nlinks:\n  depends_on:\n    - '[[022-define-harvest-cull-prime-and-substantiate-workflow-contracts]]'\n  implements:\n    - '[[../docs/adr/0004-adopt-privacy-safe-temporal-execution-substrate]]'\ntags:\n  - temporal\n  - privacy\n  - workflow\n  - epic\n---\n",
+      "body_sha256": "e2c9d3f5634e9aeda3dd266971078632af65f90501f9d4bc0db8070035489a97"
+    },
+    {
+      "file": "backlog/028-define-temporal-execution-boundary-and-threat-model.md",
+      "sha256": "f9e70cdd1a066900cc08187c1a43979aab7258f23e6b88e1fd052d1b6900254e",
+      "frontmatter": "---\nid: wi-028\ntitle: Define Temporal Execution Boundary and Threat Model\ntype: work-item\nsubtype: story\nlifecycle: active\nstatus: closed\nstatus_reason: development-only-provisional-approval\npriority: high\nestimated: 3\nlinks:\n  parent:\n    - '[[027-adopt-privacy-safe-durable-temporal-execution]]'\n  depends_on:\n    - '[[022-define-harvest-cull-prime-and-substantiate-workflow-contracts]]'\n  implements:\n    - '[[../docs/adr/0004-adopt-privacy-safe-temporal-execution-substrate]]'\ntags:\n  - temporal\n  - security\n  - architecture\n---\n",
+      "body_sha256": "ff58145ddd7ad81effc1b5f36c2d3efa9e64b7a8390d057099bb476a6b605aec"
+    },
+    {
+      "file": "backlog/029-build-runtime-execution-adapter-and-pii-safe-payload-contract.md",
+      "sha256": "79aac7e3b25bfe6377aef2e14e60c3039842231f7473857abf13674b89a0f0d6",
+      "frontmatter": "---\nid: wi-029\ntitle: Build Runtime Execution Adapter and PII-Safe Payload Contract\ntype: work-item\nsubtype: story\nlifecycle: active\nstatus: closed\nstatus_reason: development-contract-complete\npriority: high\nestimated: 3\nlinks:\n  parent:\n    - '[[027-adopt-privacy-safe-durable-temporal-execution]]'\n  depends_on:\n    - '[[028-define-temporal-execution-boundary-and-threat-model]]'\n  implements:\n    - '[[../docs/adr/0004-adopt-privacy-safe-temporal-execution-substrate]]'\ntags:\n  - temporal\n  - workflow\n  - privacy\n---\n",
+      "body_sha256": "a06c593b9e8539e4358092ad5b0b3d60a331fc52b16ba2d407427051bb21167f"
+    },
+    {
+      "file": "backlog/030-create-isolated-temporal-worker-bootstrap-and-configuration-seam.md",
+      "sha256": "08a62c261e5a3de80b50f3f3610341d2ada880b3c3800daac5b93a468cebcd46",
+      "frontmatter": "---\nid: wi-030\ntitle: Create Isolated Temporal Worker Bootstrap and Configuration Seam\ntype: work-item\nsubtype: story\nlifecycle: active\nstatus: completed\nstatus_reason: accepted\npriority: high\nestimated: 3\nlinks:\n  parent:\n    - '[[027-adopt-privacy-safe-durable-temporal-execution]]'\n  depends_on:\n    - '[[028-define-temporal-execution-boundary-and-threat-model]]'\n    - '[[029-build-runtime-execution-adapter-and-pii-safe-payload-contract]]'\n  implements:\n    - '[[../docs/adr/0004-adopt-privacy-safe-temporal-execution-substrate]]'\ntags:\n  - temporal\n  - workflow\n  - privacy\n---\n",
+      "body_sha256": "3f4df1aa93c82ccda4610568107c0dcc1b452115a54eaa69bef3fd044569d6e0"
+    },
+    {
+      "file": "backlog/031-implement-idempotent-runtimeexecution-ledger-and-safe-status-api.md",
+      "sha256": "a35dd1c013ce52e1c7209cc5c4d6a49212cccbbfeac8afcbb527600fec6d9e94",
+      "frontmatter": "---\nid: wi-031\ntitle: Implement Idempotent RuntimeExecution Ledger and Safe Status API\ntype: work-item\nsubtype: story\nlifecycle: active\nstatus: completed\nstatus_reason: accepted\npriority: high\nestimated: 5\nlinks:\n  parent:\n    - '[[027-adopt-privacy-safe-durable-temporal-execution]]'\n  depends_on:\n    - '[[029-build-runtime-execution-adapter-and-pii-safe-payload-contract]]'\n    - '[[030-create-isolated-temporal-worker-bootstrap-and-configuration-seam]]'\n  implements:\n    - '[[../docs/adr/0004-adopt-privacy-safe-temporal-execution-substrate]]'\ntags:\n  - temporal\n  - workflow\n  - privacy\n---\n",
+      "body_sha256": "28157fc9cc377738943820af4bf492c500cd2778fe32c60b0ecd20d0cf50bcec"
+    },
+    {
+      "file": "backlog/032-deliver-opt-in-async-job-fit-vertical-slice.md",
+      "sha256": "5ef3232691d370b4f7e76b33fd79265290ac41498ec550ce06def8e91bd4cf25",
+      "frontmatter": "---\nid: wi-032\ntitle: Deliver Opt-In Async Job-Fit Vertical Slice\ntype: work-item\nsubtype: story\nlifecycle: active\nstatus: completed\nstatus_reason: accepted\npriority: high\nestimated: 5\nlinks:\n  parent:\n    - '[[027-adopt-privacy-safe-durable-temporal-execution]]'\n  depends_on:\n    - '[[009-remove-pii-bearing-model-logs]]'\n    - '[[029-build-runtime-execution-adapter-and-pii-safe-payload-contract]]'\n    - '[[030-create-isolated-temporal-worker-bootstrap-and-configuration-seam]]'\n    - '[[031-implement-idempotent-runtimeexecution-ledger-and-safe-status-api]]'\n  implements:\n    - '[[../docs/adr/0004-adopt-privacy-safe-temporal-execution-substrate]]'\ntags:\n  - temporal\n  - workflow\n  - privacy\n---\n",
+      "body_sha256": "e4046918aac91c0fb0d9df68b326e6ebc35bddcf99339fda96ef1f5b679ebb1e"
+    },
+    {
+      "file": "backlog/033-build-human-review-signal-bridge.md",
+      "sha256": "a09850a82b32957256c390748d277a16a5c034110e63ba9e9830ee30471248f6",
+      "frontmatter": "---\nid: wi-033\ntitle: Build Human-Review Signal Bridge\ntype: work-item\nsubtype: story\nlifecycle: active\nstatus: completed\nstatus_reason: accepted\npriority: high\nestimated: 3\nlinks:\n  parent:\n    - '[[027-adopt-privacy-safe-durable-temporal-execution]]'\n  depends_on:\n    - '[[029-build-runtime-execution-adapter-and-pii-safe-payload-contract]]'\n    - '[[030-create-isolated-temporal-worker-bootstrap-and-configuration-seam]]'\n    - '[[031-implement-idempotent-runtimeexecution-ledger-and-safe-status-api]]'\n  implements:\n    - '[[../docs/adr/0004-adopt-privacy-safe-temporal-execution-substrate]]'\ntags:\n  - temporal\n  - workflow\n  - privacy\n---\n",
+      "body_sha256": "283fece3657dbaf5f94bbc0916c5118a4e17cb00415c344b5b0840fb66b3cd30"
+    },
+    {
+      "file": "backlog/034-implement-durable-harvest-runtime-slice.md",
+      "sha256": "9fa31654286973aa38fca6d5f3477a14f30a25a9c89bae910c6dcd960082e9a9",
+      "frontmatter": "---\nid: wi-034\ntitle: Implement Durable Harvest Runtime Slice\ntype: work-item\nsubtype: story\nlifecycle: active\nstatus: completed\nstatus_reason: accepted\npriority: high\nestimated: 5\nlinks:\n  parent:\n    - '[[027-adopt-privacy-safe-durable-temporal-execution]]'\n  depends_on:\n    - '[[029-build-runtime-execution-adapter-and-pii-safe-payload-contract]]'\n    - '[[030-create-isolated-temporal-worker-bootstrap-and-configuration-seam]]'\n    - '[[031-implement-idempotent-runtimeexecution-ledger-and-safe-status-api]]'\n  implements:\n    - '[[../docs/adr/0004-adopt-privacy-safe-temporal-execution-substrate]]'\ntags:\n  - temporal\n  - workflow\n  - privacy\n---\n",
+      "body_sha256": "47f0a5b74888c5bebf85be7b3d5c706c618f6dbc4be48639d40d66cf33eaca97"
+    },
+    {
+      "file": "backlog/035-implement-durable-cull-and-prime-runtime-slice.md",
+      "sha256": "c1c6ec0a2a160df0f7d409ba221309273988eb0d8ea74283bcd396dd64bdbeef",
+      "frontmatter": "---\nid: wi-035\ntitle: Implement Durable Cull and Prime Runtime Slice\ntype: work-item\nsubtype: story\nlifecycle: active\nstatus: completed\nstatus_reason: accepted\npriority: high\nestimated: 5\nlinks:\n  parent:\n    - '[[027-adopt-privacy-safe-durable-temporal-execution]]'\n  depends_on:\n    - '[[033-build-human-review-signal-bridge]]'\n    - '[[034-implement-durable-harvest-runtime-slice]]'\n  implements:\n    - '[[../docs/adr/0004-adopt-privacy-safe-temporal-execution-substrate]]'\ntags:\n  - temporal\n  - workflow\n  - privacy\n---\n",
+      "body_sha256": "6654d2d9eabf6ec0618c35c2931f6376a4f9fc377329b09b75ebb8243971a955"
+    },
+    {
+      "file": "backlog/036-implement-substantiation-and-guarded-catalog-publication.md",
+      "sha256": "b46aff04fb44d5bc9f12ee46872274ac7f7ec8d2ab654351384b754adaee917f",
+      "frontmatter": "---\nid: wi-036\ntitle: Implement Substantiation and Guarded Catalog Publication\ntype: work-item\nsubtype: story\nlifecycle: active\nstatus: completed\nstatus_reason: accepted\npriority: high\nestimated: 5\nlinks:\n  parent:\n    - '[[027-adopt-privacy-safe-durable-temporal-execution]]'\n  depends_on:\n    - '[[033-build-human-review-signal-bridge]]'\n    - '[[035-implement-durable-cull-and-prime-runtime-slice]]'\n  implements:\n    - '[[../docs/adr/0004-adopt-privacy-safe-temporal-execution-substrate]]'\ntags:\n  - temporal\n  - workflow\n  - privacy\n---\n",
+      "body_sha256": "f7e5ce470327f55aae51b86a49e4a3773f349ba1534ecd71645e8438a4f69ef9"
+    },
+    {
+      "file": "backlog/037-implement-required-durable-runtime-for-target-and-catalog-fit.md",
+      "sha256": "d14498262e938377d593ac51d528171e615549700d83093d4529b6ab23cb5093",
+      "frontmatter": "---\nid: wi-037\ntitle: Implement Required Durable Runtime for Target and Catalog Fit\ntype: work-item\nsubtype: story\nlifecycle: active\nstatus: completed\nstatus_reason: accepted\npriority: high\nestimated: 3\nlinks:\n  parent:\n    - '[[027-adopt-privacy-safe-durable-temporal-execution]]'\n  depends_on:\n    - '[[023-implement-target-requirement-projection-and-catalog-fit-slice]]'\n    - '[[031-implement-idempotent-runtimeexecution-ledger-and-safe-status-api]]'\n  implements:\n    - '[[../docs/adr/0004-adopt-privacy-safe-temporal-execution-substrate]]'\ntags:\n  - temporal\n  - workflow\n  - privacy\n---\n",
+      "body_sha256": "230371eb8066aa75322133c212fef1019294719c11559da93a113ca4cf9c9028"
+    },
+    {
+      "file": "backlog/038-implement-required-durable-runtime-for-deliverable-generation.md",
+      "sha256": "6cd30169c676383181f89a70d2dc714beab8bf71b35a36c3ebddfaf13b4b58ea",
+      "frontmatter": "---\nid: wi-038\ntitle: Implement Required Durable Runtime for Deliverable Generation\ntype: work-item\nsubtype: story\nlifecycle: active\nstatus: completed\nstatus_reason: accepted\npriority: high\nestimated: 3\nlinks:\n  parent:\n    - '[[027-adopt-privacy-safe-durable-temporal-execution]]'\n  depends_on:\n    - '[[025-generate-source-backed-resume-and-communication-deliverables]]'\n    - '[[031-implement-idempotent-runtimeexecution-ledger-and-safe-status-api]]'\n    - '[[033-build-human-review-signal-bridge]]'\n  implements:\n    - '[[../docs/adr/0004-adopt-privacy-safe-temporal-execution-substrate]]'\ntags:\n  - temporal\n  - workflow\n  - privacy\n---\n",
+      "body_sha256": "ebd28604b96594de16ea3fa1946e6047dc88d01202899e54d55dc2417e4a86c8"
+    },
+    {
+      "file": "backlog/039-implement-required-scheduled-application-automation-for-wi-026.md",
+      "sha256": "a6634d050546ffe7f310b2bddd4f108aa7ca1a4fe5b00f369b13bc664abc7383",
+      "frontmatter": "---\nid: wi-039\ntitle: Implement Required Scheduled Application Automation for WI-026\ntype: work-item\nsubtype: story\nlifecycle: active\nstatus: completed\nstatus_reason: accepted\npriority: high\nestimated: 3\nlinks:\n  parent:\n    - '[[027-adopt-privacy-safe-durable-temporal-execution]]'\n  depends_on:\n    - '[[026-track-one-application-with-lightweight-material-records]]'\n    - '[[031-implement-idempotent-runtimeexecution-ledger-and-safe-status-api]]'\n    - '[[033-build-human-review-signal-bridge]]'\n  implements:\n    - '[[../docs/adr/0004-adopt-privacy-safe-temporal-execution-substrate]]'\ntags:\n  - temporal\n  - workflow\n  - privacy\n---\n",
+      "body_sha256": "b1c306f66cddaff9a3219b963cda9d722fd5760955b543a90d0238af766dfa98"
+    },
+    {
+      "file": "backlog/040-complete-production-hardening-and-temporal-adoption-decision.md",
+      "sha256": "b0f97af3acaf0b0e1be0a545d94b131a8f6d2451ee506d05eb09f159480fb637",
+      "frontmatter": "---\nid: wi-040\ntitle: Complete Production Hardening and Temporal Adoption Decision\ntype: work-item\nsubtype: story\nlifecycle: active\nstatus: completed\nstatus_reason: self-hosted-first MVP/UAT evidence accepted 2026-09-30; production rollout remains excluded without separate approval\npriority: high\nestimated: 5\nlinks:\n  parent:\n    - '[[027-adopt-privacy-safe-durable-temporal-execution]]'\n  depends_on:\n    - '[[032-deliver-opt-in-async-job-fit-vertical-slice]]'\n    - '[[033-build-human-review-signal-bridge]]'\n    - '[[034-implement-durable-harvest-runtime-slice]]'\n    - '[[035-implement-durable-cull-and-prime-runtime-slice]]'\n    - '[[036-implement-substantiation-and-guarded-catalog-publication]]'\n    - '[[037-implement-required-durable-runtime-for-target-and-catalog-fit]]'\n    - '[[038-implement-required-durable-runtime-for-deliverable-generation]]'\n    - '[[039-implement-required-scheduled-application-automation-for-wi-026]]'\n  implements:\n    - '[[../docs/adr/0004-adopt-privacy-safe-temporal-execution-substrate]]'\ntags:\n  - temporal\n  - workflow\n  - privacy\n---\n",
+      "body_sha256": "fbaeeb29266f807476a869b117db25921cd6cc6759bc935db1f707991a144db0"
+    },
+    {
+      "file": "backlog/041-add-uat-evidence-capture-harness.md",
+      "sha256": "2a8a30219ac8cfe220672af48ca93199c693df8188f04e1f310ca8472b360dfa",
+      "frontmatter": "---\nid: wi-041\ntitle: Add UAT Evidence Capture Harness\ntype: work-item\nsubtype: story\nlifecycle: active\nstatus: completed\nstatus_reason: accepted\npriority: high\nestimated: 2\nlinks:\n  parent:\n    - '[[040-complete-production-hardening-and-temporal-adoption-decision]]'\n  depends_on:\n    - '[[027-adopt-privacy-safe-durable-temporal-execution]]'\n  implements:\n    - '[[../docs/uat-readiness]]'\ntags:\n  - uat\n  - temporal\n  - privacy\n  - evidence\n---\n",
+      "body_sha256": "3d0872a4dc953ebd7184affdd5f28513b6034c6c9b9d0ded76fb0cdd2ec4b4de"
+    },
+    {
+      "file": "backlog/042-author-local-podman-uat-fixture.md",
+      "sha256": "28402ea950823cb463f1bee1b14dae936aac0fabf62bafeda48fe89e9904fde0",
+      "frontmatter": "---\nid: wi-042\ntitle: Author Local Podman Playwright Cucumber UAT Fixture\ntype: work-item\nsubtype: story\nlifecycle: active\nstatus: completed\nstatus_reason: accepted\npriority: high\nestimated: 2\nlinks:\n  parent:\n    - '[[040-complete-production-hardening-and-temporal-adoption-decision]]'\ntags:\n  - uat\n  - playwright\n  - podman\n  - privacy\n---\n",
+      "body_sha256": "3827024e29357d4b2a043a7b4e4aff9e8d1b3d3349b6c5d5e7ceacc299f4cb85"
+    },
+    {
+      "file": "backlog/043-add-ci-friendly-uat-orchestrator.md",
+      "sha256": "12b757f24f93b7f8d65a65be93a2e7715bcb3cfe5163c7269f81a9d4e45f0794",
+      "frontmatter": "---\nid: wi-043\ntitle: Add CI-Friendly Local UAT Orchestrator\ntype: work-item\nsubtype: story\nlifecycle: active\nstatus: completed\nstatus_reason: accepted\npriority: high\nestimated: 2\nlinks:\n  parent:\n    - '[[040-complete-production-hardening-and-temporal-adoption-decision]]'\ntags:\n  - uat\n  - ci\n  - podman\n  - privacy\n---\n",
+      "body_sha256": "2d5af2e66888b66f547999478b9968eab0628098e208fea39c560b139f35579d"
+    },
+    {
+      "file": "backlog/044-add-local-compose-instance.md",
+      "sha256": "925bb4cbe360f5a0434c048bf00ec5360c56aecc7c60e7f6d3afe4af41ea1e16",
+      "frontmatter": "---\nid: wi-044\ntitle: Add Local Compose Instance\nstatus: completed\nstatus_reason: accepted\npriority: high\nlinks:\n  parent:\n    - '[[040-complete-production-hardening-and-temporal-adoption-decision]]'\ntags:\n  - compose\n  - local\n  - temporal\n---\n",
+      "body_sha256": "e26b6f56aacef162b6cc9cea4dd737fee70e9c88afbf90de59f0bf5d3069a812"
+    },
+    {
+      "file": "backlog/045-fix-local-compose-resume-upload.md",
+      "sha256": "d29c55024781de22b5e6f4d324af1ca8a541cdf828fbb87b4dd0984be5c15efd",
+      "frontmatter": "---\nid: wi-045\ntitle: Fix Local Compose Resume Upload\ntype: work-item\nsubtype: bug\nlifecycle: active\nstatus: completed\nstatus_reason: accepted\npriority: high\nlinks:\n  parent:\n    - '[[044-add-local-compose-instance]]'\ntags:\n  - compose\n  - upload\n  - privacy\n---\n",
+      "body_sha256": "e404700bb25c3d67175711ebc11ec5c2b945d36f7a1e34c6606370a48ac27a02"
+    },
+    {
+      "file": "backlog/046-include-pi-bridge-in-local-compose.md",
+      "sha256": "620b4f19dbe60166aa63fd5ece256ccd501993093fb06a174775e4e6dc35745d",
+      "frontmatter": "---\nid: wi-046\ntitle: Include Pi Bridge in Local Compose\ntype: work-item\nsubtype: task\nlifecycle: active\nstatus: completed\nstatus_reason: accepted\npriority: high\nlinks:\n  parent:\n    - '[[044-add-local-compose-instance]]'\ntags:\n  - compose\n  - provider\n  - pi\n---\n",
+      "body_sha256": "c63aea6c44989743963a4f21d58dcb6b27528b1815f5b51a2c9ff4c0f53c5bea"
+    },
+    {
+      "file": "backlog/047-complete-p0-reconciliation.md",
+      "sha256": "7d45f540a9b00e47a0974c40a59646424651545d3737ec71242b5b3e96e04abe",
+      "frontmatter": "---\nid: wi-047\ntitle: Complete P0 Reconciliation\nsummary: Close the critical gaps between current implementation, canonical Vitae planning, and the Job Search ChatGPT application workflow before lower-priority roadmap work proceeds.\ntype: work-item\nsubtype: epic\nlifecycle: active\nstatus: ready\nstatus_reason: auto\npriority: critical\nestimated: 13\nlinks:\n  depends_on:\n    - '[[027-adopt-privacy-safe-durable-temporal-execution]]'\n    - '[[040-complete-production-hardening-and-temporal-adoption-decision]]'\n  reference:\n    - '[[../docs/wayfinder/vitae-mvp-map]]'\n    - '[[../docs/career/canonical-domain-model]]'\n    - '[[../docs/prd/mvp-book-of-work-to-application-loop]]'\n    - '[[../docs/uat-readiness]]'\ntags:\n  - hitl\n  - p0\n  - reconciliation\n  - mvp\n  - temporal\n  - job-search\n---\n",
+      "body_sha256": "cbe110d7f9883651b3046e8211a4658ec321ca11de6c8199da01aa20f4e6bbb7"
+    },
+    {
+      "file": "backlog/048-refresh-p0-source-of-truth-docs.md",
+      "sha256": "e4ac2b961841ebab39bf45e7518c4045f17d3d8fcac6ed989f4ff27c04ae43e4",
+      "frontmatter": "---\nid: wi-048\ntitle: Refresh P0 Source-of-Truth Docs\nsummary: Update Wayfinder, UAT readiness, and historical research/planning notes so they accurately distinguish completed evidence, implemented behavior, and planned reconciliation work.\ntype: work-item\nsubtype: story\nlifecycle: active\nstatus: completed\nstatus_reason: source-of-truth docs refreshed and validated\npriority: critical\nestimated: 2\nlinks:\n  parent:\n    - '[[047-complete-p0-reconciliation]]'\n  depends_on:\n    - '[[040-complete-production-hardening-and-temporal-adoption-decision]]'\n  reference:\n    - '[[../docs/wayfinder/vitae-mvp-map]]'\n    - '[[../docs/uat-readiness]]'\n    - '[[../research]]'\ntags:\n  - afk\n  - p0\n  - documentation\n  - wayfinder\n  - uat\n  - reconciliation\n---\n",
+      "body_sha256": "17e67713920dca313b154cb0031fcd2d093078541c7afb4a705e815e3844c771"
+    },
+    {
+      "file": "backlog/049-align-runtime-execution-temporal-truth.md",
+      "sha256": "0c6a9804de19a39ac28ec84cbbf39e3311a084ad4e898de8b3b07096162377fa",
+      "frontmatter": "---\nid: wi-049\ntitle: Align Runtime Execution Temporal Truth\nsummary: Make runtime execution API behavior, Temporal worker behavior, and UAT evidence agree without leaking PII or overstating what is implemented.\ntype: work-item\nsubtype: story\nlifecycle: active\nstatus: completed\nstatus_reason: runtime API Temporal boundary aligned and independently reviewed\npriority: critical\nestimated: 3\nlinks:\n  parent:\n    - '[[047-complete-p0-reconciliation]]'\n  depends_on:\n    - '[[048-refresh-p0-source-of-truth-docs]]'\n    - '[[040-complete-production-hardening-and-temporal-adoption-decision]]'\n  reference:\n    - '[[../docs/adr/0004-adopt-privacy-safe-temporal-execution-substrate]]'\n    - '[[../docs/uat-readiness]]'\ntags:\n  - afk\n  - p0\n  - temporal\n  - runtime-execution\n  - uat\n  - privacy\n---\n",
+      "body_sha256": "582fd62d073389873feed5907831efd660cff6cb4f709924aa30d3d4a89bc2d0"
+    },
+    {
+      "file": "backlog/050-deliver-job-search-application-funnel-slice.md",
+      "sha256": "5414c954793192950e0d0b6e31bac6b21113db9e03d94bb2a9509d16fa28d9ce",
+      "frontmatter": "---\nid: wi-050\ntitle: Deliver Job Search Application Funnel Slice\nsummary: Add the smallest product vertical slice that turns the Job Search ChatGPT process into a Vitae application bundle workflow.\ntype: work-item\nsubtype: epic\nlifecycle: active\nstatus: ready\nstatus_reason: auto\npriority: critical\nestimated: 8\nlinks:\n  parent:\n    - '[[047-complete-p0-reconciliation]]'\n  depends_on:\n    - '[[048-refresh-p0-source-of-truth-docs]]'\n  reference:\n    - '[[../docs/career/canonical-domain-model]]'\n    - '[[../docs/prd/mvp-book-of-work-to-application-loop]]'\ntags:\n  - hitl\n  - p0\n  - application-funnel\n  - job-search\n  - deliverables\n  - career-knowledge\n---\n",
+      "body_sha256": "132d7fb424af46bbf8a98333c70defdf12f708a9cf66c996dbe85680d34b027d"
+    },
+    {
+      "file": "backlog/051-add-application-bundle-record-slice.md",
+      "sha256": "5d317be2c42360f605e8a23d91b08280f594067d0a8b5dd17b41dd2e2e7db6a9",
+      "frontmatter": "---\nid: wi-051\ntitle: Add Application Bundle Record Slice\nsummary: Persist and expose the minimum canonical Application, ApplicationRecord, Target, FitAnalysis, and Deliverable references needed for one draft application bundle.\nassignee: pi-babysitter\ntype: work-item\nsubtype: story\nlifecycle: active\nstatus: completed\nstatus_reason: implemented\npriority: critical\nestimated: 3\nactual: 3\ncompleted_date: '2026-10-03'\ncommits:\n  f39294e41a29b69a154f53718870391cea2f51d4: Add application bundle record slice\nlinks:\n  parent:\n    - '[[050-deliver-job-search-application-funnel-slice]]'\n  depends_on:\n    - '[[048-refresh-p0-source-of-truth-docs]]'\n  reference:\n    - '[[../schemas/career/application.schema.json]]'\n    - '[[../schemas/career/application-record.schema.json]]'\n    - '[[../schemas/career/deliverable.schema.json]]'\n    - '[[../schemas/career/target.schema.json]]'\n    - '[[../schemas/career/fit-analysis.schema.json]]'\n  evidence:\n    - '[[record-wi-051-focused-validation-and-independent-review-passed-after-remediation]]'\ntags:\n  - afk\n  - p0\n  - application\n  - bundle\n  - api\n  - schema\n---\n",
+      "body_sha256": "f29d35573e5103d08e7014db19d062c84361e10304a3d9b0a006daad39883fa3"
+    },
+    {
+      "file": "backlog/052-enforce-generation-source-eligibility.md",
+      "sha256": "89012e14710c1817e1301501c38d82dee8560138f78bb6f01409b061ec53db78",
+      "frontmatter": "---\nid: wi-052\ntitle: Enforce Generation Source Eligibility\nsummary: Add the guardrail that allows application deliverable generation only from validated Catalog/Projection material plus current target context.\nassignee: pi-babysitter\ntype: work-item\nsubtype: story\nlifecycle: active\nstatus: completed\nstatus_reason: implemented\npriority: critical\nestimated: 2\nactual: 2\ncompleted_date: '2026-10-03'\ncommits:\n  20f59da7467943c068f01fafb2474a637cafa235: Enforce generation source eligibility\nlinks:\n  parent:\n    - '[[050-deliver-job-search-application-funnel-slice]]'\n  depends_on:\n    - '[[051-add-application-bundle-record-slice]]'\n  reference:\n    - '[[../docs/career/canonical-domain-model]]'\n    - '[[../schemas/career/catalog-asset.schema.json]]'\n    - '[[../schemas/career/projection.schema.json]]'\n  evidence:\n    - '[[record-wi-052-source-eligibility-validation-and-independent-review-passed-after-remediation]]'\ntags:\n  - afk\n  - p0\n  - generation\n  - provenance\n  - source-eligibility\n  - privacy\n---\n",
+      "body_sha256": "b28655aa3a9f7a3285ddb2d5c0cc15402236783e37249376d9dfe26c09ef4011"
+    },
+    {
+      "file": "backlog/053-generate-draft-application-bundle-artifacts.md",
+      "sha256": "aa31246216cc5373f6caf73a110d245a429b9abb01333b4363cde584110602f7",
+      "frontmatter": "---\nid: wi-053\ntitle: Generate Draft Application Bundle Artifacts\nsummary: Produce the draft JD note, tailored resume note, role manifest, source summary, unsupported claims, and next action for one application bundle.\ntype: work-item\nsubtype: story\nlifecycle: active\nstatus: completed\nstatus_reason: implemented\npriority: critical\nestimated: 3\nactual: 3\ncompleted_date: '2026-10-04'\ncommits:\n  00054ba3b681ab2d9f0b193fc69dc97335135a1b: Generate draft application bundle artifacts\nlinks:\n  parent:\n    - '[[050-deliver-job-search-application-funnel-slice]]'\n  depends_on:\n    - '[[052-enforce-generation-source-eligibility]]'\n  reference:\n    - '[[../templates/career/deliverable.md.tmpl]]'\n    - '[[../templates/career/cover-letter.md.tmpl]]'\n    - '[[../docs/career/canonical-domain-model]]'\n  evidence:\n    - '[[record-wi-053-draft-bundle-artifacts-validation-and-review-passed]]'\ntags:\n  - afk\n  - p0\n  - deliverables\n  - markdown\n  - application-funnel\n  - job-search\n---\n",
+      "body_sha256": "41b48733e27dab627100c0fa8a9e3f880d15a7dc8d70a3c471cfc712f74310f5"
+    },
+    {
+      "file": "backlog/054-add-career-inventory-and-curation-slice.md",
+      "sha256": "975807a8979752165f3e2e15d8e92b8ee1169bcdf047c4e7883b44263cffe637",
+      "frontmatter": "---\nid: wi-054\ntitle: Add Career Inventory and Curation Slice\nsummary: Let a candidate inventory source material, keep Seeds separate from CatalogAssets, and complete one source-backed harvest-to-substantiate loop.\ntype: work-item\nsubtype: story\nlifecycle: active\nstatus: completed\nstatus_reason: completed\npriority: critical\nestimated: 5\nactual: 5\ncompleted_date: '2026-10-28'\ncommits:\n  ff1b6a3f682d2670500efa005a374c8ea4bd59c1: Add WI-054 synthetic career inventory (#9)\nlinks:\n  pull_requests:\n    - https://github.com/chris-cald/vitae/pull/9\n  parent:\n    - '[[050-deliver-job-search-application-funnel-slice]]'\n  depends_on:\n    - '[[036-implement-substantiation-and-guarded-catalog-publication]]'\n  reference:\n    - '[[../docs/prd/mvp-book-of-work-to-application-loop]]'\n    - '[[../docs/career/canonical-domain-model]]'\n  evidence:\n    - '[[record-wi-054-synthetic-inventory-validation-passed]]'\n    - '[[record-wi-054-historical-synthetic-validation]]'\n    - '[[record-wi-054-publisher-authorization]]'\ntags:\n  - afk\n  - p0\n  - career-inventory\n  - curation\n  - provenance\n  - privacy\n---\n",
+      "body_sha256": "aded56beeab4e46d4745363ce9d5e49a2b7734c5468f4e8dc6113fa07a149d2c"
+    },
+    {
+      "file": "backlog/055-add-application-bundle-workspace.md",
+      "sha256": "772fe11c8d9f4b7a8e748d6a68cfa926439da7d69e8581dac88c3803eb3ce222",
+      "frontmatter": "---\nid: wi-055\ntitle: Add Application Bundle Workspace\nsummary: Expose the existing guarded application-bundle API as a candidate-facing workspace for draft review, material status changes, and next actions.\ntype: work-item\nsubtype: story\nlifecycle: active\nstatus: completed\nstatus_reason: completed\npriority: critical\ncompleted_date: '2026-10-27'\ncommits:\n  8133ca9eda4e0caf2b23361993c54072a531e04c: Guard application bundle workspace state (#8)\nlinks:\n  pull_requests:\n    - https://github.com/chris-cald/vitae/pull/8\n  parent:\n    - '[[050-deliver-job-search-application-funnel-slice]]'\n  depends_on:\n    - '[[051-add-application-bundle-record-slice]]'\n    - '[[052-enforce-generation-source-eligibility]]'\n    - '[[053-generate-draft-application-bundle-artifacts]]'\n  reference:\n    - '[[051-add-application-bundle-record-slice]]'\n    - '[[052-enforce-generation-source-eligibility]]'\n    - '[[053-generate-draft-application-bundle-artifacts]]'\n  evidence:\n    - '[[record-wi-055-validation-passed]]'\n    - '[[record-wi-055-historical-approval]]'\ntags:\n  - afk\n  - p0\n  - application-funnel\n  - frontend\n  - privacy\n---\n",
+      "body_sha256": "7580b008e572d9fbf3478485e28432c5a9bb65cd02a520589ec61c577be67a65"
+    },
+    {
+      "file": "backlog/056-connect-career-refresh-and-runtime-ux.md",
+      "sha256": "c4dd8a00e90e6162a0258de0d26ed65838bda034c6b83c739c04855441139c81",
+      "frontmatter": "---\nid: wi-056\ntitle: Connect Career Refresh and Runtime UX\nsummary: Let candidates start, observe, cancel, and review privacy-safe durable execution for inventory refresh and application work.\ntype: work-item\nsubtype: story\nlifecycle: active\nstatus: completed\nstatus_reason: completed\npriority: high\nestimated: 5\nactual: 5\ncompleted_date: '2026-10-29'\nlinks:\n  parent:\n    - '[[050-deliver-job-search-application-funnel-slice]]'\n  depends_on:\n    - '[[055-add-application-bundle-workspace]]'\n  reference:\n    - '[[../docs/adr/0004-adopt-privacy-safe-temporal-execution-substrate]]'\n    - '[[../docs/uat-readiness]]'\n  evidence:\n    - '[[record-wi-056-implementation-validation]]'\ntags:\n  - afk\n  - p0\n  - temporal\n  - refresh\n  - privacy\n  - runtime\n---\n",
+      "body_sha256": "2e8e475fa265330e6419a260f8ee945c36f63b982db5ddcea6b1c1ba9597328c"
+    },
+    {
+      "file": "backlog/057-run-live-full-loop-mvp-uat.md",
+      "sha256": "f7edebc2da2f856ccebf6a327ce71e6416b1e443c50b3d0efb3d8c6e8fe23691",
+      "frontmatter": "---\nid: wi-057\ntitle: Run Live Full-Loop MVP UAT\nsummary: Produce release evidence for the complete source-inventory-to-application-to-refresh loop in a real Temporal and browser environment.\ntype: work-item\nsubtype: story\nlifecycle: active\nstatus: ready\nstatus_reason: dependencies-cleared\npriority: critical\nestimated: 3\nlinks:\n  parent:\n    - '[[050-deliver-job-search-application-funnel-slice]]'\n  depends_on:\n    - '[[054-add-career-inventory-and-curation-slice]]'\n    - '[[056-connect-career-refresh-and-runtime-ux]]'\n  reference:\n    - '[[../docs/uat-readiness]]'\n    - '[[../docs/prd/mvp-book-of-work-to-application-loop]]'\ntags:\n  - hitl\n  - p0\n  - uat\n  - temporal\n  - privacy\n  - release\n---\n",
+      "body_sha256": "deb691f8de48cdb3ffc2700c17502e99694a16d7c15aabea45943435a187ecae"
+    },
+    {
+      "file": "backlog/058-repair-babysitter-dv-run-closeout.md",
+      "sha256": "18ee021c02f565fd82142cb1831b33f9aa2b0f4cf671d74c8d64c8c1c1522bec",
+      "frontmatter": "---\nid: wi-058\ntitle: Repair Babysitter-DV Run Closeout\nsummary: Make a completed implementation effect advance through evidence, review, closure, integration, and cleanup gates instead of leaving a halted run.\ntype: work-item\nsubtype: bug\nlifecycle: active\nstatus: completed\nstatus_reason: completed\npriority: high\nestimated: 3\nactual: 3\ncompleted_date: '2026-10-29'\nlinks:\n  reference:\n    - '[[055-add-application-bundle-workspace]]'\n  evidence:\n    - '[[record-wi-058-source-integration-validation]]'\ntags:\n  - afk\n  - delivery\n  - babysitter\n  - doc-vader\n---\n",
+      "body_sha256": "4e1a350eabc1e00bb952d79c4ee6fbe77bbb541d106bda86205fa742d56836b8"
+    },
+    {
+      "file": "backlog/059-make-release-validation-reproducible.md",
+      "sha256": "d626a0ad10230e57ac08e42c60958393e7eb0b2a1dc1632c840c35e697ab1787",
+      "frontmatter": "---\nid: wi-059\ntitle: Make Release Validation Reproducible\nsummary: Make clean-checkout validation deterministic across Python and TypeScript, then add CI evidence for the public MVP gates.\ntype: work-item\nsubtype: story\nlifecycle: active\nstatus: completed\nstatus_reason: completed\npriority: critical\nestimated: 4\nactual: 4\ncompleted_date: '2026-10-23'\ncommits:\n  d32999d7ac4dff96f8dd793fbf3eaf608a2f3bd1: 'PR #7 merged release-validation implementation'\nlinks:\n  pull_requests:\n    - https://github.com/chris-cald/vitae/pull/7\n  parent:\n    - '[[050-deliver-job-search-application-funnel-slice]]'\n  reference:\n    - '[[056-connect-career-refresh-and-runtime-ux]]'\n    - '[[057-run-live-full-loop-mvp-uat]]'\n    - '[[058-repair-babysitter-dv-run-closeout]]'\n  evidence:\n    - '[[record-wi-059-historical-ci-validation]]'\n    - '[[record-wi-059-historical-approval]]'\ntags:\n  - afk\n  - p0\n  - release\n  - ci\n  - typescript\n  - privacy\n---\n",
+      "body_sha256": "41a44639f14e0fac6d194be1731863a99fa66ca37e77500b2945c70b19c597ad"
+    },
+    {
+      "file": "backlog/060-draft-figma-based-frontend.md",
+      "sha256": "9703152077b14e231c91fb59f36d2f28954edaa0058cd596a7795d268c110d7e",
+      "frontmatter": "---\nid: wi-060\ntitle: Draft Figma-Based Frontend\ntype: work-item\nsubtype: story\nlifecycle: active\nstatus: completed\nstatus_reason: completed\npriority: medium\nestimated: 2\nactual: 2\ncompleted_date: '2026-11-04'\nlinks:\n  parent: []\n  depends_on: []\n  implements: []\n  evidence:\n    - '[[record-interactive-frontend-draft-validated]]'\ntags:\n  - frontend\n  - afk\n---\n",
+      "body_sha256": "8b6dd65d2e428cf527b5d1210b618c118800b93cf6a9f91635ef046395f82565"
+    },
+    {
+      "file": "backlog/061-repair-resume-upload-fallback.md",
+      "sha256": "5d374cd03051baf5d479ab10a8878597902ae229cb09b33abe6d2869044f70ee",
+      "frontmatter": "---\nid: wi-061\ntitle: Repair Resume Upload Fallback\nsummary: Ensure resume-file uploads use the explicit local parser fallback when LiteLLM is unavailable.\ntype: work-item\nsubtype: bug\nlifecycle: active\nstatus: completed\nstatus_reason: completed\npriority: high\nestimated: 1\nactual: 2\ncompleted_date: '2026-11-04'\nlinks:\n  evidence:\n    - '[[record-clean-validation-passed]]'\ntags:\n  - afk\n  - backend\n  - resume\n  - upload\n  - regression\n---\n",
+      "body_sha256": "5e0ce4d5a23f8437e722bda5cd252dde34860acab0a37ff6b0f56ddd66ae0f13"
+    },
+    {
+      "file": "backlog/062-separate-today-from-applications.md",
+      "sha256": "73df6e4f397e97e1be5ace9a4ae10fadd5da4b3c010b76c44df99ef4c9efc36d",
+      "frontmatter": "---\nid: wi-062\ntitle: Separate Today From Applications\ntype: work-item\nsubtype: bug\nlifecycle: active\nstatus: completed\nstatus_reason: completed\npriority: high\nestimated: 1\nactual: 1\ncompleted_date: '2026-11-04'\nlinks:\n  parent: []\n  depends_on: []\n  implements: []\n  evidence:\n    - '[[record-today-and-applications-rework-validated]]'\ntags:\n  - afk\n  - frontend\n  - ux\n---\n",
+      "body_sha256": "df0d69433c7dcfc3dec6db082245d0712e87de4295b35d830f527878b695dffb"
+    },
+    {
+      "file": "backlog/063-wire-frontend-draft-interactions.md",
+      "sha256": "8a81e4e8e49d33610dd44576f401f3efb50c5320078464619917228ae46d8edb",
+      "frontmatter": "---\nid: wi-063\ntitle: Wire Frontend Draft Interactions\ntype: work-item\nsubtype: bug\nlifecycle: active\nstatus: completed\nstatus_reason: completed\npriority: high\nestimated: 2\nactual: 2\ncompleted_date: '2026-11-06'\nlinks:\n  parent: []\n  depends_on: []\n  implements: []\n  evidence:\n    - '[[record-wi-063-mock-interaction-validation]]'\ntags:\n  - afk\n  - frontend\n  - ux\n---\n",
+      "body_sha256": "2071a6eb85deb4aad736e788fb7e8c1ee342e2d707e7cde0de147be8811ceb5f"
+    },
+    {
+      "file": "backlog/064-simplify-frontend-draft-navigation.md",
+      "sha256": "5ef1e2564618598007b7b173ca139b6db6cc9cd83981cd84862e61f5e4e1eea5",
+      "frontmatter": "---\nid: wi-064\ntitle: Simplify Frontend Draft Navigation\ntype: work-item\nsubtype: bug\nlifecycle: active\nstatus: completed\nstatus_reason: completed\npriority: high\nestimated: 1\nactual: 1\ncompleted_date: '2026-11-05'\ncommits:\n  25d3e8e142ce92570cebd7689d775921f6430f8f: Simplify frontend draft navigation\n  83f78087c540e66df536d795bd80744186168a52: Record wi-064 validation and closure\n  6c39905: Clarify collapsed navigation after independent review\n  6baf918: Integrate simplified frontend navigation\n  ed34158: Remediate final independent-review findings\n  5c1e6ae: Record final independent-review evidence\n  6ba3664: Address compact-navigation PR review findings\nlinks:\n  parent: []\n  depends_on: []\n  implements: []\n  evidence:\n    - '[[record-wi-064-frontend-navigation-validation]]'\n    - '[[record-wi-064-independent-review]]'\n    - '[[record-wi-064-final-independent-review]]'\n  pull_requests:\n    - https://github.com/chris-cald/vitae/pull/19\ntags:\n  - afk\n  - frontend\n  - ux\n---\n",
+      "body_sha256": "2d696eb65e435697db2c9ada5ed042064b3804f19307f443b79b182ca4a0f3a3"
+    },
+    {
+      "file": "backlog/065-make-live-integration-tests-opt-in.md",
+      "sha256": "968fa49264705951f52ab19557010d1d8eb52d8fd5abd2160a7beb2bbbcd871a",
+      "frontmatter": "---\nid: wi-065\ntitle: Make Live Integration Tests Opt-In\ntype: work-item\nsubtype: bug\nlifecycle: active\nstatus: completed\nstatus_reason: completed\npriority: high\nestimated: 1\nactual: 1\ncompleted_date: '2026-11-06'\nlinks:\n  parent: []\n  depends_on: []\n  implements: []\n  evidence:\n    - '[[record-wi-065-deterministic-integration-validation]]'\ntags:\n  - afk\n  - backend\n  - testing\n---\n",
+      "body_sha256": "d982e95437c65c6ca6cd52e7953679fdee5f4a09c3f1367f9f5559e0a1eeedcc"
+    },
+    {
+      "file": "backlog/067-make-sources-and-evidence-actionable.md",
+      "sha256": "7b65d31d4dc748ae195284fd4bad1f730dfd26b50d9757d0635b6e7a92365e5d",
+      "frontmatter": "---\nid: wi-067\ntitle: Make Sources And Evidence Actionable\ntype: work-item\nsubtype: bug\nlifecycle: active\nstatus: completed\nstatus_reason: completed\npriority: high\nestimated: 1\nactual: 1\ncompleted_date: '2026-11-05'\nlinks:\n  parent: []\n  depends_on: []\n  implements: []\n  evidence:\n    - '[[record-wi-067-validation-passed]]'\n    - '[[record-wi-067-persistence-validation-passed]]'\n    - '[[record-wi-067-independent-review-approved]]'\ntags:\n  - afk\n  - frontend\n  - ux\n---\n",
+      "body_sha256": "5321901131c502c825f2001be59114a2a47d46be49a69b23d1dcda2d34c811ed"
+    },
+    {
+      "file": "backlog/068-build-catalog-development-board.md",
+      "sha256": "28d6ca43d017920886940b5692a0a4dfad1e4157e90055fac50423ddf87913c8",
+      "frontmatter": "---\nid: wi-068\ntitle: Build Catalog Development Board\nsummary: 'Deliver the Figma-aligned mock-only Catalog Development lifecycle in the frontend draft: intake, Seeds, evidence and gaps, formalized episodes, Catalog assets, and gated decisions.'\ntype: work-item\nsubtype: story\nlifecycle: active\nstatus: completed\nstatus_reason: completed\npriority: critical\nestimated: 5\ncompleted_date: '2026-11-07'\ncommits:\n  c33cf33ac09be20efb5d7e338e077f076458e7ee: Reviewed mock-only Catalog Development lifecycle; eight frontend-draft files\nlinks:\n  parent:\n    - '[[050-deliver-job-search-application-funnel-slice]]'\n  reference:\n    - '[[../docs/prd/mvp-book-of-work-to-application-loop]]'\n    - '[[054-add-career-inventory-and-curation-slice]]'\n  evidence:\n    - '[[record-wi-068-local-validation]]'\ntags:\n  - afk\n  - frontend\n  - ux\n  - catalog\n  - mock-only\n  - privacy\n---\n",
+      "body_sha256": "8f575747e70d1266b084c8ad007fc2e88f91533477f133d7902f5faa1c7d0fa1"
+    },
+    {
+      "file": "backlog/069-complete-connected-mock-dual-lifecycles.md",
+      "sha256": "280b153078f40f2d2b026fe4a7f4f84ce6b7ff9e73d4d92bb4cb9080cdfc2ef9",
+      "frontmatter": "---\nid: wi-069\ntitle: Complete Connected Mock Dual Lifecycles\nsummary: Complete synthetic Application lifecycle and shared Catalog-to-projection-to-bundle flow in frontend-draft without production wiring.\ntype: work-item\nsubtype: story\nlifecycle: active\nstatus: completed\nstatus_reason: completed\npriority: critical\ncompleted_date: '2026-11-09'\ncommits:\n  557ddb5: Independently reviewed connected mock lifecycles and four red-first acceptance fixes\n  058c46247b6393da005b4160fdf018132cc0ce5b: Exact provider-approved consolidated implementation, squash mapping to PR20 d422e0c recorded in evidence\nlinks:\n  depends_on:\n    - '[[068-build-catalog-development-board]]'\n  reference:\n    - '[[050-deliver-job-search-application-funnel-slice]]'\n    - '[[064-simplify-frontend-draft-navigation]]'\n    - '[[067-make-sources-and-evidence-actionable]]'\n  evidence:\n    - '[[record-wi-069-local-validation]]'\n    - '[[record-wi-069-provider-merged]]'\n  pull_requests:\n    - https://github.com/chris-cald/vitae/pull/20\ntags:\n  - afk\n  - frontend\n  - mock-only\n  - privacy\n---\n",
+      "body_sha256": "693b1cb6570398041c3ea7c17daed2b49d6de98ebae59b1f37d1fb6893b17910"
+    },
+    {
+      "file": "backlog/070-validate-connected-mock-dual-lifecycles.md",
+      "sha256": "f970977cf0ea83c06baa589763f75d9a66278624823b06e2e6f162c78b0d2e53",
+      "frontmatter": "---\nid: wi-070\ntitle: Validate Connected Mock Dual Lifecycles\nsummary: Independently validate WI-069 mock journeys, visual intent, isolation and release gates.\ntype: work-item\nsubtype: story\nlifecycle: active\nstatus: ready\nstatus_reason: prioritized\npriority: critical\nlinks:\n  reference:\n    - '[[050-deliver-job-search-application-funnel-slice]]'\n  depends_on:\n    - '[[069-complete-connected-mock-dual-lifecycles]]'\ntags:\n  - afk\n  - frontend\n  - mock-only\n  - validation\n  - privacy\n---\n",
+      "body_sha256": "c9729adaac2fbb12ad5b654c2ffc6ab8199a781e5674ccbe59ae17a1fce5a0bc"
+    },
+    {
+      "file": "backlog/071-isolate-mock-prerequisite-test-resources.md",
+      "sha256": "bef8469efb01fe262302aadd060bcccee410e5b74ed64e30e2f4c99be4b15d89",
+      "frontmatter": "---\nid: wi-071\ntitle: Isolate Mock Prerequisite Test Resources\nsummary: Prevent the synthetic upload regression from accessing configured databases and qualify historical prerequisite evidence before publication.\ntype: work-item\nsubtype: bug\nlifecycle: active\nstatus: completed\nstatus_reason: completed\npriority: critical\ncompleted_date: '2026-11-09'\ncommits:\n  f17329135a1a175cd1cb4c9484ab7775f07b5308: Independently reviewed test-only DB/upload isolation and historical evidence corrections, merged via PR20\nlinks:\n  reference:\n    - '[[050-deliver-job-search-application-funnel-slice]]'\n    - '[[061-repair-resume-upload-fallback]]'\n    - '[[065-make-live-integration-tests-opt-in]]'\n    - '[[067-make-sources-and-evidence-actionable]]'\n  pull_requests:\n    - https://github.com/chris-cald/vitae/pull/20\n  evidence:\n    - '[[record-wi-071-provider-merged]]'\ntags:\n  - afk\n  - privacy\n  - test-safety\n  - mock-only\n---\n",
+      "body_sha256": "4e104a3c652c8ea5c966d8f3284dabd93cc517bce6f0f73144d790506043492f"
+    },
+    {
+      "file": "backlog/072-normalize-legacy-backlog-metadata.md",
+      "sha256": "8dc716f8197a8f8051cec179b6bcfe4ac21788bbacf90b65e074675453fc16fb",
+      "frontmatter": "---\nid: wi-072\ntitle: Normalize Legacy Backlog Metadata\nsummary: Repair the 59-file historical schema baseline with factual metadata-only normalization and regression coverage.\ntype: work-item\nsubtype: bug\nlifecycle: active\nstatus: running\nstatus_reason: implementation\npriority: critical\nlinks:\n  reference:\n    - '[[069-complete-connected-mock-dual-lifecycles]]'\n    - '[[070-validate-connected-mock-dual-lifecycles]]'\n    - '[[071-isolate-mock-prerequisite-test-resources]]'\ntags:\n  - afk\n  - metadata-only\n  - validation\n---\n",
+      "body_sha256": "9a4c5b7b8fcbcee446c66746eb21dc0b5dc87a712a68950c4c2c0e93d1388f7d"
+    },
+    {
+      "file": "backlog/1.1.1.EmbeddingCategoryDetection.md",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "frontmatter": "",
+      "body_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "backlog/1.1.EmbeddingCategoryDetection.md",
+      "sha256": "9bdd90ad54f632feaeb7da6c40ce29c0be745e93fe33237de72049850bc4f3bf",
+      "frontmatter": "",
+      "body_sha256": "9bdd90ad54f632feaeb7da6c40ce29c0be745e93fe33237de72049850bc4f3bf"
+    },
+    {
+      "file": "backlog/1.2.1.RuleBasedFallback.md",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "frontmatter": "",
+      "body_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "backlog/1.2.RuleBasedFallback.md",
+      "sha256": "1faf92332d9dd17a654ebb05f98fe5634447beca85cc74ce9ac1256718ccb6b9",
+      "frontmatter": "",
+      "body_sha256": "1faf92332d9dd17a654ebb05f98fe5634447beca85cc74ce9ac1256718ccb6b9"
+    },
+    {
+      "file": "backlog/1.3.1.ExposeCategoriesAPI.md",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "frontmatter": "",
+      "body_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "backlog/1.3.ExposeCategoriesAPI.md",
+      "sha256": "92107489bf1e220049788c34684d068c67e0ab98b713fc2b186e5168234ca7f4",
+      "frontmatter": "",
+      "body_sha256": "92107489bf1e220049788c34684d068c67e0ab98b713fc2b186e5168234ca7f4"
+    },
+    {
+      "file": "backlog/1.CategoryDetection.md",
+      "sha256": "959fd86e5e296317e1ef1f36e8324df8f032fc77e38887dcfc512d3740f8342d",
+      "frontmatter": "",
+      "body_sha256": "959fd86e5e296317e1ef1f36e8324df8f032fc77e38887dcfc512d3740f8342d"
+    },
+    {
+      "file": "backlog/2.1.1.EmbeddingGeneration.md",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "frontmatter": "",
+      "body_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "backlog/2.1.EmbeddingGeneration.md",
+      "sha256": "a4abf72ac6a1c44324ba530bdf051ae95dd4a5b0fe1941d598595bee69c17e9f",
+      "frontmatter": "",
+      "body_sha256": "a4abf72ac6a1c44324ba530bdf051ae95dd4a5b0fe1941d598595bee69c17e9f"
+    },
+    {
+      "file": "backlog/2.2.1.SectionOverallScoring.md",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "frontmatter": "",
+      "body_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "backlog/2.2.SectionOverallScoring.md",
+      "sha256": "4ed0b09b0776ecd9ea68161c9af8fe79969ed0a131a1bf7ecc5324d611064d4e",
+      "frontmatter": "",
+      "body_sha256": "4ed0b09b0776ecd9ea68161c9af8fe79969ed0a131a1bf7ecc5324d611064d4e"
+    },
+    {
+      "file": "backlog/2.3.1.PerCategoryFit.md",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "frontmatter": "",
+      "body_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "backlog/2.3.PerCategoryFit.md",
+      "sha256": "9e15a41baea16c207e2f1d5ec98179037e6198ee82458ba4fd9e558af6c8fd4f",
+      "frontmatter": "",
+      "body_sha256": "9e15a41baea16c207e2f1d5ec98179037e6198ee82458ba4fd9e558af6c8fd4f"
+    },
+    {
+      "file": "backlog/2.4.1.HybridScoring.md",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "frontmatter": "",
+      "body_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "backlog/2.4.HybridScoring.md",
+      "sha256": "8ef0f9e7e37aeeead38b0330f7a775a3c94a5774ca6b3ec3e43d7b3b03f585cf",
+      "frontmatter": "",
+      "body_sha256": "8ef0f9e7e37aeeead38b0330f7a775a3c94a5774ca6b3ec3e43d7b3b03f585cf"
+    },
+    {
+      "file": "backlog/2.SemanticScoring.md",
+      "sha256": "aa46a42867a98be77b28fbe6cab9f1ce311ef073c7c97b3c55ed94ae4d20338e",
+      "frontmatter": "",
+      "body_sha256": "aa46a42867a98be77b28fbe6cab9f1ce311ef073c7c97b3c55ed94ae4d20338e"
+    },
+    {
+      "file": "backlog/3.1.1.SectionFeedback.md",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "frontmatter": "",
+      "body_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "backlog/3.1.SectionFeedback.md",
+      "sha256": "6668ea8897624307908c15c2cb3eca743d8a95eb02375a44a3504c115672fff1",
+      "frontmatter": "",
+      "body_sha256": "6668ea8897624307908c15c2cb3eca743d8a95eb02375a44a3504c115672fff1"
+    },
+    {
+      "file": "backlog/3.2.1.GapOpportunity.md",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "frontmatter": "",
+      "body_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "backlog/3.2.GapOpportunity.md",
+      "sha256": "ae7dd324c597ea8c4aa5bc59b6c84f1f7380fcdba0e2e1f8049e4857350bf089",
+      "frontmatter": "",
+      "body_sha256": "ae7dd324c597ea8c4aa5bc59b6c84f1f7380fcdba0e2e1f8049e4857350bf089"
+    },
+    {
+      "file": "backlog/3.3.1.ActionableSuggestions.md",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "frontmatter": "",
+      "body_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "backlog/3.3.ActionableSuggestions.md",
+      "sha256": "9c1e8c019f26dd267a79e15d8f91a5208dc56f27c82f7958b30146343909edc5",
+      "frontmatter": "",
+      "body_sha256": "9c1e8c019f26dd267a79e15d8f91a5208dc56f27c82f7958b30146343909edc5"
+    },
+    {
+      "file": "backlog/3.FeedbackGapAnalysis.md",
+      "sha256": "54720a35ac5064bb0737cb32284b3f5ba09f81ff62b644c14a73610c70e29698",
+      "frontmatter": "",
+      "body_sha256": "54720a35ac5064bb0737cb32284b3f5ba09f81ff62b644c14a73610c70e29698"
+    },
+    {
+      "file": "backlog/4.1.1.RelevanceRanking.md",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "frontmatter": "",
+      "body_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "backlog/4.1.RelevanceRanking.md",
+      "sha256": "b624b76d13e9ccaef1c3238bdb16f215006fd06edb8a9ee5103155a4396882c9",
+      "frontmatter": "",
+      "body_sha256": "b624b76d13e9ccaef1c3238bdb16f215006fd06edb8a9ee5103155a4396882c9"
+    },
+    {
+      "file": "backlog/4.2.1.RedundancyDetection.md",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "frontmatter": "",
+      "body_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "backlog/4.2.RedundancyDetection.md",
+      "sha256": "663161124912244551bba1a904d214e80ee09a874a50b2cfa1c892aa611dc2d5",
+      "frontmatter": "",
+      "body_sha256": "663161124912244551bba1a904d214e80ee09a874a50b2cfa1c892aa611dc2d5"
+    },
+    {
+      "file": "backlog/4.3.1.EditSuggestions.md",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "frontmatter": "",
+      "body_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "backlog/4.3.EditSuggestions.md",
+      "sha256": "8b7566b8bef4d77807d72b572d18373f638dfe287d522ab8f902d40f26d36592",
+      "frontmatter": "",
+      "body_sha256": "8b7566b8bef4d77807d72b572d18373f638dfe287d522ab8f902d40f26d36592"
+    },
+    {
+      "file": "backlog/4.ContentOptimization.md",
+      "sha256": "1803ad3979995223607465599f079a8f4f0ef65686535951efc395fc8affd66f",
+      "frontmatter": "",
+      "body_sha256": "1803ad3979995223607465599f079a8f4f0ef65686535951efc395fc8affd66f"
+    },
+    {
+      "file": "backlog/5.1.1.DynamicPrompt.md",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "frontmatter": "",
+      "body_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "backlog/5.1.DynamicPrompt.md",
+      "sha256": "1ac3e2f1050426ee2a390888b9b034f841059d2759bff7c3a84618f27d006baa",
+      "frontmatter": "",
+      "body_sha256": "1ac3e2f1050426ee2a390888b9b034f841059d2759bff7c3a84618f27d006baa"
+    },
+    {
+      "file": "backlog/5.2.1.TemplateMatching.md",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "frontmatter": "",
+      "body_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "backlog/5.2.TemplateMatching.md",
+      "sha256": "898a9f9dd461aa91bee28e3b99c5e71dafea6ca43944b81a725705715896ce00",
+      "frontmatter": "",
+      "body_sha256": "898a9f9dd461aa91bee28e3b99c5e71dafea6ca43944b81a725705715896ce00"
+    },
+    {
+      "file": "backlog/5.PromptTemplateSelection.md",
+      "sha256": "061732b8c1f033777d683d2a3bafb0e4348e6301785279b934155c386c192b4e",
+      "frontmatter": "",
+      "body_sha256": "061732b8c1f033777d683d2a3bafb0e4348e6301785279b934155c386c192b4e"
+    },
+    {
+      "file": "backlog/6.1.1.SemanticSearch.md",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "frontmatter": "",
+      "body_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "backlog/6.1.SemanticSearch.md",
+      "sha256": "86b37daece59fc994ccd4b2b840b6e3cd75879c4220ae084e531c2cf403e021d",
+      "frontmatter": "",
+      "body_sha256": "86b37daece59fc994ccd4b2b840b6e3cd75879c4220ae084e531c2cf403e021d"
+    },
+    {
+      "file": "backlog/6.2.1.AdvancedFiltering.md",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "frontmatter": "",
+      "body_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "backlog/6.2.AdvancedFiltering.md",
+      "sha256": "15e54692ff35bb37d04633a7ee2377a4d4f78d19a47d7eae23709fc454ef4fcd",
+      "frontmatter": "",
+      "body_sha256": "15e54692ff35bb37d04633a7ee2377a4d4f78d19a47d7eae23709fc454ef4fcd"
+    },
+    {
+      "file": "backlog/6.SemanticSearch.md",
+      "sha256": "c87d3d62afe04bb530eb19fc9803abeadea743b1dc35bfa60fd695aaa96e41a5",
+      "frontmatter": "",
+      "body_sha256": "c87d3d62afe04bb530eb19fc9803abeadea743b1dc35bfa60fd695aaa96e41a5"
+    },
+    {
+      "file": "backlog/7.1.1.ExposeBackend.md",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "frontmatter": "",
+      "body_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "backlog/7.1.ExposeBackend.md",
+      "sha256": "01c7d1feca0698d2e90fd0f901ac16ae01313b6babd3c17a47871818c40ac328",
+      "frontmatter": "",
+      "body_sha256": "01c7d1feca0698d2e90fd0f901ac16ae01313b6babd3c17a47871818c40ac328"
+    },
+    {
+      "file": "backlog/7.2.1.FrontendDisplay.md",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "frontmatter": "",
+      "body_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "backlog/7.2.FrontendDisplay.md",
+      "sha256": "64e7817d2eca93bd7dc2183c256b668ea91afaf81096dcbf8c0c27466ce7869b",
+      "frontmatter": "",
+      "body_sha256": "64e7817d2eca93bd7dc2183c256b668ea91afaf81096dcbf8c0c27466ce7869b"
+    },
+    {
+      "file": "backlog/7.3.1.InteractiveReview.md",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "frontmatter": "",
+      "body_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "backlog/7.3.InteractiveReview.md",
+      "sha256": "3c54efba7c3ecd1a93c9679734a2bc984b9777aa4a54d7630001df8df80f8c7d",
+      "frontmatter": "",
+      "body_sha256": "3c54efba7c3ecd1a93c9679734a2bc984b9777aa4a54d7630001df8df80f8c7d"
+    },
+    {
+      "file": "backlog/7.APIFrontendIntegration.md",
+      "sha256": "6e142864777f87e92339f2255f4668fe001d9a9c81a8076782a703a1c5a2a1bb",
+      "frontmatter": "",
+      "body_sha256": "6e142864777f87e92339f2255f4668fe001d9a9c81a8076782a703a1c5a2a1bb"
+    },
+    {
+      "file": "backlog/8.1.1.TechnicalDocs.md",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "frontmatter": "",
+      "body_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "backlog/8.1.TechnicalDocs.md",
+      "sha256": "39c427ddc96ff882979d0b7c751520ba22c8136f3beda9a83eccd462bff9184f",
+      "frontmatter": "",
+      "body_sha256": "39c427ddc96ff882979d0b7c751520ba22c8136f3beda9a83eccd462bff9184f"
+    },
+    {
+      "file": "backlog/8.2.1.TestCoverage.md",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "frontmatter": "",
+      "body_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "backlog/8.2.TestCoverage.md",
+      "sha256": "79bcb085c7ee21bfd03b007fcea1b7d181ef21fc1bff6e67b3544b2e6f4d4f39",
+      "frontmatter": "",
+      "body_sha256": "79bcb085c7ee21bfd03b007fcea1b7d181ef21fc1bff6e67b3544b2e6f4d4f39"
+    },
+    {
+      "file": "backlog/8.3.1.UserDevDocs.md",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "frontmatter": "",
+      "body_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "backlog/8.3.UserDevDocs.md",
+      "sha256": "1f9419a2b738aaecb007cd47be0fddfd26285b08a1b5683bcdbc18990d201b98",
+      "frontmatter": "",
+      "body_sha256": "1f9419a2b738aaecb007cd47be0fddfd26285b08a1b5683bcdbc18990d201b98"
+    },
+    {
+      "file": "backlog/8.DocumentationQA.md",
+      "sha256": "41abd243b63f702120656e915fab070ee088d6e08700704b4a1e7ec332a35791",
+      "frontmatter": "",
+      "body_sha256": "41abd243b63f702120656e915fab070ee088d6e08700704b4a1e7ec332a35791"
+    },
+    {
+      "file": "backlog/records/record-clean-validation-passed.md",
+      "sha256": "10b5c747bbb7665eb375241f1fc85d1066c84900a71ee73468a4d48c475d9c2c",
+      "frontmatter": "---\n$schema: schemas/work-management/frontmatter/record.json\nid: record:clean-validation-passed\ntitle: Clean validation passed\nsummary: Clean validation passed\ntype: record\nsubtype: test-result\nlifecycle: active\nstatus: ready\nstatus_reason: recorded\n---\n",
+      "body_sha256": "13a1962b2efbfa52152981116b39a4a860d8c9564c0abbfbb3081c0e6c2665a8"
+    },
+    {
+      "file": "backlog/records/record-interactive-frontend-draft-validated.md",
+      "sha256": "d5a0575ea3c3ac003fc4795dfd2f40e78da9220987857441bef552a5bcb68228",
+      "frontmatter": "---\n$schema: schemas/work-management/frontmatter/record.json\nid: record:interactive-frontend-draft-validated\ntitle: Interactive frontend draft validated\nsummary: Interactive frontend draft validated\ntype: record\nsubtype: test-result\nlifecycle: active\nstatus: ready\nstatus_reason: recorded\n---\n",
+      "body_sha256": "0974180bd0f2adc0600868349cbac52eae2c682c51d7d8c801f96b87d556e6e2"
+    },
+    {
+      "file": "backlog/records/record-today-and-applications-rework-validated.md",
+      "sha256": "bef10eb2a15f8f02b09c1ae56c2626c651a8f0b4641d227b034e981f57dccaf2",
+      "frontmatter": "---\n$schema: schemas/work-management/frontmatter/record.json\nid: record:today-and-applications-rework-validated\ntitle: Today and Applications rework validated\nsummary: Today and Applications rework validated\ntype: record\nsubtype: test-result\nlifecycle: active\nstatus: ready\nstatus_reason: recorded\n---\n",
+      "body_sha256": "e0e49bce83dbd747bb0979bfa7972c9465be2df0fa3e0ce0144adec3254bc4de"
+    },
+    {
+      "file": "backlog/records/record-wi-051-focused-validation-and-independent-review-passed-after-remediation.md",
+      "sha256": "a545c44f865f9a93c66fa5bd322680cfb31bb29825a10959d4690ba926989a5a",
+      "frontmatter": "---\n$schema: schemas/work-management/frontmatter/record.json\nid: record:wi-051-focused-validation-and-independent-review-passed-after-remediation\ntitle: wi-051 focused validation and independent review passed after remediation\nsummary: wi-051 focused validation and independent review passed after remediation\ntype: record\nsubtype: test-result\nlifecycle: active\nstatus: ready\nstatus_reason: recorded\nlinks:\n  supporting_reference:\n    - 'command:cd backend && .venv/bin/python -m pytest tests/test_application_bundle_service.py -q'\n    - 'command:git diff --check'\n---\n",
+      "body_sha256": "7bb0f3f3b42470579741bb43aa1ebd253e530e2225b287ed30ae2e45f240a7d4"
+    },
+    {
+      "file": "backlog/records/record-wi-052-source-eligibility-validation-and-independent-review-passed-after-remediation.md",
+      "sha256": "094bbfebe6a2fe0da7d3d8503debb7c544ac77306d1cb262a5db711773628c4c",
+      "frontmatter": "---\n$schema: schemas/work-management/frontmatter/record.json\nid: record:wi-052-source-eligibility-validation-and-independent-review-passed-after-remediation\ntitle: wi-052 source eligibility validation and independent review passed after remediation\nsummary: wi-052 source eligibility validation and independent review passed after remediation\ntype: record\nsubtype: test-result\nlifecycle: active\nstatus: ready\nstatus_reason: recorded\nlinks:\n  supporting_reference:\n    - 'command:cd backend && PYTHONPATH=. ../.venv/bin/python -m pytest tests/test_generation_input_resolver.py tests/test_application_bundle_service.py -q'\n    - 'command:node --test schemas/career/test/canonical-domain-contract.test.mjs'\n    - 'command:git diff --check'\n---\n",
+      "body_sha256": "7c540b8ccc597b979c0e73c5fc1a04b3bb68ebbf7369543fe8aa83bd98c14011"
+    },
+    {
+      "file": "backlog/records/record-wi-053-draft-bundle-artifacts-validation-and-review-passed.md",
+      "sha256": "681bbee172800113d6dd83e78374b5e02268394fddd825b1875dfaa9a4ee3e37",
+      "frontmatter": "---\n$schema: schemas/work-management/frontmatter/record.json\nid: record:wi-053-draft-bundle-artifacts-validation-and-review-passed\ntitle: wi-053 draft bundle artifacts validation and review passed\nsummary: wi-053 draft bundle artifacts validation and review passed\ntype: record\nsubtype: test-result\nlifecycle: active\nstatus: ready\nstatus_reason: recorded\nlinks:\n  supporting_reference:\n    - 'command:cd backend && .venv/bin/python -m pytest tests/test_application_bundle_service.py'\n    - 'command:npm run check'\n    - 'review:wi-053-reviewer-approved-after-remediation'\n---\n",
+      "body_sha256": "e0f9cd22d9347a02b961497c8ab5774ade93de6a7c9268efae59c846da72e3d6"
+    },
+    {
+      "file": "backlog/records/record-wi-054-historical-synthetic-validation.md",
+      "sha256": "30c13649c68a6832b5487b3ea6f0f23c0c578f25aafd4ca91b49b3c7d96b7717",
+      "frontmatter": "---\n$schema: schemas/work-management/frontmatter/record.json\nid: record:wi-054-historical-synthetic-validation\ntitle: WI-054 historical synthetic validation\nsummary: WI-054 historical synthetic validation\ntype: record\nsubtype: test-result\nlifecycle: active\nstatus: ready\nstatus_reason: recorded\nlinks:\n  supporting_reference:\n    - https://github.com/chris-cald/vitae/actions/runs/40740138417/job/122999192661\n    - https://github.com/chris-cald/vitae/actions/runs/40740124311/job/122999146170\n    - https://github.com/chris-cald/vitae/pull/9\n    - '`ff1b6a3f682d2670500efa005a374c8ea4bd59c1`'\n    - '`7ab345902b54a5e617e653518773db52f0005d9c`'\n---\n",
+      "body_sha256": "42623b85e5db6e249e40a91f17e3dcdf3c2098fe149f0c3c2d5f2342b3fb611a"
+    },
+    {
+      "file": "backlog/records/record-wi-054-publisher-authorization.md",
+      "sha256": "12052f5297cba2ab9bdc23d5f7d57854b72d2c45c9adca4dccd1e546bf8199e1",
+      "frontmatter": "---\n$schema: schemas/work-management/frontmatter/record.json\nid: record:wi-054-publisher-authorization\ntitle: WI-054 publisher authorization\nsummary: WI-054 publisher authorization\ntype: record\nsubtype: approval\nlifecycle: active\nstatus: ready\nstatus_reason: recorded\nlinks:\n  supporting_reference:\n    - https://github.com/chris-cald/vitae/pull/9\n    - '`ff1b6a3f682d2670500efa005a374c8ea4bd59c1`'\n    - '`7ab345902b54a5e617e653518773db52f0005d9c`'\n---\n",
+      "body_sha256": "88f46c84bbb4f6e352e59cf67a6ca0ba27a8b93d949199ca0109a65366117cfd"
+    },
+    {
+      "file": "backlog/records/record-wi-054-synthetic-inventory-validation-passed.md",
+      "sha256": "7b4146aefd6ca13f0df409859bcdfa599ee5c3a4d2cbf9d1d83f1e7aa91b48af",
+      "frontmatter": "---\n$schema: schemas/work-management/frontmatter/record.json\nid: record:wi-054-synthetic-inventory-validation-passed\ntitle: WI-054 synthetic inventory validation passed.\nsummary: WI-054 synthetic inventory validation passed.\ntype: record\nsubtype: test-result\nlifecycle: active\nstatus: ready\nstatus_reason: recorded\nlinks:\n  supporting_reference:\n    - '`e46591583848556db9aadca820e34bcc605e1bed`'\n---\n",
+      "body_sha256": "8b04bf436950a6d3023f25baa947968b60980d54ad0e2f28320983a4bffd308c"
+    },
+    {
+      "file": "backlog/records/record-wi-055-historical-approval.md",
+      "sha256": "33182aefbf10695fd0cf76cfe1dd8fac13091e6aa6c91a6e8524fe20c826c56d",
+      "frontmatter": "---\n$schema: schemas/work-management/frontmatter/record.json\nid: record:wi-055-historical-approval\ntitle: WI-055 historical approval\nsummary: WI-055 historical approval\ntype: record\nsubtype: approval\nlifecycle: active\nstatus: ready\nstatus_reason: recorded\nlinks:\n  supporting_reference:\n    - https://github.com/chris-cald/vitae/pull/8\n    - https://github.com/chris-cald/vitae/pull/8#pullrequestreview-5674180304\n    - '`8133ca9eda4e0caf2b23361993c54072a531e04c`'\n    - '`7ab345902b54a5e617e653518773db52f0005d9c`'\n---\n",
+      "body_sha256": "242ddc6d30395c5e2769ce209f38a4415b05b8991b5743267cf139a4a2deeb02"
+    },
+    {
+      "file": "backlog/records/record-wi-055-validation-passed.md",
+      "sha256": "01af3e219075035fa81d4a437a2f3b0d15ab93dde6adb867fb0715099b9cafbd",
+      "frontmatter": "---\n$schema: schemas/work-management/frontmatter/record.json\nid: record:wi-055-validation-passed\ntitle: WI-055 validation passed\nsummary: WI-055 validation passed\ntype: record\nsubtype: test-result\nlifecycle: active\nstatus: ready\nstatus_reason: recorded\nlinks:\n  supporting_reference:\n    - https://github.com/chris-cald/vitae/pull/8\n    - '`8133ca9eda4e0caf2b23361993c54072a531e04c`'\n    - 'Babysitter completion proof: `7c74fd1ab636d8e2bca77ed9488e8fc8`'\n    - '`ad9af44c63e907796df981fede3783b40026f3d3`'\n---\n",
+      "body_sha256": "4b281f19dc87c170921ae0f28e7f6b917f56099e499faa9028d1474302788064"
+    },
+    {
+      "file": "backlog/records/record-wi-056-implementation-validation.md",
+      "sha256": "78f4616913708fdf9cf8fe72066c25f05eec4dd1f96b52894a9e319c44d37f17",
+      "frontmatter": "---\n$schema: schemas/work-management/frontmatter/record.json\nid: record:wi-056-implementation-validation\ntitle: WI-056 implementation validation\nsummary: WI-056 implementation validation\ntype: record\nsubtype: test-result\nlifecycle: active\nstatus: ready\nstatus_reason: recorded\n---\n",
+      "body_sha256": "a4e4e59c7f1c62cb1799046bc4c8238301d992bc38a2da9b60b46fc33fe886d2"
+    },
+    {
+      "file": "backlog/records/record-wi-058-source-integration-validation.md",
+      "sha256": "cd8f1cd2d64abfbfd83f23508887948070618de4a5b71a089039ee2e9e4e5a5c",
+      "frontmatter": "---\n$schema: schemas/work-management/frontmatter/record.json\nid: record:wi-058-source-integration-validation\ntitle: WI-058 source integration validation\nsummary: WI-058 source integration validation\ntype: record\nsubtype: test-result\nlifecycle: active\nstatus: ready\nstatus_reason: recorded\nlinks:\n  supporting_reference:\n    - https://github.com/calan-co/babysitter-dv/pull/2\n---\n",
+      "body_sha256": "01d5531385f4a82bbeb7d3abe33788e5c6b6eb7d1e70d631da85db01c0ad83e4"
+    },
+    {
+      "file": "backlog/records/record-wi-059-historical-approval.md",
+      "sha256": "be739c26771e42d6b9962376e8ecabcb37a04a47cc08a8386cfeae85eb24b788",
+      "frontmatter": "---\n$schema: schemas/work-management/frontmatter/record.json\nid: record:wi-059-historical-approval\ntitle: WI-059 historical approval\nsummary: WI-059 historical approval\ntype: record\nsubtype: approval\nlifecycle: active\nstatus: ready\nstatus_reason: recorded\nlinks:\n  supporting_reference:\n    - https://github.com/chris-cald/vitae/pull/7\n    - https://github.com/chris-cald/vitae/pull/7#pullrequestreview-5630395741\n    - '`d32999d7ac4dff96f8dd793fbf3eaf608a2f3bd1`'\n    - '`ad9af44c63e907796df981fede3783b40026f3d3`'\n---\n",
+      "body_sha256": "2d282bfa31ca773393e78b99fd4d2846bd758278ef8410809fc0fcc5f5a65196"
+    },
+    {
+      "file": "backlog/records/record-wi-059-historical-ci-validation.md",
+      "sha256": "0514d9bb645a1ca8a37a60b0c3ad80766a89017e8e824772d0387eac6ed70432",
+      "frontmatter": "---\n$schema: schemas/work-management/frontmatter/record.json\nid: record:wi-059-historical-ci-validation\ntitle: WI-059 historical CI validation\nsummary: WI-059 historical CI validation\ntype: record\nsubtype: test-result\nlifecycle: active\nstatus: ready\nstatus_reason: recorded\nlinks:\n  supporting_reference:\n    - https://github.com/chris-cald/vitae/actions/runs/39976087167/job/120490918587\n    - https://github.com/chris-cald/vitae/actions/runs/39976072375/job/120490869153\n    - https://github.com/chris-cald/vitae/pull/7\n    - '`d32999d7ac4dff96f8dd793fbf3eaf608a2f3bd1`'\n    - '`ad9af44c63e907796df981fede3783b40026f3d3`'\n---\n",
+      "body_sha256": "9d49df2eea366298ac486e8f37ac04b6b7dcb345c5146f104df50dde0ef042a5"
+    },
+    {
+      "file": "backlog/records/record-wi-063-mock-interaction-validation.md",
+      "sha256": "09465dab4700905763681d7ab2659b3b9e976f8be0789b4d5d3a79738e379c92",
+      "frontmatter": "---\n$schema: schemas/work-management/frontmatter/record.json\nid: record:wi-063-mock-interaction-validation\ntitle: WI-063 mock interaction validation\nsummary: WI-063 mock interaction validation\ntype: record\nsubtype: test-result\nlifecycle: active\nstatus: ready\nstatus_reason: recorded\n---\n",
+      "body_sha256": "b75820774d70c1bc3ce538b54f668687dd039d8d19f47ea64a663ac9521b1ca6"
+    },
+    {
+      "file": "backlog/records/record-wi-064-final-independent-review.md",
+      "sha256": "dcfd819c61fb35441c29e46d2e083f33fce41f65bbcdeed77a7da53b27f48e94",
+      "frontmatter": "---\n$schema: schemas/work-management/frontmatter/record.json\nid: record:wi-064-final-independent-review\ntitle: wi-064 final independent review\nsummary: wi-064 final independent review\ntype: record\nsubtype: review-result\nlifecycle: active\nstatus: ready\nstatus_reason: recorded\n---\n",
+      "body_sha256": "0f1f937c77779dc83dc6aa1a415206fe1783f1ed8bd95fad74a94787bfb5a7d6"
+    },
+    {
+      "file": "backlog/records/record-wi-064-frontend-navigation-validation.md",
+      "sha256": "719ca953917e58979fd3ef99d91f0eed6e3ca9893a0d1327404b01e5ca143988",
+      "frontmatter": "---\n$schema: schemas/work-management/frontmatter/record.json\nid: record:wi-064-frontend-navigation-validation\ntitle: wi-064 frontend navigation validation\nsummary: wi-064 frontend navigation validation\ntype: record\nsubtype: test-result\nlifecycle: active\nstatus: ready\nstatus_reason: recorded\n---\n",
+      "body_sha256": "521e2e025ab783c7d9f67e55f92ab32c19c8c3f8bbc33f2ca82b1a69d601b418"
+    },
+    {
+      "file": "backlog/records/record-wi-064-independent-review.md",
+      "sha256": "289c7113233dbc69deb4e70eb0352cb2bc1e56d1c04f80aaf79569405fd3ff9e",
+      "frontmatter": "---\n$schema: schemas/work-management/frontmatter/record.json\nid: record:wi-064-independent-review\ntitle: wi-064 independent review\nsummary: wi-064 independent review\ntype: record\nsubtype: review-result\nlifecycle: active\nstatus: ready\nstatus_reason: recorded\n---\n",
+      "body_sha256": "a0523d4e22369e684e15ba1609b65e960c0588d837d0c639ded302a2df5bbc7a"
+    },
+    {
+      "file": "backlog/records/record-wi-065-deterministic-integration-validation.md",
+      "sha256": "341bad409d9e42852fb26b1020234a843ffcce4db16120a12e33cf410d78099f",
+      "frontmatter": "---\n$schema: schemas/work-management/frontmatter/record.json\nid: record:wi-065-deterministic-integration-validation\ntitle: WI-065 deterministic integration validation\nsummary: WI-065 deterministic integration validation\ntype: record\nsubtype: test-result\nlifecycle: active\nstatus: ready\nstatus_reason: recorded\n---\n",
+      "body_sha256": "e7092edfb6be96f53d1863aa1e6797e59259cc7aa1adc7a0a78424fa22fa0718"
+    },
+    {
+      "file": "backlog/records/record-wi-067-independent-review-approved.md",
+      "sha256": "dc9c020e56fee5802d647ffea407bab7a599489ed4f979fcef94bc84c6e38f8b",
+      "frontmatter": "---\n$schema: schemas/work-management/frontmatter/record.json\nid: record:wi-067-independent-review-approved\ntitle: wi-067 independent review approved\nsummary: wi-067 independent review approved\ntype: record\nsubtype: review-result\nlifecycle: active\nstatus: ready\nstatus_reason: recorded\n---\n",
+      "body_sha256": "61902b68644cba65fcdf24541ca7ecf3c2ce0014e2d0c134af5016d7ba7370cf"
+    },
+    {
+      "file": "backlog/records/record-wi-067-persistence-validation-passed.md",
+      "sha256": "e3f2f2ed42bdf8beef1d810319058cdf46a28326c409e6e1a9a59e56c756a429",
+      "frontmatter": "---\n$schema: schemas/work-management/frontmatter/record.json\nid: record:wi-067-persistence-validation-passed\ntitle: wi-067 persistence validation passed\nsummary: wi-067 persistence validation passed\ntype: record\nsubtype: test-result\nlifecycle: active\nstatus: ready\nstatus_reason: recorded\n---\n",
+      "body_sha256": "84cb33a238e991509963877b807ea6c2b6f25bd0acaecf4ec3d80ea7c8ed9dbd"
+    },
+    {
+      "file": "backlog/records/record-wi-067-validation-passed.md",
+      "sha256": "78cf280a34ee55dafea0a3f5b7ae8538c6d1fdf01cac146aa01845fe676ae397",
+      "frontmatter": "---\n$schema: schemas/work-management/frontmatter/record.json\nid: record:wi-067-validation-passed\ntitle: wi-067 validation passed\nsummary: wi-067 validation passed\ntype: record\nsubtype: test-result\nlifecycle: active\nstatus: ready\nstatus_reason: recorded\n---\n",
+      "body_sha256": "9116744f064e502aee031ee8ba964d8729cb2b7a16b494a25a5620ec6ea3817f"
+    },
+    {
+      "file": "backlog/records/record-wi-068-local-validation.md",
+      "sha256": "2f42f12b28dfd05ea9e6226bde95d227d3a36acdf653c77ea5797bcdfe327f77",
+      "frontmatter": "---\n$schema: schemas/work-management/frontmatter/record.json\nid: record:wi-068-local-validation\ntitle: WI-068 reviewed mock Catalog slice validation\nsummary: WI-068 reviewed mock Catalog slice validation\ntype: record\nsubtype: test-result\nlifecycle: active\nstatus: ready\nstatus_reason: recorded\n---\n",
+      "body_sha256": "ffb75baaf3f07c4a71e2701beaac3350d1e674cbec5346d831424a590f75aff9"
+    },
+    {
+      "file": "backlog/records/record-wi-069-local-validation.md",
+      "sha256": "56ff07762a745c3508cce731d1261f97ab7651c2f6730fa183f8aa22d8146437",
+      "frontmatter": "---\n$schema: schemas/work-management/frontmatter/record.json\nid: record:wi-069-local-validation\ntitle: WI-069 independently reviewed mock dual-lifecycle implementation\nsummary: WI-069 independently reviewed mock dual-lifecycle implementation\ntype: record\nsubtype: test-result\nlifecycle: active\nstatus: ready\nstatus_reason: recorded\n---\n",
+      "body_sha256": "f50e42f0bf4ae5390eb18bbebaf410667a6d1ee8ccc30003df5ed5a2e35f5d23"
+    },
+    {
+      "file": "backlog/records/record-wi-069-provider-merged.md",
+      "sha256": "e9325bcdc2a34dd57f7d0284ae4330ebe917ecb910fcb0ed84f33639240d2afe",
+      "frontmatter": "---\n$schema: schemas/work-management/frontmatter/record.json\nid: record:wi-069-provider-merged\ntitle: WI-069 provider-approved merge and postmerge validation\nsummary: WI-069 provider-approved merge and postmerge validation\ntype: record\nsubtype: test-result\nlifecycle: active\nstatus: ready\nstatus_reason: recorded\n---\n",
+      "body_sha256": "9f685c85c66fd09bd63224bc948f16cd287614fae5d4aab5f3c1b0075244f1a9"
+    },
+    {
+      "file": "backlog/records/record-wi-071-provider-merged.md",
+      "sha256": "2d03cc084408d11d2196087542524e1618d458ce65a88cc323db8b983f3b8b9e",
+      "frontmatter": "---\n$schema: schemas/work-management/frontmatter/record.json\nid: record:wi-071-provider-merged\ntitle: WI-071 test-safety fix independently reviewed and provider merged\nsummary: WI-071 test-safety fix independently reviewed and provider merged\ntype: record\nsubtype: test-result\nlifecycle: active\nstatus: ready\nstatus_reason: recorded\n---\n",
+      "body_sha256": "299ac58e6706cc507233fe45dbb0c01dce17011586566ecd8db1ee159be5c384"
+    },
+    {
+      "file": "backlog/temple/01_define_dsl_syntax.md",
+      "sha256": "0eef65df932ccda4f71322b4d157eee1e01ac37da5401463ea3d4605971783d3",
+      "frontmatter": "",
+      "body_sha256": "0eef65df932ccda4f71322b4d157eee1e01ac37da5401463ea3d4605971783d3"
+    },
+    {
+      "file": "backlog/temple/02_query_language_and_schema.md",
+      "sha256": "8ee7e7906108a68efad1ad774cd507a2736ff8ad8d6b5272dfb2d6e8b2696197",
+      "frontmatter": "",
+      "body_sha256": "8ee7e7906108a68efad1ad774cd507a2736ff8ad8d6b5272dfb2d6e8b2696197"
+    },
+    {
+      "file": "backlog/temple/03_data_format_parsers.md",
+      "sha256": "ca7f3d644b0478d445551dc6c04b598bca07bb5d8494221b03a92acf75d0544d",
+      "frontmatter": "",
+      "body_sha256": "ca7f3d644b0478d445551dc6c04b598bca07bb5d8494221b03a92acf75d0544d"
+    },
+    {
+      "file": "backlog/temple/04_template_parser_linter.md",
+      "sha256": "9848bae84bcfbdce6c174745fc8b84c51c2fa9c3ce6e3ab79902cb7c47a8f568",
+      "frontmatter": "",
+      "body_sha256": "9848bae84bcfbdce6c174745fc8b84c51c2fa9c3ce6e3ab79902cb7c47a8f568"
+    },
+    {
+      "file": "backlog/temple/05_output_format_linters.md",
+      "sha256": "6619de9f03f8d2043a1ec7ad8d8589e7531e2c2d7728689622fb3f5a0c5cf054",
+      "frontmatter": "",
+      "body_sha256": "6619de9f03f8d2043a1ec7ad8d8589e7531e2c2d7728689622fb3f5a0c5cf054"
+    },
+    {
+      "file": "backlog/temple/06_rendering_engine.md",
+      "sha256": "89f71c17110e466d416ce6ad9d2d2d9d4316d092d0c6ace622f52ec4967bcbe5",
+      "frontmatter": "",
+      "body_sha256": "89f71c17110e466d416ce6ad9d2d2d9d4316d092d0c6ace622f52ec4967bcbe5"
+    },
+    {
+      "file": "backlog/temple/07_error_reporting.md",
+      "sha256": "4d3a43d0fbb09f70a6465e08cc4e127d2cd74c701ae779ec89ee33ff27067229",
+      "frontmatter": "",
+      "body_sha256": "4d3a43d0fbb09f70a6465e08cc4e127d2cd74c701ae779ec89ee33ff27067229"
+    },
+    {
+      "file": "backlog/temple/08_cli_editor_integration.md",
+      "sha256": "ed6ff2da45a88980c368a176e550b8c75791c057c8f0e953750d9c512a731e4b",
+      "frontmatter": "",
+      "body_sha256": "ed6ff2da45a88980c368a176e550b8c75791c057c8f0e953750d9c512a731e4b"
+    },
+    {
+      "file": "backlog/temple/09_template_preprocessing.md",
+      "sha256": "47c2a8c3d802afd36a3fc4aadce8dd5d11a8f5bca1bcc667ea23858b2d84fee5",
+      "frontmatter": "",
+      "body_sha256": "47c2a8c3d802afd36a3fc4aadce8dd5d11a8f5bca1bcc667ea23858b2d84fee5"
+    },
+    {
+      "file": "backlog/temple/10_base_format_detection.md",
+      "sha256": "de41a5818e41e90618fde795d8a8b780539093013e9a19541542bde906dcd5d6",
+      "frontmatter": "",
+      "body_sha256": "de41a5818e41e90618fde795d8a8b780539093013e9a19541542bde906dcd5d6"
+    },
+    {
+      "file": "backlog/temple/11_integrate_base_linters.md",
+      "sha256": "11004642896edbda4a39466c7cf5d444576563dd94cb9d1696e09adee7245ec1",
+      "frontmatter": "",
+      "body_sha256": "11004642896edbda4a39466c7cf5d444576563dd94cb9d1696e09adee7245ec1"
+    },
+    {
+      "file": "backlog/temple/12_diagnostics_mapping.md",
+      "sha256": "0f9310d021aa3ddb0bd18b79ad2a22f65129aa8e0d7ab1f3dfbb8ce0f5cd4d1c",
+      "frontmatter": "",
+      "body_sha256": "0f9310d021aa3ddb0bd18b79ad2a22f65129aa8e0d7ab1f3dfbb8ce0f5cd4d1c"
+    },
+    {
+      "file": "backlog/temple/13_combine_template_and_base_diagnostics.md",
+      "sha256": "151b6269ed65ebb162c5d1b213331bebf77b5bf7183e25f837e54cbfbe1718e8",
+      "frontmatter": "",
+      "body_sha256": "151b6269ed65ebb162c5d1b213331bebf77b5bf7183e25f837e54cbfbe1718e8"
+    },
+    {
+      "file": "backlog/temple/14_config_support.md",
+      "sha256": "7a22495ee3b892b01553c49daa1923cc13d910104e3507b834e7536b7db2dc3b",
+      "frontmatter": "",
+      "body_sha256": "7a22495ee3b892b01553c49daa1923cc13d910104e3507b834e7536b7db2dc3b"
+    },
+    {
+      "file": "backlog/temple/15_testing_and_validation.md",
+      "sha256": "4140ade1b9ab12ca7df50654f7798274e3eccce4e00021f0391ab6bf3ddb579f",
+      "frontmatter": "",
+      "body_sha256": "4140ade1b9ab12ca7df50654f7798274e3eccce4e00021f0391ab6bf3ddb579f"
+    },
+    {
+      "file": "backlog/temple/16_documentation.md",
+      "sha256": "c292b06cbe1dad673274c09cef8aff2e3f8aa488f3b948cf7cbbb48475d4c2e8",
+      "frontmatter": "",
+      "body_sha256": "c292b06cbe1dad673274c09cef8aff2e3f8aa488f3b948cf7cbbb48475d4c2e8"
+    },
+    {
+      "file": "backlog/temple/temple.md",
+      "sha256": "14de31b22e114cbb166a18eb84cfdd3633fcceb5e43b6a06fee73aa40ed84293",
+      "frontmatter": "",
+      "body_sha256": "14de31b22e114cbb166a18eb84cfdd3633fcceb5e43b6a06fee73aa40ed84293"
+    }
+  ]
+}
