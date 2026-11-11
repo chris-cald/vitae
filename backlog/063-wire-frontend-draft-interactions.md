@@ -11,9 +11,6 @@ estimated: 2
 actual: 2
 completed_date: '2026-11-06'
 links:
-  parent: []
-  depends_on: []
-  implements: []
   evidence:
     - '[[record-wi-063-mock-interaction-validation]]'
 tags:

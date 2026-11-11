@@ -10,13 +10,12 @@ status_reason: auto
 priority: critical
 estimated: 8
 links:
-  parent:
-    - '[[047-complete-p0-reconciliation]]'
   depends_on:
     - '[[048-refresh-p0-source-of-truth-docs]]'
   reference:
     - '[[../docs/career/canonical-domain-model]]'
     - '[[../docs/prd/mvp-book-of-work-to-application-loop]]'
+    - '[[047-complete-p0-reconciliation]]'
 tags:
   - hitl
   - p0

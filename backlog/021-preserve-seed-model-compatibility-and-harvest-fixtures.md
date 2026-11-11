@@ -8,7 +8,6 @@ lifecycle: active
 status: completed
 status_reason: completed
 priority: high
-estimated: 4
 links:
   depends_on:
     - '[[020-define-canonical-vitae-domain-model-and-obsidian-mapping]]'

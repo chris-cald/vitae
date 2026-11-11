@@ -7,14 +7,12 @@ lifecycle: active
 status: completed
 status_reason: accepted
 priority: high
-estimated: 5
 links:
-  parent:
-    - '[[027-adopt-privacy-safe-durable-temporal-execution]]'
   depends_on:
     - '[[033-build-human-review-signal-bridge]]'
     - '[[035-implement-durable-cull-and-prime-runtime-slice]]'
-  implements:
+  reference:
+    - '[[027-adopt-privacy-safe-durable-temporal-execution]]'
     - '[[../docs/adr/0004-adopt-privacy-safe-temporal-execution-substrate]]'
 tags:
   - temporal

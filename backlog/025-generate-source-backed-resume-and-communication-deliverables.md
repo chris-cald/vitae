@@ -8,7 +8,6 @@ lifecycle: active
 status: completed
 status_reason: accepted
 priority: high
-estimated: 6
 links:
   depends_on:
     - '[[023-implement-target-requirement-projection-and-catalog-fit-slice]]'

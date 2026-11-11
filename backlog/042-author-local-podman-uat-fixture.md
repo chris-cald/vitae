@@ -7,9 +7,8 @@ lifecycle: active
 status: completed
 status_reason: accepted
 priority: high
-estimated: 2
 links:
-  parent:
+  reference:
     - '[[040-complete-production-hardening-and-temporal-adoption-decision]]'
 tags:
   - uat

@@ -4,7 +4,7 @@ id: record:wi-067-independent-review-approved
 title: wi-067 independent review approved
 summary: wi-067 independent review approved
 type: record
-subtype: review-result
+subtype: x-review-result
 lifecycle: active
 status: ready
 status_reason: recorded

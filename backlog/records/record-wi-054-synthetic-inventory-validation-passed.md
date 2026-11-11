@@ -8,9 +8,6 @@ subtype: test-result
 lifecycle: active
 status: ready
 status_reason: recorded
-links:
-  supporting_reference:
-    - '`e46591583848556db9aadca820e34bcc605e1bed`'
 ---
 
 ## Recorded At

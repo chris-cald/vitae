@@ -10,14 +10,13 @@ status_reason: dependencies-cleared
 priority: critical
 estimated: 3
 links:
-  parent:
-    - '[[050-deliver-job-search-application-funnel-slice]]'
   depends_on:
     - '[[054-add-career-inventory-and-curation-slice]]'
     - '[[056-connect-career-refresh-and-runtime-ux]]'
   reference:
     - '[[../docs/uat-readiness]]'
     - '[[../docs/prd/mvp-book-of-work-to-application-loop]]'
+    - '[[050-deliver-job-search-application-funnel-slice]]'
 tags:
   - hitl
   - p0

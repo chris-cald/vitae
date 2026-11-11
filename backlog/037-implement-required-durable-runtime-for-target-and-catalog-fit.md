@@ -7,14 +7,12 @@ lifecycle: active
 status: completed
 status_reason: accepted
 priority: high
-estimated: 3
 links:
-  parent:
-    - '[[027-adopt-privacy-safe-durable-temporal-execution]]'
   depends_on:
     - '[[023-implement-target-requirement-projection-and-catalog-fit-slice]]'
     - '[[031-implement-idempotent-runtimeexecution-ledger-and-safe-status-api]]'
-  implements:
+  reference:
+    - '[[027-adopt-privacy-safe-durable-temporal-execution]]'
     - '[[../docs/adr/0004-adopt-privacy-safe-temporal-execution-substrate]]'
 tags:
   - temporal

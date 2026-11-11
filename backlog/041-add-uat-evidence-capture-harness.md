@@ -7,13 +7,11 @@ lifecycle: active
 status: completed
 status_reason: accepted
 priority: high
-estimated: 2
 links:
-  parent:
-    - '[[040-complete-production-hardening-and-temporal-adoption-decision]]'
   depends_on:
     - '[[027-adopt-privacy-safe-durable-temporal-execution]]'
-  implements:
+  reference:
+    - '[[040-complete-production-hardening-and-temporal-adoption-decision]]'
     - '[[../docs/uat-readiness]]'
 tags:
   - uat
