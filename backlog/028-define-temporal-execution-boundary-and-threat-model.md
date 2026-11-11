@@ -5,15 +5,14 @@ type: work-item
 subtype: story
 lifecycle: active
 status: closed
-status_reason: development-only-provisional-approval
+status_reason: completed
 priority: high
 estimated: 3
 links:
-  parent:
-    - '[[027-adopt-privacy-safe-durable-temporal-execution]]'
   depends_on:
     - '[[022-define-harvest-cull-prime-and-substantiate-workflow-contracts]]'
-  implements:
+  reference:
+    - '[[027-adopt-privacy-safe-durable-temporal-execution]]'
     - '[[../docs/adr/0004-adopt-privacy-safe-temporal-execution-substrate]]'
 tags:
   - temporal

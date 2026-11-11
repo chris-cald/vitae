@@ -19,9 +19,6 @@ commits:
   5c1e6ae: Record final independent-review evidence
   6ba3664: Address compact-navigation PR review findings
 links:
-  parent: []
-  depends_on: []
-  implements: []
   evidence:
     - '[[record-wi-064-frontend-navigation-validation]]'
     - '[[record-wi-064-independent-review]]'

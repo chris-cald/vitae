@@ -16,13 +16,12 @@ commits:
 links:
   pull_requests:
     - https://github.com/chris-cald/vitae/pull/9
-  parent:
-    - '[[050-deliver-job-search-application-funnel-slice]]'
   depends_on:
     - '[[036-implement-substantiation-and-guarded-catalog-publication]]'
   reference:
     - '[[../docs/prd/mvp-book-of-work-to-application-loop]]'
     - '[[../docs/career/canonical-domain-model]]'
+    - '[[050-deliver-job-search-application-funnel-slice]]'
   evidence:
     - '[[record-wi-054-synthetic-inventory-validation-passed]]'
     - '[[record-wi-054-historical-synthetic-validation]]'

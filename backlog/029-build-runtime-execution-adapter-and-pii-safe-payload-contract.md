@@ -5,15 +5,14 @@ type: work-item
 subtype: story
 lifecycle: active
 status: closed
-status_reason: development-contract-complete
+status_reason: completed
 priority: high
 estimated: 3
 links:
-  parent:
-    - '[[027-adopt-privacy-safe-durable-temporal-execution]]'
   depends_on:
     - '[[028-define-temporal-execution-boundary-and-threat-model]]'
-  implements:
+  reference:
+    - '[[027-adopt-privacy-safe-durable-temporal-execution]]'
     - '[[../docs/adr/0004-adopt-privacy-safe-temporal-execution-substrate]]'
 tags:
   - temporal

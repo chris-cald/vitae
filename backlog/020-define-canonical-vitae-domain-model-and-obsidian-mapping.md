@@ -8,7 +8,6 @@ lifecycle: active
 status: completed
 status_reason: accepted
 priority: critical
-estimated: 5
 links:
   reference:
     - '[[../docs/adr/0003-canonical-vitae-domain-and-workflow-boundary]]'

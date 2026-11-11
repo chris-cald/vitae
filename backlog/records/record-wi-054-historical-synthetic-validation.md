@@ -13,8 +13,6 @@ links:
     - https://github.com/chris-cald/vitae/actions/runs/40740138417/job/122999192661
     - https://github.com/chris-cald/vitae/actions/runs/40740124311/job/122999146170
     - https://github.com/chris-cald/vitae/pull/9
-    - '`ff1b6a3f682d2670500efa005a374c8ea4bd59c1`'
-    - '`7ab345902b54a5e617e653518773db52f0005d9c`'
 ---
 
 ## Recorded At

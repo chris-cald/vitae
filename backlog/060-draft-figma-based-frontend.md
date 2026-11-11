@@ -11,9 +11,6 @@ estimated: 2
 actual: 2
 completed_date: '2026-11-04'
 links:
-  parent: []
-  depends_on: []
-  implements: []
   evidence:
     - '[[record-interactive-frontend-draft-validated]]'
 tags:

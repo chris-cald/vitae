@@ -110,7 +110,39 @@ test('WI-072 historical bodies, facts, valid effort and relationships are preser
           if (/^https?:\/\//.test(value)) assert.ok(current.links.supporting_reference.includes(value));
           else assert.ok(body.includes(value), `${row.file}: removed reference must survive verbatim in body`);
         }
+      } else if (key === 'reference') {
+        assert.deepEqual(current.links.reference, [...new Set([
+          ...values, ...(before.links.parent || []), ...(before.links.implements || []),
+        ])], `${row.file}: existing references plus exact historical targets`);
       } else if (values.length) assert.deepEqual(current.links[key], values, `${row.file}: preserve ${key}`);
+    }
+  }
+});
+
+test('WI-072 field report accounts for every metadata change and preserves original relationship labels', () => {
+  const changes = JSON.parse(readFileSync(path.join(evidence, 'changes.json')));
+  assert.deepEqual(changes.map(row => row.file).sort(), violating.map(row => row.file).sort());
+  assert.equal(changes.flatMap(row => row.fields).filter(field => field.field === 'estimated').length, 27);
+  for (const row of changes) {
+    const original = originals.find(entry => entry.file === row.file).metadata;
+    const expected = structuredClone(original);
+    for (const field of row.fields) {
+      assert.ok(field.reason.length > 0, `${row.file}: field change needs rationale`);
+      const [root, child] = field.field.split('.');
+      const target = child ? expected[root] : expected;
+      const key = child || root;
+      assert.deepEqual(target?.[key] ?? null, field.before, `${row.file}: exact original ${field.field}`);
+      if (field.after === null) delete target[key];
+      else target[key] = field.after;
+    }
+    if (expected.links && Object.keys(expected.links).length === 0) delete expected.links;
+    assert.deepEqual(split(readFileSync(path.join(repo, row.file), 'utf8')).metadata, expected,
+      `${row.file}: only explicitly reported fields may differ`);
+    if (original.status === 'closed') {
+      assert.equal(expected.status_reason, 'completed');
+      assert.equal(expected.status, 'closed');
+      assert.equal(expected.lifecycle, 'active');
+      assert.equal(expected.estimated, 3);
     }
   }
 });

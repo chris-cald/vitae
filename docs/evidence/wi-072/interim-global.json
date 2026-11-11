@@ -1,0 +1,100 @@
+{
+  "generated_at": "2026-11-11T00:32:48.934Z",
+  "options": {
+    "backlogDir": "/private/tmp/vitae-wi072-provision/.a5c/worktrees/wi-072/backlog",
+    "rootDir": "/private/tmp/vitae-wi072-provision/.a5c/worktrees/wi-072",
+    "format": "json",
+    "failOn": "error",
+    "schemaMap": "/Users/macos/Library/pnpm/doc-vader-runtime/schemas/frontmatter/schema-map.json",
+    "includeArchive": false,
+    "profile": "ci",
+    "profiles": [
+      "ci"
+    ]
+  },
+  "totals": {
+    "files": 161,
+    "duplicate_ids": 0,
+    "unresolved_wikilinks": 0,
+    "parse_errors": 0,
+    "no_inbound_active": 6,
+    "schema_violations": 2
+  },
+  "duplicate_ids": [],
+  "unresolved_wikilinks": [],
+  "parse_errors": [],
+  "no_inbound_active": [
+    {
+      "file": "backlog/012-split-scoring-from-recommendation-generation.md",
+      "id": "wi-012",
+      "status": "ready",
+      "title": "Split Scoring from Recommendation Generation"
+    },
+    {
+      "file": "backlog/013-prototype-career-graph-projection-for-bullets-and-requirements.md",
+      "id": "wi-013",
+      "status": "ready",
+      "title": "Prototype Career Graph Projection for Bullets and Requirements"
+    },
+    {
+      "file": "backlog/014-introduce-typed-frontend-backend-api-contract.md",
+      "id": "wi-014",
+      "status": "ready",
+      "title": "Introduce Typed Frontend Backend API Contract"
+    },
+    {
+      "file": "backlog/015-evaluate-templjs-backed-resume-variant-rendering.md",
+      "id": "wi-015",
+      "status": "ready",
+      "title": "Evaluate templjs Backed Resume Variant Rendering"
+    },
+    {
+      "file": "backlog/017-integrate-agent-workflows-for-work-order-execution.md",
+      "id": "wi-017",
+      "status": "ready",
+      "title": "Integrate agent-workflows for Work Order Execution"
+    },
+    {
+      "file": "backlog/018-add-adr-prd-frontmatter-validation-tooling.md",
+      "id": "wi-018",
+      "status": "ready",
+      "title": "Add ADR PRD Frontmatter Validation Tooling"
+    }
+  ],
+  "schema_violations": [
+    {
+      "file": "backlog/028-define-temporal-execution-boundary-and-threat-model.md",
+      "schema": "schemas/work-management/frontmatter/work-item.json",
+      "errors": [
+        "/status_reason must be equal to one of the allowed values",
+        "(root) must match \"then\" schema",
+        "/lifecycle must be equal to constant",
+        "/status must be equal to one of the allowed values",
+        "/status must be equal to one of the allowed values",
+        "/lifecycle must be equal to constant",
+        "/status must be equal to one of the allowed values",
+        "/lifecycle must be equal to constant",
+        "/status must be equal to one of the allowed values",
+        "(root) must match a schema in anyOf"
+      ]
+    },
+    {
+      "file": "backlog/029-build-runtime-execution-adapter-and-pii-safe-payload-contract.md",
+      "schema": "schemas/work-management/frontmatter/work-item.json",
+      "errors": [
+        "/status_reason must be equal to one of the allowed values",
+        "(root) must match \"then\" schema",
+        "/lifecycle must be equal to constant",
+        "/status must be equal to one of the allowed values",
+        "/status must be equal to one of the allowed values",
+        "/lifecycle must be equal to constant",
+        "/status must be equal to one of the allowed values",
+        "/lifecycle must be equal to constant",
+        "/status must be equal to one of the allowed values",
+        "(root) must match a schema in anyOf"
+      ]
+    }
+  ],
+  "schema_load_errors": [],
+  "exit_code": 1
+}

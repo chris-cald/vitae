@@ -1,0 +1,180 @@
+
+> @vitae/doc-pack-sdlc@0.0.0 test
+> node --test test/*.test.mjs
+
+TAP version 13
+# Subtest: pack uses a pinned Doc-Vader schema bundle instead of a sibling checkout
+ok 1 - pack uses a pinned Doc-Vader schema bundle instead of a sibling checkout
+  ---
+  duration_ms: 0.916792
+  type: 'test'
+  ...
+# Subtest: Vitae SDLC document type pack manifest conforms to Doc-Vader pack schema
+ok 2 - Vitae SDLC document type pack manifest conforms to Doc-Vader pack schema
+  ---
+  duration_ms: 41.966041
+  type: 'test'
+  ...
+# Subtest: pack metadata schemas validate routed ADR and PRD template frontmatter
+ok 3 - pack metadata schemas validate routed ADR and PRD template frontmatter
+  ---
+  duration_ms: 28.819
+  type: 'test'
+  ...
+# Subtest: pack metadata schemas reject cross-routed or unrouted document metadata
+ok 4 - pack metadata schemas reject cross-routed or unrouted document metadata
+  ---
+  duration_ms: 18.390459
+  type: 'test'
+  ...
+# Subtest: pack content schemas validate their examples and reject missing core body content
+ok 5 - pack content schemas validate their examples and reject missing core body content
+  ---
+  duration_ms: 19.365125
+  type: 'test'
+  ...
+# Subtest: WI-072 missing actual conditional: authoritative baseline red, repository green
+ok 6 - WI-072 missing actual conditional: authoritative baseline red, repository green
+  ---
+  duration_ms: 8.540333
+  type: 'test'
+  ...
+# Subtest: WI-072 unknown relationship keys: authoritative baseline red, repository green
+not ok 7 - WI-072 unknown relationship keys: authoritative baseline red, repository green
+  ---
+  duration_ms: 0.758417
+  type: 'test'
+  location: '/private/tmp/vitae-wi072-provision/.a5c/worktrees/wi-072/doc-packs/vitae-sdlc/test/legacy-backlog-metadata.test.mjs:66:3'
+  failureType: 'testCodeFailure'
+  error: |-
+    backlog/028-define-temporal-execution-boundary-and-threat-model.md: [{"instancePath":"/status_reason","schemaPath":"#/allOf/1/anyOf/0/allOf/4/then/properties/status_reason/enum","keyword":"enum","params":{"allowedValues":["completed","obsolete","superseded","redundant","cancelled"]},"message":"must be equal to one of the allowed values"},{"instancePath":"","schemaPath":"#/allOf/1/anyOf/0/allOf/4/if","keyword":"if","params":{"failingKeyword":"then"},"message":"must match \"then\" schema"},{"instancePath":"/lifecycle","schemaPath":"#/allOf/1/anyOf/1/properties/lifecycle/const","keyword":"const","params":{"allowedValue":"draft"},"message":"must be equal to constant"},{"instancePath":"/status","schemaPath":"#/allOf/1/anyOf/1/properties/status/enum","keyword":"enum","params":{"allowedValues":["draft","aborted"]},"message":"must be equal to one of the allowed values"},{"instancePath":"/status","schemaPath":"#/allOf/1/anyOf/2/properties/status/enum","keyword":"enum","params":{"allowedValues":["ready","running","paused","completed","aborted"]},"message":"must be equal to one of the allowed values"},{"instancePath":"/lifecycle","schemaPath":"#/allOf/1/anyOf/3/properties/lifecycle/const","keyword":"const","params":{"allowedValue":"evergreen"},"message":"must be equal to constant"},{"instancePath":"/status","schemaPath":"#/allOf/1/anyOf/3/properties/status/enum","keyword":"enum","params":{"allowedValues":["ready","running","paused","completed","aborted"]},"message":"must be equal to one of the allowed values"},{"instancePath":"/lifecycle","schemaPath":"#/allOf/1/anyOf/4/properties/lifecycle/const","keyword":"const","params":{"allowedValue":"inactive"},"message":"must be equal to constant"},{"instancePath":"/status","schemaPath":"#/allOf/1/anyOf/4/properties/status/enum","keyword":"enum","params":{"allowedValues":["completed","aborted"]},"message":"must be equal to one of the allowed values"},{"instancePath":"","schemaPath":"#/allOf/1/anyOf","keyword":"anyOf","params":{},"message":"must match a schema in anyOf"}]
+    
+    false !== true
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  actual: false
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///private/tmp/vitae-wi072-provision/.a5c/worktrees/wi-072/doc-packs/vitae-sdlc/test/legacy-backlog-metadata.test.mjs:73:14)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async startSubtestAfterBootstrap (node:internal/test_runner/harness:296:3)
+  ...
+# Subtest: WI-072 empty dependency list: authoritative baseline red, repository green
+ok 8 - WI-072 empty dependency list: authoritative baseline red, repository green
+  ---
+  duration_ms: 1.061875
+  type: 'test'
+  ...
+# Subtest: WI-072 malformed supporting references: authoritative baseline red, repository green
+ok 9 - WI-072 malformed supporting references: authoritative baseline red, repository green
+  ---
+  duration_ms: 3.6515
+  type: 'test'
+  ...
+# Subtest: WI-072 record subtype extension: authoritative baseline red, repository green
+ok 10 - WI-072 record subtype extension: authoritative baseline red, repository green
+  ---
+  duration_ms: 0.298291
+  type: 'test'
+  ...
+# Subtest: WI-072 closed status reason compatibility: authoritative baseline red, repository green
+not ok 11 - WI-072 closed status reason compatibility: authoritative baseline red, repository green
+  ---
+  duration_ms: 0.299375
+  type: 'test'
+  location: '/private/tmp/vitae-wi072-provision/.a5c/worktrees/wi-072/doc-packs/vitae-sdlc/test/legacy-backlog-metadata.test.mjs:66:3'
+  failureType: 'testCodeFailure'
+  error: |-
+    backlog/028-define-temporal-execution-boundary-and-threat-model.md: [{"instancePath":"/status_reason","schemaPath":"#/allOf/1/anyOf/0/allOf/4/then/properties/status_reason/enum","keyword":"enum","params":{"allowedValues":["completed","obsolete","superseded","redundant","cancelled"]},"message":"must be equal to one of the allowed values"},{"instancePath":"","schemaPath":"#/allOf/1/anyOf/0/allOf/4/if","keyword":"if","params":{"failingKeyword":"then"},"message":"must match \"then\" schema"},{"instancePath":"/lifecycle","schemaPath":"#/allOf/1/anyOf/1/properties/lifecycle/const","keyword":"const","params":{"allowedValue":"draft"},"message":"must be equal to constant"},{"instancePath":"/status","schemaPath":"#/allOf/1/anyOf/1/properties/status/enum","keyword":"enum","params":{"allowedValues":["draft","aborted"]},"message":"must be equal to one of the allowed values"},{"instancePath":"/status","schemaPath":"#/allOf/1/anyOf/2/properties/status/enum","keyword":"enum","params":{"allowedValues":["ready","running","paused","completed","aborted"]},"message":"must be equal to one of the allowed values"},{"instancePath":"/lifecycle","schemaPath":"#/allOf/1/anyOf/3/properties/lifecycle/const","keyword":"const","params":{"allowedValue":"evergreen"},"message":"must be equal to constant"},{"instancePath":"/status","schemaPath":"#/allOf/1/anyOf/3/properties/status/enum","keyword":"enum","params":{"allowedValues":["ready","running","paused","completed","aborted"]},"message":"must be equal to one of the allowed values"},{"instancePath":"/lifecycle","schemaPath":"#/allOf/1/anyOf/4/properties/lifecycle/const","keyword":"const","params":{"allowedValue":"inactive"},"message":"must be equal to constant"},{"instancePath":"/status","schemaPath":"#/allOf/1/anyOf/4/properties/status/enum","keyword":"enum","params":{"allowedValues":["completed","aborted"]},"message":"must be equal to one of the allowed values"},{"instancePath":"","schemaPath":"#/allOf/1/anyOf","keyword":"anyOf","params":{},"message":"must match a schema in anyOf"}]
+    
+    false !== true
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  actual: false
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///private/tmp/vitae-wi072-provision/.a5c/worktrees/wi-072/doc-packs/vitae-sdlc/test/legacy-backlog-metadata.test.mjs:73:14)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: WI-072 all 59 actual baseline files conform; authority is not skipped
+not ok 12 - WI-072 all 59 actual baseline files conform; authority is not skipped
+  ---
+  duration_ms: 0.944292
+  type: 'test'
+  location: '/private/tmp/vitae-wi072-provision/.a5c/worktrees/wi-072/doc-packs/vitae-sdlc/test/legacy-backlog-metadata.test.mjs:77:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    backlog/028-define-temporal-execution-boundary-and-threat-model.md: [{"instancePath":"/status_reason","schemaPath":"#/allOf/1/anyOf/0/allOf/4/then/properties/status_reason/enum","keyword":"enum","params":{"allowedValues":["completed","obsolete","superseded","redundant","cancelled"]},"message":"must be equal to one of the allowed values"},{"instancePath":"","schemaPath":"#/allOf/1/anyOf/0/allOf/4/if","keyword":"if","params":{"failingKeyword":"then"},"message":"must match \"then\" schema"},{"instancePath":"/lifecycle","schemaPath":"#/allOf/1/anyOf/1/properties/lifecycle/const","keyword":"const","params":{"allowedValue":"draft"},"message":"must be equal to constant"},{"instancePath":"/status","schemaPath":"#/allOf/1/anyOf/1/properties/status/enum","keyword":"enum","params":{"allowedValues":["draft","aborted"]},"message":"must be equal to one of the allowed values"},{"instancePath":"/status","schemaPath":"#/allOf/1/anyOf/2/properties/status/enum","keyword":"enum","params":{"allowedValues":["ready","running","paused","completed","aborted"]},"message":"must be equal to one of the allowed values"},{"instancePath":"/lifecycle","schemaPath":"#/allOf/1/anyOf/3/properties/lifecycle/const","keyword":"const","params":{"allowedValue":"evergreen"},"message":"must be equal to constant"},{"instancePath":"/status","schemaPath":"#/allOf/1/anyOf/3/properties/status/enum","keyword":"enum","params":{"allowedValues":["ready","running","paused","completed","aborted"]},"message":"must be equal to one of the allowed values"},{"instancePath":"/lifecycle","schemaPath":"#/allOf/1/anyOf/4/properties/lifecycle/const","keyword":"const","params":{"allowedValue":"inactive"},"message":"must be equal to constant"},{"instancePath":"/status","schemaPath":"#/allOf/1/anyOf/4/properties/status/enum","keyword":"enum","params":{"allowedValues":["completed","aborted"]},"message":"must be equal to one of the allowed values"},{"instancePath":"","schemaPath":"#/allOf/1/anyOf","keyword":"anyOf","params":{},"message":"must match a schema in anyOf"}]
+    
+    false !== true
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  actual: false
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///private/tmp/vitae-wi072-provision/.a5c/worktrees/wi-072/doc-packs/vitae-sdlc/test/legacy-backlog-metadata.test.mjs:81:12)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: WI-072 historical bodies, facts, valid effort and relationships are preserved
+ok 13 - WI-072 historical bodies, facts, valid effort and relationships are preserved
+  ---
+  duration_ms: 9.205583
+  type: 'test'
+  ...
+# Subtest: real authoritative completed-item schema permits omitted effort but enforces conditional actual
+ok 14 - real authoritative completed-item schema permits omitted effort but enforces conditional actual
+  ---
+  duration_ms: 2.523416
+  type: 'test'
+  ...
+# Authoritative schema directory: /Users/macos/Library/pnpm/doc-vader-runtime/schemas/work-management
+# /work-management/frontmatter/work-item sha256=60b1d4d6d404136a3d353d70e691c14e9625f16476b2c8c3664012123115535b
+# /work-management/contracts/work-item-structure sha256=8e98195f1aa5cda400a8dacce001b5e96f76d8ea6c0db02a609ba90be76b955c
+# /work-management/workflows/default/status-policy sha256=1e21f4f09ee95d653398feb9e26d5274a9d0b1a322731a59f307920dbdfbf3cd
+# Subtest: 069-complete-connected-mock-dual-lifecycles.md omits both optional effort fields and conforms to authority
+ok 15 - 069-complete-connected-mock-dual-lifecycles.md omits both optional effort fields and conforms to authority
+  ---
+  duration_ms: 3.478
+  type: 'test'
+  ...
+# Subtest: 070-validate-connected-mock-dual-lifecycles.md omits both optional effort fields and conforms to authority
+ok 16 - 070-validate-connected-mock-dual-lifecycles.md omits both optional effort fields and conforms to authority
+  ---
+  duration_ms: 0.618834
+  type: 'test'
+  ...
+# Subtest: 071-isolate-mock-prerequisite-test-resources.md omits both optional effort fields and conforms to authority
+ok 17 - 071-isolate-mock-prerequisite-test-resources.md omits both optional effort fields and conforms to authority
+  ---
+  duration_ms: 0.591209
+  type: 'test'
+  ...
+1..17
+# tests 17
+# suites 0
+# pass 14
+# fail 3
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 188.090209

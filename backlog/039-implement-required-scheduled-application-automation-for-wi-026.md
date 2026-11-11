@@ -7,15 +7,13 @@ lifecycle: active
 status: completed
 status_reason: accepted
 priority: high
-estimated: 3
 links:
-  parent:
-    - '[[027-adopt-privacy-safe-durable-temporal-execution]]'
   depends_on:
     - '[[026-track-one-application-with-lightweight-material-records]]'
     - '[[031-implement-idempotent-runtimeexecution-ledger-and-safe-status-api]]'
     - '[[033-build-human-review-signal-bridge]]'
-  implements:
+  reference:
+    - '[[027-adopt-privacy-safe-durable-temporal-execution]]'
     - '[[../docs/adr/0004-adopt-privacy-safe-temporal-execution-substrate]]'
 tags:
   - temporal

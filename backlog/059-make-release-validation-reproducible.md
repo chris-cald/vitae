@@ -16,12 +16,11 @@ commits:
 links:
   pull_requests:
     - https://github.com/chris-cald/vitae/pull/7
-  parent:
-    - '[[050-deliver-job-search-application-funnel-slice]]'
   reference:
     - '[[056-connect-career-refresh-and-runtime-ux]]'
     - '[[057-run-live-full-loop-mvp-uat]]'
     - '[[058-repair-babysitter-dv-run-closeout]]'
+    - '[[050-deliver-job-search-application-funnel-slice]]'
   evidence:
     - '[[record-wi-059-historical-ci-validation]]'
     - '[[record-wi-059-historical-approval]]'

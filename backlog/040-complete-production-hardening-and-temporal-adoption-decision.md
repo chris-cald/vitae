@@ -7,10 +7,7 @@ lifecycle: active
 status: completed
 status_reason: self-hosted-first MVP/UAT evidence accepted 2026-09-30; production rollout remains excluded without separate approval
 priority: high
-estimated: 5
 links:
-  parent:
-    - '[[027-adopt-privacy-safe-durable-temporal-execution]]'
   depends_on:
     - '[[032-deliver-opt-in-async-job-fit-vertical-slice]]'
     - '[[033-build-human-review-signal-bridge]]'
@@ -20,7 +17,8 @@ links:
     - '[[037-implement-required-durable-runtime-for-target-and-catalog-fit]]'
     - '[[038-implement-required-durable-runtime-for-deliverable-generation]]'
     - '[[039-implement-required-scheduled-application-automation-for-wi-026]]'
-  implements:
+  reference:
+    - '[[027-adopt-privacy-safe-durable-temporal-execution]]'
     - '[[../docs/adr/0004-adopt-privacy-safe-temporal-execution-substrate]]'
 tags:
   - temporal

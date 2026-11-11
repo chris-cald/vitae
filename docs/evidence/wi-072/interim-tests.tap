@@ -1,0 +1,151 @@
+TAP version 13
+# Subtest: WI-072 missing actual conditional: authoritative baseline red, repository green
+ok 1 - WI-072 missing actual conditional: authoritative baseline red, repository green
+  ---
+  duration_ms: 7.701208
+  type: 'test'
+  ...
+# Subtest: WI-072 unknown relationship keys: authoritative baseline red, repository green
+not ok 2 - WI-072 unknown relationship keys: authoritative baseline red, repository green
+  ---
+  duration_ms: 0.746958
+  type: 'test'
+  location: '/private/tmp/vitae-wi072-provision/.a5c/worktrees/wi-072/doc-packs/vitae-sdlc/test/legacy-backlog-metadata.test.mjs:66:3'
+  failureType: 'testCodeFailure'
+  error: |-
+    backlog/028-define-temporal-execution-boundary-and-threat-model.md: [{"instancePath":"/status_reason","schemaPath":"#/allOf/1/anyOf/0/allOf/4/then/properties/status_reason/enum","keyword":"enum","params":{"allowedValues":["completed","obsolete","superseded","redundant","cancelled"]},"message":"must be equal to one of the allowed values"},{"instancePath":"","schemaPath":"#/allOf/1/anyOf/0/allOf/4/if","keyword":"if","params":{"failingKeyword":"then"},"message":"must match \"then\" schema"},{"instancePath":"/lifecycle","schemaPath":"#/allOf/1/anyOf/1/properties/lifecycle/const","keyword":"const","params":{"allowedValue":"draft"},"message":"must be equal to constant"},{"instancePath":"/status","schemaPath":"#/allOf/1/anyOf/1/properties/status/enum","keyword":"enum","params":{"allowedValues":["draft","aborted"]},"message":"must be equal to one of the allowed values"},{"instancePath":"/status","schemaPath":"#/allOf/1/anyOf/2/properties/status/enum","keyword":"enum","params":{"allowedValues":["ready","running","paused","completed","aborted"]},"message":"must be equal to one of the allowed values"},{"instancePath":"/lifecycle","schemaPath":"#/allOf/1/anyOf/3/properties/lifecycle/const","keyword":"const","params":{"allowedValue":"evergreen"},"message":"must be equal to constant"},{"instancePath":"/status","schemaPath":"#/allOf/1/anyOf/3/properties/status/enum","keyword":"enum","params":{"allowedValues":["ready","running","paused","completed","aborted"]},"message":"must be equal to one of the allowed values"},{"instancePath":"/lifecycle","schemaPath":"#/allOf/1/anyOf/4/properties/lifecycle/const","keyword":"const","params":{"allowedValue":"inactive"},"message":"must be equal to constant"},{"instancePath":"/status","schemaPath":"#/allOf/1/anyOf/4/properties/status/enum","keyword":"enum","params":{"allowedValues":["completed","aborted"]},"message":"must be equal to one of the allowed values"},{"instancePath":"","schemaPath":"#/allOf/1/anyOf","keyword":"anyOf","params":{},"message":"must match a schema in anyOf"}]
+    
+    false !== true
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  actual: false
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///private/tmp/vitae-wi072-provision/.a5c/worktrees/wi-072/doc-packs/vitae-sdlc/test/legacy-backlog-metadata.test.mjs:73:14)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async startSubtestAfterBootstrap (node:internal/test_runner/harness:296:3)
+  ...
+# Subtest: WI-072 empty dependency list: authoritative baseline red, repository green
+ok 3 - WI-072 empty dependency list: authoritative baseline red, repository green
+  ---
+  duration_ms: 0.8135
+  type: 'test'
+  ...
+# Subtest: WI-072 malformed supporting references: authoritative baseline red, repository green
+ok 4 - WI-072 malformed supporting references: authoritative baseline red, repository green
+  ---
+  duration_ms: 3.288708
+  type: 'test'
+  ...
+# Subtest: WI-072 record subtype extension: authoritative baseline red, repository green
+ok 5 - WI-072 record subtype extension: authoritative baseline red, repository green
+  ---
+  duration_ms: 0.242542
+  type: 'test'
+  ...
+# Subtest: WI-072 closed status reason compatibility: authoritative baseline red, repository green
+not ok 6 - WI-072 closed status reason compatibility: authoritative baseline red, repository green
+  ---
+  duration_ms: 0.281459
+  type: 'test'
+  location: '/private/tmp/vitae-wi072-provision/.a5c/worktrees/wi-072/doc-packs/vitae-sdlc/test/legacy-backlog-metadata.test.mjs:66:3'
+  failureType: 'testCodeFailure'
+  error: |-
+    backlog/028-define-temporal-execution-boundary-and-threat-model.md: [{"instancePath":"/status_reason","schemaPath":"#/allOf/1/anyOf/0/allOf/4/then/properties/status_reason/enum","keyword":"enum","params":{"allowedValues":["completed","obsolete","superseded","redundant","cancelled"]},"message":"must be equal to one of the allowed values"},{"instancePath":"","schemaPath":"#/allOf/1/anyOf/0/allOf/4/if","keyword":"if","params":{"failingKeyword":"then"},"message":"must match \"then\" schema"},{"instancePath":"/lifecycle","schemaPath":"#/allOf/1/anyOf/1/properties/lifecycle/const","keyword":"const","params":{"allowedValue":"draft"},"message":"must be equal to constant"},{"instancePath":"/status","schemaPath":"#/allOf/1/anyOf/1/properties/status/enum","keyword":"enum","params":{"allowedValues":["draft","aborted"]},"message":"must be equal to one of the allowed values"},{"instancePath":"/status","schemaPath":"#/allOf/1/anyOf/2/properties/status/enum","keyword":"enum","params":{"allowedValues":["ready","running","paused","completed","aborted"]},"message":"must be equal to one of the allowed values"},{"instancePath":"/lifecycle","schemaPath":"#/allOf/1/anyOf/3/properties/lifecycle/const","keyword":"const","params":{"allowedValue":"evergreen"},"message":"must be equal to constant"},{"instancePath":"/status","schemaPath":"#/allOf/1/anyOf/3/properties/status/enum","keyword":"enum","params":{"allowedValues":["ready","running","paused","completed","aborted"]},"message":"must be equal to one of the allowed values"},{"instancePath":"/lifecycle","schemaPath":"#/allOf/1/anyOf/4/properties/lifecycle/const","keyword":"const","params":{"allowedValue":"inactive"},"message":"must be equal to constant"},{"instancePath":"/status","schemaPath":"#/allOf/1/anyOf/4/properties/status/enum","keyword":"enum","params":{"allowedValues":["completed","aborted"]},"message":"must be equal to one of the allowed values"},{"instancePath":"","schemaPath":"#/allOf/1/anyOf","keyword":"anyOf","params":{},"message":"must match a schema in anyOf"}]
+    
+    false !== true
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  actual: false
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///private/tmp/vitae-wi072-provision/.a5c/worktrees/wi-072/doc-packs/vitae-sdlc/test/legacy-backlog-metadata.test.mjs:73:14)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: WI-072 all 59 actual baseline files conform; authority is not skipped
+not ok 7 - WI-072 all 59 actual baseline files conform; authority is not skipped
+  ---
+  duration_ms: 0.739833
+  type: 'test'
+  location: '/private/tmp/vitae-wi072-provision/.a5c/worktrees/wi-072/doc-packs/vitae-sdlc/test/legacy-backlog-metadata.test.mjs:77:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    backlog/028-define-temporal-execution-boundary-and-threat-model.md: [{"instancePath":"/status_reason","schemaPath":"#/allOf/1/anyOf/0/allOf/4/then/properties/status_reason/enum","keyword":"enum","params":{"allowedValues":["completed","obsolete","superseded","redundant","cancelled"]},"message":"must be equal to one of the allowed values"},{"instancePath":"","schemaPath":"#/allOf/1/anyOf/0/allOf/4/if","keyword":"if","params":{"failingKeyword":"then"},"message":"must match \"then\" schema"},{"instancePath":"/lifecycle","schemaPath":"#/allOf/1/anyOf/1/properties/lifecycle/const","keyword":"const","params":{"allowedValue":"draft"},"message":"must be equal to constant"},{"instancePath":"/status","schemaPath":"#/allOf/1/anyOf/1/properties/status/enum","keyword":"enum","params":{"allowedValues":["draft","aborted"]},"message":"must be equal to one of the allowed values"},{"instancePath":"/status","schemaPath":"#/allOf/1/anyOf/2/properties/status/enum","keyword":"enum","params":{"allowedValues":["ready","running","paused","completed","aborted"]},"message":"must be equal to one of the allowed values"},{"instancePath":"/lifecycle","schemaPath":"#/allOf/1/anyOf/3/properties/lifecycle/const","keyword":"const","params":{"allowedValue":"evergreen"},"message":"must be equal to constant"},{"instancePath":"/status","schemaPath":"#/allOf/1/anyOf/3/properties/status/enum","keyword":"enum","params":{"allowedValues":["ready","running","paused","completed","aborted"]},"message":"must be equal to one of the allowed values"},{"instancePath":"/lifecycle","schemaPath":"#/allOf/1/anyOf/4/properties/lifecycle/const","keyword":"const","params":{"allowedValue":"inactive"},"message":"must be equal to constant"},{"instancePath":"/status","schemaPath":"#/allOf/1/anyOf/4/properties/status/enum","keyword":"enum","params":{"allowedValues":["completed","aborted"]},"message":"must be equal to one of the allowed values"},{"instancePath":"","schemaPath":"#/allOf/1/anyOf","keyword":"anyOf","params":{},"message":"must match a schema in anyOf"}]
+    
+    false !== true
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  actual: false
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///private/tmp/vitae-wi072-provision/.a5c/worktrees/wi-072/doc-packs/vitae-sdlc/test/legacy-backlog-metadata.test.mjs:81:12)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: WI-072 historical bodies, facts, valid effort and relationships are preserved
+not ok 8 - WI-072 historical bodies, facts, valid effort and relationships are preserved
+  ---
+  duration_ms: 4.137958
+  type: 'test'
+  location: '/private/tmp/vitae-wi072-provision/.a5c/worktrees/wi-072/doc-packs/vitae-sdlc/test/legacy-backlog-metadata.test.mjs:85:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    backlog/048-refresh-p0-source-of-truth-docs.md: preserve reference
+    + actual - expected
+    
+      [
+        '[[../docs/wayfinder/vitae-mvp-map]]',
+        '[[../docs/uat-readiness]]',
+        '[[../research]]',
+    +   '[[047-complete-p0-reconciliation]]'
+      ]
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected:
+    0: '[[../docs/wayfinder/vitae-mvp-map]]'
+    1: '[[../docs/uat-readiness]]'
+    2: '[[../research]]'
+  actual:
+    0: '[[../docs/wayfinder/vitae-mvp-map]]'
+    1: '[[../docs/uat-readiness]]'
+    2: '[[../research]]'
+    3: '[[047-complete-p0-reconciliation]]'
+  operator: 'deepStrictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///private/tmp/vitae-wi072-provision/.a5c/worktrees/wi-072/doc-packs/vitae-sdlc/test/legacy-backlog-metadata.test.mjs:113:40)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+1..8
+# tests 8
+# suites 0
+# pass 4
+# fail 4
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 178.803709
