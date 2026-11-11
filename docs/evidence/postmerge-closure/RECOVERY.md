@@ -23,3 +23,9 @@ DV TTR's safe preflight reports `missing` for the original WI069 receipt in BOTH
 - Publisher-select WI070 in a dedicated worktree/run, then genuine full desktop/390/480 pointer/keyboard/focus, two-application lifecycle, network-isolation and Figma comparison acceptance.
 - Archive remains separately deferred: finalize still unconditionally requires numeric actual contrary to the user-authorized optional-effort schema. Do not invent effort or bypass provider/lock gates.
 - Preserve sealed WI068, all source refs/journals, unrelated local artifacts and stash. WI050/WI057 live UAT remain HITL.
+
+## Superseding verified recovery — 2026-11-11
+
+The loader is installed at de10e6d; `resolved/` preserves the exact published-base/closure comparison showing zero added diagnostics and 59 historical violations. TTR cleared the narrow loader WAIT. The user then separately authorized WI072 metadata normalization to eliminate the historical baseline rather than grandfather it. Independently reviewed repair preserves all 59 historical bodies and produces a real zero-error global audit, now stored at `backlog/audit/auditing-backlog-report.json`. The old 86-error snapshot remains at `pre-records-audit.json`; original delta path meanings reflect their recording time and are not rewritten.
+
+At source3370356, clean pinned setup, 22 doc-pack tests, 27 draft tests/build, unmodified root check, unmodified pilot rehearsal and unmodified backlog validation all passed with the documented external authority environment. Independent exact-source review approved the immutable proof and explicit-map wrapper; receipts are in `docs/evidence/wi-072/`. PR22 carries repair and PR20-backed closure evidence. Provider review/CI/merge, delivery-effect completion and full independent WI070 acceptance remain pending; this is not a full-scope completion claim. Missing claim remains a nonblocking no-op. Archive remains separately deferred.
