@@ -28,7 +28,9 @@ test('rehearsal verifies the documented synthetic demo contract', () => {
 
   assert.match(scripts['pilot:rehearse'], /test:release/);
   assert.match(scripts['pilot:rehearse'], /validate:backlog/);
-  assert.match(scripts['validate:backlog'], /^dv backlog validate/);
+  assert.equal(scripts['validate:backlog'], 'node scripts/validate-backlog.mjs');
+  assert.match(read('scripts/validate-backlog.mjs'), /--schema-map/);
+  assert.match(read('scripts/validate-backlog.mjs'), /--profile', 'ci'/);
   assert.match(read('docs/uat-readiness.md'), /\/api\/v1\/mvp\/application-loop\/demo/);
   assert.match(read('backend/src/api/router/v1/mvp.py'), /@router\.get\("\/mvp\/application-loop\/demo"/);
   const workflow = read('.github/workflows/validation.yml');

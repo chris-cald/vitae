@@ -130,6 +130,20 @@ npm run pilot:rehearse
 
 These gates are pre-UAT evidence only. They do not provide live provider, browser, or Temporal evidence required by WI-057; use `docs/uat-readiness.md` with local credentials and sanitized fixtures for that work. Never put credentials or candidate material in CI.
 
+### Doc-Vader authority bootstrap
+
+`npm run validate:backlog` requires the installed Doc-Vader authority and an explicit schema directory. It does **not** rely on Doc-Vader reading this environment variable itself: the repository wrapper validates the directory, derives its sibling `frontmatter/schema-map.json`, and passes that map explicitly to `dv backlog validate --profile ci --format json --fail-on error`.
+
+```sh
+# Point to the externally installed Doc-Vader runtime; this repository does not vendor it.
+export DV_WORK_MANAGEMENT_SCHEMA_DIR=/absolute/path/to/doc-vader-runtime/schemas/work-management
+# Put the matching external `dv` launcher on PATH.
+export PATH=/absolute/path/to/doc-vader-bin:$PATH
+npm run validate:backlog
+```
+
+The currently approved external runtime revision is `de10e6d1531b5943d46cf1291a8e00fb4f1d75a3`. The wrapper fails closed when the authority directory, derived schema map, or `dv` launcher is unavailable.
+
 ## Standards and invariants
 
 - Prefer TDD for code changes: add/update a focused failing test, implement the smallest fix, then refactor.
