@@ -5,8 +5,8 @@ summary: Repair the 59-file historical schema baseline with factual metadata-onl
 type: work-item
 subtype: bug
 lifecycle: active
-status: ready
-status_reason: prioritized
+status: running
+status_reason: implementation
 priority: critical
 links:
   reference:
