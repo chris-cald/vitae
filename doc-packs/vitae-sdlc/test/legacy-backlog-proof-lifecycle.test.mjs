@@ -18,7 +18,9 @@ function fixture(t) {
   return root;
 }
 function run(root) {
-  return spawnSync(process.execPath, ['--test', path.join(root, suite)], { encoding: 'utf8' });
+  const env = { ...process.env };
+  delete env.NODE_TEST_CONTEXT;
+  return spawnSync(process.execPath, ['--test', path.join(root, suite)], { encoding: 'utf8', env });
 }
 function update(root, file, transform) {
   const target = path.join(root, 'backlog', file);
@@ -46,6 +48,15 @@ test('WI-072 current schema validation still rejects invalid later metadata', t 
   const root = fixture(t);
   update(root, '050-deliver-job-search-application-funnel-slice.md', source => source.replace('estimated: 8', 'estimated: invalid'));
   const result = run(root);
-  assert.notEqual(result.status, 0);
+  assert.notEqual(result.status, 0, result.stdout + result.stderr);
   assert.match(result.stdout, /must be number/);
+});
+
+test('WI-072 immutable repair snapshot rejects tampering', t => {
+  const root = fixture(t);
+  const snapshot = path.join(root, 'docs/evidence/wi-072/repair-snapshot.json');
+  writeFileSync(snapshot, readFileSync(snapshot, 'utf8').replace('1ca2cc0936c0aae1dc3f50a6b9ae0200712d7453', '0000000000000000000000000000000000000000'));
+  const result = run(root);
+  assert.notEqual(result.status, 0);
+  assert.match(result.stdout, /repair snapshot digest/);
 });

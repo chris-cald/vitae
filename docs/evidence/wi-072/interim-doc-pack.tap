@@ -48,9 +48,9 @@ not ok 7 - WI-072 unknown relationship keys: authoritative baseline red, reposit
   failureType: 'testCodeFailure'
   error: |-
     backlog/028-define-temporal-execution-boundary-and-threat-model.md: [{"instancePath":"/status_reason","schemaPath":"#/allOf/1/anyOf/0/allOf/4/then/properties/status_reason/enum","keyword":"enum","params":{"allowedValues":["completed","obsolete","superseded","redundant","cancelled"]},"message":"must be equal to one of the allowed values"},{"instancePath":"","schemaPath":"#/allOf/1/anyOf/0/allOf/4/if","keyword":"if","params":{"failingKeyword":"then"},"message":"must match \"then\" schema"},{"instancePath":"/lifecycle","schemaPath":"#/allOf/1/anyOf/1/properties/lifecycle/const","keyword":"const","params":{"allowedValue":"draft"},"message":"must be equal to constant"},{"instancePath":"/status","schemaPath":"#/allOf/1/anyOf/1/properties/status/enum","keyword":"enum","params":{"allowedValues":["draft","aborted"]},"message":"must be equal to one of the allowed values"},{"instancePath":"/status","schemaPath":"#/allOf/1/anyOf/2/properties/status/enum","keyword":"enum","params":{"allowedValues":["ready","running","paused","completed","aborted"]},"message":"must be equal to one of the allowed values"},{"instancePath":"/lifecycle","schemaPath":"#/allOf/1/anyOf/3/properties/lifecycle/const","keyword":"const","params":{"allowedValue":"evergreen"},"message":"must be equal to constant"},{"instancePath":"/status","schemaPath":"#/allOf/1/anyOf/3/properties/status/enum","keyword":"enum","params":{"allowedValues":["ready","running","paused","completed","aborted"]},"message":"must be equal to one of the allowed values"},{"instancePath":"/lifecycle","schemaPath":"#/allOf/1/anyOf/4/properties/lifecycle/const","keyword":"const","params":{"allowedValue":"inactive"},"message":"must be equal to constant"},{"instancePath":"/status","schemaPath":"#/allOf/1/anyOf/4/properties/status/enum","keyword":"enum","params":{"allowedValues":["completed","aborted"]},"message":"must be equal to one of the allowed values"},{"instancePath":"","schemaPath":"#/allOf/1/anyOf","keyword":"anyOf","params":{},"message":"must match a schema in anyOf"}]
-    
+
     false !== true
-    
+
   code: 'ERR_ASSERTION'
   name: 'AssertionError'
   expected: true
@@ -92,9 +92,9 @@ not ok 11 - WI-072 closed status reason compatibility: authoritative baseline re
   failureType: 'testCodeFailure'
   error: |-
     backlog/028-define-temporal-execution-boundary-and-threat-model.md: [{"instancePath":"/status_reason","schemaPath":"#/allOf/1/anyOf/0/allOf/4/then/properties/status_reason/enum","keyword":"enum","params":{"allowedValues":["completed","obsolete","superseded","redundant","cancelled"]},"message":"must be equal to one of the allowed values"},{"instancePath":"","schemaPath":"#/allOf/1/anyOf/0/allOf/4/if","keyword":"if","params":{"failingKeyword":"then"},"message":"must match \"then\" schema"},{"instancePath":"/lifecycle","schemaPath":"#/allOf/1/anyOf/1/properties/lifecycle/const","keyword":"const","params":{"allowedValue":"draft"},"message":"must be equal to constant"},{"instancePath":"/status","schemaPath":"#/allOf/1/anyOf/1/properties/status/enum","keyword":"enum","params":{"allowedValues":["draft","aborted"]},"message":"must be equal to one of the allowed values"},{"instancePath":"/status","schemaPath":"#/allOf/1/anyOf/2/properties/status/enum","keyword":"enum","params":{"allowedValues":["ready","running","paused","completed","aborted"]},"message":"must be equal to one of the allowed values"},{"instancePath":"/lifecycle","schemaPath":"#/allOf/1/anyOf/3/properties/lifecycle/const","keyword":"const","params":{"allowedValue":"evergreen"},"message":"must be equal to constant"},{"instancePath":"/status","schemaPath":"#/allOf/1/anyOf/3/properties/status/enum","keyword":"enum","params":{"allowedValues":["ready","running","paused","completed","aborted"]},"message":"must be equal to one of the allowed values"},{"instancePath":"/lifecycle","schemaPath":"#/allOf/1/anyOf/4/properties/lifecycle/const","keyword":"const","params":{"allowedValue":"inactive"},"message":"must be equal to constant"},{"instancePath":"/status","schemaPath":"#/allOf/1/anyOf/4/properties/status/enum","keyword":"enum","params":{"allowedValues":["completed","aborted"]},"message":"must be equal to one of the allowed values"},{"instancePath":"","schemaPath":"#/allOf/1/anyOf","keyword":"anyOf","params":{},"message":"must match a schema in anyOf"}]
-    
+
     false !== true
-    
+
   code: 'ERR_ASSERTION'
   name: 'AssertionError'
   expected: true
@@ -118,9 +118,9 @@ not ok 12 - WI-072 all 59 actual baseline files conform; authority is not skippe
   failureType: 'testCodeFailure'
   error: |-
     backlog/028-define-temporal-execution-boundary-and-threat-model.md: [{"instancePath":"/status_reason","schemaPath":"#/allOf/1/anyOf/0/allOf/4/then/properties/status_reason/enum","keyword":"enum","params":{"allowedValues":["completed","obsolete","superseded","redundant","cancelled"]},"message":"must be equal to one of the allowed values"},{"instancePath":"","schemaPath":"#/allOf/1/anyOf/0/allOf/4/if","keyword":"if","params":{"failingKeyword":"then"},"message":"must match \"then\" schema"},{"instancePath":"/lifecycle","schemaPath":"#/allOf/1/anyOf/1/properties/lifecycle/const","keyword":"const","params":{"allowedValue":"draft"},"message":"must be equal to constant"},{"instancePath":"/status","schemaPath":"#/allOf/1/anyOf/1/properties/status/enum","keyword":"enum","params":{"allowedValues":["draft","aborted"]},"message":"must be equal to one of the allowed values"},{"instancePath":"/status","schemaPath":"#/allOf/1/anyOf/2/properties/status/enum","keyword":"enum","params":{"allowedValues":["ready","running","paused","completed","aborted"]},"message":"must be equal to one of the allowed values"},{"instancePath":"/lifecycle","schemaPath":"#/allOf/1/anyOf/3/properties/lifecycle/const","keyword":"const","params":{"allowedValue":"evergreen"},"message":"must be equal to constant"},{"instancePath":"/status","schemaPath":"#/allOf/1/anyOf/3/properties/status/enum","keyword":"enum","params":{"allowedValues":["ready","running","paused","completed","aborted"]},"message":"must be equal to one of the allowed values"},{"instancePath":"/lifecycle","schemaPath":"#/allOf/1/anyOf/4/properties/lifecycle/const","keyword":"const","params":{"allowedValue":"inactive"},"message":"must be equal to constant"},{"instancePath":"/status","schemaPath":"#/allOf/1/anyOf/4/properties/status/enum","keyword":"enum","params":{"allowedValues":["completed","aborted"]},"message":"must be equal to one of the allowed values"},{"instancePath":"","schemaPath":"#/allOf/1/anyOf","keyword":"anyOf","params":{},"message":"must match a schema in anyOf"}]
-    
+
     false !== true
-    
+
   code: 'ERR_ASSERTION'
   name: 'AssertionError'
   expected: true
