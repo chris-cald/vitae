@@ -41,3 +41,9 @@ Parent retains review, publication, closure, integration and cleanup authority. 
 - Interim evidence is retained: after mechanical repairs, global violations were exactly the two closed-status reasons; doc-pack 14/17 passed. No green assertion was made until their explicit adjudication.
 - All tracked backlog Markdown body hashes match the original manifest; files outside the 59-file baseline are unchanged, including WI-069/070/071/072 and the clean records. No product source, runtime, schemas, lockfiles, or workflow policy changed.
 - `git diff --check` passes. Parent must still run explicit draft validation, root `npm run check`, clean-checkout `npm run pilot:rehearse`, independent review and remaining publication/closure/integration gates. No push, publication, merge, or work-item closure performed.
+
+## Validation-wrapper follow-up
+
+The root `validate:backlog` script now delegates to a portable Node standard-library wrapper. It requires `DV_WORK_MANAGEMENT_SCHEMA_DIR`, validates that directory and its derived sibling `frontmatter/schema-map.json`, and then invokes the external `dv` launcher with the explicit CI map/profile/JSON/fail-on-error arguments. It does not claim that the environment variable configures the Doc-Vader CLI.
+
+The wrapper subprocess fixture originally signaled its parent while retaining an interval, which could leave the focused test job waiting on inherited streams. The corrected fixture self-terminates with `SIGTERM`; this still proves the wrapper preserves a child signal without leaving a child process alive. Its real-subprocess coverage also exercises spaces in `PATH`, absent authority, malformed map, unavailable CLI, and nonzero exit propagation.
