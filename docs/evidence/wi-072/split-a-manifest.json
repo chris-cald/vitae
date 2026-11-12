@@ -136,7 +136,61 @@
     "broader_release_test": "not run to completion: frontend dependencies absent (@eslint/js); root setup/pilot delegated to parent"
   },
   "report_sha256": {
-    "split-a-validation.log": "9928ed462cc63fd2e469482b86b3ed1d4da05f89a2121c80cc89a15f259b3abe",
-    "split-a-diff-check.log": "382d93d385e2693b051cbb4246c2ef55cc761382e129ae50e667552d13a87184"
+    "split-a-validation.log": "dd20ad6309b1b20cea4d93f8833619c6eafabfad07815c0e822488259330901b",
+    "split-a-diff-check.log": "a0301e04615e717fefcebdba65507923be0e0afb7b8eeb5a9cff7b5781e0aa02"
+  },
+  "artifact_subdivision": {
+    "purpose": "Readable lossless transport for the two provider-skipped evidence payloads; historical content remains reconstructable from exact chunks.",
+    "canonical_source_commit": "e7b84ddf3521cc66506ea4cf17f3921fb2abdc23",
+    "changes": {
+      "format": "wi-072-chunked-evidence-v1",
+      "canonical_sha256": "29145b86579349d341c69fda4e341b913609e279c39d00a1822fac1fd74fe02c",
+      "canonical_bytes": 106458,
+      "record_count": 59,
+      "chunks": [
+        {
+          "file": "changes.part-001.json",
+          "position": 1,
+          "count": 29,
+          "sha256": "4e77e9cd49635408cd9e26a754b93e3541ebd2276a747183aa3094237fa7d771"
+        },
+        {
+          "file": "changes.part-002.json",
+          "position": 2,
+          "count": 30,
+          "sha256": "88600adfcbaab90fb38cd01d08487e112e2b3420e2ce63271f742514e17091d4"
+        }
+      ]
+    },
+    "repair_snapshot": {
+      "repair_commit": "1ca2cc0936c0aae1dc3f50a6b9ae0200712d7453",
+      "repair_tree": "5eb648200b9173ded2c9348b3053e252ad006d20",
+      "original_manifest_sha256": "0a0362c33d164ce28d18174a86028c9e96a8aafeff5a2b4b794b780222f80444",
+      "generation": "Frozen from git object 1ca2cc0, never from the live backlog.",
+      "format": "wi-072-chunked-evidence-v1",
+      "canonical_sha256": "2e4c1fbfeef48c7cba3c2de8d4c9658d6ccbaeac51ef14b336228b7e91844b91",
+      "canonical_bytes": 155723,
+      "record_count": 59,
+      "chunks": [
+        {
+          "file": "repair-snapshot.part-001.json",
+          "position": 1,
+          "count": 19,
+          "sha256": "328bf9a46737908d91e88ea62e9d5dca99adfb6951327a3c5fd1d1165fb38826"
+        },
+        {
+          "file": "repair-snapshot.part-002.json",
+          "position": 2,
+          "count": 20,
+          "sha256": "426698217ccd553620ece271467f959b490b5e86c0d9ee0b0841066ba9e7e0e4"
+        },
+        {
+          "file": "repair-snapshot.part-003.json",
+          "position": 3,
+          "count": 20,
+          "sha256": "63653b10144eb9609d50666d3f541e664cdef728d968b5c5bc4b97d709bee13f"
+        }
+      ]
+    }
   }
 }

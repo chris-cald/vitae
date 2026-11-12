@@ -5,3 +5,84 @@ $ exact-source-object comparison for 87 A paths other than permitted README prov
 SOURCE_OBJECT_MISMATCHES=0
 $ git diff --name-only d422e0c (source partition before fresh receipts)
 SOURCE_A_PATHS=88; DEFERRED_B_PATHS=20; SOURCE_UNION=108; OVERLAP=0
+
+# Artifact subdivision range-diff
+$ git range-diff d422e0c...e7b84dd d422e0c...HEAD
+ 1:  ab946a4 <  -:  ------- test: make resume upload integration deterministic
+ 2:  e01878e <  -:  ------- docs: close wi-061 validation repair
+ 3:  34ce9da <  -:  ------- feat: add interactive Figma-based frontend draft
+ 4:  0fc3073 <  -:  ------- docs: close wi-060 frontend draft
+ 5:  a13f8b2 <  -:  ------- feat: separate today from applications
+ 6:  c5faf67 <  -:  ------- docs: close wi-062 today applications rework
+ 7:  0a8ea57 <  -:  ------- feat: make sources and evidence actionable
+ 8:  42daabf <  -:  ------- docs: record wi-067 validation evidence
+ 9:  6fd8eba <  -:  ------- docs: verify wi-067 acceptance criteria
+10:  d14cb9f <  -:  ------- fix: retain source evidence usage across views
+11:  cde84cf <  -:  ------- docs: record wi-067 persistence validation
+12:  c77d328 <  -:  ------- docs: record wi-067 independent review
+13:  3203184 <  -:  ------- docs: close wi-067 sources and evidence
+14:  064cad6 <  -:  ------- Complete WI-058 source integration repair
+15:  01edf8e <  -:  ------- Record WI-058 source integration validation
+16:  0be2af3 <  -:  ------- Complete WI-058 delivery repair
+17:  341af6c <  -:  ------- refactor(frontend-draft): simplify source ledger
+18:  7419c7c <  -:  ------- feat(frontend-draft): wire mock interactions
+19:  87e859a <  -:  ------- test(frontend-draft): cover mock action controls
+20:  2860f6a <  -:  ------- docs: record WI-063 mock interaction validation
+21:  44ed745 <  -:  ------- docs: complete WI-063 interaction delivery
+22:  ffc529a <  -:  ------- docs: add WI-064 live integration test gate
+23:  9254afb <  -:  ------- test: make live integration tests opt-in
+24:  561bf93 <  -:  ------- docs: complete WI-064 live integration validation
+25:  e0ce50a <  -:  ------- fix(backlog): resolve WI-064 identifier collision
+26:  f01ef69 <  -:  ------- docs(backlog): provision WI-068 catalog development board
+27:  c33cf33 <  -:  ------- feat(draft): add reviewed Catalog Development lifecycle mock
+28:  f073aab <  -:  ------- docs(wi-068): record reviewed local completion and validation
+29:  59c63f0 <  -:  ------- docs(backlog): scope independent dual-flow validation WI-070
+30:  8d5ac23 <  -:  ------- docs(backlog): scope connected mock dual lifecycles WI-069
+31:  8157337 <  -:  ------- docs: provision WI-070 independent mock lifecycle validation
+32:  715f869 <  -:  ------- test(wi-069): specify connected mock lifecycle gates red first
+33:  604a031 <  -:  ------- fix(wi-069): normalize authorized ready reason to prioritized
+34:  8e07298 <  -:  ------- docs(wi-069): start authorized implementation after metadata repair
+35:  c85cdb3 <  -:  ------- fix(wi-070): normalize authorized ready reason to prioritized
+36:  b96526d <  -:  ------- fix(wi-069): preserve parent context through canonical reference
+37:  ffb947d <  -:  ------- fix(wi-070): preserve parent context through canonical reference
+38:  8ffc9c1 <  -:  ------- feat(wi-069): connect synthetic application and catalog lifecycles
+39:  20b7f9c <  -:  ------- docs(wi-069): record pinned root gate dependency blocker
+40:  b454214 <  -:  ------- test(wi-069): reproduce four independent review failures
+41:  557ddb5 <  -:  ------- fix(wi-069): enforce current grounding and complete bundle readiness
+42:  a016fca <  -:  ------- docs(wi-069): preserve independent approval and clean rehearsal evidence
+43:  3098576 <  -:  ------- docs(wi-069): retain reviewed evidence and record publication authorization
+44:  551714e <  -:  ------- docs(wi-071): provision isolated prerequisite test-safety fix
+45:  7c6f1ba <  -:  ------- test(wi-071): isolate backend database and upload resources
+46:  e7f90af <  -:  ------- test(wi-071): initialize isolated job fallback test database
+47:  f173291 <  -:  ------- docs(wi-071): record clean rehearsal and final validation
+48:  7fa8e62 <  -:  ------- docs: preserve PR21 evidence for authorized delivery consolidation
+49:  b4a5c12 <  -:  ------- docs: record provider-recognized PR21 branch consolidation
+50:  5560ff8 <  -:  ------- fix(wi-069): bound mobile browser runs and surface spawn errors
+51:  5558482 <  -:  ------- fix(wi-069): expose live Sources support links and application usage
+52:  cba1196 <  -:  ------- test(wi-069): verify optional effort against authoritative DV schemas
+53:  f86d079 <  -:  ------- docs(wi-069): omit optional effort for three authorized work items
+54:  0800ebe <  -:  ------- docs(wi-069): preserve identical clean-base effort validation delta
+55:  57bb93b <  -:  ------- test(wi-069): reproduce Catalog keyboard focus loss before revision save
+56:  058c462 <  -:  ------- fix(wi-069): keep Catalog edits local until explicit revision save
+57:  8c288fd <  -:  ------- docs(wi-069): close provider-merged implementation with truthful audit evidence
+58:  5fa6d98 <  -:  ------- docs(wi-071): close provider-merged test safety with independent evidence
+59:  ce36633 <  -:  ------- docs: preserve blocked postmerge closure diagnostics and recovery state
+60:  f15bb64 <  -:  ------- docs: clarify verified narrow loader wait and missing-claim no-op
+61:  0005aa7 <  -:  ------- docs(wi-069): correct claim no-op and closure audit scope explicitly
+62:  98e144c <  -:  ------- docs(wi-071): scope historical audit comparison and clarify test counts
+63:  eaa86be <  -:  ------- docs(wi-069): record installed resolver scoped closure clearance
+64:  c08ec3e <  -:  ------- docs(wi-072): track authorized historical metadata normalization
+65:  1d64b62 <  -:  ------- docs(wi-072): begin publisher-selected metadata repair
+66:  f4696a3 <  -:  ------- test(wi-072): reproduce historical metadata failures against installed schemas
+67:  1ca2cc0 <  -:  ------- fix(wi-072): normalize only invalid historical backlog metadata
+68:  81fdc57 <  -:  ------- docs(wi-072): identify direct-session reason normalization decision
+69:  3d8e638 <  -:  ------- test(wi-072): expose historical proof freezing later backlog progress
+70:  ec63e81 <  -:  ------- test(wi-072): freeze metadata repair proof
+71:  2fcab95 <  -:  ------- test: define Doc-Vader validation wrapper contract
+72:  3370356 <  -:  ------- fix: validate backlog with explicit Doc-Vader map
+73:  be68d3a <  -:  ------- docs(wi-072): record validation wrapper fixture correction
+74:  e7b84dd <  -:  ------- docs: preserve real zero-error audit and clean scoped delivery gates
+ -:  ------- >  1:  d9043e0 docs: publish WI-072 repair split A
+ -:  ------- >  2:  53fd29b docs(wi-072): correct baseline counts and explain preserved relationship prose
+ -:  ------- >  3:  b160bfb test: specify WI-072 chunked evidence reconstruction
+RANGE_DIFF_EXIT=0

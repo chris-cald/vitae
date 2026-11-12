@@ -10,7 +10,7 @@ const suite = 'doc-packs/vitae-sdlc/test/legacy-backlog-metadata.test.mjs';
 function fixture(t) {
   const root = mkdtempSync(path.join(tmpdir(), 'wi072-proof-'));
   t.after(() => rmSync(root, { recursive: true, force: true }));
-  for (const name of ['backlog', 'docs/evidence/wi-072', suite]) {
+  for (const name of ['backlog', 'docs/evidence/wi-072', suite, 'doc-packs/vitae-sdlc/test/wi-072-evidence-loader.mjs']) {
     mkdirSync(path.dirname(path.join(root, name)), { recursive: true });
     cpSync(path.join(repo, name), path.join(root, name), { recursive: true });
   }
@@ -58,5 +58,5 @@ test('WI-072 immutable repair snapshot rejects tampering', t => {
   writeFileSync(snapshot, readFileSync(snapshot, 'utf8').replace('1ca2cc0936c0aae1dc3f50a6b9ae0200712d7453', '0000000000000000000000000000000000000000'));
   const result = run(root);
   assert.notEqual(result.status, 0);
-  assert.match(result.stdout, /repair snapshot digest/);
+  assert.match(result.stdout, /repair-snapshot\.json: canonical payload hash mismatch/);
 });

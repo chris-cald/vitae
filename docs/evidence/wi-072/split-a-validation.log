@@ -379,3 +379,286 @@ not ok 4 - test/release-validation.test.mjs
 # duration_ms 912.328916
 
 FOCUSED_EXIT=1
+
+## Provider-readable artifact subdivision gate
+$ node --test doc-packs/vitae-sdlc/test/*.test.mjs test/backlog-validation.test.mjs
+$ node --test doc-packs/vitae-sdlc/test/*.test.mjs test/backlog-validation.test.mjs
+TAP version 13
+# Subtest: pack uses a pinned Doc-Vader schema bundle instead of a sibling checkout
+ok 1 - pack uses a pinned Doc-Vader schema bundle instead of a sibling checkout
+  ---
+  duration_ms: 0.581
+  type: 'test'
+  ...
+# Subtest: Vitae SDLC document type pack manifest conforms to Doc-Vader pack schema
+ok 2 - Vitae SDLC document type pack manifest conforms to Doc-Vader pack schema
+  ---
+  duration_ms: 41.644042
+  type: 'test'
+  ...
+# Subtest: pack metadata schemas validate routed ADR and PRD template frontmatter
+ok 3 - pack metadata schemas validate routed ADR and PRD template frontmatter
+  ---
+  duration_ms: 28.227125
+  type: 'test'
+  ...
+# Subtest: pack metadata schemas reject cross-routed or unrouted document metadata
+ok 4 - pack metadata schemas reject cross-routed or unrouted document metadata
+  ---
+  duration_ms: 19.071083
+  type: 'test'
+  ...
+# Subtest: pack content schemas validate their examples and reject missing core body content
+ok 5 - pack content schemas validate their examples and reject missing core body content
+  ---
+  duration_ms: 18.84475
+  type: 'test'
+  ...
+# Subtest: WI-072 chunked evidence reconstructs the exact immutable source payloads
+ok 6 - WI-072 chunked evidence reconstructs the exact immutable source payloads
+  ---
+  duration_ms: 49.091667
+  type: 'test'
+  ...
+# Subtest: WI-072 chunked evidence fails closed for tampering, missing chunks, and reordered chunks
+ok 7 - WI-072 chunked evidence fails closed for tampering, missing chunks, and reordered chunks
+  ---
+  duration_ms: 25.290708
+  type: 'test'
+  ...
+# Subtest: WI-072 missing actual conditional: authoritative original red and frozen repair green
+ok 8 - WI-072 missing actual conditional: authoritative original red and frozen repair green
+  ---
+  duration_ms: 6.017792
+  type: 'test'
+  ...
+# Subtest: WI-072 unknown relationship keys: authoritative original red and frozen repair green
+ok 9 - WI-072 unknown relationship keys: authoritative original red and frozen repair green
+  ---
+  duration_ms: 1.36975
+  type: 'test'
+  ...
+# Subtest: WI-072 empty dependency list: authoritative original red and frozen repair green
+ok 10 - WI-072 empty dependency list: authoritative original red and frozen repair green
+  ---
+  duration_ms: 0.194791
+  type: 'test'
+  ...
+# Subtest: WI-072 malformed supporting references: authoritative original red and frozen repair green
+ok 11 - WI-072 malformed supporting references: authoritative original red and frozen repair green
+  ---
+  duration_ms: 2.717792
+  type: 'test'
+  ...
+# Subtest: WI-072 record subtype extension: authoritative original red and frozen repair green
+ok 12 - WI-072 record subtype extension: authoritative original red and frozen repair green
+  ---
+  duration_ms: 0.117292
+  type: 'test'
+  ...
+# Subtest: WI-072 closed status reason compatibility: authoritative original red and frozen repair green
+ok 13 - WI-072 closed status reason compatibility: authoritative original red and frozen repair green
+  ---
+  duration_ms: 0.110708
+  type: 'test'
+  ...
+# Subtest: WI-072 immutable repair snapshot is exactly the 1ca2cc0 59-file repair
+ok 14 - WI-072 immutable repair snapshot is exactly the 1ca2cc0 59-file repair
+  ---
+  duration_ms: 1.2235
+  type: 'test'
+  ...
+# Subtest: WI-072 frozen proof preserves bodies, facts, valid effort, relationships, and original labels
+ok 15 - WI-072 frozen proof preserves bodies, facts, valid effort, relationships, and original labels
+  ---
+  duration_ms: 0.892625
+  type: 'test'
+  ...
+# Subtest: WI-072 frozen field report accounts for every original-to-repair metadata change
+ok 16 - WI-072 frozen field report accounts for every original-to-repair metadata change
+  ---
+  duration_ms: 1.884458
+  type: 'test'
+  ...
+# Subtest: WI-072 current live backlog conforms independently of the frozen repair proof
+ok 17 - WI-072 current live backlog conforms independently of the frozen repair proof
+  ---
+  duration_ms: 9.835625
+  type: 'test'
+  ...
+# Subtest: WI-072 historical repair proof survives legitimate later work in isolated backlog fixtures
+ok 18 - WI-072 historical repair proof survives legitimate later work in isolated backlog fixtures
+  ---
+  duration_ms: 280.083625
+  type: 'test'
+  ...
+# Subtest: WI-072 current schema validation still rejects invalid later metadata
+ok 19 - WI-072 current schema validation still rejects invalid later metadata
+  ---
+  duration_ms: 262.485958
+  type: 'test'
+  ...
+# Subtest: WI-072 immutable repair snapshot rejects tampering
+ok 20 - WI-072 immutable repair snapshot rejects tampering
+  ---
+  duration_ms: 211.143375
+  type: 'test'
+  ...
+# Subtest: real authoritative completed-item schema permits omitted effort but enforces conditional actual
+ok 21 - real authoritative completed-item schema permits omitted effort but enforces conditional actual
+  ---
+  duration_ms: 2.660458
+  type: 'test'
+  ...
+# Authoritative schema directory: /Users/macos/Library/pnpm/doc-vader-runtime/schemas/work-management
+# /work-management/frontmatter/work-item sha256=60b1d4d6d404136a3d353d70e691c14e9625f16476b2c8c3664012123115535b
+# /work-management/contracts/work-item-structure sha256=8e98195f1aa5cda400a8dacce001b5e96f76d8ea6c0db02a609ba90be76b955c
+# /work-management/workflows/default/status-policy sha256=1e21f4f09ee95d653398feb9e26d5274a9d0b1a322731a59f307920dbdfbf3cd
+# Subtest: 069-complete-connected-mock-dual-lifecycles.md omits both optional effort fields and conforms to authority
+ok 22 - 069-complete-connected-mock-dual-lifecycles.md omits both optional effort fields and conforms to authority
+  ---
+  duration_ms: 3.25325
+  type: 'test'
+  ...
+# Subtest: 070-validate-connected-mock-dual-lifecycles.md omits both optional effort fields and conforms to authority
+ok 23 - 070-validate-connected-mock-dual-lifecycles.md omits both optional effort fields and conforms to authority
+  ---
+  duration_ms: 0.38375
+  type: 'test'
+  ...
+# Subtest: 071-isolate-mock-prerequisite-test-resources.md omits both optional effort fields and conforms to authority
+ok 24 - 071-isolate-mock-prerequisite-test-resources.md omits both optional effort fields and conforms to authority
+  ---
+  duration_ms: 0.328125
+  type: 'test'
+  ...
+# Subtest: backlog validation wrapper passes its explicit map to dv through a PATH containing spaces
+ok 25 - backlog validation wrapper passes its explicit map to dv through a PATH containing spaces
+  ---
+  duration_ms: 280.810959
+  type: 'test'
+  ...
+# Subtest: backlog validation wrapper fails before spawning dv when authority input is absent or invalid
+ok 26 - backlog validation wrapper fails before spawning dv when authority input is absent or invalid
+  ---
+  duration_ms: 32.849416
+  type: 'test'
+  ...
+# Subtest: backlog validation wrapper rejects a malformed derived schema map
+ok 27 - backlog validation wrapper rejects a malformed derived schema map
+  ---
+  duration_ms: 31.306167
+  type: 'test'
+  ...
+# Subtest: backlog validation wrapper fails closed when dv is unavailable
+ok 28 - backlog validation wrapper fails closed when dv is unavailable
+  ---
+  duration_ms: 32.597
+  type: 'test'
+  ...
+# Subtest: backlog validation wrapper preserves dv exit status
+ok 29 - backlog validation wrapper preserves dv exit status
+  ---
+  duration_ms: 214.093625
+  type: 'test'
+  ...
+# Subtest: backlog validation wrapper preserves dv termination signal
+ok 30 - backlog validation wrapper preserves dv termination signal
+  ---
+  duration_ms: 211.675917
+  type: 'test'
+  ...
+1..30
+# tests 30
+# suites 0
+# pass 30
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 858.927041
+
+$ npm run validate:backlog
+
+> validate:backlog
+> node scripts/validate-backlog.mjs
+
+(node:27278) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+unknown format "date" ignored in schema at path "#/$defs/dateString"
+unknown format "date" ignored in schema at path "#/$defs/dateString"
+unknown format "date" ignored in schema at path "#/$defs/dateString"
+unknown format "date" ignored in schema at path "#/$defs/dateString"
+unknown format "date" ignored in schema at path "#/$defs/dateString"
+unknown format "date" ignored in schema at path "#/$defs/dateString"
+unknown format "date" ignored in schema at path "#/$defs/dateString"
+unknown format "date" ignored in schema at path "#/$defs/dateString"
+unknown format "date" ignored in schema at path "/work-management/support/common#/$defs/dateString"
+unknown format "date" ignored in schema at path "/work-management/support/common#/$defs/dateString"
+{
+  "generated_at": "2026-11-12T00:15:20.654Z",
+  "options": {
+    "backlogDir": "/private/tmp/vitae-wi072-publish-a/backlog",
+    "rootDir": "/private/tmp/vitae-wi072-publish-a",
+    "format": "json",
+    "failOn": "error",
+    "schemaMap": "/Users/macos/Library/pnpm/doc-vader-runtime/schemas/frontmatter/schema-map.json",
+    "includeArchive": false,
+    "profile": "ci",
+    "profiles": [
+      "ci"
+    ]
+  },
+  "totals": {
+    "files": 159,
+    "duplicate_ids": 0,
+    "unresolved_wikilinks": 0,
+    "parse_errors": 0,
+    "no_inbound_active": 6,
+    "schema_violations": 0
+  },
+  "duplicate_ids": [],
+  "unresolved_wikilinks": [],
+  "parse_errors": [],
+  "no_inbound_active": [
+    {
+      "file": "backlog/012-split-scoring-from-recommendation-generation.md",
+      "id": "wi-012",
+      "status": "ready",
+      "title": "Split Scoring from Recommendation Generation"
+    },
+    {
+      "file": "backlog/013-prototype-career-graph-projection-for-bullets-and-requirements.md",
+      "id": "wi-013",
+      "status": "ready",
+      "title": "Prototype Career Graph Projection for Bullets and Requirements"
+    },
+    {
+      "file": "backlog/014-introduce-typed-frontend-backend-api-contract.md",
+      "id": "wi-014",
+      "status": "ready",
+      "title": "Introduce Typed Frontend Backend API Contract"
+    },
+    {
+      "file": "backlog/015-evaluate-templjs-backed-resume-variant-rendering.md",
+      "id": "wi-015",
+      "status": "ready",
+      "title": "Evaluate templjs Backed Resume Variant Rendering"
+    },
+    {
+      "file": "backlog/017-integrate-agent-workflows-for-work-order-execution.md",
+      "id": "wi-017",
+      "status": "ready",
+      "title": "Integrate agent-workflows for Work Order Execution"
+    },
+    {
+      "file": "backlog/018-add-adr-prd-frontmatter-validation-tooling.md",
+      "id": "wi-018",
+      "status": "ready",
+      "title": "Add ADR PRD Frontmatter Validation Tooling"
+    }
+  ],
+  "schema_violations": [],
+  "schema_load_errors": [],
+  "exit_code": 0
+}

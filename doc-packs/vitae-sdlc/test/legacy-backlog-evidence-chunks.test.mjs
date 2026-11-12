@@ -39,7 +39,9 @@ test('WI-072 chunked evidence reconstructs the exact immutable source payloads',
 test('WI-072 chunked evidence fails closed for tampering, missing chunks, and reordered chunks', t => {
   const tampered = copyEvidence(t);
   const changesChunk = path.join(tampered, 'changes.part-001.json');
-  writeFileSync(changesChunk, readFileSync(changesChunk, 'utf8').replace('missing actual conditional', 'tampered condition'));
+  const tamperedChunk = JSON.parse(readFileSync(changesChunk, 'utf8'));
+  tamperedChunk[0].file = 'backlog/tampered.md';
+  writeFileSync(changesChunk, JSON.stringify(tamperedChunk, null, 2) + '\n');
   assert.throws(() => readChanges(tampered), /hash mismatch/);
 
   const missing = copyEvidence(t);

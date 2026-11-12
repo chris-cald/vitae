@@ -1,0 +1,1191 @@
+[
+  {
+    "file": "backlog/049-align-runtime-execution-temporal-truth.md",
+    "diagnostics": [
+      "/links must NOT have additional properties",
+      "(root) must have required property 'actual'",
+      "(root) must match \"then\" schema",
+      "/links must NOT have additional properties",
+      "(root) must match \"then\" schema",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties"
+    ],
+    "fields": [
+      {
+        "field": "estimated",
+        "before": 3,
+        "after": null,
+        "reason": "Omit optional historical estimate triggering missing actual; no hours invented."
+      },
+      {
+        "field": "links.parent",
+        "before": [
+          "[[047-complete-p0-reconciliation]]"
+        ],
+        "after": null,
+        "reason": "Unsupported key: targets merged into reference; original relationship labels retained in this report and original manifest."
+      },
+      {
+        "field": "links.reference",
+        "before": [
+          "[[../docs/adr/0004-adopt-privacy-safe-temporal-execution-substrate]]",
+          "[[../docs/uat-readiness]]"
+        ],
+        "after": [
+          "[[../docs/adr/0004-adopt-privacy-safe-temporal-execution-substrate]]",
+          "[[../docs/uat-readiness]]",
+          "[[047-complete-p0-reconciliation]]"
+        ],
+        "reason": "Preserve every parent/implements target in allowed reference vocabulary, deduplicating only identical targets."
+      }
+    ]
+  },
+  {
+    "file": "backlog/050-deliver-job-search-application-funnel-slice.md",
+    "diagnostics": [
+      "/links must NOT have additional properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties"
+    ],
+    "fields": [
+      {
+        "field": "links.parent",
+        "before": [
+          "[[047-complete-p0-reconciliation]]"
+        ],
+        "after": null,
+        "reason": "Unsupported key: targets merged into reference; original relationship labels retained in this report and original manifest."
+      },
+      {
+        "field": "links.reference",
+        "before": [
+          "[[../docs/career/canonical-domain-model]]",
+          "[[../docs/prd/mvp-book-of-work-to-application-loop]]"
+        ],
+        "after": [
+          "[[../docs/career/canonical-domain-model]]",
+          "[[../docs/prd/mvp-book-of-work-to-application-loop]]",
+          "[[047-complete-p0-reconciliation]]"
+        ],
+        "reason": "Preserve every parent/implements target in allowed reference vocabulary, deduplicating only identical targets."
+      }
+    ]
+  },
+  {
+    "file": "backlog/051-add-application-bundle-record-slice.md",
+    "diagnostics": [
+      "/links must NOT have additional properties",
+      "/links must NOT have additional properties",
+      "(root) must match \"then\" schema",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties"
+    ],
+    "fields": [
+      {
+        "field": "links.parent",
+        "before": [
+          "[[050-deliver-job-search-application-funnel-slice]]"
+        ],
+        "after": null,
+        "reason": "Unsupported key: targets merged into reference; original relationship labels retained in this report and original manifest."
+      },
+      {
+        "field": "links.reference",
+        "before": [
+          "[[../schemas/career/application.schema.json]]",
+          "[[../schemas/career/application-record.schema.json]]",
+          "[[../schemas/career/deliverable.schema.json]]",
+          "[[../schemas/career/target.schema.json]]",
+          "[[../schemas/career/fit-analysis.schema.json]]"
+        ],
+        "after": [
+          "[[../schemas/career/application.schema.json]]",
+          "[[../schemas/career/application-record.schema.json]]",
+          "[[../schemas/career/deliverable.schema.json]]",
+          "[[../schemas/career/target.schema.json]]",
+          "[[../schemas/career/fit-analysis.schema.json]]",
+          "[[050-deliver-job-search-application-funnel-slice]]"
+        ],
+        "reason": "Preserve every parent/implements target in allowed reference vocabulary, deduplicating only identical targets."
+      }
+    ]
+  },
+  {
+    "file": "backlog/052-enforce-generation-source-eligibility.md",
+    "diagnostics": [
+      "/links must NOT have additional properties",
+      "/links must NOT have additional properties",
+      "(root) must match \"then\" schema",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties"
+    ],
+    "fields": [
+      {
+        "field": "links.parent",
+        "before": [
+          "[[050-deliver-job-search-application-funnel-slice]]"
+        ],
+        "after": null,
+        "reason": "Unsupported key: targets merged into reference; original relationship labels retained in this report and original manifest."
+      },
+      {
+        "field": "links.reference",
+        "before": [
+          "[[../docs/career/canonical-domain-model]]",
+          "[[../schemas/career/catalog-asset.schema.json]]",
+          "[[../schemas/career/projection.schema.json]]"
+        ],
+        "after": [
+          "[[../docs/career/canonical-domain-model]]",
+          "[[../schemas/career/catalog-asset.schema.json]]",
+          "[[../schemas/career/projection.schema.json]]",
+          "[[050-deliver-job-search-application-funnel-slice]]"
+        ],
+        "reason": "Preserve every parent/implements target in allowed reference vocabulary, deduplicating only identical targets."
+      }
+    ]
+  },
+  {
+    "file": "backlog/053-generate-draft-application-bundle-artifacts.md",
+    "diagnostics": [
+      "/links must NOT have additional properties",
+      "/links must NOT have additional properties",
+      "(root) must match \"then\" schema",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties"
+    ],
+    "fields": [
+      {
+        "field": "links.parent",
+        "before": [
+          "[[050-deliver-job-search-application-funnel-slice]]"
+        ],
+        "after": null,
+        "reason": "Unsupported key: targets merged into reference; original relationship labels retained in this report and original manifest."
+      },
+      {
+        "field": "links.reference",
+        "before": [
+          "[[../templates/career/deliverable.md.tmpl]]",
+          "[[../templates/career/cover-letter.md.tmpl]]",
+          "[[../docs/career/canonical-domain-model]]"
+        ],
+        "after": [
+          "[[../templates/career/deliverable.md.tmpl]]",
+          "[[../templates/career/cover-letter.md.tmpl]]",
+          "[[../docs/career/canonical-domain-model]]",
+          "[[050-deliver-job-search-application-funnel-slice]]"
+        ],
+        "reason": "Preserve every parent/implements target in allowed reference vocabulary, deduplicating only identical targets."
+      }
+    ]
+  },
+  {
+    "file": "backlog/054-add-career-inventory-and-curation-slice.md",
+    "diagnostics": [
+      "/links must NOT have additional properties",
+      "/links must NOT have additional properties",
+      "(root) must match \"then\" schema",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties"
+    ],
+    "fields": [
+      {
+        "field": "links.parent",
+        "before": [
+          "[[050-deliver-job-search-application-funnel-slice]]"
+        ],
+        "after": null,
+        "reason": "Unsupported key: targets merged into reference; original relationship labels retained in this report and original manifest."
+      },
+      {
+        "field": "links.reference",
+        "before": [
+          "[[../docs/prd/mvp-book-of-work-to-application-loop]]",
+          "[[../docs/career/canonical-domain-model]]"
+        ],
+        "after": [
+          "[[../docs/prd/mvp-book-of-work-to-application-loop]]",
+          "[[../docs/career/canonical-domain-model]]",
+          "[[050-deliver-job-search-application-funnel-slice]]"
+        ],
+        "reason": "Preserve every parent/implements target in allowed reference vocabulary, deduplicating only identical targets."
+      }
+    ]
+  },
+  {
+    "file": "backlog/055-add-application-bundle-workspace.md",
+    "diagnostics": [
+      "/links must NOT have additional properties",
+      "/links must NOT have additional properties",
+      "(root) must match \"then\" schema",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties"
+    ],
+    "fields": [
+      {
+        "field": "links.parent",
+        "before": [
+          "[[050-deliver-job-search-application-funnel-slice]]"
+        ],
+        "after": null,
+        "reason": "Unsupported key: targets merged into reference; original relationship labels retained in this report and original manifest."
+      },
+      {
+        "field": "links.reference",
+        "before": [
+          "[[051-add-application-bundle-record-slice]]",
+          "[[052-enforce-generation-source-eligibility]]",
+          "[[053-generate-draft-application-bundle-artifacts]]"
+        ],
+        "after": [
+          "[[051-add-application-bundle-record-slice]]",
+          "[[052-enforce-generation-source-eligibility]]",
+          "[[053-generate-draft-application-bundle-artifacts]]",
+          "[[050-deliver-job-search-application-funnel-slice]]"
+        ],
+        "reason": "Preserve every parent/implements target in allowed reference vocabulary, deduplicating only identical targets."
+      }
+    ]
+  },
+  {
+    "file": "backlog/056-connect-career-refresh-and-runtime-ux.md",
+    "diagnostics": [
+      "/links must NOT have additional properties",
+      "/links must NOT have additional properties",
+      "(root) must match \"then\" schema",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties"
+    ],
+    "fields": [
+      {
+        "field": "links.parent",
+        "before": [
+          "[[050-deliver-job-search-application-funnel-slice]]"
+        ],
+        "after": null,
+        "reason": "Unsupported key: targets merged into reference; original relationship labels retained in this report and original manifest."
+      },
+      {
+        "field": "links.reference",
+        "before": [
+          "[[../docs/adr/0004-adopt-privacy-safe-temporal-execution-substrate]]",
+          "[[../docs/uat-readiness]]"
+        ],
+        "after": [
+          "[[../docs/adr/0004-adopt-privacy-safe-temporal-execution-substrate]]",
+          "[[../docs/uat-readiness]]",
+          "[[050-deliver-job-search-application-funnel-slice]]"
+        ],
+        "reason": "Preserve every parent/implements target in allowed reference vocabulary, deduplicating only identical targets."
+      }
+    ]
+  },
+  {
+    "file": "backlog/057-run-live-full-loop-mvp-uat.md",
+    "diagnostics": [
+      "/links must NOT have additional properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties"
+    ],
+    "fields": [
+      {
+        "field": "links.parent",
+        "before": [
+          "[[050-deliver-job-search-application-funnel-slice]]"
+        ],
+        "after": null,
+        "reason": "Unsupported key: targets merged into reference; original relationship labels retained in this report and original manifest."
+      },
+      {
+        "field": "links.reference",
+        "before": [
+          "[[../docs/uat-readiness]]",
+          "[[../docs/prd/mvp-book-of-work-to-application-loop]]"
+        ],
+        "after": [
+          "[[../docs/uat-readiness]]",
+          "[[../docs/prd/mvp-book-of-work-to-application-loop]]",
+          "[[050-deliver-job-search-application-funnel-slice]]"
+        ],
+        "reason": "Preserve every parent/implements target in allowed reference vocabulary, deduplicating only identical targets."
+      }
+    ]
+  },
+  {
+    "file": "backlog/059-make-release-validation-reproducible.md",
+    "diagnostics": [
+      "/links must NOT have additional properties",
+      "/links must NOT have additional properties",
+      "(root) must match \"then\" schema",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties"
+    ],
+    "fields": [
+      {
+        "field": "links.parent",
+        "before": [
+          "[[050-deliver-job-search-application-funnel-slice]]"
+        ],
+        "after": null,
+        "reason": "Unsupported key: targets merged into reference; original relationship labels retained in this report and original manifest."
+      },
+      {
+        "field": "links.reference",
+        "before": [
+          "[[056-connect-career-refresh-and-runtime-ux]]",
+          "[[057-run-live-full-loop-mvp-uat]]",
+          "[[058-repair-babysitter-dv-run-closeout]]"
+        ],
+        "after": [
+          "[[056-connect-career-refresh-and-runtime-ux]]",
+          "[[057-run-live-full-loop-mvp-uat]]",
+          "[[058-repair-babysitter-dv-run-closeout]]",
+          "[[050-deliver-job-search-application-funnel-slice]]"
+        ],
+        "reason": "Preserve every parent/implements target in allowed reference vocabulary, deduplicating only identical targets."
+      }
+    ]
+  },
+  {
+    "file": "backlog/060-draft-figma-based-frontend.md",
+    "diagnostics": [
+      "/links must NOT have additional properties",
+      "/links must NOT have additional properties",
+      "/links/depends_on must NOT have fewer than 1 items",
+      "/links must NOT have additional properties",
+      "/links must NOT have additional properties",
+      "/links/depends_on must NOT have fewer than 1 items",
+      "(root) must match \"then\" schema",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties"
+    ],
+    "fields": [
+      {
+        "field": "links.parent",
+        "before": [],
+        "after": null,
+        "reason": "Remove empty unsupported relationship list; no relationships lost."
+      },
+      {
+        "field": "links.implements",
+        "before": [],
+        "after": null,
+        "reason": "Remove empty unsupported relationship list; no relationships lost."
+      },
+      {
+        "field": "links.depends_on",
+        "before": [],
+        "after": null,
+        "reason": "Remove empty dependency list rejected by minItems; no dependencies lost."
+      }
+    ]
+  },
+  {
+    "file": "backlog/062-separate-today-from-applications.md",
+    "diagnostics": [
+      "/links must NOT have additional properties",
+      "/links must NOT have additional properties",
+      "/links/depends_on must NOT have fewer than 1 items",
+      "/links must NOT have additional properties",
+      "/links must NOT have additional properties",
+      "/links/depends_on must NOT have fewer than 1 items",
+      "(root) must match \"then\" schema",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties"
+    ],
+    "fields": [
+      {
+        "field": "links.parent",
+        "before": [],
+        "after": null,
+        "reason": "Remove empty unsupported relationship list; no relationships lost."
+      },
+      {
+        "field": "links.implements",
+        "before": [],
+        "after": null,
+        "reason": "Remove empty unsupported relationship list; no relationships lost."
+      },
+      {
+        "field": "links.depends_on",
+        "before": [],
+        "after": null,
+        "reason": "Remove empty dependency list rejected by minItems; no dependencies lost."
+      }
+    ]
+  },
+  {
+    "file": "backlog/063-wire-frontend-draft-interactions.md",
+    "diagnostics": [
+      "/links must NOT have additional properties",
+      "/links must NOT have additional properties",
+      "/links/depends_on must NOT have fewer than 1 items",
+      "/links must NOT have additional properties",
+      "/links must NOT have additional properties",
+      "/links/depends_on must NOT have fewer than 1 items",
+      "(root) must match \"then\" schema",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties"
+    ],
+    "fields": [
+      {
+        "field": "links.parent",
+        "before": [],
+        "after": null,
+        "reason": "Remove empty unsupported relationship list; no relationships lost."
+      },
+      {
+        "field": "links.implements",
+        "before": [],
+        "after": null,
+        "reason": "Remove empty unsupported relationship list; no relationships lost."
+      },
+      {
+        "field": "links.depends_on",
+        "before": [],
+        "after": null,
+        "reason": "Remove empty dependency list rejected by minItems; no dependencies lost."
+      }
+    ]
+  },
+  {
+    "file": "backlog/064-simplify-frontend-draft-navigation.md",
+    "diagnostics": [
+      "/links must NOT have additional properties",
+      "/links must NOT have additional properties",
+      "/links/depends_on must NOT have fewer than 1 items",
+      "/links must NOT have additional properties",
+      "/links must NOT have additional properties",
+      "/links/depends_on must NOT have fewer than 1 items",
+      "(root) must match \"then\" schema",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties"
+    ],
+    "fields": [
+      {
+        "field": "links.parent",
+        "before": [],
+        "after": null,
+        "reason": "Remove empty unsupported relationship list; no relationships lost."
+      },
+      {
+        "field": "links.implements",
+        "before": [],
+        "after": null,
+        "reason": "Remove empty unsupported relationship list; no relationships lost."
+      },
+      {
+        "field": "links.depends_on",
+        "before": [],
+        "after": null,
+        "reason": "Remove empty dependency list rejected by minItems; no dependencies lost."
+      }
+    ]
+  },
+  {
+    "file": "backlog/065-make-live-integration-tests-opt-in.md",
+    "diagnostics": [
+      "/links must NOT have additional properties",
+      "/links must NOT have additional properties",
+      "/links/depends_on must NOT have fewer than 1 items",
+      "/links must NOT have additional properties",
+      "/links must NOT have additional properties",
+      "/links/depends_on must NOT have fewer than 1 items",
+      "(root) must match \"then\" schema",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties"
+    ],
+    "fields": [
+      {
+        "field": "links.parent",
+        "before": [],
+        "after": null,
+        "reason": "Remove empty unsupported relationship list; no relationships lost."
+      },
+      {
+        "field": "links.implements",
+        "before": [],
+        "after": null,
+        "reason": "Remove empty unsupported relationship list; no relationships lost."
+      },
+      {
+        "field": "links.depends_on",
+        "before": [],
+        "after": null,
+        "reason": "Remove empty dependency list rejected by minItems; no dependencies lost."
+      }
+    ]
+  },
+  {
+    "file": "backlog/067-make-sources-and-evidence-actionable.md",
+    "diagnostics": [
+      "/links must NOT have additional properties",
+      "/links must NOT have additional properties",
+      "/links/depends_on must NOT have fewer than 1 items",
+      "/links must NOT have additional properties",
+      "/links must NOT have additional properties",
+      "/links/depends_on must NOT have fewer than 1 items",
+      "(root) must match \"then\" schema",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties"
+    ],
+    "fields": [
+      {
+        "field": "links.parent",
+        "before": [],
+        "after": null,
+        "reason": "Remove empty unsupported relationship list; no relationships lost."
+      },
+      {
+        "field": "links.implements",
+        "before": [],
+        "after": null,
+        "reason": "Remove empty unsupported relationship list; no relationships lost."
+      },
+      {
+        "field": "links.depends_on",
+        "before": [],
+        "after": null,
+        "reason": "Remove empty dependency list rejected by minItems; no dependencies lost."
+      }
+    ]
+  },
+  {
+    "file": "backlog/068-build-catalog-development-board.md",
+    "diagnostics": [
+      "/links must NOT have additional properties",
+      "(root) must have required property 'actual'",
+      "(root) must match \"then\" schema",
+      "/links must NOT have additional properties",
+      "(root) must match \"then\" schema",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties"
+    ],
+    "fields": [
+      {
+        "field": "estimated",
+        "before": 5,
+        "after": null,
+        "reason": "Omit optional historical estimate triggering missing actual; no hours invented."
+      },
+      {
+        "field": "links.parent",
+        "before": [
+          "[[050-deliver-job-search-application-funnel-slice]]"
+        ],
+        "after": null,
+        "reason": "Unsupported key: targets merged into reference; original relationship labels retained in this report and original manifest."
+      },
+      {
+        "field": "links.reference",
+        "before": [
+          "[[../docs/prd/mvp-book-of-work-to-application-loop]]",
+          "[[054-add-career-inventory-and-curation-slice]]"
+        ],
+        "after": [
+          "[[../docs/prd/mvp-book-of-work-to-application-loop]]",
+          "[[054-add-career-inventory-and-curation-slice]]",
+          "[[050-deliver-job-search-application-funnel-slice]]"
+        ],
+        "reason": "Preserve every parent/implements target in allowed reference vocabulary, deduplicating only identical targets."
+      }
+    ]
+  },
+  {
+    "file": "backlog/records/record-wi-051-focused-validation-and-independent-review-passed-after-remediation.md",
+    "diagnostics": [
+      "/links/supporting_reference/0 must match pattern \"^(?:(?:\\[(?<text>.+?)\\])?\\(?(?:(?<protocol>(?:[^:]+)s?):\\/\\/)(?:(?<user>[^:\\n\\r]+):(?<pass>[^@\\n\\r]+)@)?(?<host>(?:www\\.)?(?:[^:\\/\\n\\r]+))(?::(?<port>\\d+))?\\/?(?<resource>[^?#\\n\\r]+)?\\??(?<query>[^#\\n\\r]*)?#?(?<anchor>[^\\n\\r]*)?\\)?)$\"",
+      "/links/supporting_reference/0 must match pattern \"^\\[\\[(?<name>[^\\]\\|\\r\\n]+)(?:\\|(?<title>[^\\]\\|\\r\\n]+))?\\]\\](?<agglu>[^\\p{P}\\s]*)$\"",
+      "/links/supporting_reference/0 must match a schema in anyOf",
+      "/links/supporting_reference/0 must match exactly one schema in oneOf",
+      "/links/supporting_reference/0 must be object",
+      "/links/supporting_reference/0 must match exactly one schema in oneOf",
+      "/links/supporting_reference/1 must match pattern \"^(?:(?:\\[(?<text>.+?)\\])?\\(?(?:(?<protocol>(?:[^:]+)s?):\\/\\/)(?:(?<user>[^:\\n\\r]+):(?<pass>[^@\\n\\r]+)@)?(?<host>(?:www\\.)?(?:[^:\\/\\n\\r]+))(?::(?<port>\\d+))?\\/?(?<resource>[^?#\\n\\r]+)?\\??(?<query>[^#\\n\\r]*)?#?(?<anchor>[^\\n\\r]*)?\\)?)$\"",
+      "/links/supporting_reference/1 must match pattern \"^\\[\\[(?<name>[^\\]\\|\\r\\n]+)(?:\\|(?<title>[^\\]\\|\\r\\n]+))?\\]\\](?<agglu>[^\\p{P}\\s]*)$\"",
+      "/links/supporting_reference/1 must match a schema in anyOf",
+      "/links/supporting_reference/1 must match exactly one schema in oneOf",
+      "/links/supporting_reference/1 must be object",
+      "/links/supporting_reference/1 must match exactly one schema in oneOf",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties"
+    ],
+    "fields": [
+      {
+        "field": "links.supporting_reference",
+        "before": [
+          "command:cd backend && .venv/bin/python -m pytest tests/test_application_bundle_service.py -q",
+          "command:git diff --check"
+        ],
+        "after": null,
+        "reason": "Remove schema-invalid references only because each exact string survives verbatim in original body; retain every valid URL."
+      }
+    ]
+  },
+  {
+    "file": "backlog/records/record-wi-052-source-eligibility-validation-and-independent-review-passed-after-remediation.md",
+    "diagnostics": [
+      "/links/supporting_reference/0 must match pattern \"^(?:(?:\\[(?<text>.+?)\\])?\\(?(?:(?<protocol>(?:[^:]+)s?):\\/\\/)(?:(?<user>[^:\\n\\r]+):(?<pass>[^@\\n\\r]+)@)?(?<host>(?:www\\.)?(?:[^:\\/\\n\\r]+))(?::(?<port>\\d+))?\\/?(?<resource>[^?#\\n\\r]+)?\\??(?<query>[^#\\n\\r]*)?#?(?<anchor>[^\\n\\r]*)?\\)?)$\"",
+      "/links/supporting_reference/0 must NOT have more than 128 characters",
+      "/links/supporting_reference/0 must match pattern \"^\\[\\[(?<name>[^\\]\\|\\r\\n]+)(?:\\|(?<title>[^\\]\\|\\r\\n]+))?\\]\\](?<agglu>[^\\p{P}\\s]*)$\"",
+      "/links/supporting_reference/0 must match a schema in anyOf",
+      "/links/supporting_reference/0 must match exactly one schema in oneOf",
+      "/links/supporting_reference/0 must be object",
+      "/links/supporting_reference/0 must match exactly one schema in oneOf",
+      "/links/supporting_reference/1 must match pattern \"^(?:(?:\\[(?<text>.+?)\\])?\\(?(?:(?<protocol>(?:[^:]+)s?):\\/\\/)(?:(?<user>[^:\\n\\r]+):(?<pass>[^@\\n\\r]+)@)?(?<host>(?:www\\.)?(?:[^:\\/\\n\\r]+))(?::(?<port>\\d+))?\\/?(?<resource>[^?#\\n\\r]+)?\\??(?<query>[^#\\n\\r]*)?#?(?<anchor>[^\\n\\r]*)?\\)?)$\"",
+      "/links/supporting_reference/1 must match pattern \"^\\[\\[(?<name>[^\\]\\|\\r\\n]+)(?:\\|(?<title>[^\\]\\|\\r\\n]+))?\\]\\](?<agglu>[^\\p{P}\\s]*)$\"",
+      "/links/supporting_reference/1 must match a schema in anyOf",
+      "/links/supporting_reference/1 must match exactly one schema in oneOf",
+      "/links/supporting_reference/1 must be object",
+      "/links/supporting_reference/1 must match exactly one schema in oneOf",
+      "/links/supporting_reference/2 must match pattern \"^(?:(?:\\[(?<text>.+?)\\])?\\(?(?:(?<protocol>(?:[^:]+)s?):\\/\\/)(?:(?<user>[^:\\n\\r]+):(?<pass>[^@\\n\\r]+)@)?(?<host>(?:www\\.)?(?:[^:\\/\\n\\r]+))(?::(?<port>\\d+))?\\/?(?<resource>[^?#\\n\\r]+)?\\??(?<query>[^#\\n\\r]*)?#?(?<anchor>[^\\n\\r]*)?\\)?)$\"",
+      "/links/supporting_reference/2 must match pattern \"^\\[\\[(?<name>[^\\]\\|\\r\\n]+)(?:\\|(?<title>[^\\]\\|\\r\\n]+))?\\]\\](?<agglu>[^\\p{P}\\s]*)$\"",
+      "/links/supporting_reference/2 must match a schema in anyOf",
+      "/links/supporting_reference/2 must match exactly one schema in oneOf",
+      "/links/supporting_reference/2 must be object",
+      "/links/supporting_reference/2 must match exactly one schema in oneOf",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties"
+    ],
+    "fields": [
+      {
+        "field": "links.supporting_reference",
+        "before": [
+          "command:cd backend && PYTHONPATH=. ../.venv/bin/python -m pytest tests/test_generation_input_resolver.py tests/test_application_bundle_service.py -q",
+          "command:node --test schemas/career/test/canonical-domain-contract.test.mjs",
+          "command:git diff --check"
+        ],
+        "after": null,
+        "reason": "Remove schema-invalid references only because each exact string survives verbatim in original body; retain every valid URL."
+      }
+    ]
+  },
+  {
+    "file": "backlog/records/record-wi-053-draft-bundle-artifacts-validation-and-review-passed.md",
+    "diagnostics": [
+      "/links/supporting_reference/0 must match pattern \"^(?:(?:\\[(?<text>.+?)\\])?\\(?(?:(?<protocol>(?:[^:]+)s?):\\/\\/)(?:(?<user>[^:\\n\\r]+):(?<pass>[^@\\n\\r]+)@)?(?<host>(?:www\\.)?(?:[^:\\/\\n\\r]+))(?::(?<port>\\d+))?\\/?(?<resource>[^?#\\n\\r]+)?\\??(?<query>[^#\\n\\r]*)?#?(?<anchor>[^\\n\\r]*)?\\)?)$\"",
+      "/links/supporting_reference/0 must match pattern \"^\\[\\[(?<name>[^\\]\\|\\r\\n]+)(?:\\|(?<title>[^\\]\\|\\r\\n]+))?\\]\\](?<agglu>[^\\p{P}\\s]*)$\"",
+      "/links/supporting_reference/0 must match a schema in anyOf",
+      "/links/supporting_reference/0 must match exactly one schema in oneOf",
+      "/links/supporting_reference/0 must be object",
+      "/links/supporting_reference/0 must match exactly one schema in oneOf",
+      "/links/supporting_reference/1 must match pattern \"^(?:(?:\\[(?<text>.+?)\\])?\\(?(?:(?<protocol>(?:[^:]+)s?):\\/\\/)(?:(?<user>[^:\\n\\r]+):(?<pass>[^@\\n\\r]+)@)?(?<host>(?:www\\.)?(?:[^:\\/\\n\\r]+))(?::(?<port>\\d+))?\\/?(?<resource>[^?#\\n\\r]+)?\\??(?<query>[^#\\n\\r]*)?#?(?<anchor>[^\\n\\r]*)?\\)?)$\"",
+      "/links/supporting_reference/1 must match pattern \"^\\[\\[(?<name>[^\\]\\|\\r\\n]+)(?:\\|(?<title>[^\\]\\|\\r\\n]+))?\\]\\](?<agglu>[^\\p{P}\\s]*)$\"",
+      "/links/supporting_reference/1 must match a schema in anyOf",
+      "/links/supporting_reference/1 must match exactly one schema in oneOf",
+      "/links/supporting_reference/1 must be object",
+      "/links/supporting_reference/1 must match exactly one schema in oneOf",
+      "/links/supporting_reference/2 must match pattern \"^(?:(?:\\[(?<text>.+?)\\])?\\(?(?:(?<protocol>(?:[^:]+)s?):\\/\\/)(?:(?<user>[^:\\n\\r]+):(?<pass>[^@\\n\\r]+)@)?(?<host>(?:www\\.)?(?:[^:\\/\\n\\r]+))(?::(?<port>\\d+))?\\/?(?<resource>[^?#\\n\\r]+)?\\??(?<query>[^#\\n\\r]*)?#?(?<anchor>[^\\n\\r]*)?\\)?)$\"",
+      "/links/supporting_reference/2 must match pattern \"^\\[\\[(?<name>[^\\]\\|\\r\\n]+)(?:\\|(?<title>[^\\]\\|\\r\\n]+))?\\]\\](?<agglu>[^\\p{P}\\s]*)$\"",
+      "/links/supporting_reference/2 must match a schema in anyOf",
+      "/links/supporting_reference/2 must match exactly one schema in oneOf",
+      "/links/supporting_reference/2 must be object",
+      "/links/supporting_reference/2 must match exactly one schema in oneOf",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties"
+    ],
+    "fields": [
+      {
+        "field": "links.supporting_reference",
+        "before": [
+          "command:cd backend && .venv/bin/python -m pytest tests/test_application_bundle_service.py",
+          "command:npm run check",
+          "review:wi-053-reviewer-approved-after-remediation"
+        ],
+        "after": null,
+        "reason": "Remove schema-invalid references only because each exact string survives verbatim in original body; retain every valid URL."
+      }
+    ]
+  },
+  {
+    "file": "backlog/records/record-wi-054-historical-synthetic-validation.md",
+    "diagnostics": [
+      "/links/supporting_reference/3 must match pattern \"^(?:(?:\\[(?<text>.+?)\\])?\\(?(?:(?<protocol>(?:[^:]+)s?):\\/\\/)(?:(?<user>[^:\\n\\r]+):(?<pass>[^@\\n\\r]+)@)?(?<host>(?:www\\.)?(?:[^:\\/\\n\\r]+))(?::(?<port>\\d+))?\\/?(?<resource>[^?#\\n\\r]+)?\\??(?<query>[^#\\n\\r]*)?#?(?<anchor>[^\\n\\r]*)?\\)?)$\"",
+      "/links/supporting_reference/3 must match pattern \"^\\[\\[(?<name>[^\\]\\|\\r\\n]+)(?:\\|(?<title>[^\\]\\|\\r\\n]+))?\\]\\](?<agglu>[^\\p{P}\\s]*)$\"",
+      "/links/supporting_reference/3 must match a schema in anyOf",
+      "/links/supporting_reference/3 must match exactly one schema in oneOf",
+      "/links/supporting_reference/3 must be object",
+      "/links/supporting_reference/3 must match exactly one schema in oneOf",
+      "/links/supporting_reference/4 must match pattern \"^(?:(?:\\[(?<text>.+?)\\])?\\(?(?:(?<protocol>(?:[^:]+)s?):\\/\\/)(?:(?<user>[^:\\n\\r]+):(?<pass>[^@\\n\\r]+)@)?(?<host>(?:www\\.)?(?:[^:\\/\\n\\r]+))(?::(?<port>\\d+))?\\/?(?<resource>[^?#\\n\\r]+)?\\??(?<query>[^#\\n\\r]*)?#?(?<anchor>[^\\n\\r]*)?\\)?)$\"",
+      "/links/supporting_reference/4 must match pattern \"^\\[\\[(?<name>[^\\]\\|\\r\\n]+)(?:\\|(?<title>[^\\]\\|\\r\\n]+))?\\]\\](?<agglu>[^\\p{P}\\s]*)$\"",
+      "/links/supporting_reference/4 must match a schema in anyOf",
+      "/links/supporting_reference/4 must match exactly one schema in oneOf",
+      "/links/supporting_reference/4 must be object",
+      "/links/supporting_reference/4 must match exactly one schema in oneOf",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties"
+    ],
+    "fields": [
+      {
+        "field": "links.supporting_reference",
+        "before": [
+          "https://github.com/chris-cald/vitae/actions/runs/40740138417/job/122999192661",
+          "https://github.com/chris-cald/vitae/actions/runs/40740124311/job/122999146170",
+          "https://github.com/chris-cald/vitae/pull/9",
+          "`ff1b6a3f682d2670500efa005a374c8ea4bd59c1`",
+          "`7ab345902b54a5e617e653518773db52f0005d9c`"
+        ],
+        "after": [
+          "https://github.com/chris-cald/vitae/actions/runs/40740138417/job/122999192661",
+          "https://github.com/chris-cald/vitae/actions/runs/40740124311/job/122999146170",
+          "https://github.com/chris-cald/vitae/pull/9"
+        ],
+        "reason": "Remove schema-invalid references only because each exact string survives verbatim in original body; retain every valid URL."
+      }
+    ]
+  },
+  {
+    "file": "backlog/records/record-wi-054-publisher-authorization.md",
+    "diagnostics": [
+      "/links/supporting_reference/1 must match pattern \"^(?:(?:\\[(?<text>.+?)\\])?\\(?(?:(?<protocol>(?:[^:]+)s?):\\/\\/)(?:(?<user>[^:\\n\\r]+):(?<pass>[^@\\n\\r]+)@)?(?<host>(?:www\\.)?(?:[^:\\/\\n\\r]+))(?::(?<port>\\d+))?\\/?(?<resource>[^?#\\n\\r]+)?\\??(?<query>[^#\\n\\r]*)?#?(?<anchor>[^\\n\\r]*)?\\)?)$\"",
+      "/links/supporting_reference/1 must match pattern \"^\\[\\[(?<name>[^\\]\\|\\r\\n]+)(?:\\|(?<title>[^\\]\\|\\r\\n]+))?\\]\\](?<agglu>[^\\p{P}\\s]*)$\"",
+      "/links/supporting_reference/1 must match a schema in anyOf",
+      "/links/supporting_reference/1 must match exactly one schema in oneOf",
+      "/links/supporting_reference/1 must be object",
+      "/links/supporting_reference/1 must match exactly one schema in oneOf",
+      "/links/supporting_reference/2 must match pattern \"^(?:(?:\\[(?<text>.+?)\\])?\\(?(?:(?<protocol>(?:[^:]+)s?):\\/\\/)(?:(?<user>[^:\\n\\r]+):(?<pass>[^@\\n\\r]+)@)?(?<host>(?:www\\.)?(?:[^:\\/\\n\\r]+))(?::(?<port>\\d+))?\\/?(?<resource>[^?#\\n\\r]+)?\\??(?<query>[^#\\n\\r]*)?#?(?<anchor>[^\\n\\r]*)?\\)?)$\"",
+      "/links/supporting_reference/2 must match pattern \"^\\[\\[(?<name>[^\\]\\|\\r\\n]+)(?:\\|(?<title>[^\\]\\|\\r\\n]+))?\\]\\](?<agglu>[^\\p{P}\\s]*)$\"",
+      "/links/supporting_reference/2 must match a schema in anyOf",
+      "/links/supporting_reference/2 must match exactly one schema in oneOf",
+      "/links/supporting_reference/2 must be object",
+      "/links/supporting_reference/2 must match exactly one schema in oneOf",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties"
+    ],
+    "fields": [
+      {
+        "field": "links.supporting_reference",
+        "before": [
+          "https://github.com/chris-cald/vitae/pull/9",
+          "`ff1b6a3f682d2670500efa005a374c8ea4bd59c1`",
+          "`7ab345902b54a5e617e653518773db52f0005d9c`"
+        ],
+        "after": [
+          "https://github.com/chris-cald/vitae/pull/9"
+        ],
+        "reason": "Remove schema-invalid references only because each exact string survives verbatim in original body; retain every valid URL."
+      }
+    ]
+  },
+  {
+    "file": "backlog/records/record-wi-054-synthetic-inventory-validation-passed.md",
+    "diagnostics": [
+      "/links/supporting_reference/0 must match pattern \"^(?:(?:\\[(?<text>.+?)\\])?\\(?(?:(?<protocol>(?:[^:]+)s?):\\/\\/)(?:(?<user>[^:\\n\\r]+):(?<pass>[^@\\n\\r]+)@)?(?<host>(?:www\\.)?(?:[^:\\/\\n\\r]+))(?::(?<port>\\d+))?\\/?(?<resource>[^?#\\n\\r]+)?\\??(?<query>[^#\\n\\r]*)?#?(?<anchor>[^\\n\\r]*)?\\)?)$\"",
+      "/links/supporting_reference/0 must match pattern \"^\\[\\[(?<name>[^\\]\\|\\r\\n]+)(?:\\|(?<title>[^\\]\\|\\r\\n]+))?\\]\\](?<agglu>[^\\p{P}\\s]*)$\"",
+      "/links/supporting_reference/0 must match a schema in anyOf",
+      "/links/supporting_reference/0 must match exactly one schema in oneOf",
+      "/links/supporting_reference/0 must be object",
+      "/links/supporting_reference/0 must match exactly one schema in oneOf",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties"
+    ],
+    "fields": [
+      {
+        "field": "links.supporting_reference",
+        "before": [
+          "`e46591583848556db9aadca820e34bcc605e1bed`"
+        ],
+        "after": null,
+        "reason": "Remove schema-invalid references only because each exact string survives verbatim in original body; retain every valid URL."
+      }
+    ]
+  },
+  {
+    "file": "backlog/records/record-wi-055-historical-approval.md",
+    "diagnostics": [
+      "/links/supporting_reference/2 must match pattern \"^(?:(?:\\[(?<text>.+?)\\])?\\(?(?:(?<protocol>(?:[^:]+)s?):\\/\\/)(?:(?<user>[^:\\n\\r]+):(?<pass>[^@\\n\\r]+)@)?(?<host>(?:www\\.)?(?:[^:\\/\\n\\r]+))(?::(?<port>\\d+))?\\/?(?<resource>[^?#\\n\\r]+)?\\??(?<query>[^#\\n\\r]*)?#?(?<anchor>[^\\n\\r]*)?\\)?)$\"",
+      "/links/supporting_reference/2 must match pattern \"^\\[\\[(?<name>[^\\]\\|\\r\\n]+)(?:\\|(?<title>[^\\]\\|\\r\\n]+))?\\]\\](?<agglu>[^\\p{P}\\s]*)$\"",
+      "/links/supporting_reference/2 must match a schema in anyOf",
+      "/links/supporting_reference/2 must match exactly one schema in oneOf",
+      "/links/supporting_reference/2 must be object",
+      "/links/supporting_reference/2 must match exactly one schema in oneOf",
+      "/links/supporting_reference/3 must match pattern \"^(?:(?:\\[(?<text>.+?)\\])?\\(?(?:(?<protocol>(?:[^:]+)s?):\\/\\/)(?:(?<user>[^:\\n\\r]+):(?<pass>[^@\\n\\r]+)@)?(?<host>(?:www\\.)?(?:[^:\\/\\n\\r]+))(?::(?<port>\\d+))?\\/?(?<resource>[^?#\\n\\r]+)?\\??(?<query>[^#\\n\\r]*)?#?(?<anchor>[^\\n\\r]*)?\\)?)$\"",
+      "/links/supporting_reference/3 must match pattern \"^\\[\\[(?<name>[^\\]\\|\\r\\n]+)(?:\\|(?<title>[^\\]\\|\\r\\n]+))?\\]\\](?<agglu>[^\\p{P}\\s]*)$\"",
+      "/links/supporting_reference/3 must match a schema in anyOf",
+      "/links/supporting_reference/3 must match exactly one schema in oneOf",
+      "/links/supporting_reference/3 must be object",
+      "/links/supporting_reference/3 must match exactly one schema in oneOf",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties"
+    ],
+    "fields": [
+      {
+        "field": "links.supporting_reference",
+        "before": [
+          "https://github.com/chris-cald/vitae/pull/8",
+          "https://github.com/chris-cald/vitae/pull/8#pullrequestreview-5674180304",
+          "`8133ca9eda4e0caf2b23361993c54072a531e04c`",
+          "`7ab345902b54a5e617e653518773db52f0005d9c`"
+        ],
+        "after": [
+          "https://github.com/chris-cald/vitae/pull/8",
+          "https://github.com/chris-cald/vitae/pull/8#pullrequestreview-5674180304"
+        ],
+        "reason": "Remove schema-invalid references only because each exact string survives verbatim in original body; retain every valid URL."
+      }
+    ]
+  },
+  {
+    "file": "backlog/records/record-wi-055-validation-passed.md",
+    "diagnostics": [
+      "/links/supporting_reference/1 must match pattern \"^(?:(?:\\[(?<text>.+?)\\])?\\(?(?:(?<protocol>(?:[^:]+)s?):\\/\\/)(?:(?<user>[^:\\n\\r]+):(?<pass>[^@\\n\\r]+)@)?(?<host>(?:www\\.)?(?:[^:\\/\\n\\r]+))(?::(?<port>\\d+))?\\/?(?<resource>[^?#\\n\\r]+)?\\??(?<query>[^#\\n\\r]*)?#?(?<anchor>[^\\n\\r]*)?\\)?)$\"",
+      "/links/supporting_reference/1 must match pattern \"^\\[\\[(?<name>[^\\]\\|\\r\\n]+)(?:\\|(?<title>[^\\]\\|\\r\\n]+))?\\]\\](?<agglu>[^\\p{P}\\s]*)$\"",
+      "/links/supporting_reference/1 must match a schema in anyOf",
+      "/links/supporting_reference/1 must match exactly one schema in oneOf",
+      "/links/supporting_reference/1 must be object",
+      "/links/supporting_reference/1 must match exactly one schema in oneOf",
+      "/links/supporting_reference/2 must match pattern \"^(?:(?:\\[(?<text>.+?)\\])?\\(?(?:(?<protocol>(?:[^:]+)s?):\\/\\/)(?:(?<user>[^:\\n\\r]+):(?<pass>[^@\\n\\r]+)@)?(?<host>(?:www\\.)?(?:[^:\\/\\n\\r]+))(?::(?<port>\\d+))?\\/?(?<resource>[^?#\\n\\r]+)?\\??(?<query>[^#\\n\\r]*)?#?(?<anchor>[^\\n\\r]*)?\\)?)$\"",
+      "/links/supporting_reference/2 must match pattern \"^\\[\\[(?<name>[^\\]\\|\\r\\n]+)(?:\\|(?<title>[^\\]\\|\\r\\n]+))?\\]\\](?<agglu>[^\\p{P}\\s]*)$\"",
+      "/links/supporting_reference/2 must match a schema in anyOf",
+      "/links/supporting_reference/2 must match exactly one schema in oneOf",
+      "/links/supporting_reference/2 must be object",
+      "/links/supporting_reference/2 must match exactly one schema in oneOf",
+      "/links/supporting_reference/3 must match pattern \"^(?:(?:\\[(?<text>.+?)\\])?\\(?(?:(?<protocol>(?:[^:]+)s?):\\/\\/)(?:(?<user>[^:\\n\\r]+):(?<pass>[^@\\n\\r]+)@)?(?<host>(?:www\\.)?(?:[^:\\/\\n\\r]+))(?::(?<port>\\d+))?\\/?(?<resource>[^?#\\n\\r]+)?\\??(?<query>[^#\\n\\r]*)?#?(?<anchor>[^\\n\\r]*)?\\)?)$\"",
+      "/links/supporting_reference/3 must match pattern \"^\\[\\[(?<name>[^\\]\\|\\r\\n]+)(?:\\|(?<title>[^\\]\\|\\r\\n]+))?\\]\\](?<agglu>[^\\p{P}\\s]*)$\"",
+      "/links/supporting_reference/3 must match a schema in anyOf",
+      "/links/supporting_reference/3 must match exactly one schema in oneOf",
+      "/links/supporting_reference/3 must be object",
+      "/links/supporting_reference/3 must match exactly one schema in oneOf",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties"
+    ],
+    "fields": [
+      {
+        "field": "links.supporting_reference",
+        "before": [
+          "https://github.com/chris-cald/vitae/pull/8",
+          "`8133ca9eda4e0caf2b23361993c54072a531e04c`",
+          "Babysitter completion proof: `7c74fd1ab636d8e2bca77ed9488e8fc8`",
+          "`ad9af44c63e907796df981fede3783b40026f3d3`"
+        ],
+        "after": [
+          "https://github.com/chris-cald/vitae/pull/8"
+        ],
+        "reason": "Remove schema-invalid references only because each exact string survives verbatim in original body; retain every valid URL."
+      }
+    ]
+  },
+  {
+    "file": "backlog/records/record-wi-059-historical-approval.md",
+    "diagnostics": [
+      "/links/supporting_reference/2 must match pattern \"^(?:(?:\\[(?<text>.+?)\\])?\\(?(?:(?<protocol>(?:[^:]+)s?):\\/\\/)(?:(?<user>[^:\\n\\r]+):(?<pass>[^@\\n\\r]+)@)?(?<host>(?:www\\.)?(?:[^:\\/\\n\\r]+))(?::(?<port>\\d+))?\\/?(?<resource>[^?#\\n\\r]+)?\\??(?<query>[^#\\n\\r]*)?#?(?<anchor>[^\\n\\r]*)?\\)?)$\"",
+      "/links/supporting_reference/2 must match pattern \"^\\[\\[(?<name>[^\\]\\|\\r\\n]+)(?:\\|(?<title>[^\\]\\|\\r\\n]+))?\\]\\](?<agglu>[^\\p{P}\\s]*)$\"",
+      "/links/supporting_reference/2 must match a schema in anyOf",
+      "/links/supporting_reference/2 must match exactly one schema in oneOf",
+      "/links/supporting_reference/2 must be object",
+      "/links/supporting_reference/2 must match exactly one schema in oneOf",
+      "/links/supporting_reference/3 must match pattern \"^(?:(?:\\[(?<text>.+?)\\])?\\(?(?:(?<protocol>(?:[^:]+)s?):\\/\\/)(?:(?<user>[^:\\n\\r]+):(?<pass>[^@\\n\\r]+)@)?(?<host>(?:www\\.)?(?:[^:\\/\\n\\r]+))(?::(?<port>\\d+))?\\/?(?<resource>[^?#\\n\\r]+)?\\??(?<query>[^#\\n\\r]*)?#?(?<anchor>[^\\n\\r]*)?\\)?)$\"",
+      "/links/supporting_reference/3 must match pattern \"^\\[\\[(?<name>[^\\]\\|\\r\\n]+)(?:\\|(?<title>[^\\]\\|\\r\\n]+))?\\]\\](?<agglu>[^\\p{P}\\s]*)$\"",
+      "/links/supporting_reference/3 must match a schema in anyOf",
+      "/links/supporting_reference/3 must match exactly one schema in oneOf",
+      "/links/supporting_reference/3 must be object",
+      "/links/supporting_reference/3 must match exactly one schema in oneOf",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties"
+    ],
+    "fields": [
+      {
+        "field": "links.supporting_reference",
+        "before": [
+          "https://github.com/chris-cald/vitae/pull/7",
+          "https://github.com/chris-cald/vitae/pull/7#pullrequestreview-5630395741",
+          "`d32999d7ac4dff96f8dd793fbf3eaf608a2f3bd1`",
+          "`ad9af44c63e907796df981fede3783b40026f3d3`"
+        ],
+        "after": [
+          "https://github.com/chris-cald/vitae/pull/7",
+          "https://github.com/chris-cald/vitae/pull/7#pullrequestreview-5630395741"
+        ],
+        "reason": "Remove schema-invalid references only because each exact string survives verbatim in original body; retain every valid URL."
+      }
+    ]
+  },
+  {
+    "file": "backlog/records/record-wi-059-historical-ci-validation.md",
+    "diagnostics": [
+      "/links/supporting_reference/3 must match pattern \"^(?:(?:\\[(?<text>.+?)\\])?\\(?(?:(?<protocol>(?:[^:]+)s?):\\/\\/)(?:(?<user>[^:\\n\\r]+):(?<pass>[^@\\n\\r]+)@)?(?<host>(?:www\\.)?(?:[^:\\/\\n\\r]+))(?::(?<port>\\d+))?\\/?(?<resource>[^?#\\n\\r]+)?\\??(?<query>[^#\\n\\r]*)?#?(?<anchor>[^\\n\\r]*)?\\)?)$\"",
+      "/links/supporting_reference/3 must match pattern \"^\\[\\[(?<name>[^\\]\\|\\r\\n]+)(?:\\|(?<title>[^\\]\\|\\r\\n]+))?\\]\\](?<agglu>[^\\p{P}\\s]*)$\"",
+      "/links/supporting_reference/3 must match a schema in anyOf",
+      "/links/supporting_reference/3 must match exactly one schema in oneOf",
+      "/links/supporting_reference/3 must be object",
+      "/links/supporting_reference/3 must match exactly one schema in oneOf",
+      "/links/supporting_reference/4 must match pattern \"^(?:(?:\\[(?<text>.+?)\\])?\\(?(?:(?<protocol>(?:[^:]+)s?):\\/\\/)(?:(?<user>[^:\\n\\r]+):(?<pass>[^@\\n\\r]+)@)?(?<host>(?:www\\.)?(?:[^:\\/\\n\\r]+))(?::(?<port>\\d+))?\\/?(?<resource>[^?#\\n\\r]+)?\\??(?<query>[^#\\n\\r]*)?#?(?<anchor>[^\\n\\r]*)?\\)?)$\"",
+      "/links/supporting_reference/4 must match pattern \"^\\[\\[(?<name>[^\\]\\|\\r\\n]+)(?:\\|(?<title>[^\\]\\|\\r\\n]+))?\\]\\](?<agglu>[^\\p{P}\\s]*)$\"",
+      "/links/supporting_reference/4 must match a schema in anyOf",
+      "/links/supporting_reference/4 must match exactly one schema in oneOf",
+      "/links/supporting_reference/4 must be object",
+      "/links/supporting_reference/4 must match exactly one schema in oneOf",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties"
+    ],
+    "fields": [
+      {
+        "field": "links.supporting_reference",
+        "before": [
+          "https://github.com/chris-cald/vitae/actions/runs/39976087167/job/120490918587",
+          "https://github.com/chris-cald/vitae/actions/runs/39976072375/job/120490869153",
+          "https://github.com/chris-cald/vitae/pull/7",
+          "`d32999d7ac4dff96f8dd793fbf3eaf608a2f3bd1`",
+          "`ad9af44c63e907796df981fede3783b40026f3d3`"
+        ],
+        "after": [
+          "https://github.com/chris-cald/vitae/actions/runs/39976087167/job/120490918587",
+          "https://github.com/chris-cald/vitae/actions/runs/39976072375/job/120490869153",
+          "https://github.com/chris-cald/vitae/pull/7"
+        ],
+        "reason": "Remove schema-invalid references only because each exact string survives verbatim in original body; retain every valid URL."
+      }
+    ]
+  },
+  {
+    "file": "backlog/records/record-wi-064-final-independent-review.md",
+    "diagnostics": [
+      "/subtype must be equal to one of the allowed values",
+      "/subtype must match pattern \"^x-[a-z0-9]+(?:-[a-z0-9]+)*$\"",
+      "/subtype must match exactly one schema in oneOf"
+    ],
+    "fields": [
+      {
+        "field": "subtype",
+        "before": "review-result",
+        "after": "x-review-result",
+        "reason": "Use supported extension token; retain review classification without asserting approval."
+      }
+    ]
+  },
+  {
+    "file": "backlog/records/record-wi-064-independent-review.md",
+    "diagnostics": [
+      "/subtype must be equal to one of the allowed values",
+      "/subtype must match pattern \"^x-[a-z0-9]+(?:-[a-z0-9]+)*$\"",
+      "/subtype must match exactly one schema in oneOf"
+    ],
+    "fields": [
+      {
+        "field": "subtype",
+        "before": "review-result",
+        "after": "x-review-result",
+        "reason": "Use supported extension token; retain review classification without asserting approval."
+      }
+    ]
+  },
+  {
+    "file": "backlog/records/record-wi-067-independent-review-approved.md",
+    "diagnostics": [
+      "/subtype must be equal to one of the allowed values",
+      "/subtype must match pattern \"^x-[a-z0-9]+(?:-[a-z0-9]+)*$\"",
+      "/subtype must match exactly one schema in oneOf"
+    ],
+    "fields": [
+      {
+        "field": "subtype",
+        "before": "review-result",
+        "after": "x-review-result",
+        "reason": "Use supported extension token; retain review classification without asserting approval."
+      }
+    ]
+  }
+]
