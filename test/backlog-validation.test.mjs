@@ -68,10 +68,10 @@ test('backlog validation wrapper rejects a malformed derived schema map', t => {
   assert.match(result.stderr, /Derived schema map is missing or not a file/);
 });
 
-test('backlog validation wrapper fails closed when dv is unavailable', t => {
+test('backlog validation wrapper fails closed when its fixture launcher is unavailable', t => {
   const { schemaDir, binDir } = fixture(t);
   rmSync(join(binDir, 'dv'));
-  const result = run({ DV_WORK_MANAGEMENT_SCHEMA_DIR: schemaDir, PATH: `${binDir}:${dirname(process.execPath)}` });
+  const result = run({ DV_WORK_MANAGEMENT_SCHEMA_DIR: schemaDir, PATH: binDir });
   assert.notEqual(result.status, 0);
   assert.match(result.stderr, /Unable to invoke dv/);
 });

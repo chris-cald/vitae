@@ -29,3 +29,40 @@ DV TTR's safe preflight reports `missing` for the original WI069 receipt in BOTH
 The loader is installed at de10e6d; `resolved/` preserves the exact published-base/closure comparison showing zero added diagnostics and 59 historical violations. TTR cleared the narrow loader WAIT. The user then separately authorized WI072 metadata normalization to eliminate the historical baseline rather than grandfather it. Independently reviewed repair preserves all 59 historical bodies and produces a real zero-error global audit, now stored at `backlog/audit/auditing-backlog-report.json`. The old 86-error snapshot remains at `pre-records-audit.json`; original delta path meanings reflect their recording time and are not rewritten.
 
 At source3370356, clean pinned setup, 22 doc-pack tests, 27 draft tests/build, unmodified root check, unmodified pilot rehearsal and unmodified backlog validation all passed with the documented external authority environment. Independent exact-source review approved the immutable proof and explicit-map wrapper; receipts are in `docs/evidence/wi-072/`. PR22 carries repair and PR20-backed closure evidence. Provider review/CI/merge, delivery-effect completion and full independent WI070 acceptance remain pending; this is not a full-scope completion claim. Missing claim remains a nonblocking no-op. Archive remains separately deferred.
+
+## Current PR23 recovery — 2026-11-12
+
+PR23 is now provider-merged. The retained provider receipt `/tmp/vitae-pr23-provider-merge.json` has SHA-256 `a47f5870c32a41afab109bc6705c04060057fd5307ff1728fe13cfe3a639c0ab` and records head `77c60af6e9469ab637e0ef85a5e2f701460a488a`, state `MERGED`, timestamp `2026-11-12T15:55:22Z`, and squash merge `04e143ee0e385a43037fa56ee9872ea2246fd4c8`. The authorized delivery record further establishes PR23's current approval, zero discussion threads, and successful CI; this document makes no stronger provider or release claim.
+
+The clean detached postmerge validation was run at `04e143ee0e385a43037fa56ee9872ea2246fd4c8`. Its retained log `/tmp/vitae-pr23-postmerge-clean.log` has SHA-256 `e06b698f4ef966c35c3b3c24afc4036e3e7009408a19e9107f00b54950971000` and records the explicit draft 27-test and build checks, doc-pack wrapper 31, schema, root check, pilot rehearsal, global-zero audit, and diff checks as passing (job 332). The authoritative live audit is regenerated from the current checkout at `backlog/audit/auditing-backlog-report.json`; it supersedes only that generated report.
+
+`pre-records-audit.json`, `after-records-audit.json`, `delta.json`, `resolved/*`, `two-records-schema-lint.txt`, and the WI069 raw evidence are historical, time-scoped reports. Their reported failures or diagnostic counts are not claims about the current checkout. Historical bodies and counts are preserved; the authoritative live audit and the corrected historical-reference field in `delta.json` are the only audit-report changes. WI069 and WI071 remain supported completed-active PR20-backed records; this recovery does **not** claim WI072 closed, WI070 validated, any release, archive completion, or delivery-effect completion. The missing TTR claim remains an authorized no-op, and the deferred archive's actual-effort defect remains unaltered.
+
+### Split-B source provenance
+
+The authority for the exact deferred set is the committed `docs/evidence/wi-072/split-a-manifest.json` at base `04e143ee0e385a43037fa56ee9872ea2246fd4c8`, not a planning-report target header. It lists exactly 20 unique Split-B paths (two present-and-restored and eighteen absent-and-restored against that base). All source bytes remain addressable at immutable commit `e7b84ddf3521cc66506ea4cf17f3921fb2abdc23`; the compact Git blob mapping is:
+
+```text
+backlog/069-complete-connected-mock-dual-lifecycles.md e2e85b6e82b1f2921724c7252713634ad87fc616
+backlog/071-isolate-mock-prerequisite-test-resources.md dc8d864523bb26a12007ca6b451344ef38c40ef0
+backlog/audit/auditing-backlog-report.json ac9a26bbf322897691df850f34538cc5f318a162
+backlog/records/record-wi-069-provider-merged.md 0059f02285fc91ac8acc2f1115c9c4f20642bbab
+backlog/records/record-wi-071-provider-merged.md ea256d37e004544fbf04aa8945d82d59feb092cb
+docs/evidence/postmerge-closure/RECOVERY.md ed06ef25ec4d03a1e5da9ee1c964108075bbc0f8
+docs/evidence/postmerge-closure/after-records-audit.json c90351dadf967e78d669188d1901a2e6efd52711
+docs/evidence/postmerge-closure/delta.json fcadcf206784f4540945f894fbc5cdbfd45c560c
+docs/evidence/postmerge-closure/lint-log-normalization.json 77f17605a43719b707ae435b9a4e39f75bf20e05
+docs/evidence/postmerge-closure/pre-records-audit.json 34aae57eba26896279707873177df7adb092c8de
+docs/evidence/postmerge-closure/resolved/base.exit d00491fd7e5bb6fa28c517a0bb32b8b506539d4d
+docs/evidence/postmerge-closure/resolved/base.json 646430fd3c7f94db6a575b9410732effa854364a
+docs/evidence/postmerge-closure/resolved/base.stderr 5496e4135a1b618e172eab58d7a1a84f3a3b0d7c
+docs/evidence/postmerge-closure/resolved/candidate.exit d00491fd7e5bb6fa28c517a0bb32b8b506539d4d
+docs/evidence/postmerge-closure/resolved/candidate.json 409afd21faf49166597c1cd4530adc5c5190affb
+docs/evidence/postmerge-closure/resolved/candidate.stderr 28aed18e9cc2e6c1a8a960f22505e0506b599d77
+docs/evidence/postmerge-closure/resolved/delta.json d83d014949ec3ae998e5709c7858ab47a90d9517
+docs/evidence/postmerge-closure/two-records-schema-lint.txt 6ef3ced9a002de054363d4ca10d9e496fa40e11c
+docs/evidence/wi-069/postmerge-validation.txt 9c085dc411eade40734d234543b758c2e93fe2cd
+docs/evidence/wi-069/pr20-provider-merge.json 3b6707d0168c2f6a4150ab9cdc44dd0b1d017f27
+```
+
+The independent restoration check resolves these objects directly from `e7b84ddf`; this mapping intentionally preserves the original source objects even where current evidence corrections are required. Current correction ledger: 5 of 20 paths differ from e7—`backlog/audit/auditing-backlog-report.json` (regenerated live audit), this recovery, `backlog/071-isolate-mock-prerequisite-test-resources.md` and `backlog/records/record-wi-071-provider-merged.md` (superseded-loader-WAIT pointers), and `docs/evidence/postmerge-closure/delta.json` (historical 86-error baseline reference). The other 15 paths remain byte-identical to e7.

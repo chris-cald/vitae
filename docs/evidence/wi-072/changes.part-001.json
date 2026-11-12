@@ -1,0 +1,1200 @@
+[
+  {
+    "file": "backlog/009-remove-pii-bearing-model-logs.md",
+    "diagnostics": [
+      "(root) must have required property 'actual'",
+      "(root) must match \"then\" schema",
+      "(root) must match \"then\" schema"
+    ],
+    "fields": [
+      {
+        "field": "estimated",
+        "before": 2,
+        "after": null,
+        "reason": "Omit optional historical estimate triggering missing actual; no hours invented."
+      }
+    ]
+  },
+  {
+    "file": "backlog/019-reconcile-planning-docs-and-backlog-with-canonical-mvp-scope.md",
+    "diagnostics": [
+      "(root) must have required property 'actual'",
+      "(root) must match \"then\" schema",
+      "(root) must match \"then\" schema"
+    ],
+    "fields": [
+      {
+        "field": "estimated",
+        "before": 2,
+        "after": null,
+        "reason": "Omit optional historical estimate triggering missing actual; no hours invented."
+      }
+    ]
+  },
+  {
+    "file": "backlog/020-define-canonical-vitae-domain-model-and-obsidian-mapping.md",
+    "diagnostics": [
+      "(root) must have required property 'actual'",
+      "(root) must match \"then\" schema",
+      "(root) must match \"then\" schema"
+    ],
+    "fields": [
+      {
+        "field": "estimated",
+        "before": 5,
+        "after": null,
+        "reason": "Omit optional historical estimate triggering missing actual; no hours invented."
+      }
+    ]
+  },
+  {
+    "file": "backlog/021-preserve-seed-model-compatibility-and-harvest-fixtures.md",
+    "diagnostics": [
+      "(root) must have required property 'actual'",
+      "(root) must match \"then\" schema",
+      "(root) must match \"then\" schema"
+    ],
+    "fields": [
+      {
+        "field": "estimated",
+        "before": 4,
+        "after": null,
+        "reason": "Omit optional historical estimate triggering missing actual; no hours invented."
+      }
+    ]
+  },
+  {
+    "file": "backlog/022-define-harvest-cull-prime-and-substantiate-workflow-contracts.md",
+    "diagnostics": [
+      "(root) must have required property 'actual'",
+      "(root) must match \"then\" schema",
+      "(root) must match \"then\" schema"
+    ],
+    "fields": [
+      {
+        "field": "estimated",
+        "before": 4,
+        "after": null,
+        "reason": "Omit optional historical estimate triggering missing actual; no hours invented."
+      }
+    ]
+  },
+  {
+    "file": "backlog/023-implement-target-requirement-projection-and-catalog-fit-slice.md",
+    "diagnostics": [
+      "(root) must have required property 'actual'",
+      "(root) must match \"then\" schema",
+      "(root) must match \"then\" schema"
+    ],
+    "fields": [
+      {
+        "field": "estimated",
+        "before": 6,
+        "after": null,
+        "reason": "Omit optional historical estimate triggering missing actual; no hours invented."
+      }
+    ]
+  },
+  {
+    "file": "backlog/024-classify-misalignments-into-harvest-cull-prime-and-substantiate-actions.md",
+    "diagnostics": [
+      "(root) must have required property 'actual'",
+      "(root) must match \"then\" schema",
+      "(root) must match \"then\" schema"
+    ],
+    "fields": [
+      {
+        "field": "estimated",
+        "before": 4,
+        "after": null,
+        "reason": "Omit optional historical estimate triggering missing actual; no hours invented."
+      }
+    ]
+  },
+  {
+    "file": "backlog/025-generate-source-backed-resume-and-communication-deliverables.md",
+    "diagnostics": [
+      "(root) must have required property 'actual'",
+      "(root) must match \"then\" schema",
+      "(root) must match \"then\" schema"
+    ],
+    "fields": [
+      {
+        "field": "estimated",
+        "before": 6,
+        "after": null,
+        "reason": "Omit optional historical estimate triggering missing actual; no hours invented."
+      }
+    ]
+  },
+  {
+    "file": "backlog/026-track-one-application-with-lightweight-material-records.md",
+    "diagnostics": [
+      "(root) must have required property 'actual'",
+      "(root) must match \"then\" schema",
+      "(root) must match \"then\" schema"
+    ],
+    "fields": [
+      {
+        "field": "estimated",
+        "before": 5,
+        "after": null,
+        "reason": "Omit optional historical estimate triggering missing actual; no hours invented."
+      }
+    ]
+  },
+  {
+    "file": "backlog/027-adopt-privacy-safe-durable-temporal-execution.md",
+    "diagnostics": [
+      "/links must NOT have additional properties",
+      "(root) must have required property 'actual'",
+      "(root) must match \"then\" schema",
+      "/links must NOT have additional properties",
+      "(root) must match \"then\" schema",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties"
+    ],
+    "fields": [
+      {
+        "field": "estimated",
+        "before": 21,
+        "after": null,
+        "reason": "Omit optional historical estimate triggering missing actual; no hours invented."
+      },
+      {
+        "field": "links.implements",
+        "before": [
+          "[[../docs/adr/0004-adopt-privacy-safe-temporal-execution-substrate]]"
+        ],
+        "after": null,
+        "reason": "Unsupported key: targets merged into reference; original relationship labels retained in this report and original manifest."
+      },
+      {
+        "field": "links.reference",
+        "before": null,
+        "after": [
+          "[[../docs/adr/0004-adopt-privacy-safe-temporal-execution-substrate]]"
+        ],
+        "reason": "Preserve every parent/implements target in allowed reference vocabulary, deduplicating only identical targets."
+      }
+    ]
+  },
+  {
+    "file": "backlog/028-define-temporal-execution-boundary-and-threat-model.md",
+    "diagnostics": [
+      "/links must NOT have additional properties",
+      "/links must NOT have additional properties",
+      "/status_reason must be equal to one of the allowed values",
+      "(root) must match \"then\" schema",
+      "/lifecycle must be equal to constant",
+      "/status must be equal to one of the allowed values",
+      "/status must be equal to one of the allowed values",
+      "/lifecycle must be equal to constant",
+      "/status must be equal to one of the allowed values",
+      "/lifecycle must be equal to constant",
+      "/status must be equal to one of the allowed values",
+      "(root) must match a schema in anyOf",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties"
+    ],
+    "fields": [
+      {
+        "field": "links.parent",
+        "before": [
+          "[[027-adopt-privacy-safe-durable-temporal-execution]]"
+        ],
+        "after": null,
+        "reason": "Unsupported key: targets merged into reference; original relationship labels retained in this report and original manifest."
+      },
+      {
+        "field": "links.implements",
+        "before": [
+          "[[../docs/adr/0004-adopt-privacy-safe-temporal-execution-substrate]]"
+        ],
+        "after": null,
+        "reason": "Unsupported key: targets merged into reference; original relationship labels retained in this report and original manifest."
+      },
+      {
+        "field": "links.reference",
+        "before": null,
+        "after": [
+          "[[027-adopt-privacy-safe-durable-temporal-execution]]",
+          "[[../docs/adr/0004-adopt-privacy-safe-temporal-execution-substrate]]"
+        ],
+        "reason": "Preserve every parent/implements target in allowed reference vocabulary, deduplicating only identical targets."
+      },
+      {
+        "field": "status_reason",
+        "before": "development-only-provisional-approval",
+        "after": "completed",
+        "reason": "Explicit user decision normalize-reasons: canonical closed reason for documented development-only completion; preserve active/closed, estimated: 3, original qualified reason here, and all qualification prose byte-for-byte."
+      }
+    ]
+  },
+  {
+    "file": "backlog/029-build-runtime-execution-adapter-and-pii-safe-payload-contract.md",
+    "diagnostics": [
+      "/links must NOT have additional properties",
+      "/links must NOT have additional properties",
+      "/status_reason must be equal to one of the allowed values",
+      "(root) must match \"then\" schema",
+      "/lifecycle must be equal to constant",
+      "/status must be equal to one of the allowed values",
+      "/status must be equal to one of the allowed values",
+      "/lifecycle must be equal to constant",
+      "/status must be equal to one of the allowed values",
+      "/lifecycle must be equal to constant",
+      "/status must be equal to one of the allowed values",
+      "(root) must match a schema in anyOf",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties"
+    ],
+    "fields": [
+      {
+        "field": "links.parent",
+        "before": [
+          "[[027-adopt-privacy-safe-durable-temporal-execution]]"
+        ],
+        "after": null,
+        "reason": "Unsupported key: targets merged into reference; original relationship labels retained in this report and original manifest."
+      },
+      {
+        "field": "links.implements",
+        "before": [
+          "[[../docs/adr/0004-adopt-privacy-safe-temporal-execution-substrate]]"
+        ],
+        "after": null,
+        "reason": "Unsupported key: targets merged into reference; original relationship labels retained in this report and original manifest."
+      },
+      {
+        "field": "links.reference",
+        "before": null,
+        "after": [
+          "[[027-adopt-privacy-safe-durable-temporal-execution]]",
+          "[[../docs/adr/0004-adopt-privacy-safe-temporal-execution-substrate]]"
+        ],
+        "reason": "Preserve every parent/implements target in allowed reference vocabulary, deduplicating only identical targets."
+      },
+      {
+        "field": "status_reason",
+        "before": "development-contract-complete",
+        "after": "completed",
+        "reason": "Explicit user decision normalize-reasons: canonical closed reason for documented development-only completion; preserve active/closed, estimated: 3, original qualified reason here, and all qualification prose byte-for-byte."
+      }
+    ]
+  },
+  {
+    "file": "backlog/030-create-isolated-temporal-worker-bootstrap-and-configuration-seam.md",
+    "diagnostics": [
+      "/links must NOT have additional properties",
+      "/links must NOT have additional properties",
+      "(root) must have required property 'actual'",
+      "(root) must match \"then\" schema",
+      "/links must NOT have additional properties",
+      "/links must NOT have additional properties",
+      "(root) must match \"then\" schema",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties"
+    ],
+    "fields": [
+      {
+        "field": "estimated",
+        "before": 3,
+        "after": null,
+        "reason": "Omit optional historical estimate triggering missing actual; no hours invented."
+      },
+      {
+        "field": "links.parent",
+        "before": [
+          "[[027-adopt-privacy-safe-durable-temporal-execution]]"
+        ],
+        "after": null,
+        "reason": "Unsupported key: targets merged into reference; original relationship labels retained in this report and original manifest."
+      },
+      {
+        "field": "links.implements",
+        "before": [
+          "[[../docs/adr/0004-adopt-privacy-safe-temporal-execution-substrate]]"
+        ],
+        "after": null,
+        "reason": "Unsupported key: targets merged into reference; original relationship labels retained in this report and original manifest."
+      },
+      {
+        "field": "links.reference",
+        "before": null,
+        "after": [
+          "[[027-adopt-privacy-safe-durable-temporal-execution]]",
+          "[[../docs/adr/0004-adopt-privacy-safe-temporal-execution-substrate]]"
+        ],
+        "reason": "Preserve every parent/implements target in allowed reference vocabulary, deduplicating only identical targets."
+      }
+    ]
+  },
+  {
+    "file": "backlog/031-implement-idempotent-runtimeexecution-ledger-and-safe-status-api.md",
+    "diagnostics": [
+      "/links must NOT have additional properties",
+      "/links must NOT have additional properties",
+      "(root) must have required property 'actual'",
+      "(root) must match \"then\" schema",
+      "/links must NOT have additional properties",
+      "/links must NOT have additional properties",
+      "(root) must match \"then\" schema",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties"
+    ],
+    "fields": [
+      {
+        "field": "estimated",
+        "before": 5,
+        "after": null,
+        "reason": "Omit optional historical estimate triggering missing actual; no hours invented."
+      },
+      {
+        "field": "links.parent",
+        "before": [
+          "[[027-adopt-privacy-safe-durable-temporal-execution]]"
+        ],
+        "after": null,
+        "reason": "Unsupported key: targets merged into reference; original relationship labels retained in this report and original manifest."
+      },
+      {
+        "field": "links.implements",
+        "before": [
+          "[[../docs/adr/0004-adopt-privacy-safe-temporal-execution-substrate]]"
+        ],
+        "after": null,
+        "reason": "Unsupported key: targets merged into reference; original relationship labels retained in this report and original manifest."
+      },
+      {
+        "field": "links.reference",
+        "before": null,
+        "after": [
+          "[[027-adopt-privacy-safe-durable-temporal-execution]]",
+          "[[../docs/adr/0004-adopt-privacy-safe-temporal-execution-substrate]]"
+        ],
+        "reason": "Preserve every parent/implements target in allowed reference vocabulary, deduplicating only identical targets."
+      }
+    ]
+  },
+  {
+    "file": "backlog/032-deliver-opt-in-async-job-fit-vertical-slice.md",
+    "diagnostics": [
+      "/links must NOT have additional properties",
+      "/links must NOT have additional properties",
+      "(root) must have required property 'actual'",
+      "(root) must match \"then\" schema",
+      "/links must NOT have additional properties",
+      "/links must NOT have additional properties",
+      "(root) must match \"then\" schema",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties"
+    ],
+    "fields": [
+      {
+        "field": "estimated",
+        "before": 5,
+        "after": null,
+        "reason": "Omit optional historical estimate triggering missing actual; no hours invented."
+      },
+      {
+        "field": "links.parent",
+        "before": [
+          "[[027-adopt-privacy-safe-durable-temporal-execution]]"
+        ],
+        "after": null,
+        "reason": "Unsupported key: targets merged into reference; original relationship labels retained in this report and original manifest."
+      },
+      {
+        "field": "links.implements",
+        "before": [
+          "[[../docs/adr/0004-adopt-privacy-safe-temporal-execution-substrate]]"
+        ],
+        "after": null,
+        "reason": "Unsupported key: targets merged into reference; original relationship labels retained in this report and original manifest."
+      },
+      {
+        "field": "links.reference",
+        "before": null,
+        "after": [
+          "[[027-adopt-privacy-safe-durable-temporal-execution]]",
+          "[[../docs/adr/0004-adopt-privacy-safe-temporal-execution-substrate]]"
+        ],
+        "reason": "Preserve every parent/implements target in allowed reference vocabulary, deduplicating only identical targets."
+      }
+    ]
+  },
+  {
+    "file": "backlog/033-build-human-review-signal-bridge.md",
+    "diagnostics": [
+      "/links must NOT have additional properties",
+      "/links must NOT have additional properties",
+      "(root) must have required property 'actual'",
+      "(root) must match \"then\" schema",
+      "/links must NOT have additional properties",
+      "/links must NOT have additional properties",
+      "(root) must match \"then\" schema",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties"
+    ],
+    "fields": [
+      {
+        "field": "estimated",
+        "before": 3,
+        "after": null,
+        "reason": "Omit optional historical estimate triggering missing actual; no hours invented."
+      },
+      {
+        "field": "links.parent",
+        "before": [
+          "[[027-adopt-privacy-safe-durable-temporal-execution]]"
+        ],
+        "after": null,
+        "reason": "Unsupported key: targets merged into reference; original relationship labels retained in this report and original manifest."
+      },
+      {
+        "field": "links.implements",
+        "before": [
+          "[[../docs/adr/0004-adopt-privacy-safe-temporal-execution-substrate]]"
+        ],
+        "after": null,
+        "reason": "Unsupported key: targets merged into reference; original relationship labels retained in this report and original manifest."
+      },
+      {
+        "field": "links.reference",
+        "before": null,
+        "after": [
+          "[[027-adopt-privacy-safe-durable-temporal-execution]]",
+          "[[../docs/adr/0004-adopt-privacy-safe-temporal-execution-substrate]]"
+        ],
+        "reason": "Preserve every parent/implements target in allowed reference vocabulary, deduplicating only identical targets."
+      }
+    ]
+  },
+  {
+    "file": "backlog/034-implement-durable-harvest-runtime-slice.md",
+    "diagnostics": [
+      "/links must NOT have additional properties",
+      "/links must NOT have additional properties",
+      "(root) must have required property 'actual'",
+      "(root) must match \"then\" schema",
+      "/links must NOT have additional properties",
+      "/links must NOT have additional properties",
+      "(root) must match \"then\" schema",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties"
+    ],
+    "fields": [
+      {
+        "field": "estimated",
+        "before": 5,
+        "after": null,
+        "reason": "Omit optional historical estimate triggering missing actual; no hours invented."
+      },
+      {
+        "field": "links.parent",
+        "before": [
+          "[[027-adopt-privacy-safe-durable-temporal-execution]]"
+        ],
+        "after": null,
+        "reason": "Unsupported key: targets merged into reference; original relationship labels retained in this report and original manifest."
+      },
+      {
+        "field": "links.implements",
+        "before": [
+          "[[../docs/adr/0004-adopt-privacy-safe-temporal-execution-substrate]]"
+        ],
+        "after": null,
+        "reason": "Unsupported key: targets merged into reference; original relationship labels retained in this report and original manifest."
+      },
+      {
+        "field": "links.reference",
+        "before": null,
+        "after": [
+          "[[027-adopt-privacy-safe-durable-temporal-execution]]",
+          "[[../docs/adr/0004-adopt-privacy-safe-temporal-execution-substrate]]"
+        ],
+        "reason": "Preserve every parent/implements target in allowed reference vocabulary, deduplicating only identical targets."
+      }
+    ]
+  },
+  {
+    "file": "backlog/035-implement-durable-cull-and-prime-runtime-slice.md",
+    "diagnostics": [
+      "/links must NOT have additional properties",
+      "/links must NOT have additional properties",
+      "(root) must have required property 'actual'",
+      "(root) must match \"then\" schema",
+      "/links must NOT have additional properties",
+      "/links must NOT have additional properties",
+      "(root) must match \"then\" schema",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties"
+    ],
+    "fields": [
+      {
+        "field": "estimated",
+        "before": 5,
+        "after": null,
+        "reason": "Omit optional historical estimate triggering missing actual; no hours invented."
+      },
+      {
+        "field": "links.parent",
+        "before": [
+          "[[027-adopt-privacy-safe-durable-temporal-execution]]"
+        ],
+        "after": null,
+        "reason": "Unsupported key: targets merged into reference; original relationship labels retained in this report and original manifest."
+      },
+      {
+        "field": "links.implements",
+        "before": [
+          "[[../docs/adr/0004-adopt-privacy-safe-temporal-execution-substrate]]"
+        ],
+        "after": null,
+        "reason": "Unsupported key: targets merged into reference; original relationship labels retained in this report and original manifest."
+      },
+      {
+        "field": "links.reference",
+        "before": null,
+        "after": [
+          "[[027-adopt-privacy-safe-durable-temporal-execution]]",
+          "[[../docs/adr/0004-adopt-privacy-safe-temporal-execution-substrate]]"
+        ],
+        "reason": "Preserve every parent/implements target in allowed reference vocabulary, deduplicating only identical targets."
+      }
+    ]
+  },
+  {
+    "file": "backlog/036-implement-substantiation-and-guarded-catalog-publication.md",
+    "diagnostics": [
+      "/links must NOT have additional properties",
+      "/links must NOT have additional properties",
+      "(root) must have required property 'actual'",
+      "(root) must match \"then\" schema",
+      "/links must NOT have additional properties",
+      "/links must NOT have additional properties",
+      "(root) must match \"then\" schema",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties"
+    ],
+    "fields": [
+      {
+        "field": "estimated",
+        "before": 5,
+        "after": null,
+        "reason": "Omit optional historical estimate triggering missing actual; no hours invented."
+      },
+      {
+        "field": "links.parent",
+        "before": [
+          "[[027-adopt-privacy-safe-durable-temporal-execution]]"
+        ],
+        "after": null,
+        "reason": "Unsupported key: targets merged into reference; original relationship labels retained in this report and original manifest."
+      },
+      {
+        "field": "links.implements",
+        "before": [
+          "[[../docs/adr/0004-adopt-privacy-safe-temporal-execution-substrate]]"
+        ],
+        "after": null,
+        "reason": "Unsupported key: targets merged into reference; original relationship labels retained in this report and original manifest."
+      },
+      {
+        "field": "links.reference",
+        "before": null,
+        "after": [
+          "[[027-adopt-privacy-safe-durable-temporal-execution]]",
+          "[[../docs/adr/0004-adopt-privacy-safe-temporal-execution-substrate]]"
+        ],
+        "reason": "Preserve every parent/implements target in allowed reference vocabulary, deduplicating only identical targets."
+      }
+    ]
+  },
+  {
+    "file": "backlog/037-implement-required-durable-runtime-for-target-and-catalog-fit.md",
+    "diagnostics": [
+      "/links must NOT have additional properties",
+      "/links must NOT have additional properties",
+      "(root) must have required property 'actual'",
+      "(root) must match \"then\" schema",
+      "/links must NOT have additional properties",
+      "/links must NOT have additional properties",
+      "(root) must match \"then\" schema",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties"
+    ],
+    "fields": [
+      {
+        "field": "estimated",
+        "before": 3,
+        "after": null,
+        "reason": "Omit optional historical estimate triggering missing actual; no hours invented."
+      },
+      {
+        "field": "links.parent",
+        "before": [
+          "[[027-adopt-privacy-safe-durable-temporal-execution]]"
+        ],
+        "after": null,
+        "reason": "Unsupported key: targets merged into reference; original relationship labels retained in this report and original manifest."
+      },
+      {
+        "field": "links.implements",
+        "before": [
+          "[[../docs/adr/0004-adopt-privacy-safe-temporal-execution-substrate]]"
+        ],
+        "after": null,
+        "reason": "Unsupported key: targets merged into reference; original relationship labels retained in this report and original manifest."
+      },
+      {
+        "field": "links.reference",
+        "before": null,
+        "after": [
+          "[[027-adopt-privacy-safe-durable-temporal-execution]]",
+          "[[../docs/adr/0004-adopt-privacy-safe-temporal-execution-substrate]]"
+        ],
+        "reason": "Preserve every parent/implements target in allowed reference vocabulary, deduplicating only identical targets."
+      }
+    ]
+  },
+  {
+    "file": "backlog/038-implement-required-durable-runtime-for-deliverable-generation.md",
+    "diagnostics": [
+      "/links must NOT have additional properties",
+      "/links must NOT have additional properties",
+      "(root) must have required property 'actual'",
+      "(root) must match \"then\" schema",
+      "/links must NOT have additional properties",
+      "/links must NOT have additional properties",
+      "(root) must match \"then\" schema",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties"
+    ],
+    "fields": [
+      {
+        "field": "estimated",
+        "before": 3,
+        "after": null,
+        "reason": "Omit optional historical estimate triggering missing actual; no hours invented."
+      },
+      {
+        "field": "links.parent",
+        "before": [
+          "[[027-adopt-privacy-safe-durable-temporal-execution]]"
+        ],
+        "after": null,
+        "reason": "Unsupported key: targets merged into reference; original relationship labels retained in this report and original manifest."
+      },
+      {
+        "field": "links.implements",
+        "before": [
+          "[[../docs/adr/0004-adopt-privacy-safe-temporal-execution-substrate]]"
+        ],
+        "after": null,
+        "reason": "Unsupported key: targets merged into reference; original relationship labels retained in this report and original manifest."
+      },
+      {
+        "field": "links.reference",
+        "before": null,
+        "after": [
+          "[[027-adopt-privacy-safe-durable-temporal-execution]]",
+          "[[../docs/adr/0004-adopt-privacy-safe-temporal-execution-substrate]]"
+        ],
+        "reason": "Preserve every parent/implements target in allowed reference vocabulary, deduplicating only identical targets."
+      }
+    ]
+  },
+  {
+    "file": "backlog/039-implement-required-scheduled-application-automation-for-wi-026.md",
+    "diagnostics": [
+      "/links must NOT have additional properties",
+      "/links must NOT have additional properties",
+      "(root) must have required property 'actual'",
+      "(root) must match \"then\" schema",
+      "/links must NOT have additional properties",
+      "/links must NOT have additional properties",
+      "(root) must match \"then\" schema",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties"
+    ],
+    "fields": [
+      {
+        "field": "estimated",
+        "before": 3,
+        "after": null,
+        "reason": "Omit optional historical estimate triggering missing actual; no hours invented."
+      },
+      {
+        "field": "links.parent",
+        "before": [
+          "[[027-adopt-privacy-safe-durable-temporal-execution]]"
+        ],
+        "after": null,
+        "reason": "Unsupported key: targets merged into reference; original relationship labels retained in this report and original manifest."
+      },
+      {
+        "field": "links.implements",
+        "before": [
+          "[[../docs/adr/0004-adopt-privacy-safe-temporal-execution-substrate]]"
+        ],
+        "after": null,
+        "reason": "Unsupported key: targets merged into reference; original relationship labels retained in this report and original manifest."
+      },
+      {
+        "field": "links.reference",
+        "before": null,
+        "after": [
+          "[[027-adopt-privacy-safe-durable-temporal-execution]]",
+          "[[../docs/adr/0004-adopt-privacy-safe-temporal-execution-substrate]]"
+        ],
+        "reason": "Preserve every parent/implements target in allowed reference vocabulary, deduplicating only identical targets."
+      }
+    ]
+  },
+  {
+    "file": "backlog/040-complete-production-hardening-and-temporal-adoption-decision.md",
+    "diagnostics": [
+      "/links must NOT have additional properties",
+      "/links must NOT have additional properties",
+      "(root) must have required property 'actual'",
+      "(root) must match \"then\" schema",
+      "/links must NOT have additional properties",
+      "/links must NOT have additional properties",
+      "(root) must match \"then\" schema",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties"
+    ],
+    "fields": [
+      {
+        "field": "estimated",
+        "before": 5,
+        "after": null,
+        "reason": "Omit optional historical estimate triggering missing actual; no hours invented."
+      },
+      {
+        "field": "links.parent",
+        "before": [
+          "[[027-adopt-privacy-safe-durable-temporal-execution]]"
+        ],
+        "after": null,
+        "reason": "Unsupported key: targets merged into reference; original relationship labels retained in this report and original manifest."
+      },
+      {
+        "field": "links.implements",
+        "before": [
+          "[[../docs/adr/0004-adopt-privacy-safe-temporal-execution-substrate]]"
+        ],
+        "after": null,
+        "reason": "Unsupported key: targets merged into reference; original relationship labels retained in this report and original manifest."
+      },
+      {
+        "field": "links.reference",
+        "before": null,
+        "after": [
+          "[[027-adopt-privacy-safe-durable-temporal-execution]]",
+          "[[../docs/adr/0004-adopt-privacy-safe-temporal-execution-substrate]]"
+        ],
+        "reason": "Preserve every parent/implements target in allowed reference vocabulary, deduplicating only identical targets."
+      }
+    ]
+  },
+  {
+    "file": "backlog/041-add-uat-evidence-capture-harness.md",
+    "diagnostics": [
+      "/links must NOT have additional properties",
+      "/links must NOT have additional properties",
+      "(root) must have required property 'actual'",
+      "(root) must match \"then\" schema",
+      "/links must NOT have additional properties",
+      "/links must NOT have additional properties",
+      "(root) must match \"then\" schema",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties"
+    ],
+    "fields": [
+      {
+        "field": "estimated",
+        "before": 2,
+        "after": null,
+        "reason": "Omit optional historical estimate triggering missing actual; no hours invented."
+      },
+      {
+        "field": "links.parent",
+        "before": [
+          "[[040-complete-production-hardening-and-temporal-adoption-decision]]"
+        ],
+        "after": null,
+        "reason": "Unsupported key: targets merged into reference; original relationship labels retained in this report and original manifest."
+      },
+      {
+        "field": "links.implements",
+        "before": [
+          "[[../docs/uat-readiness]]"
+        ],
+        "after": null,
+        "reason": "Unsupported key: targets merged into reference; original relationship labels retained in this report and original manifest."
+      },
+      {
+        "field": "links.reference",
+        "before": null,
+        "after": [
+          "[[040-complete-production-hardening-and-temporal-adoption-decision]]",
+          "[[../docs/uat-readiness]]"
+        ],
+        "reason": "Preserve every parent/implements target in allowed reference vocabulary, deduplicating only identical targets."
+      }
+    ]
+  },
+  {
+    "file": "backlog/042-author-local-podman-uat-fixture.md",
+    "diagnostics": [
+      "/links must NOT have additional properties",
+      "(root) must have required property 'actual'",
+      "(root) must match \"then\" schema",
+      "/links must NOT have additional properties",
+      "(root) must match \"then\" schema",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties"
+    ],
+    "fields": [
+      {
+        "field": "estimated",
+        "before": 2,
+        "after": null,
+        "reason": "Omit optional historical estimate triggering missing actual; no hours invented."
+      },
+      {
+        "field": "links.parent",
+        "before": [
+          "[[040-complete-production-hardening-and-temporal-adoption-decision]]"
+        ],
+        "after": null,
+        "reason": "Unsupported key: targets merged into reference; original relationship labels retained in this report and original manifest."
+      },
+      {
+        "field": "links.reference",
+        "before": null,
+        "after": [
+          "[[040-complete-production-hardening-and-temporal-adoption-decision]]"
+        ],
+        "reason": "Preserve every parent/implements target in allowed reference vocabulary, deduplicating only identical targets."
+      }
+    ]
+  },
+  {
+    "file": "backlog/043-add-ci-friendly-uat-orchestrator.md",
+    "diagnostics": [
+      "/links must NOT have additional properties",
+      "(root) must have required property 'actual'",
+      "(root) must match \"then\" schema",
+      "/links must NOT have additional properties",
+      "(root) must match \"then\" schema",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties"
+    ],
+    "fields": [
+      {
+        "field": "estimated",
+        "before": 2,
+        "after": null,
+        "reason": "Omit optional historical estimate triggering missing actual; no hours invented."
+      },
+      {
+        "field": "links.parent",
+        "before": [
+          "[[040-complete-production-hardening-and-temporal-adoption-decision]]"
+        ],
+        "after": null,
+        "reason": "Unsupported key: targets merged into reference; original relationship labels retained in this report and original manifest."
+      },
+      {
+        "field": "links.reference",
+        "before": null,
+        "after": [
+          "[[040-complete-production-hardening-and-temporal-adoption-decision]]"
+        ],
+        "reason": "Preserve every parent/implements target in allowed reference vocabulary, deduplicating only identical targets."
+      }
+    ]
+  },
+  {
+    "file": "backlog/045-fix-local-compose-resume-upload.md",
+    "diagnostics": [
+      "/links must NOT have additional properties",
+      "/links must NOT have additional properties",
+      "(root) must match \"then\" schema",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties"
+    ],
+    "fields": [
+      {
+        "field": "links.parent",
+        "before": [
+          "[[044-add-local-compose-instance]]"
+        ],
+        "after": null,
+        "reason": "Unsupported key: targets merged into reference; original relationship labels retained in this report and original manifest."
+      },
+      {
+        "field": "links.reference",
+        "before": null,
+        "after": [
+          "[[044-add-local-compose-instance]]"
+        ],
+        "reason": "Preserve every parent/implements target in allowed reference vocabulary, deduplicating only identical targets."
+      }
+    ]
+  },
+  {
+    "file": "backlog/046-include-pi-bridge-in-local-compose.md",
+    "diagnostics": [
+      "/links must NOT have additional properties",
+      "/links must NOT have additional properties",
+      "(root) must match \"then\" schema",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties"
+    ],
+    "fields": [
+      {
+        "field": "links.parent",
+        "before": [
+          "[[044-add-local-compose-instance]]"
+        ],
+        "after": null,
+        "reason": "Unsupported key: targets merged into reference; original relationship labels retained in this report and original manifest."
+      },
+      {
+        "field": "links.reference",
+        "before": null,
+        "after": [
+          "[[044-add-local-compose-instance]]"
+        ],
+        "reason": "Preserve every parent/implements target in allowed reference vocabulary, deduplicating only identical targets."
+      }
+    ]
+  },
+  {
+    "file": "backlog/048-refresh-p0-source-of-truth-docs.md",
+    "diagnostics": [
+      "/links must NOT have additional properties",
+      "(root) must have required property 'actual'",
+      "(root) must match \"then\" schema",
+      "/links must NOT have additional properties",
+      "(root) must match \"then\" schema",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties",
+      "(root) must NOT have unevaluated properties"
+    ],
+    "fields": [
+      {
+        "field": "estimated",
+        "before": 2,
+        "after": null,
+        "reason": "Omit optional historical estimate triggering missing actual; no hours invented."
+      },
+      {
+        "field": "links.parent",
+        "before": [
+          "[[047-complete-p0-reconciliation]]"
+        ],
+        "after": null,
+        "reason": "Unsupported key: targets merged into reference; original relationship labels retained in this report and original manifest."
+      },
+      {
+        "field": "links.reference",
+        "before": [
+          "[[../docs/wayfinder/vitae-mvp-map]]",
+          "[[../docs/uat-readiness]]",
+          "[[../research]]"
+        ],
+        "after": [
+          "[[../docs/wayfinder/vitae-mvp-map]]",
+          "[[../docs/uat-readiness]]",
+          "[[../research]]",
+          "[[047-complete-p0-reconciliation]]"
+        ],
+        "reason": "Preserve every parent/implements target in allowed reference vocabulary, deduplicating only identical targets."
+      }
+    ]
+  }
+]

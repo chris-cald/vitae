@@ -7,6 +7,7 @@ import test from 'node:test';
 import Ajv2020 from 'ajv/dist/2020.js';
 import addFormats from 'ajv-formats';
 import yaml from 'js-yaml';
+import { readChanges, readRepairSnapshot } from './wi-072-evidence-loader.mjs';
 
 // Required external authority, never a vendored approximation or a skipped gate.
 // Override for other installations; missing files/refs fail the test immediately.
@@ -51,8 +52,8 @@ const record = loadSchema(path.join(schemaDir, 'frontmatter/record.json'));
 const validators = { 'work-item': ajv.getSchema(work.$id), record: ajv.getSchema(record.$id) };
 const manifest = JSON.parse(readFileSync(path.join(evidence, 'original-manifest.json')));
 const baseline = JSON.parse(readFileSync(path.join(evidence, 'baseline-candidate.json')));
-const snapshotSource = readFileSync(path.join(evidence, 'repair-snapshot.json'), 'utf8');
-const snapshot = JSON.parse(snapshotSource);
+const snapshot = readRepairSnapshot(evidence);
+const snapshotSource = JSON.stringify(snapshot, null, 2) + '\n';
 const split = source => {
   const match = source.match(/^---\r?\n[\s\S]*?\r?\n---(?:\r?\n|$)/);
   return { frontmatter: match?.[0] || '', metadata: match ? yaml.load(match[0].replace(/^---\r?\n/, '').replace(/\r?\n---\r?\n?$/, '')) : null,
@@ -140,7 +141,7 @@ test('WI-072 frozen proof preserves bodies, facts, valid effort, relationships, 
 });
 
 test('WI-072 frozen field report accounts for every original-to-repair metadata change', () => {
-  const changes = JSON.parse(readFileSync(path.join(evidence, 'changes.json')));
+  const changes = readChanges(evidence);
   assert.deepEqual(changes.map(row => row.file).sort(), violating.map(row => row.file).sort());
   assert.equal(changes.flatMap(row => row.fields).filter(field => field.field === 'estimated').length, 27);
   for (const row of changes) {

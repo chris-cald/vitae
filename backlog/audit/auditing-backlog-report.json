@@ -1,8 +1,8 @@
 {
-  "generated_at": "2026-11-11T21:31:23.618Z",
+  "generated_at": "2026-11-12T17:25:52.587Z",
   "options": {
-    "backlogDir": "/private/tmp/vitae-wi072-provision/.a5c/worktrees/wi-072/backlog",
-    "rootDir": "/private/tmp/vitae-wi072-provision/.a5c/worktrees/wi-072",
+    "backlogDir": "/Users/macos/.config/oppi/worktrees/tbdDmjP9/wt_publish-wi-072-closure-only-D3buc73g/backlog",
+    "rootDir": "/Users/macos/.config/oppi/worktrees/tbdDmjP9/wt_publish-wi-072-closure-only-D3buc73g",
     "format": "json",
     "failOn": "error",
     "schemaMap": "/Users/macos/Library/pnpm/doc-vader-runtime/schemas/frontmatter/schema-map.json",
