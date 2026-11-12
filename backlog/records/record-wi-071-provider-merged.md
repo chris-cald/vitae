@@ -43,3 +43,7 @@ Independent reviewer09745b5c approved exactf17329135a1a175cd1cb4c9484ab7775f07b5
 ## Closure review correction — 2026-11-09
 
 The identical/zero-added comparison above applies ONLY to the earlier effort-metadata migration, not current unpublished closure. Two new canonical records produce 86 → 88 schema-load errors; see `docs/evidence/postmerge-closure/delta.json` and `docs/evidence/postmerge-closure/RECOVERY.md`. Both new records pass authoritative direct schema lint, but that does not waive the global loader gate. Closure publication and WI070 selection remain on the verified narrow WAIT until the upstream fix is merged, installed and verified. Test-count precision: 9 doc-pack tests passed, including four authoritative work-item schema tests—not nine composed-work-item tests. Original receipts remain unchanged.
+
+## Superseding resolver verification
+
+The preceding loader WAIT is historical. Installed resolver verification at `de10e6d1531b5943d46cf1291a8e00fb4f1d75a3` superseded that narrow WAIT for both WI069 and WI071: the comparable published base and closure candidate had zero schema-load errors and identical 59 historical schema-violation files. See the matching verification in `069-complete-connected-mock-dual-lifecycles.md` and `docs/evidence/postmerge-closure/RECOVERY.md`. This does not claim WI070 browser/Figma validation, WI072 closure, a release, or delivery-effect completion; independent review, CI, and dependency gates remain required.

@@ -1,5 +1,5 @@
 {
-  "baseline": "backlog/audit/auditing-backlog-report.json",
+  "baseline": "docs/evidence/postmerge-closure/pre-records-audit.json",
   "after": "docs/evidence/postmerge-closure/after-records-audit.json",
   "normalization": "checkout root only; raw reports retained",
   "baseline_load_errors": 86,
