@@ -1,0 +1,8 @@
+{
+  "source_sha": "337035627adb6f32470ac7891de2160696242a6b",
+  "change": "Strip line-ending whitespace only for diff check",
+  "original_sha256": "5e133fc0f0d6297956c9ec4a7d6fe826aca3654ad8b5ae3d92228c2418bfc8fa",
+  "stored_sha256": "6753b95bdc1279e160252f2887bf78c5d62602136196d1038cdb16279e229601",
+  "commands": "pinned setup; docpack tests; explicit draft; npm run check; npm run pilot:rehearse; npm run validate:backlog",
+  "exit_code": 0
+}

@@ -15,14 +15,13 @@ completed_date: '2026-10-03'
 commits:
   20f59da7467943c068f01fafb2474a637cafa235: Enforce generation source eligibility
 links:
-  parent:
-    - '[[050-deliver-job-search-application-funnel-slice]]'
   depends_on:
     - '[[051-add-application-bundle-record-slice]]'
   reference:
     - '[[../docs/career/canonical-domain-model]]'
     - '[[../schemas/career/catalog-asset.schema.json]]'
     - '[[../schemas/career/projection.schema.json]]'
+    - '[[050-deliver-job-search-application-funnel-slice]]'
   evidence:
     - '[[record-wi-052-source-eligibility-validation-and-independent-review-passed-after-remediation]]'
 tags:

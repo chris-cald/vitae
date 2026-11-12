@@ -1,0 +1,381 @@
+# Split-A actual validation log
+# Environment: Node v22.17.0; npm 10.9.2; installed DV authority schema directory.
+
+## Focused proof + wrapper (exit 0)
+$ node --test doc-packs/vitae-sdlc/test/legacy-backlog-metadata.test.mjs doc-packs/vitae-sdlc/test/legacy-backlog-proof-lifecycle.test.mjs test/backlog-validation.test.mjs
+TAP version 13
+# Subtest: WI-072 missing actual conditional: authoritative original red and frozen repair green
+ok 1 - WI-072 missing actual conditional: authoritative original red and frozen repair green
+  ---
+  duration_ms: 5.457958
+  type: 'test'
+  ...
+# Subtest: WI-072 unknown relationship keys: authoritative original red and frozen repair green
+ok 2 - WI-072 unknown relationship keys: authoritative original red and frozen repair green
+  ---
+  duration_ms: 1.596584
+  type: 'test'
+  ...
+# Subtest: WI-072 empty dependency list: authoritative original red and frozen repair green
+ok 3 - WI-072 empty dependency list: authoritative original red and frozen repair green
+  ---
+  duration_ms: 0.227291
+  type: 'test'
+  ...
+# Subtest: WI-072 malformed supporting references: authoritative original red and frozen repair green
+ok 4 - WI-072 malformed supporting references: authoritative original red and frozen repair green
+  ---
+  duration_ms: 2.802208
+  type: 'test'
+  ...
+# Subtest: WI-072 record subtype extension: authoritative original red and frozen repair green
+ok 5 - WI-072 record subtype extension: authoritative original red and frozen repair green
+  ---
+  duration_ms: 0.141833
+  type: 'test'
+  ...
+# Subtest: WI-072 closed status reason compatibility: authoritative original red and frozen repair green
+ok 6 - WI-072 closed status reason compatibility: authoritative original red and frozen repair green
+  ---
+  duration_ms: 0.119833
+  type: 'test'
+  ...
+# Subtest: WI-072 immutable repair snapshot is exactly the 1ca2cc0 59-file repair
+ok 7 - WI-072 immutable repair snapshot is exactly the 1ca2cc0 59-file repair
+  ---
+  duration_ms: 2.127625
+  type: 'test'
+  ...
+# Subtest: WI-072 frozen proof preserves bodies, facts, valid effort, relationships, and original labels
+ok 8 - WI-072 frozen proof preserves bodies, facts, valid effort, relationships, and original labels
+  ---
+  duration_ms: 0.8625
+  type: 'test'
+  ...
+# Subtest: WI-072 frozen field report accounts for every original-to-repair metadata change
+ok 9 - WI-072 frozen field report accounts for every original-to-repair metadata change
+  ---
+  duration_ms: 1.612167
+  type: 'test'
+  ...
+# Subtest: WI-072 current live backlog conforms independently of the frozen repair proof
+ok 10 - WI-072 current live backlog conforms independently of the frozen repair proof
+  ---
+  duration_ms: 7.925042
+  type: 'test'
+  ...
+# Subtest: WI-072 historical repair proof survives legitimate later work in isolated backlog fixtures
+ok 11 - WI-072 historical repair proof survives legitimate later work in isolated backlog fixtures
+  ---
+  duration_ms: 271.285208
+  type: 'test'
+  ...
+# Subtest: WI-072 current schema validation still rejects invalid later metadata
+ok 12 - WI-072 current schema validation still rejects invalid later metadata
+  ---
+  duration_ms: 252.947375
+  type: 'test'
+  ...
+# Subtest: WI-072 immutable repair snapshot rejects tampering
+ok 13 - WI-072 immutable repair snapshot rejects tampering
+  ---
+  duration_ms: 267.228916
+  type: 'test'
+  ...
+# Subtest: backlog validation wrapper passes its explicit map to dv through a PATH containing spaces
+ok 14 - backlog validation wrapper passes its explicit map to dv through a PATH containing spaces
+  ---
+  duration_ms: 232.333458
+  type: 'test'
+  ...
+# Subtest: backlog validation wrapper fails before spawning dv when authority input is absent or invalid
+ok 15 - backlog validation wrapper fails before spawning dv when authority input is absent or invalid
+  ---
+  duration_ms: 32.535083
+  type: 'test'
+  ...
+# Subtest: backlog validation wrapper rejects a malformed derived schema map
+ok 16 - backlog validation wrapper rejects a malformed derived schema map
+  ---
+  duration_ms: 33.07825
+  type: 'test'
+  ...
+# Subtest: backlog validation wrapper fails closed when dv is unavailable
+ok 17 - backlog validation wrapper fails closed when dv is unavailable
+  ---
+  duration_ms: 34.912083
+  type: 'test'
+  ...
+# Subtest: backlog validation wrapper preserves dv exit status
+ok 18 - backlog validation wrapper preserves dv exit status
+  ---
+  duration_ms: 220.945875
+  type: 'test'
+  ...
+# Subtest: backlog validation wrapper preserves dv termination signal
+ok 19 - backlog validation wrapper preserves dv termination signal
+  ---
+  duration_ms: 188.853167
+  type: 'test'
+  ...
+1..19
+# tests 19
+# suites 0
+# pass 19
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 838.963417
+
+PROOF_WRAPPER_EXIT=0
+
+## Global authoritative validation (exit 0)
+$ npm run validate:backlog
+
+> validate:backlog
+> node scripts/validate-backlog.mjs
+
+(node:8056) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+unknown format "date" ignored in schema at path "#/$defs/dateString"
+unknown format "date" ignored in schema at path "#/$defs/dateString"
+unknown format "date" ignored in schema at path "#/$defs/dateString"
+unknown format "date" ignored in schema at path "#/$defs/dateString"
+unknown format "date" ignored in schema at path "#/$defs/dateString"
+unknown format "date" ignored in schema at path "#/$defs/dateString"
+unknown format "date" ignored in schema at path "#/$defs/dateString"
+unknown format "date" ignored in schema at path "#/$defs/dateString"
+unknown format "date" ignored in schema at path "/work-management/support/common#/$defs/dateString"
+unknown format "date" ignored in schema at path "/work-management/support/common#/$defs/dateString"
+{
+  "generated_at": "2026-11-11T23:58:53.972Z",
+  "options": {
+    "backlogDir": "/private/tmp/vitae-wi072-publish-a/backlog",
+    "rootDir": "/private/tmp/vitae-wi072-publish-a",
+    "format": "json",
+    "failOn": "error",
+    "schemaMap": "/Users/macos/Library/pnpm/doc-vader-runtime/schemas/frontmatter/schema-map.json",
+    "includeArchive": false,
+    "profile": "ci",
+    "profiles": [
+      "ci"
+    ]
+  },
+  "totals": {
+    "files": 159,
+    "duplicate_ids": 0,
+    "unresolved_wikilinks": 0,
+    "parse_errors": 0,
+    "no_inbound_active": 6,
+    "schema_violations": 0
+  },
+  "duplicate_ids": [],
+  "unresolved_wikilinks": [],
+  "parse_errors": [],
+  "no_inbound_active": [
+    {
+      "file": "backlog/012-split-scoring-from-recommendation-generation.md",
+      "id": "wi-012",
+      "status": "ready",
+      "title": "Split Scoring from Recommendation Generation"
+    },
+    {
+      "file": "backlog/013-prototype-career-graph-projection-for-bullets-and-requirements.md",
+      "id": "wi-013",
+      "status": "ready",
+      "title": "Prototype Career Graph Projection for Bullets and Requirements"
+    },
+    {
+      "file": "backlog/014-introduce-typed-frontend-backend-api-contract.md",
+      "id": "wi-014",
+      "status": "ready",
+      "title": "Introduce Typed Frontend Backend API Contract"
+    },
+    {
+      "file": "backlog/015-evaluate-templjs-backed-resume-variant-rendering.md",
+      "id": "wi-015",
+      "status": "ready",
+      "title": "Evaluate templjs Backed Resume Variant Rendering"
+    },
+    {
+      "file": "backlog/017-integrate-agent-workflows-for-work-order-execution.md",
+      "id": "wi-017",
+      "status": "ready",
+      "title": "Integrate agent-workflows for Work Order Execution"
+    },
+    {
+      "file": "backlog/018-add-adr-prd-frontmatter-validation-tooling.md",
+      "id": "wi-018",
+      "status": "ready",
+      "title": "Add ADR PRD Frontmatter Validation Tooling"
+    }
+  ],
+  "schema_violations": [],
+  "schema_load_errors": [],
+  "exit_code": 0
+}
+
+GLOBAL_EXIT=0
+
+## Broader release-test attempt (exit 1; not a Split-A failure)
+The first combined invocation included test/release-validation.test.mjs. Its 19 WI-072/wrapper tests passed; release validation could not load @eslint/js because frontend dependencies were deliberately not installed. Root/frontend setup and pilot are parent gates and were not run.
+$ node --version
+v22.17.0
+$ npm --version
+10.9.2
+$ node --test doc-packs/vitae-sdlc/test/legacy-backlog-metadata.test.mjs doc-packs/vitae-sdlc/test/legacy-backlog-proof-lifecycle.test.mjs test/backlog-validation.test.mjs test/release-validation.test.mjs
+TAP version 13
+# Subtest: WI-072 missing actual conditional: authoritative original red and frozen repair green
+ok 1 - WI-072 missing actual conditional: authoritative original red and frozen repair green
+  ---
+  duration_ms: 5.30575
+  type: 'test'
+  ...
+# Subtest: WI-072 unknown relationship keys: authoritative original red and frozen repair green
+ok 2 - WI-072 unknown relationship keys: authoritative original red and frozen repair green
+  ---
+  duration_ms: 1.466917
+  type: 'test'
+  ...
+# Subtest: WI-072 empty dependency list: authoritative original red and frozen repair green
+ok 3 - WI-072 empty dependency list: authoritative original red and frozen repair green
+  ---
+  duration_ms: 0.198792
+  type: 'test'
+  ...
+# Subtest: WI-072 malformed supporting references: authoritative original red and frozen repair green
+ok 4 - WI-072 malformed supporting references: authoritative original red and frozen repair green
+  ---
+  duration_ms: 2.846875
+  type: 'test'
+  ...
+# Subtest: WI-072 record subtype extension: authoritative original red and frozen repair green
+ok 5 - WI-072 record subtype extension: authoritative original red and frozen repair green
+  ---
+  duration_ms: 0.129458
+  type: 'test'
+  ...
+# Subtest: WI-072 closed status reason compatibility: authoritative original red and frozen repair green
+ok 6 - WI-072 closed status reason compatibility: authoritative original red and frozen repair green
+  ---
+  duration_ms: 0.11375
+  type: 'test'
+  ...
+# Subtest: WI-072 immutable repair snapshot is exactly the 1ca2cc0 59-file repair
+ok 7 - WI-072 immutable repair snapshot is exactly the 1ca2cc0 59-file repair
+  ---
+  duration_ms: 2.086709
+  type: 'test'
+  ...
+# Subtest: WI-072 frozen proof preserves bodies, facts, valid effort, relationships, and original labels
+ok 8 - WI-072 frozen proof preserves bodies, facts, valid effort, relationships, and original labels
+  ---
+  duration_ms: 0.836875
+  type: 'test'
+  ...
+# Subtest: WI-072 frozen field report accounts for every original-to-repair metadata change
+ok 9 - WI-072 frozen field report accounts for every original-to-repair metadata change
+  ---
+  duration_ms: 1.48675
+  type: 'test'
+  ...
+# Subtest: WI-072 current live backlog conforms independently of the frozen repair proof
+ok 10 - WI-072 current live backlog conforms independently of the frozen repair proof
+  ---
+  duration_ms: 8.510583
+  type: 'test'
+  ...
+# Subtest: WI-072 historical repair proof survives legitimate later work in isolated backlog fixtures
+ok 11 - WI-072 historical repair proof survives legitimate later work in isolated backlog fixtures
+  ---
+  duration_ms: 276.285625
+  type: 'test'
+  ...
+# Subtest: WI-072 current schema validation still rejects invalid later metadata
+ok 12 - WI-072 current schema validation still rejects invalid later metadata
+  ---
+  duration_ms: 263.915375
+  type: 'test'
+  ...
+# Subtest: WI-072 immutable repair snapshot rejects tampering
+ok 13 - WI-072 immutable repair snapshot rejects tampering
+  ---
+  duration_ms: 262.798958
+  type: 'test'
+  ...
+# Subtest: backlog validation wrapper passes its explicit map to dv through a PATH containing spaces
+ok 14 - backlog validation wrapper passes its explicit map to dv through a PATH containing spaces
+  ---
+  duration_ms: 289.931583
+  type: 'test'
+  ...
+# Subtest: backlog validation wrapper fails before spawning dv when authority input is absent or invalid
+ok 15 - backlog validation wrapper fails before spawning dv when authority input is absent or invalid
+  ---
+  duration_ms: 32.216417
+  type: 'test'
+  ...
+# Subtest: backlog validation wrapper rejects a malformed derived schema map
+ok 16 - backlog validation wrapper rejects a malformed derived schema map
+  ---
+  duration_ms: 32.610167
+  type: 'test'
+  ...
+# Subtest: backlog validation wrapper fails closed when dv is unavailable
+ok 17 - backlog validation wrapper fails closed when dv is unavailable
+  ---
+  duration_ms: 33.204416
+  type: 'test'
+  ...
+# Subtest: backlog validation wrapper preserves dv exit status
+ok 18 - backlog validation wrapper preserves dv exit status
+  ---
+  duration_ms: 260.385333
+  type: 'test'
+  ...
+# Subtest: backlog validation wrapper preserves dv termination signal
+ok 19 - backlog validation wrapper preserves dv termination signal
+  ---
+  duration_ms: 215.132917
+  type: 'test'
+  ...
+# node:internal/modules/package_json_reader:256
+#   throw new ERR_MODULE_NOT_FOUND(packageName, fileURLToPath(base), null);
+#         ^
+# Error [ERR_MODULE_NOT_FOUND]: Cannot find package '@eslint/js' imported from /private/tmp/vitae-wi072-publish-a/frontend/eslint.config.js
+#     at Object.getPackageJSONURL (node:internal/modules/package_json_reader:256:9)
+#     at packageResolve (node:internal/modules/esm/resolve:768:81)
+#     at moduleResolve (node:internal/modules/esm/resolve:854:18)
+#     at defaultResolve (node:internal/modules/esm/resolve:984:11)
+#     at ModuleLoader.defaultResolve (node:internal/modules/esm/loader:780:12)
+#     at \#cachedDefaultResolve (node:internal/modules/esm/loader:704:25)
+#     at ModuleLoader.resolve (node:internal/modules/esm/loader:687:38)
+#     at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:305:38)
+#     at ModuleJob._link (node:internal/modules/esm/module_job:175:49) {
+#   code: 'ERR_MODULE_NOT_FOUND'
+# }
+# Node.js v22.17.0
+# Subtest: test/release-validation.test.mjs
+not ok 4 - test/release-validation.test.mjs
+  ---
+  duration_ms: 34.241292
+  type: 'test'
+  location: '/private/tmp/vitae-wi072-publish-a/test/release-validation.test.mjs:1:1'
+  failureType: 'testCodeFailure'
+  exitCode: 1
+  signal: ~
+  error: 'test failed'
+  code: 'ERR_TEST_FAILURE'
+  ...
+1..20
+# tests 20
+# suites 0
+# pass 19
+# fail 1
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 912.328916
+
+FOCUSED_EXIT=1

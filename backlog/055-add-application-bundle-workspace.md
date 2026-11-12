@@ -14,8 +14,6 @@ commits:
 links:
   pull_requests:
     - https://github.com/chris-cald/vitae/pull/8
-  parent:
-    - '[[050-deliver-job-search-application-funnel-slice]]'
   depends_on:
     - '[[051-add-application-bundle-record-slice]]'
     - '[[052-enforce-generation-source-eligibility]]'
@@ -24,6 +22,7 @@ links:
     - '[[051-add-application-bundle-record-slice]]'
     - '[[052-enforce-generation-source-eligibility]]'
     - '[[053-generate-draft-application-bundle-artifacts]]'
+    - '[[050-deliver-job-search-application-funnel-slice]]'
   evidence:
     - '[[record-wi-055-validation-passed]]'
     - '[[record-wi-055-historical-approval]]'

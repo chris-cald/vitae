@@ -8,16 +8,14 @@ lifecycle: active
 status: completed
 status_reason: source-of-truth docs refreshed and validated
 priority: critical
-estimated: 2
 links:
-  parent:
-    - '[[047-complete-p0-reconciliation]]'
   depends_on:
     - '[[040-complete-production-hardening-and-temporal-adoption-decision]]'
   reference:
     - '[[../docs/wayfinder/vitae-mvp-map]]'
     - '[[../docs/uat-readiness]]'
     - '[[../research]]'
+    - '[[047-complete-p0-reconciliation]]'
 tags:
   - afk
   - p0

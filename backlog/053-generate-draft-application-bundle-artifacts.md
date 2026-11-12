@@ -14,14 +14,13 @@ completed_date: '2026-10-04'
 commits:
   00054ba3b681ab2d9f0b193fc69dc97335135a1b: Generate draft application bundle artifacts
 links:
-  parent:
-    - '[[050-deliver-job-search-application-funnel-slice]]'
   depends_on:
     - '[[052-enforce-generation-source-eligibility]]'
   reference:
     - '[[../templates/career/deliverable.md.tmpl]]'
     - '[[../templates/career/cover-letter.md.tmpl]]'
     - '[[../docs/career/canonical-domain-model]]'
+    - '[[050-deliver-job-search-application-funnel-slice]]'
   evidence:
     - '[[record-wi-053-draft-bundle-artifacts-validation-and-review-passed]]'
 tags:

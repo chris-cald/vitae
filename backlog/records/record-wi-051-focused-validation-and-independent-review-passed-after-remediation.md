@@ -8,10 +8,6 @@ subtype: test-result
 lifecycle: active
 status: ready
 status_reason: recorded
-links:
-  supporting_reference:
-    - 'command:cd backend && .venv/bin/python -m pytest tests/test_application_bundle_service.py -q'
-    - 'command:git diff --check'
 ---
 
 ## Recorded At

@@ -11,9 +11,6 @@ status_reason: recorded
 links:
   supporting_reference:
     - https://github.com/chris-cald/vitae/pull/8
-    - '`8133ca9eda4e0caf2b23361993c54072a531e04c`'
-    - 'Babysitter completion proof: `7c74fd1ab636d8e2bca77ed9488e8fc8`'
-    - '`ad9af44c63e907796df981fede3783b40026f3d3`'
 ---
 
 ## Recorded At

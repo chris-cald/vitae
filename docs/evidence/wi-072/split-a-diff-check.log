@@ -1,0 +1,7 @@
+# Split-A source and diff verification
+$ git diff --check d422e0c
+DIFF_CHECK_EXIT=0
+$ exact-source-object comparison for 87 A paths other than permitted README provenance append
+SOURCE_OBJECT_MISMATCHES=0
+$ git diff --name-only d422e0c (source partition before fresh receipts)
+SOURCE_A_PATHS=88; DEFERRED_B_PATHS=20; SOURCE_UNION=108; OVERLAP=0

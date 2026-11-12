@@ -1,0 +1,209 @@
+TAP version 13
+# Subtest: WI-072 missing actual conditional: authoritative baseline red, repository green
+not ok 1 - WI-072 missing actual conditional: authoritative baseline red, repository green
+  ---
+  duration_ms: 3.818083
+  type: 'test'
+  location: '/private/tmp/vitae-wi072-provision/.a5c/worktrees/wi-072/doc-packs/vitae-sdlc/test/legacy-backlog-metadata.test.mjs:66:3'
+  failureType: 'testCodeFailure'
+  error: |-
+    backlog/009-remove-pii-bearing-model-logs.md: [{"instancePath":"","schemaPath":"#/allOf/2/then/allOf/0/then/required","keyword":"required","params":{"missingProperty":"actual"},"message":"must have required property 'actual'"},{"instancePath":"","schemaPath":"#/allOf/2/then/allOf/0/if","keyword":"if","params":{"failingKeyword":"then"},"message":"must match \"then\" schema"},{"instancePath":"","schemaPath":"#/allOf/2/if","keyword":"if","params":{"failingKeyword":"then"},"message":"must match \"then\" schema"}]
+
+    false !== true
+
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  actual: false
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///private/tmp/vitae-wi072-provision/.a5c/worktrees/wi-072/doc-packs/vitae-sdlc/test/legacy-backlog-metadata.test.mjs:73:14)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.start (node:internal/test_runner/test:944:17)
+    startSubtestAfterBootstrap (node:internal/test_runner/harness:296:17)
+  ...
+# Subtest: WI-072 unknown relationship keys: authoritative baseline red, repository green
+not ok 2 - WI-072 unknown relationship keys: authoritative baseline red, repository green
+  ---
+  duration_ms: 0.742
+  type: 'test'
+  location: '/private/tmp/vitae-wi072-provision/.a5c/worktrees/wi-072/doc-packs/vitae-sdlc/test/legacy-backlog-metadata.test.mjs:66:3'
+  failureType: 'testCodeFailure'
+  error: |-
+    backlog/027-adopt-privacy-safe-durable-temporal-execution.md: [{"instancePath":"/links","schemaPath":"#/additionalProperties","keyword":"additionalProperties","params":{"additionalProperty":"implements"},"message":"must NOT have additional properties"},{"instancePath":"","schemaPath":"#/allOf/2/then/allOf/0/then/required","keyword":"required","params":{"missingProperty":"actual"},"message":"must have required property 'actual'"},{"instancePath":"","schemaPath":"#/allOf/2/then/allOf/0/if","keyword":"if","params":{"failingKeyword":"then"},"message":"must match \"then\" schema"},{"instancePath":"/links","schemaPath":"#/additionalProperties","keyword":"additionalProperties","params":{"additionalProperty":"implements"},"message":"must NOT have additional properties"},{"instancePath":"","schemaPath":"#/allOf/2/if","keyword":"if","params":{"failingKeyword":"then"},"message":"must match \"then\" schema"},{"instancePath":"","schemaPath":"#/unevaluatedProperties","keyword":"unevaluatedProperties","params":{"unevaluatedProperty":"id"},"message":"must NOT have unevaluated properties"},{"instancePath":"","schemaPath":"#/unevaluatedProperties","keyword":"unevaluatedProperties","params":{"unevaluatedProperty":"title"},"message":"must NOT have unevaluated properties"},{"instancePath":"","schemaPath":"#/unevaluatedProperties","keyword":"unevaluatedProperties","params":{"unevaluatedProperty":"type"},"message":"must NOT have unevaluated properties"},{"instancePath":"","schemaPath":"#/unevaluatedProperties","keyword":"unevaluatedProperties","params":{"unevaluatedProperty":"subtype"},"message":"must NOT have unevaluated properties"},{"instancePath":"","schemaPath":"#/unevaluatedProperties","keyword":"unevaluatedProperties","params":{"unevaluatedProperty":"lifecycle"},"message":"must NOT have unevaluated properties"},{"instancePath":"","schemaPath":"#/unevaluatedProperties","keyword":"unevaluatedProperties","params":{"unevaluatedProperty":"status"},"message":"must NOT have unevaluated properties"},{"instancePath":"","schemaPath":"#/unevaluatedProperties","keyword":"unevaluatedProperties","params":{"unevaluatedProperty":"status_reason"},"message":"must NOT have unevaluated properties"},{"instancePath":"","schemaPath":"#/unevaluatedProperties","keyword":"unevaluatedProperties","params":{"unevaluatedProperty":"priority"},"message":"must NOT have unevaluated properties"},{"instancePath":"","schemaPath":"#/unevaluatedProperties","keyword":"unevaluatedProperties","params":{"unevaluatedProperty":"estimated"},"message":"must NOT have unevaluated properties"},{"instancePath":"","schemaPath":"#/unevaluatedProperties","keyword":"unevaluatedProperties","params":{"unevaluatedProperty":"links"},"message":"must NOT have unevaluated properties"},{"instancePath":"","schemaPath":"#/unevaluatedProperties","keyword":"unevaluatedProperties","params":{"unevaluatedProperty":"tags"},"message":"must NOT have unevaluated properties"}]
+
+    false !== true
+
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  actual: false
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///private/tmp/vitae-wi072-provision/.a5c/worktrees/wi-072/doc-packs/vitae-sdlc/test/legacy-backlog-metadata.test.mjs:73:14)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async startSubtestAfterBootstrap (node:internal/test_runner/harness:296:3)
+  ...
+# Subtest: WI-072 empty dependency list: authoritative baseline red, repository green
+not ok 3 - WI-072 empty dependency list: authoritative baseline red, repository green
+  ---
+  duration_ms: 0.686292
+  type: 'test'
+  location: '/private/tmp/vitae-wi072-provision/.a5c/worktrees/wi-072/doc-packs/vitae-sdlc/test/legacy-backlog-metadata.test.mjs:66:3'
+  failureType: 'testCodeFailure'
+  error: |-
+    backlog/060-draft-figma-based-frontend.md: [{"instancePath":"/links","schemaPath":"#/additionalProperties","keyword":"additionalProperties","params":{"additionalProperty":"parent"},"message":"must NOT have additional properties"},{"instancePath":"/links","schemaPath":"#/additionalProperties","keyword":"additionalProperties","params":{"additionalProperty":"implements"},"message":"must NOT have additional properties"},{"instancePath":"/links/depends_on","schemaPath":"#/minItems","keyword":"minItems","params":{"limit":1},"message":"must NOT have fewer than 1 items"},{"instancePath":"/links","schemaPath":"#/additionalProperties","keyword":"additionalProperties","params":{"additionalProperty":"parent"},"message":"must NOT have additional properties"},{"instancePath":"/links","schemaPath":"#/additionalProperties","keyword":"additionalProperties","params":{"additionalProperty":"implements"},"message":"must NOT have additional properties"},{"instancePath":"/links/depends_on","schemaPath":"#/minItems","keyword":"minItems","params":{"limit":1},"message":"must NOT have fewer than 1 items"},{"instancePath":"","schemaPath":"#/allOf/2/if","keyword":"if","params":{"failingKeyword":"then"},"message":"must match \"then\" schema"},{"instancePath":"","schemaPath":"#/unevaluatedProperties","keyword":"unevaluatedProperties","params":{"unevaluatedProperty":"id"},"message":"must NOT have unevaluated properties"},{"instancePath":"","schemaPath":"#/unevaluatedProperties","keyword":"unevaluatedProperties","params":{"unevaluatedProperty":"title"},"message":"must NOT have unevaluated properties"},{"instancePath":"","schemaPath":"#/unevaluatedProperties","keyword":"unevaluatedProperties","params":{"unevaluatedProperty":"type"},"message":"must NOT have unevaluated properties"},{"instancePath":"","schemaPath":"#/unevaluatedProperties","keyword":"unevaluatedProperties","params":{"unevaluatedProperty":"subtype"},"message":"must NOT have unevaluated properties"},{"instancePath":"","schemaPath":"#/unevaluatedProperties","keyword":"unevaluatedProperties","params":{"unevaluatedProperty":"lifecycle"},"message":"must NOT have unevaluated properties"},{"instancePath":"","schemaPath":"#/unevaluatedProperties","keyword":"unevaluatedProperties","params":{"unevaluatedProperty":"status"},"message":"must NOT have unevaluated properties"},{"instancePath":"","schemaPath":"#/unevaluatedProperties","keyword":"unevaluatedProperties","params":{"unevaluatedProperty":"status_reason"},"message":"must NOT have unevaluated properties"},{"instancePath":"","schemaPath":"#/unevaluatedProperties","keyword":"unevaluatedProperties","params":{"unevaluatedProperty":"priority"},"message":"must NOT have unevaluated properties"},{"instancePath":"","schemaPath":"#/unevaluatedProperties","keyword":"unevaluatedProperties","params":{"unevaluatedProperty":"estimated"},"message":"must NOT have unevaluated properties"},{"instancePath":"","schemaPath":"#/unevaluatedProperties","keyword":"unevaluatedProperties","params":{"unevaluatedProperty":"actual"},"message":"must NOT have unevaluated properties"},{"instancePath":"","schemaPath":"#/unevaluatedProperties","keyword":"unevaluatedProperties","params":{"unevaluatedProperty":"completed_date"},"message":"must NOT have unevaluated properties"},{"instancePath":"","schemaPath":"#/unevaluatedProperties","keyword":"unevaluatedProperties","params":{"unevaluatedProperty":"links"},"message":"must NOT have unevaluated properties"},{"instancePath":"","schemaPath":"#/unevaluatedProperties","keyword":"unevaluatedProperties","params":{"unevaluatedProperty":"tags"},"message":"must NOT have unevaluated properties"}]
+
+    false !== true
+
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  actual: false
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///private/tmp/vitae-wi072-provision/.a5c/worktrees/wi-072/doc-packs/vitae-sdlc/test/legacy-backlog-metadata.test.mjs:73:14)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: WI-072 malformed supporting references: authoritative baseline red, repository green
+not ok 4 - WI-072 malformed supporting references: authoritative baseline red, repository green
+  ---
+  duration_ms: 1.689875
+  type: 'test'
+  location: '/private/tmp/vitae-wi072-provision/.a5c/worktrees/wi-072/doc-packs/vitae-sdlc/test/legacy-backlog-metadata.test.mjs:66:3'
+  failureType: 'testCodeFailure'
+  error: |-
+    backlog/records/record-wi-051-focused-validation-and-independent-review-passed-after-remediation.md: [{"instancePath":"/links/supporting_reference/0","schemaPath":"#/$defs/uri/pattern","keyword":"pattern","params":{"pattern":"^(?:(?:\\[(?<text>.+?)\\])?\\(?(?:(?<protocol>(?:[^:]+)s?):\\/\\/)(?:(?<user>[^:\\n\\r]+):(?<pass>[^@\\n\\r]+)@)?(?<host>(?:www\\.)?(?:[^:\\/\\n\\r]+))(?::(?<port>\\d+))?\\/?(?<resource>[^?#\\n\\r]+)?\\??(?<query>[^#\\n\\r]*)?#?(?<anchor>[^\\n\\r]*)?\\)?)$"},"message":"must match pattern \"^(?:(?:\\[(?<text>.+?)\\])?\\(?(?:(?<protocol>(?:[^:]+)s?):\\/\\/)(?:(?<user>[^:\\n\\r]+):(?<pass>[^@\\n\\r]+)@)?(?<host>(?:www\\.)?(?:[^:\\/\\n\\r]+))(?::(?<port>\\d+))?\\/?(?<resource>[^?#\\n\\r]+)?\\??(?<query>[^#\\n\\r]*)?#?(?<anchor>[^\\n\\r]*)?\\)?)$\""},{"instancePath":"/links/supporting_reference/0","schemaPath":"#/$defs/wikilink/pattern","keyword":"pattern","params":{"pattern":"^\\[\\[(?<name>[^\\]\\|\\r\\n]+)(?:\\|(?<title>[^\\]\\|\\r\\n]+))?\\]\\](?<agglu>[^\\p{P}\\s]*)$"},"message":"must match pattern \"^\\[\\[(?<name>[^\\]\\|\\r\\n]+)(?:\\|(?<title>[^\\]\\|\\r\\n]+))?\\]\\](?<agglu>[^\\p{P}\\s]*)$\""},{"instancePath":"/links/supporting_reference/0","schemaPath":"#/anyOf","keyword":"anyOf","params":{},"message":"must match a schema in anyOf"},{"instancePath":"/links/supporting_reference/0","schemaPath":"#/oneOf","keyword":"oneOf","params":{"passingSchemas":[0,1]},"message":"must match exactly one schema in oneOf"},{"instancePath":"/links/supporting_reference/0","schemaPath":"#/type","keyword":"type","params":{"type":"object"},"message":"must be object"},{"instancePath":"/links/supporting_reference/0","schemaPath":"#/patternProperties/%5E.%2B%24/items/oneOf","keyword":"oneOf","params":{"passingSchemas":null},"message":"must match exactly one schema in oneOf"},{"instancePath":"/links/supporting_reference/1","schemaPath":"#/$defs/uri/pattern","keyword":"pattern","params":{"pattern":"^(?:(?:\\[(?<text>.+?)\\])?\\(?(?:(?<protocol>(?:[^:]+)s?):\\/\\/)(?:(?<user>[^:\\n\\r]+):(?<pass>[^@\\n\\r]+)@)?(?<host>(?:www\\.)?(?:[^:\\/\\n\\r]+))(?::(?<port>\\d+))?\\/?(?<resource>[^?#\\n\\r]+)?\\??(?<query>[^#\\n\\r]*)?#?(?<anchor>[^\\n\\r]*)?\\)?)$"},"message":"must match pattern \"^(?:(?:\\[(?<text>.+?)\\])?\\(?(?:(?<protocol>(?:[^:]+)s?):\\/\\/)(?:(?<user>[^:\\n\\r]+):(?<pass>[^@\\n\\r]+)@)?(?<host>(?:www\\.)?(?:[^:\\/\\n\\r]+))(?::(?<port>\\d+))?\\/?(?<resource>[^?#\\n\\r]+)?\\??(?<query>[^#\\n\\r]*)?#?(?<anchor>[^\\n\\r]*)?\\)?)$\""},{"instancePath":"/links/supporting_reference/1","schemaPath":"#/$defs/wikilink/pattern","keyword":"pattern","params":{"pattern":"^\\[\\[(?<name>[^\\]\\|\\r\\n]+)(?:\\|(?<title>[^\\]\\|\\r\\n]+))?\\]\\](?<agglu>[^\\p{P}\\s]*)$"},"message":"must match pattern \"^\\[\\[(?<name>[^\\]\\|\\r\\n]+)(?:\\|(?<title>[^\\]\\|\\r\\n]+))?\\]\\](?<agglu>[^\\p{P}\\s]*)$\""},{"instancePath":"/links/supporting_reference/1","schemaPath":"#/anyOf","keyword":"anyOf","params":{},"message":"must match a schema in anyOf"},{"instancePath":"/links/supporting_reference/1","schemaPath":"#/oneOf","keyword":"oneOf","params":{"passingSchemas":[0,1]},"message":"must match exactly one schema in oneOf"},{"instancePath":"/links/supporting_reference/1","schemaPath":"#/type","keyword":"type","params":{"type":"object"},"message":"must be object"},{"instancePath":"/links/supporting_reference/1","schemaPath":"#/patternProperties/%5E.%2B%24/items/oneOf","keyword":"oneOf","params":{"passingSchemas":null},"message":"must match exactly one schema in oneOf"},{"instancePath":"","schemaPath":"#/unevaluatedProperties","keyword":"unevaluatedProperties","params":{"unevaluatedProperty":"title"},"message":"must NOT have unevaluated properties"},{"instancePath":"","schemaPath":"#/unevaluatedProperties","keyword":"unevaluatedProperties","params":{"unevaluatedProperty":"status_reason"},"message":"must NOT have unevaluated properties"},{"instancePath":"","schemaPath":"#/unevaluatedProperties","keyword":"unevaluatedProperties","params":{"unevaluatedProperty":"links"},"message":"must NOT have unevaluated properties"}]
+
+    false !== true
+
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  actual: false
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///private/tmp/vitae-wi072-provision/.a5c/worktrees/wi-072/doc-packs/vitae-sdlc/test/legacy-backlog-metadata.test.mjs:73:14)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: WI-072 record subtype extension: authoritative baseline red, repository green
+not ok 5 - WI-072 record subtype extension: authoritative baseline red, repository green
+  ---
+  duration_ms: 0.510708
+  type: 'test'
+  location: '/private/tmp/vitae-wi072-provision/.a5c/worktrees/wi-072/doc-packs/vitae-sdlc/test/legacy-backlog-metadata.test.mjs:66:3'
+  failureType: 'testCodeFailure'
+  error: |-
+    backlog/records/record-wi-064-final-independent-review.md: [{"instancePath":"/subtype","schemaPath":"#/oneOf/0/enum","keyword":"enum","params":{"allowedValues":["evidence","test-result","comment","approval","audit-note"]},"message":"must be equal to one of the allowed values"},{"instancePath":"/subtype","schemaPath":"#/$defs/extensionToken/pattern","keyword":"pattern","params":{"pattern":"^x-[a-z0-9]+(?:-[a-z0-9]+)*$"},"message":"must match pattern \"^x-[a-z0-9]+(?:-[a-z0-9]+)*$\""},{"instancePath":"/subtype","schemaPath":"#/oneOf","keyword":"oneOf","params":{"passingSchemas":null},"message":"must match exactly one schema in oneOf"}]
+
+    false !== true
+
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  actual: false
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///private/tmp/vitae-wi072-provision/.a5c/worktrees/wi-072/doc-packs/vitae-sdlc/test/legacy-backlog-metadata.test.mjs:73:14)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: WI-072 closed status reason compatibility: authoritative baseline red, repository green
+not ok 6 - WI-072 closed status reason compatibility: authoritative baseline red, repository green
+  ---
+  duration_ms: 0.28025
+  type: 'test'
+  location: '/private/tmp/vitae-wi072-provision/.a5c/worktrees/wi-072/doc-packs/vitae-sdlc/test/legacy-backlog-metadata.test.mjs:66:3'
+  failureType: 'testCodeFailure'
+  error: |-
+    backlog/028-define-temporal-execution-boundary-and-threat-model.md: [{"instancePath":"/links","schemaPath":"#/additionalProperties","keyword":"additionalProperties","params":{"additionalProperty":"parent"},"message":"must NOT have additional properties"},{"instancePath":"/links","schemaPath":"#/additionalProperties","keyword":"additionalProperties","params":{"additionalProperty":"implements"},"message":"must NOT have additional properties"},{"instancePath":"/status_reason","schemaPath":"#/allOf/1/anyOf/0/allOf/4/then/properties/status_reason/enum","keyword":"enum","params":{"allowedValues":["completed","obsolete","superseded","redundant","cancelled"]},"message":"must be equal to one of the allowed values"},{"instancePath":"","schemaPath":"#/allOf/1/anyOf/0/allOf/4/if","keyword":"if","params":{"failingKeyword":"then"},"message":"must match \"then\" schema"},{"instancePath":"/lifecycle","schemaPath":"#/allOf/1/anyOf/1/properties/lifecycle/const","keyword":"const","params":{"allowedValue":"draft"},"message":"must be equal to constant"},{"instancePath":"/status","schemaPath":"#/allOf/1/anyOf/1/properties/status/enum","keyword":"enum","params":{"allowedValues":["draft","aborted"]},"message":"must be equal to one of the allowed values"},{"instancePath":"/status","schemaPath":"#/allOf/1/anyOf/2/properties/status/enum","keyword":"enum","params":{"allowedValues":["ready","running","paused","completed","aborted"]},"message":"must be equal to one of the allowed values"},{"instancePath":"/lifecycle","schemaPath":"#/allOf/1/anyOf/3/properties/lifecycle/const","keyword":"const","params":{"allowedValue":"evergreen"},"message":"must be equal to constant"},{"instancePath":"/status","schemaPath":"#/allOf/1/anyOf/3/properties/status/enum","keyword":"enum","params":{"allowedValues":["ready","running","paused","completed","aborted"]},"message":"must be equal to one of the allowed values"},{"instancePath":"/lifecycle","schemaPath":"#/allOf/1/anyOf/4/properties/lifecycle/const","keyword":"const","params":{"allowedValue":"inactive"},"message":"must be equal to constant"},{"instancePath":"/status","schemaPath":"#/allOf/1/anyOf/4/properties/status/enum","keyword":"enum","params":{"allowedValues":["completed","aborted"]},"message":"must be equal to one of the allowed values"},{"instancePath":"","schemaPath":"#/allOf/1/anyOf","keyword":"anyOf","params":{},"message":"must match a schema in anyOf"},{"instancePath":"","schemaPath":"#/unevaluatedProperties","keyword":"unevaluatedProperties","params":{"unevaluatedProperty":"id"},"message":"must NOT have unevaluated properties"},{"instancePath":"","schemaPath":"#/unevaluatedProperties","keyword":"unevaluatedProperties","params":{"unevaluatedProperty":"title"},"message":"must NOT have unevaluated properties"},{"instancePath":"","schemaPath":"#/unevaluatedProperties","keyword":"unevaluatedProperties","params":{"unevaluatedProperty":"type"},"message":"must NOT have unevaluated properties"},{"instancePath":"","schemaPath":"#/unevaluatedProperties","keyword":"unevaluatedProperties","params":{"unevaluatedProperty":"subtype"},"message":"must NOT have unevaluated properties"},{"instancePath":"","schemaPath":"#/unevaluatedProperties","keyword":"unevaluatedProperties","params":{"unevaluatedProperty":"lifecycle"},"message":"must NOT have unevaluated properties"},{"instancePath":"","schemaPath":"#/unevaluatedProperties","keyword":"unevaluatedProperties","params":{"unevaluatedProperty":"status"},"message":"must NOT have unevaluated properties"},{"instancePath":"","schemaPath":"#/unevaluatedProperties","keyword":"unevaluatedProperties","params":{"unevaluatedProperty":"status_reason"},"message":"must NOT have unevaluated properties"},{"instancePath":"","schemaPath":"#/unevaluatedProperties","keyword":"unevaluatedProperties","params":{"unevaluatedProperty":"priority"},"message":"must NOT have unevaluated properties"},{"instancePath":"","schemaPath":"#/unevaluatedProperties","keyword":"unevaluatedProperties","params":{"unevaluatedProperty":"estimated"},"message":"must NOT have unevaluated properties"},{"instancePath":"","schemaPath":"#/unevaluatedProperties","keyword":"unevaluatedProperties","params":{"unevaluatedProperty":"links"},"message":"must NOT have unevaluated properties"},{"instancePath":"","schemaPath":"#/unevaluatedProperties","keyword":"unevaluatedProperties","params":{"unevaluatedProperty":"tags"},"message":"must NOT have unevaluated properties"}]
+
+    false !== true
+
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  actual: false
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///private/tmp/vitae-wi072-provision/.a5c/worktrees/wi-072/doc-packs/vitae-sdlc/test/legacy-backlog-metadata.test.mjs:73:14)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: WI-072 all 59 actual baseline files conform; authority is not skipped
+not ok 7 - WI-072 all 59 actual baseline files conform; authority is not skipped
+  ---
+  duration_ms: 1.092959
+  type: 'test'
+  location: '/private/tmp/vitae-wi072-provision/.a5c/worktrees/wi-072/doc-packs/vitae-sdlc/test/legacy-backlog-metadata.test.mjs:77:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    backlog/009-remove-pii-bearing-model-logs.md: [{"instancePath":"","schemaPath":"#/allOf/2/then/allOf/0/then/required","keyword":"required","params":{"missingProperty":"actual"},"message":"must have required property 'actual'"},{"instancePath":"","schemaPath":"#/allOf/2/then/allOf/0/if","keyword":"if","params":{"failingKeyword":"then"},"message":"must match \"then\" schema"},{"instancePath":"","schemaPath":"#/allOf/2/if","keyword":"if","params":{"failingKeyword":"then"},"message":"must match \"then\" schema"}]
+
+    false !== true
+
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  actual: false
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///private/tmp/vitae-wi072-provision/.a5c/worktrees/wi-072/doc-packs/vitae-sdlc/test/legacy-backlog-metadata.test.mjs:81:12)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: WI-072 historical bodies, facts, valid effort and relationships are preserved
+not ok 8 - WI-072 historical bodies, facts, valid effort and relationships are preserved
+  ---
+  duration_ms: 2.601459
+  type: 'test'
+  location: '/private/tmp/vitae-wi072-provision/.a5c/worktrees/wi-072/doc-packs/vitae-sdlc/test/legacy-backlog-metadata.test.mjs:85:1'
+  failureType: 'testCodeFailure'
+  error: "Cannot read properties of undefined (reading 'includes')"
+  code: 'ERR_TEST_FAILURE'
+  name: 'TypeError'
+  stack: |-
+    TestContext.<anonymous> (file:///private/tmp/vitae-wi072-provision/.a5c/worktrees/wi-072/doc-packs/vitae-sdlc/test/legacy-backlog-metadata.test.mjs:107:71)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+1..8
+# tests 8
+# suites 0
+# pass 0
+# fail 8
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 174.837667
