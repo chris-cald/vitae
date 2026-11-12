@@ -136,7 +136,7 @@
     "broader_release_test": "not run to completion: frontend dependencies absent (@eslint/js); root setup/pilot delegated to parent"
   },
   "report_sha256": {
-    "split-a-validation.log": "ee745a8c3f0bbbd130f0491b5f55dd1a99ce35c2ead53c970e6b789db4a57d84",
+    "split-a-validation.log": "243270b1e135e61545f579d64d96f9cf58716014147808d3bc3b92767af6298b",
     "split-a-diff-check.log": "4b1afecb1a7cf18f0120d6ebd8222d0fc39f457ba6cb9b9559db3b835a0ad048"
   },
   "artifact_subdivision": {

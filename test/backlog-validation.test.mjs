@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict';
-import { chmodSync, mkdtempSync, mkdirSync, readFileSync, rmSync, symlinkSync, writeFileSync } from 'node:fs';
+import { chmodSync, mkdtempSync, mkdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { dirname, join, resolve } from 'node:path';
 import { spawnSync } from 'node:child_process';
@@ -25,16 +25,6 @@ function fixture(t, mode = 'success') {
   writeFileSync(dv, `#!/usr/bin/env node\n${body}\n`);
   chmodSync(dv, 0o755);
   return { schemaDir, schemaMap: join(schemaDir, '..', 'frontmatter', 'schema-map.json'), binDir, capture };
-}
-
-function coLocatedNodeWithDvTrap(binDir) {
-  const nodeDir = join(dirname(binDir), 'node-with-dv-trap');
-  mkdirSync(nodeDir);
-  symlinkSync(process.execPath, join(nodeDir, 'node'));
-  const trap = join(nodeDir, 'dv');
-  writeFileSync(trap, '#!/bin/sh\necho co-located-dv-trap >&2\nexit 86\n');
-  chmodSync(trap, 0o755);
-  return nodeDir;
 }
 
 function run(env) {
@@ -80,7 +70,6 @@ test('backlog validation wrapper rejects a malformed derived schema map', t => {
 
 test('backlog validation wrapper fails closed when its fixture launcher is unavailable', t => {
   const { schemaDir, binDir } = fixture(t);
-  coLocatedNodeWithDvTrap(binDir);
   rmSync(join(binDir, 'dv'));
   const result = run({ DV_WORK_MANAGEMENT_SCHEMA_DIR: schemaDir, PATH: binDir });
   assert.notEqual(result.status, 0);
