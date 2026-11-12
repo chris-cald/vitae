@@ -1,0 +1,90 @@
+{
+  "installed_sha": "de10e6d1531b5943d46cf1291a8e00fb4f1d75a3",
+  "baseline_sha": "058c46247b6393da005b4160fdf018132cc0ce5b",
+  "baseline_tree": "same as published PR20 squash d422e0c",
+  "candidate_sha": "98e144c67ecfc7c538e20d807083a3a58129fc48",
+  "normalization": "none; exact diagnostic objects equal",
+  "process_exit": {
+    "base": 1,
+    "candidate": 1
+  },
+  "diagnostics": {
+    "schema_load_errors": {
+      "base": 0,
+      "candidate": 0,
+      "added": [],
+      "removed": []
+    },
+    "schema_violations": {
+      "base": 59,
+      "candidate": 59,
+      "added": [],
+      "removed": []
+    },
+    "parse_errors": {
+      "base": 0,
+      "candidate": 0,
+      "added": [],
+      "removed": []
+    },
+    "duplicate_ids": {
+      "base": 0,
+      "candidate": 0,
+      "added": [],
+      "removed": []
+    },
+    "unresolved_wikilinks": {
+      "base": 0,
+      "candidate": 0,
+      "added": [],
+      "removed": []
+    }
+  },
+  "scoped_069_070_071_and_new_records_violations": [],
+  "legacy_error_messages_by_file_count": {
+    "(root) must match \"then\" schema": 44,
+    "(root) must have required property 'actual'": 27,
+    "(root) must NOT have unevaluated properties": 47,
+    "/links must NOT have additional properties": 37,
+    "/status_reason must be equal to one of the allowed values": 2,
+    "(root) must match a schema in anyOf": 2,
+    "/lifecycle must be equal to constant": 2,
+    "/status must be equal to one of the allowed values": 2,
+    "/links/depends_on must NOT have fewer than 1 items": 6,
+    "/links/supporting_reference/1 must match a schema in anyOf": 5,
+    "/links/supporting_reference/0 must be object": 4,
+    "/links/supporting_reference/0 must match pattern \"^\\[\\[(?<name>[^\\]\\|\\r\\n]+)(?:\\|(?<title>[^\\]\\|\\r\\n]+))?\\]\\](?<agglu>[^\\p{P}\\s]*)$\"": 4,
+    "/links/supporting_reference/1 must be object": 5,
+    "/links/supporting_reference/1 must match pattern \"^(?:(?:\\[(?<text>.+?)\\])?\\(?(?:(?<protocol>(?:[^:]+)s?):\\/\\/)(?:(?<user>[^:\\n\\r]+):(?<pass>[^@\\n\\r]+)@)?(?<host>(?:www\\.)?(?:[^:\\/\\n\\r]+))(?::(?<port>\\d+))?\\/?(?<resource>[^?#\\n\\r]+)?\\??(?<query>[^#\\n\\r]*)?#?(?<anchor>[^\\n\\r]*)?\\)?)$\"": 5,
+    "/links/supporting_reference/0 must match pattern \"^(?:(?:\\[(?<text>.+?)\\])?\\(?(?:(?<protocol>(?:[^:]+)s?):\\/\\/)(?:(?<user>[^:\\n\\r]+):(?<pass>[^@\\n\\r]+)@)?(?<host>(?:www\\.)?(?:[^:\\/\\n\\r]+))(?::(?<port>\\d+))?\\/?(?<resource>[^?#\\n\\r]+)?\\??(?<query>[^#\\n\\r]*)?#?(?<anchor>[^\\n\\r]*)?\\)?)$\"": 4,
+    "/links/supporting_reference/0 must match a schema in anyOf": 4,
+    "/links/supporting_reference/1 must match exactly one schema in oneOf": 5,
+    "/links/supporting_reference/1 must match pattern \"^\\[\\[(?<name>[^\\]\\|\\r\\n]+)(?:\\|(?<title>[^\\]\\|\\r\\n]+))?\\]\\](?<agglu>[^\\p{P}\\s]*)$\"": 5,
+    "/links/supporting_reference/0 must match exactly one schema in oneOf": 4,
+    "/links/supporting_reference/0 must NOT have more than 128 characters": 1,
+    "/links/supporting_reference/2 must match pattern \"^(?:(?:\\[(?<text>.+?)\\])?\\(?(?:(?<protocol>(?:[^:]+)s?):\\/\\/)(?:(?<user>[^:\\n\\r]+):(?<pass>[^@\\n\\r]+)@)?(?<host>(?:www\\.)?(?:[^:\\/\\n\\r]+))(?::(?<port>\\d+))?\\/?(?<resource>[^?#\\n\\r]+)?\\??(?<query>[^#\\n\\r]*)?#?(?<anchor>[^\\n\\r]*)?\\)?)$\"": 6,
+    "/links/supporting_reference/2 must match pattern \"^\\[\\[(?<name>[^\\]\\|\\r\\n]+)(?:\\|(?<title>[^\\]\\|\\r\\n]+))?\\]\\](?<agglu>[^\\p{P}\\s]*)$\"": 6,
+    "/links/supporting_reference/2 must match exactly one schema in oneOf": 6,
+    "/links/supporting_reference/2 must match a schema in anyOf": 6,
+    "/links/supporting_reference/2 must be object": 6,
+    "/links/supporting_reference/4 must match exactly one schema in oneOf": 2,
+    "/links/supporting_reference/4 must match pattern \"^\\[\\[(?<name>[^\\]\\|\\r\\n]+)(?:\\|(?<title>[^\\]\\|\\r\\n]+))?\\]\\](?<agglu>[^\\p{P}\\s]*)$\"": 2,
+    "/links/supporting_reference/3 must match a schema in anyOf": 5,
+    "/links/supporting_reference/3 must be object": 5,
+    "/links/supporting_reference/4 must match a schema in anyOf": 2,
+    "/links/supporting_reference/4 must be object": 2,
+    "/links/supporting_reference/3 must match pattern \"^(?:(?:\\[(?<text>.+?)\\])?\\(?(?:(?<protocol>(?:[^:]+)s?):\\/\\/)(?:(?<user>[^:\\n\\r]+):(?<pass>[^@\\n\\r]+)@)?(?<host>(?:www\\.)?(?:[^:\\/\\n\\r]+))(?::(?<port>\\d+))?\\/?(?<resource>[^?#\\n\\r]+)?\\??(?<query>[^#\\n\\r]*)?#?(?<anchor>[^\\n\\r]*)?\\)?)$\"": 5,
+    "/links/supporting_reference/3 must match exactly one schema in oneOf": 5,
+    "/links/supporting_reference/3 must match pattern \"^\\[\\[(?<name>[^\\]\\|\\r\\n]+)(?:\\|(?<title>[^\\]\\|\\r\\n]+))?\\]\\](?<agglu>[^\\p{P}\\s]*)$\"": 5,
+    "/links/supporting_reference/4 must match pattern \"^(?:(?:\\[(?<text>.+?)\\])?\\(?(?:(?<protocol>(?:[^:]+)s?):\\/\\/)(?:(?<user>[^:\\n\\r]+):(?<pass>[^@\\n\\r]+)@)?(?<host>(?:www\\.)?(?:[^:\\/\\n\\r]+))(?::(?<port>\\d+))?\\/?(?<resource>[^?#\\n\\r]+)?\\??(?<query>[^#\\n\\r]*)?#?(?<anchor>[^\\n\\r]*)?\\)?)$\"": 2,
+    "/subtype must match pattern \"^x-[a-z0-9]+(?:-[a-z0-9]+)*$\"": 3,
+    "/subtype must match exactly one schema in oneOf": 3,
+    "/subtype must be equal to one of the allowed values": 3
+  },
+  "global_pass": false,
+  "publication_policy": "await TTR confirmation of approved zero-added baseline contract with functioning resolver",
+  "hashes": {
+    "base": "dd2c7a8cf2d22a150188f7d9355084a8bc30225dc61a50fc13f17769c7604fa9",
+    "candidate": "bedc0c3130cd732109740bc96dd0a69da266e4b0eff86ff33a155f351a8f1fdb"
+  }
+}
