@@ -950,3 +950,410 @@ unknown format "date" ignored in schema at path "/work-management/support/common
   "schema_load_errors": [],
   "exit_code": 0
 }
+
+## Co-located launcher regression (red then green)
+Red command: node --test test/backlog-validation.test.mjs (expected failure: synthetic co-located dv trap was invoked).
+TAP version 13
+# Subtest: backlog validation wrapper passes its explicit map to dv through a PATH containing spaces
+ok 1 - backlog validation wrapper passes its explicit map to dv through a PATH containing spaces
+  ---
+  duration_ms: 320.562458
+  type: 'test'
+  ...
+# Subtest: backlog validation wrapper fails before spawning dv when authority input is absent or invalid
+ok 2 - backlog validation wrapper fails before spawning dv when authority input is absent or invalid
+  ---
+  duration_ms: 33.4025
+  type: 'test'
+  ...
+# Subtest: backlog validation wrapper rejects a malformed derived schema map
+ok 3 - backlog validation wrapper rejects a malformed derived schema map
+  ---
+  duration_ms: 32.9915
+  type: 'test'
+  ...
+# Subtest: backlog validation wrapper fails closed when its fixture launcher is unavailable
+not ok 4 - backlog validation wrapper fails closed when its fixture launcher is unavailable
+  ---
+  duration_ms: 188.465583
+  type: 'test'
+  location: '/private/tmp/vitae-wi072-publish-a/test/backlog-validation.test.mjs:81:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    The input did not match the regular expression /Unable to invoke dv/. Input:
+
+    'co-located-dv-trap\n'
+
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected:
+  actual: |-
+    co-located-dv-trap
+
+  operator: 'match'
+  stack: |-
+    TestContext.<anonymous> (file:///private/tmp/vitae-wi072-publish-a/test/backlog-validation.test.mjs:87:10)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: backlog validation wrapper preserves dv exit status
+ok 5 - backlog validation wrapper preserves dv exit status
+  ---
+  duration_ms: 233.026709
+  type: 'test'
+  ...
+# Subtest: backlog validation wrapper preserves dv termination signal
+ok 6 - backlog validation wrapper preserves dv termination signal
+  ---
+  duration_ms: 208.591417
+  type: 'test'
+  ...
+1..6
+# tests 6
+# suites 0
+# pass 5
+# fail 1
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 1069.686167
+
+Green command: node --test test/backlog-validation.test.mjs
+TAP version 13
+# Subtest: backlog validation wrapper passes its explicit map to dv through a PATH containing spaces
+ok 1 - backlog validation wrapper passes its explicit map to dv through a PATH containing spaces
+  ---
+  duration_ms: 227.935083
+  type: 'test'
+  ...
+# Subtest: backlog validation wrapper fails before spawning dv when authority input is absent or invalid
+ok 2 - backlog validation wrapper fails before spawning dv when authority input is absent or invalid
+  ---
+  duration_ms: 32.773042
+  type: 'test'
+  ...
+# Subtest: backlog validation wrapper rejects a malformed derived schema map
+ok 3 - backlog validation wrapper rejects a malformed derived schema map
+  ---
+  duration_ms: 32.698292
+  type: 'test'
+  ...
+# Subtest: backlog validation wrapper fails closed when its fixture launcher is unavailable
+ok 4 - backlog validation wrapper fails closed when its fixture launcher is unavailable
+  ---
+  duration_ms: 32.86825
+  type: 'test'
+  ...
+# Subtest: backlog validation wrapper preserves dv exit status
+ok 5 - backlog validation wrapper preserves dv exit status
+  ---
+  duration_ms: 222.043084
+  type: 'test'
+  ...
+# Subtest: backlog validation wrapper preserves dv termination signal
+ok 6 - backlog validation wrapper preserves dv termination signal
+  ---
+  duration_ms: 232.11975
+  type: 'test'
+  ...
+1..6
+# tests 6
+# suites 0
+# pass 6
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 827.947125
+
+Full doc-pack + wrapper command
+TAP version 13
+# Subtest: pack uses a pinned Doc-Vader schema bundle instead of a sibling checkout
+ok 1 - pack uses a pinned Doc-Vader schema bundle instead of a sibling checkout
+  ---
+  duration_ms: 0.784
+  type: 'test'
+  ...
+# Subtest: Vitae SDLC document type pack manifest conforms to Doc-Vader pack schema
+ok 2 - Vitae SDLC document type pack manifest conforms to Doc-Vader pack schema
+  ---
+  duration_ms: 44.463792
+  type: 'test'
+  ...
+# Subtest: pack metadata schemas validate routed ADR and PRD template frontmatter
+ok 3 - pack metadata schemas validate routed ADR and PRD template frontmatter
+  ---
+  duration_ms: 42.08425
+  type: 'test'
+  ...
+# Subtest: pack metadata schemas reject cross-routed or unrouted document metadata
+ok 4 - pack metadata schemas reject cross-routed or unrouted document metadata
+  ---
+  duration_ms: 20.368083
+  type: 'test'
+  ...
+# Subtest: pack content schemas validate their examples and reject missing core body content
+ok 5 - pack content schemas validate their examples and reject missing core body content
+  ---
+  duration_ms: 37.168834
+  type: 'test'
+  ...
+# Subtest: WI-072 chunked evidence reconstructs the exact immutable source payloads
+ok 6 - WI-072 chunked evidence reconstructs the exact immutable source payloads
+  ---
+  duration_ms: 7.388834
+  type: 'test'
+  ...
+# Subtest: WI-072 reconstruction runs from a source-only checkout with no Git executable or history
+ok 7 - WI-072 reconstruction runs from a source-only checkout with no Git executable or history
+  ---
+  duration_ms: 152.168208
+  type: 'test'
+  ...
+# Subtest: WI-072 chunked evidence fails closed for tampering, missing chunks, and reordered chunks
+ok 8 - WI-072 chunked evidence fails closed for tampering, missing chunks, and reordered chunks
+  ---
+  duration_ms: 40.552708
+  type: 'test'
+  ...
+# Subtest: WI-072 missing actual conditional: authoritative original red and frozen repair green
+ok 9 - WI-072 missing actual conditional: authoritative original red and frozen repair green
+  ---
+  duration_ms: 7.1035
+  type: 'test'
+  ...
+# Subtest: WI-072 unknown relationship keys: authoritative original red and frozen repair green
+ok 10 - WI-072 unknown relationship keys: authoritative original red and frozen repair green
+  ---
+  duration_ms: 1.413708
+  type: 'test'
+  ...
+# Subtest: WI-072 empty dependency list: authoritative original red and frozen repair green
+ok 11 - WI-072 empty dependency list: authoritative original red and frozen repair green
+  ---
+  duration_ms: 0.195542
+  type: 'test'
+  ...
+# Subtest: WI-072 malformed supporting references: authoritative original red and frozen repair green
+ok 12 - WI-072 malformed supporting references: authoritative original red and frozen repair green
+  ---
+  duration_ms: 3.867084
+  type: 'test'
+  ...
+# Subtest: WI-072 record subtype extension: authoritative original red and frozen repair green
+ok 13 - WI-072 record subtype extension: authoritative original red and frozen repair green
+  ---
+  duration_ms: 0.1365
+  type: 'test'
+  ...
+# Subtest: WI-072 closed status reason compatibility: authoritative original red and frozen repair green
+ok 14 - WI-072 closed status reason compatibility: authoritative original red and frozen repair green
+  ---
+  duration_ms: 0.125708
+  type: 'test'
+  ...
+# Subtest: WI-072 immutable repair snapshot is exactly the 1ca2cc0 59-file repair
+ok 15 - WI-072 immutable repair snapshot is exactly the 1ca2cc0 59-file repair
+  ---
+  duration_ms: 1.627125
+  type: 'test'
+  ...
+# Subtest: WI-072 frozen proof preserves bodies, facts, valid effort, relationships, and original labels
+ok 16 - WI-072 frozen proof preserves bodies, facts, valid effort, relationships, and original labels
+  ---
+  duration_ms: 7.400625
+  type: 'test'
+  ...
+# Subtest: WI-072 frozen field report accounts for every original-to-repair metadata change
+ok 17 - WI-072 frozen field report accounts for every original-to-repair metadata change
+  ---
+  duration_ms: 1.805917
+  type: 'test'
+  ...
+# Subtest: WI-072 current live backlog conforms independently of the frozen repair proof
+ok 18 - WI-072 current live backlog conforms independently of the frozen repair proof
+  ---
+  duration_ms: 12.472708
+  type: 'test'
+  ...
+# Subtest: WI-072 historical repair proof survives legitimate later work in isolated backlog fixtures
+ok 19 - WI-072 historical repair proof survives legitimate later work in isolated backlog fixtures
+  ---
+  duration_ms: 347.834709
+  type: 'test'
+  ...
+# Subtest: WI-072 current schema validation still rejects invalid later metadata
+ok 20 - WI-072 current schema validation still rejects invalid later metadata
+  ---
+  duration_ms: 267.147625
+  type: 'test'
+  ...
+# Subtest: WI-072 immutable repair snapshot rejects tampering
+ok 21 - WI-072 immutable repair snapshot rejects tampering
+  ---
+  duration_ms: 223.823834
+  type: 'test'
+  ...
+# Subtest: real authoritative completed-item schema permits omitted effort but enforces conditional actual
+ok 22 - real authoritative completed-item schema permits omitted effort but enforces conditional actual
+  ---
+  duration_ms: 2.614958
+  type: 'test'
+  ...
+# Authoritative schema directory: /Users/macos/Library/pnpm/doc-vader-runtime/schemas/work-management
+# /work-management/frontmatter/work-item sha256=60b1d4d6d404136a3d353d70e691c14e9625f16476b2c8c3664012123115535b
+# /work-management/contracts/work-item-structure sha256=8e98195f1aa5cda400a8dacce001b5e96f76d8ea6c0db02a609ba90be76b955c
+# /work-management/workflows/default/status-policy sha256=1e21f4f09ee95d653398feb9e26d5274a9d0b1a322731a59f307920dbdfbf3cd
+# Subtest: 069-complete-connected-mock-dual-lifecycles.md omits both optional effort fields and conforms to authority
+ok 23 - 069-complete-connected-mock-dual-lifecycles.md omits both optional effort fields and conforms to authority
+  ---
+  duration_ms: 3.432917
+  type: 'test'
+  ...
+# Subtest: 070-validate-connected-mock-dual-lifecycles.md omits both optional effort fields and conforms to authority
+ok 24 - 070-validate-connected-mock-dual-lifecycles.md omits both optional effort fields and conforms to authority
+  ---
+  duration_ms: 0.422333
+  type: 'test'
+  ...
+# Subtest: 071-isolate-mock-prerequisite-test-resources.md omits both optional effort fields and conforms to authority
+ok 25 - 071-isolate-mock-prerequisite-test-resources.md omits both optional effort fields and conforms to authority
+  ---
+  duration_ms: 0.322417
+  type: 'test'
+  ...
+# Subtest: backlog validation wrapper passes its explicit map to dv through a PATH containing spaces
+ok 26 - backlog validation wrapper passes its explicit map to dv through a PATH containing spaces
+  ---
+  duration_ms: 233.848667
+  type: 'test'
+  ...
+# Subtest: backlog validation wrapper fails before spawning dv when authority input is absent or invalid
+ok 27 - backlog validation wrapper fails before spawning dv when authority input is absent or invalid
+  ---
+  duration_ms: 33.028042
+  type: 'test'
+  ...
+# Subtest: backlog validation wrapper rejects a malformed derived schema map
+ok 28 - backlog validation wrapper rejects a malformed derived schema map
+  ---
+  duration_ms: 35.078041
+  type: 'test'
+  ...
+# Subtest: backlog validation wrapper fails closed when its fixture launcher is unavailable
+ok 29 - backlog validation wrapper fails closed when its fixture launcher is unavailable
+  ---
+  duration_ms: 36.661625
+  type: 'test'
+  ...
+# Subtest: backlog validation wrapper preserves dv exit status
+ok 30 - backlog validation wrapper preserves dv exit status
+  ---
+  duration_ms: 227.992583
+  type: 'test'
+  ...
+# Subtest: backlog validation wrapper preserves dv termination signal
+ok 31 - backlog validation wrapper preserves dv termination signal
+  ---
+  duration_ms: 186.454625
+  type: 'test'
+  ...
+1..31
+# tests 31
+# suites 0
+# pass 31
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 888.409334
+
+Global validation command
+
+> validate:backlog
+> node scripts/validate-backlog.mjs
+
+(node:22829) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+unknown format "date" ignored in schema at path "#/$defs/dateString"
+unknown format "date" ignored in schema at path "#/$defs/dateString"
+unknown format "date" ignored in schema at path "#/$defs/dateString"
+unknown format "date" ignored in schema at path "#/$defs/dateString"
+unknown format "date" ignored in schema at path "#/$defs/dateString"
+unknown format "date" ignored in schema at path "#/$defs/dateString"
+unknown format "date" ignored in schema at path "#/$defs/dateString"
+unknown format "date" ignored in schema at path "#/$defs/dateString"
+unknown format "date" ignored in schema at path "/work-management/support/common#/$defs/dateString"
+unknown format "date" ignored in schema at path "/work-management/support/common#/$defs/dateString"
+{
+  "generated_at": "2026-11-12T04:03:31.622Z",
+  "options": {
+    "backlogDir": "/private/tmp/vitae-wi072-publish-a/backlog",
+    "rootDir": "/private/tmp/vitae-wi072-publish-a",
+    "format": "json",
+    "failOn": "error",
+    "schemaMap": "/Users/macos/Library/pnpm/doc-vader-runtime/schemas/frontmatter/schema-map.json",
+    "includeArchive": false,
+    "profile": "ci",
+    "profiles": [
+      "ci"
+    ]
+  },
+  "totals": {
+    "files": 159,
+    "duplicate_ids": 0,
+    "unresolved_wikilinks": 0,
+    "parse_errors": 0,
+    "no_inbound_active": 6,
+    "schema_violations": 0
+  },
+  "duplicate_ids": [],
+  "unresolved_wikilinks": [],
+  "parse_errors": [],
+  "no_inbound_active": [
+    {
+      "file": "backlog/012-split-scoring-from-recommendation-generation.md",
+      "id": "wi-012",
+      "status": "ready",
+      "title": "Split Scoring from Recommendation Generation"
+    },
+    {
+      "file": "backlog/013-prototype-career-graph-projection-for-bullets-and-requirements.md",
+      "id": "wi-013",
+      "status": "ready",
+      "title": "Prototype Career Graph Projection for Bullets and Requirements"
+    },
+    {
+      "file": "backlog/014-introduce-typed-frontend-backend-api-contract.md",
+      "id": "wi-014",
+      "status": "ready",
+      "title": "Introduce Typed Frontend Backend API Contract"
+    },
+    {
+      "file": "backlog/015-evaluate-templjs-backed-resume-variant-rendering.md",
+      "id": "wi-015",
+      "status": "ready",
+      "title": "Evaluate templjs Backed Resume Variant Rendering"
+    },
+    {
+      "file": "backlog/017-integrate-agent-workflows-for-work-order-execution.md",
+      "id": "wi-017",
+      "status": "ready",
+      "title": "Integrate agent-workflows for Work Order Execution"
+    },
+    {
+      "file": "backlog/018-add-adr-prd-frontmatter-validation-tooling.md",
+      "id": "wi-018",
+      "status": "ready",
+      "title": "Add ADR PRD Frontmatter Validation Tooling"
+    }
+  ],
+  "schema_violations": [],
+  "schema_load_errors": [],
+  "exit_code": 0
+}
+ROOT_RELEASE_DEPS=unavailable; root release test not run
