@@ -5,11 +5,13 @@ summary: Complete synthetic Application lifecycle and shared Catalog-to-projecti
 type: work-item
 subtype: story
 lifecycle: active
-status: running
-status_reason: review
+status: completed
+status_reason: completed
 priority: critical
+completed_date: '2026-11-09'
 commits:
   557ddb5: Independently reviewed connected mock lifecycles and four red-first acceptance fixes
+  058c46247b6393da005b4160fdf018132cc0ce5b: Exact provider-approved consolidated implementation, squash mapping to PR20 d422e0c recorded in evidence
 links:
   depends_on:
     - '[[068-build-catalog-development-board]]'
@@ -19,6 +21,9 @@ links:
     - '[[067-make-sources-and-evidence-actionable]]'
   evidence:
     - '[[record-wi-069-local-validation]]'
+    - '[[record-wi-069-provider-merged]]'
+  pull_requests:
+    - https://github.com/chris-cald/vitae/pull/20
 tags:
   - afk
   - frontend
@@ -65,6 +70,23 @@ Read this specification at runtime verbatim for implementation/review. Author fa
 
 The user explicitly authorized scoped branch publication, real pull requests and merges after required CI/review gates. Force-push and stash changes remain prohibited. No policy exception is being used: terminal completion requires a real linked PR, measured actual effort and genuine timestamped terminal evidence. The rejected local-only closure and lint failure are preserved; supported transition restored running/review. The leftover attempted completion date was removed as metadata cleanup, not a lifecycle transition. Source approval and validation evidence remain genuine. Prerequisite publication and WI-069 provider-gated merge precede dependent WI-070 independent browser/visual validation; WI-050 and WI-057 remain HITL.
 
+## Provider-backed completion
+
+- 2026-11-09: Closed as completed with evidence in backlog/audit/auditing-backlog-report.json.
+- The real global audit is NOT green: 86 legacy schema-load errors are preserved. The clean-base/candidate baseline is identical; scoped WI069/070/071 lint and composed-schema validation pass under the DV TTR-approved delta contract. See [[record-wi-069-provider-merged]] for exact PR/source/squash mapping and postmerge checks.
+- PR20 merged source `058c46247b6393da005b4160fdf018132cc0ce5b` as `d422e0c98d1ab523102c25baa0611b9487bb3709`; postmerge draft/schema/root/pilot checks passed. WI070 full browser/Figma acceptance remains separately gated; WI050/WI057 remain HITL.
+- Archive is deferred because `finalizeWorkItem` still unconditionally requires numeric actual effort, contrary to the optional-effort schema. No value is invented and no archive gate is bypassed. Completed-active and verified claim release are the TTR-approved route.
+
 ## Acceptance evidence
 
 The twelve implementation criteria above were independently reviewed against source557ddb5 (unchanged at c5f2632); see frontend-draft/evidence/wi-069/independent-review.md. Twenty domain/DOM regressions, explicit draft check, root check and clean-checkout pilot rehearsal pass; validation-manifest.json records hashes and clean checkout identity. These checks support implementation acceptance, not WI-070 browser/visual acceptance or full live UAT. Main integration remains gated on WI-070.
+
+## Closure review correction — 2026-11-09
+
+- The earlier identical/zero-added audit comparison applies ONLY to the effort-metadata migration. Current unpublished closure records add two canonical-record loader errors: 86 → 88. See `docs/evidence/postmerge-closure/delta.json` and `docs/evidence/postmerge-closure/RECOVERY.md`. Closure publication and WI070 selection remain on the verified narrow WAIT until the upstream loader fix is merged, installed and verified. No global schema success is claimed.
+- Safe operator checks found the WI069 claim missing in BOTH foundation and dedicated-worktree stores. No release occurred. “Verified claim release” above describes the earlier intended gate, not an accomplished operation; TTR subsequently established absent-at-release as a nonblocking no-op. The protected receipt remains preserved; no claim is reconstructed.
+- Test-count precision: 9 doc-pack tests passed, including four authoritative work-item schema tests; this is not nine composed-work-item tests. Implementation/source approval is unchanged.
+
+## Installed resolver verification — 2026-11-09
+
+DV TTR confirmed the existing narrow zero-added contract is satisfied by installed runtime `de10e6d1531b5943d46cf1291a8e00fb4f1d75a3`. Comparable published base `058c462` (tree equals PR20 squash `d422e0c`) and closure candidate `98e144c` both exit 1 with **0 schema-load errors and the same 59 historical schema-violation files**, exact identical diagnostic arrays. WI069/WI070/WI071 and both new canonical records have zero violations. The earlier loader WAIT is lifted for scoped closure publication and WI070, retaining real review/CI/dependency gates; global audit is NOT green. Full reports are preserved under `docs/evidence/postmerge-closure/resolved/`. Missing claim remains a nonblocking absent-at-release no-op; archive remains separately deferred.

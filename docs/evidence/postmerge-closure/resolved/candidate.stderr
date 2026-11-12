@@ -1,0 +1,12 @@
+(node:37696) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+unknown format "date" ignored in schema at path "#/$defs/dateString"
+unknown format "date" ignored in schema at path "#/$defs/dateString"
+unknown format "date" ignored in schema at path "#/$defs/dateString"
+unknown format "date" ignored in schema at path "#/$defs/dateString"
+unknown format "date" ignored in schema at path "#/$defs/dateString"
+unknown format "date" ignored in schema at path "#/$defs/dateString"
+unknown format "date" ignored in schema at path "#/$defs/dateString"
+unknown format "date" ignored in schema at path "#/$defs/dateString"
+unknown format "date" ignored in schema at path "/work-management/support/common#/$defs/dateString"
+unknown format "date" ignored in schema at path "/work-management/support/common#/$defs/dateString"

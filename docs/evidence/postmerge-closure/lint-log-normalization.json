@@ -1,0 +1,5 @@
+{
+  "change": "Remove only repeated final LF for git diff --check",
+  "original_sha256": "89618ce1354c594900dfc6a2cc80237451da34362778a07f736218f573bbaf84",
+  "stored_sha256": "016bb4472dc4f251608156c646b1abd008f39cbd38e33aca521d79ec84e43f37"
+}
