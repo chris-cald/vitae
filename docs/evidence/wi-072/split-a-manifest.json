@@ -136,8 +136,8 @@
     "broader_release_test": "not run to completion: frontend dependencies absent (@eslint/js); root setup/pilot delegated to parent"
   },
   "report_sha256": {
-    "split-a-validation.log": "dd20ad6309b1b20cea4d93f8833619c6eafabfad07815c0e822488259330901b",
-    "split-a-diff-check.log": "a0301e04615e717fefcebdba65507923be0e0afb7b8eeb5a9cff7b5781e0aa02"
+    "split-a-validation.log": "a7ad65eabf23578132ebb0c943e6b2e311a7dac9d86cfdcbc3629bfebf8c119f",
+    "split-a-diff-check.log": "4b1afecb1a7cf18f0120d6ebd8222d0fc39f457ba6cb9b9559db3b835a0ad048"
   },
   "artifact_subdivision": {
     "purpose": "Readable lossless transport for the two provider-skipped evidence payloads; historical content remains reconstructable from exact chunks.",
@@ -191,6 +191,14 @@
           "sha256": "63653b10144eb9609d50666d3f541e664cdef728d968b5c5bc4b97d709bee13f"
         }
       ]
+    },
+    "normal_test_portability": {
+      "changes_canonical_sha256": "29145b86579349d341c69fda4e341b913609e279c39d00a1822fac1fd74fe02c",
+      "changes_canonical_bytes": 106458,
+      "repair_snapshot_canonical_sha256": "2e4c1fbfeef48c7cba3c2de8d4c9658d6ccbaeac51ef14b336228b7e91844b91",
+      "repair_snapshot_canonical_bytes": 155723,
+      "normal_test_requires_git": false,
+      "provenance": "The separate diff-check receipt directly compares immutable e7b84dd objects."
     }
   }
 }

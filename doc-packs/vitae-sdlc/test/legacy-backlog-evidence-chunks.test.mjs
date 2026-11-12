@@ -3,17 +3,17 @@ import { createHash } from 'node:crypto';
 import { copyFileSync, cpSync, mkdirSync, readFileSync, rmSync, unlinkSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import path from 'node:path';
-import { execFileSync, spawnSync } from 'node:child_process';
+import { spawnSync } from 'node:child_process';
 import test from 'node:test';
 import { readChanges, readRepairSnapshot } from './wi-072-evidence-loader.mjs';
 
 const repo = path.resolve(import.meta.dirname, '../../..');
 const evidence = path.join(repo, 'docs/evidence/wi-072');
-const source = 'e7b84dd';
-const canonical = file => execFileSync('git', ['show', `${source}:docs/evidence/wi-072/${file}`], {
-  cwd: repo,
-  encoding: 'utf8',
-});
+const changesCanonicalSha256 = '29145b86579349d341c69fda4e341b913609e279c39d00a1822fac1fd74fe02c';
+const changesCanonicalBytes = 106458;
+const snapshotCanonicalSha256 = '2e4c1fbfeef48c7cba3c2de8d4c9658d6ccbaeac51ef14b336228b7e91844b91';
+const snapshotCanonicalBytes = 155723;
+const canonical = value => JSON.stringify(value, null, 2) + '\n';
 const sha256 = value => createHash('sha256').update(value).digest('hex');
 const copyEvidence = t => {
   const target = path.join(tmpdir(), `wi072-evidence-${process.pid}-${Date.now()}`);
@@ -25,13 +25,13 @@ const copyEvidence = t => {
 test('WI-072 chunked evidence reconstructs the exact immutable source payloads', () => {
   const changes = readChanges(evidence);
   const snapshot = readRepairSnapshot(evidence);
-  const changesSource = canonical('changes.json');
-  const snapshotSource = canonical('repair-snapshot.json');
+  const changesSource = canonical(changes);
+  const snapshotSource = canonical(snapshot);
 
-  assert.equal(JSON.stringify(changes, null, 2) + '\n', changesSource);
-  assert.equal(JSON.stringify(snapshot, null, 2) + '\n', snapshotSource);
-  assert.equal(sha256(JSON.stringify(changes, null, 2) + '\n'), sha256(changesSource));
-  assert.equal(sha256(JSON.stringify(snapshot, null, 2) + '\n'), sha256(snapshotSource));
+  assert.equal(Buffer.byteLength(changesSource), changesCanonicalBytes);
+  assert.equal(sha256(changesSource), changesCanonicalSha256);
+  assert.equal(Buffer.byteLength(snapshotSource), snapshotCanonicalBytes);
+  assert.equal(sha256(snapshotSource), snapshotCanonicalSha256);
   assert.equal(changes.length, 59);
   assert.equal(snapshot.files.length, 59);
 });

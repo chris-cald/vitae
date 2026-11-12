@@ -57,3 +57,5 @@ The historical WI-072 receipts remain intact, including their full-combined-sour
 ## Provider-readable artifact subdivision
 
 `changes.json` and `repair-snapshot.json` are now transparent indexes over ordered, pretty-printed JSON-array chunks. Their loaders reassemble the exact canonical JSON bytes pinned from `e7b84dd`; per-chunk hashes/counts and canonical payload hashes reject missing, reordered, path-confined, or tampered chunks. This changes evidence transport only: all 59 records and their key/order/content are losslessly preserved, and the immutable source blobs remain addressable from `e7b84dd`.
+
+Normal reconstruction tests use independently verified literal canonical SHA-256 and byte-count pins, so a source-only checkout needs neither Git nor the unrelated `e7b84dd` object. The separate provenance receipt records the one-time direct Git-object comparisons; it is not a normal-test dependency.

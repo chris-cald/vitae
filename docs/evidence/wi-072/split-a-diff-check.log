@@ -86,3 +86,12 @@ $ git range-diff d422e0c...e7b84dd d422e0c...HEAD
  -:  ------- >  2:  53fd29b docs(wi-072): correct baseline counts and explain preserved relationship prose
  -:  ------- >  3:  b160bfb test: specify WI-072 chunked evidence reconstruction
 RANGE_DIFF_EXIT=0
+
+# Separate immutable-source provenance receipt (not a normal-test dependency)
+$ git show e7b84dd:docs/evidence/wi-072/changes.json | shasum -a 256; git show ... | wc -c
+29145b86579349d341c69fda4e341b913609e279c39d00a1822fac1fd74fe02c  -
+  106458
+$ git show e7b84dd:docs/evidence/wi-072/repair-snapshot.json | shasum -a 256; git show ... | wc -c
+2e4c1fbfeef48c7cba3c2de8d4c9658d6ccbaeac51ef14b336228b7e91844b91  -
+  155723
+PROVENANCE_OBJECT_COMPARISON_EXIT=0
