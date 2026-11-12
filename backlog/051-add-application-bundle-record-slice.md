@@ -15,8 +15,6 @@ completed_date: '2026-10-03'
 commits:
   f39294e41a29b69a154f53718870391cea2f51d4: Add application bundle record slice
 links:
-  parent:
-    - '[[050-deliver-job-search-application-funnel-slice]]'
   depends_on:
     - '[[048-refresh-p0-source-of-truth-docs]]'
   reference:
@@ -25,6 +23,7 @@ links:
     - '[[../schemas/career/deliverable.schema.json]]'
     - '[[../schemas/career/target.schema.json]]'
     - '[[../schemas/career/fit-analysis.schema.json]]'
+    - '[[050-deliver-job-search-application-funnel-slice]]'
   evidence:
     - '[[record-wi-051-focused-validation-and-independent-review-passed-after-remediation]]'
 tags:

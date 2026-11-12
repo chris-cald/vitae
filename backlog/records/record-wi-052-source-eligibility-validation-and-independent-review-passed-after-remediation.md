@@ -8,11 +8,6 @@ subtype: test-result
 lifecycle: active
 status: ready
 status_reason: recorded
-links:
-  supporting_reference:
-    - 'command:cd backend && PYTHONPATH=. ../.venv/bin/python -m pytest tests/test_generation_input_resolver.py tests/test_application_bundle_service.py -q'
-    - 'command:node --test schemas/career/test/canonical-domain-contract.test.mjs'
-    - 'command:git diff --check'
 ---
 
 ## Recorded At

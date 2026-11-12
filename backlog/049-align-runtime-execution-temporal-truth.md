@@ -8,16 +8,14 @@ lifecycle: active
 status: completed
 status_reason: runtime API Temporal boundary aligned and independently reviewed
 priority: critical
-estimated: 3
 links:
-  parent:
-    - '[[047-complete-p0-reconciliation]]'
   depends_on:
     - '[[048-refresh-p0-source-of-truth-docs]]'
     - '[[040-complete-production-hardening-and-temporal-adoption-decision]]'
   reference:
     - '[[../docs/adr/0004-adopt-privacy-safe-temporal-execution-substrate]]'
     - '[[../docs/uat-readiness]]'
+    - '[[047-complete-p0-reconciliation]]'
 tags:
   - afk
   - p0

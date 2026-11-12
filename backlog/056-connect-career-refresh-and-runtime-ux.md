@@ -12,13 +12,12 @@ estimated: 5
 actual: 5
 completed_date: '2026-10-29'
 links:
-  parent:
-    - '[[050-deliver-job-search-application-funnel-slice]]'
   depends_on:
     - '[[055-add-application-bundle-workspace]]'
   reference:
     - '[[../docs/adr/0004-adopt-privacy-safe-temporal-execution-substrate]]'
     - '[[../docs/uat-readiness]]'
+    - '[[050-deliver-job-search-application-funnel-slice]]'
   evidence:
     - '[[record-wi-056-implementation-validation]]'
 tags:

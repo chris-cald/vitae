@@ -8,7 +8,7 @@ status: completed
 status_reason: accepted
 priority: high
 links:
-  parent:
+  reference:
     - '[[044-add-local-compose-instance]]'
 tags:
   - compose

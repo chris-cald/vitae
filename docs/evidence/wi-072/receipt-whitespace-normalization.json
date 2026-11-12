@@ -1,0 +1,30 @@
+{
+  "purpose": "Whitespace-only normalization for git diff --check; original raw receipt blobs remain addressable by original_commit and original_blob.",
+  "transformation": "Remove only terminal spaces or tabs from affected lines; all other bytes and line ordering are preserved.",
+  "files": [
+    {
+      "file": "docs/evidence/wi-072/red-tests.tap",
+      "original_commit": "f4696a35e767d139e64a46333bbb61962efefff9",
+      "original_blob": "9bd9717c53d301a8739563d5c12f918d56272d56",
+      "original_sha256": "eb0fa96d176a6c409ee5ebf9b3bf60bb9a1b7ee98bfe2c070d0fa86c9ce7497a",
+      "normalized_sha256": "49a3f43ac08e90d637764a0850596de89b9fd71710ce9ceb337373bdffcf4403",
+      "trailing_whitespace_lines": 14
+    },
+    {
+      "file": "docs/evidence/wi-072/interim-tests.tap",
+      "original_commit": "1ca2cc0936c0aae1dc3f50a6b9ae0200712d7453",
+      "original_blob": "79dec9ddd7dec1d0b3a217681aa3f11dba3fc589",
+      "original_sha256": "251ebe81f4f83e973b3e1207cda53409b22731997b9dd4bd85ead31426bf5fba",
+      "normalized_sha256": "bf630e76b3785ee3ace5d2923d81497bdbbdfaef094afe1c39e80b17967df2f4",
+      "trailing_whitespace_lines": 8
+    },
+    {
+      "file": "docs/evidence/wi-072/interim-doc-pack.tap",
+      "original_commit": "1ca2cc0936c0aae1dc3f50a6b9ae0200712d7453",
+      "original_blob": "93bee8263dfe3279ae29008e34d460bb201e66d6",
+      "original_sha256": "f0c2bce0bec9f66589ed497a12000963807e59c90a12a463bd50db07af8e63ff",
+      "normalized_sha256": "3c7da5ba0a75fdd1805fcfb0cc2817e9ef4a820423d784c345f733b1978887e9",
+      "trailing_whitespace_lines": 6
+    }
+  ]
+}
