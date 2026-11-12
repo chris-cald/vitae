@@ -1,0 +1,30 @@
+{
+  "repair_commit": "1ca2cc0936c0aae1dc3f50a6b9ae0200712d7453",
+  "repair_tree": "5eb648200b9173ded2c9348b3053e252ad006d20",
+  "original_manifest_sha256": "0a0362c33d164ce28d18174a86028c9e96a8aafeff5a2b4b794b780222f80444",
+  "generation": "Frozen from git object 1ca2cc0, never from the live backlog.",
+  "format": "wi-072-chunked-evidence-v1",
+  "canonical_sha256": "2e4c1fbfeef48c7cba3c2de8d4c9658d6ccbaeac51ef14b336228b7e91844b91",
+  "canonical_bytes": 155723,
+  "record_count": 59,
+  "chunks": [
+    {
+      "file": "repair-snapshot.part-001.json",
+      "position": 1,
+      "count": 19,
+      "sha256": "328bf9a46737908d91e88ea62e9d5dca99adfb6951327a3c5fd1d1165fb38826"
+    },
+    {
+      "file": "repair-snapshot.part-002.json",
+      "position": 2,
+      "count": 20,
+      "sha256": "426698217ccd553620ece271467f959b490b5e86c0d9ee0b0841066ba9e7e0e4"
+    },
+    {
+      "file": "repair-snapshot.part-003.json",
+      "position": 3,
+      "count": 20,
+      "sha256": "63653b10144eb9609d50666d3f541e664cdef728d968b5c5bc4b97d709bee13f"
+    }
+  ]
+}

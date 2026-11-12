@@ -1,0 +1,1282 @@
+{
+  "generated_at": "2026-11-11T00:25:35.555Z",
+  "options": {
+    "backlogDir": "/private/tmp/vitae-wi069-clean-rehearsal/backlog",
+    "rootDir": "/private/tmp/vitae-wi069-clean-rehearsal",
+    "format": "json",
+    "failOn": "error",
+    "schemaMap": "/Users/macos/Library/pnpm/doc-vader-runtime/schemas/frontmatter/schema-map.json",
+    "includeArchive": false,
+    "profile": "ci",
+    "profiles": [
+      "ci"
+    ]
+  },
+  "totals": {
+    "files": 158,
+    "duplicate_ids": 0,
+    "unresolved_wikilinks": 0,
+    "parse_errors": 0,
+    "no_inbound_active": 7,
+    "schema_violations": 59
+  },
+  "duplicate_ids": [],
+  "unresolved_wikilinks": [],
+  "parse_errors": [],
+  "no_inbound_active": [
+    {
+      "file": "backlog/012-split-scoring-from-recommendation-generation.md",
+      "id": "wi-012",
+      "status": "ready",
+      "title": "Split Scoring from Recommendation Generation"
+    },
+    {
+      "file": "backlog/013-prototype-career-graph-projection-for-bullets-and-requirements.md",
+      "id": "wi-013",
+      "status": "ready",
+      "title": "Prototype Career Graph Projection for Bullets and Requirements"
+    },
+    {
+      "file": "backlog/014-introduce-typed-frontend-backend-api-contract.md",
+      "id": "wi-014",
+      "status": "ready",
+      "title": "Introduce Typed Frontend Backend API Contract"
+    },
+    {
+      "file": "backlog/015-evaluate-templjs-backed-resume-variant-rendering.md",
+      "id": "wi-015",
+      "status": "ready",
+      "title": "Evaluate templjs Backed Resume Variant Rendering"
+    },
+    {
+      "file": "backlog/017-integrate-agent-workflows-for-work-order-execution.md",
+      "id": "wi-017",
+      "status": "ready",
+      "title": "Integrate agent-workflows for Work Order Execution"
+    },
+    {
+      "file": "backlog/018-add-adr-prd-frontmatter-validation-tooling.md",
+      "id": "wi-018",
+      "status": "ready",
+      "title": "Add ADR PRD Frontmatter Validation Tooling"
+    },
+    {
+      "file": "backlog/070-validate-connected-mock-dual-lifecycles.md",
+      "id": "wi-070",
+      "status": "ready",
+      "title": "Validate Connected Mock Dual Lifecycles"
+    }
+  ],
+  "schema_violations": [
+    {
+      "file": "backlog/009-remove-pii-bearing-model-logs.md",
+      "schema": "schemas/work-management/frontmatter/work-item.json",
+      "errors": [
+        "(root) must have required property 'actual'",
+        "(root) must match \"then\" schema",
+        "(root) must match \"then\" schema"
+      ]
+    },
+    {
+      "file": "backlog/019-reconcile-planning-docs-and-backlog-with-canonical-mvp-scope.md",
+      "schema": "schemas/work-management/frontmatter/work-item.json",
+      "errors": [
+        "(root) must have required property 'actual'",
+        "(root) must match \"then\" schema",
+        "(root) must match \"then\" schema"
+      ]
+    },
+    {
+      "file": "backlog/020-define-canonical-vitae-domain-model-and-obsidian-mapping.md",
+      "schema": "schemas/work-management/frontmatter/work-item.json",
+      "errors": [
+        "(root) must have required property 'actual'",
+        "(root) must match \"then\" schema",
+        "(root) must match \"then\" schema"
+      ]
+    },
+    {
+      "file": "backlog/021-preserve-seed-model-compatibility-and-harvest-fixtures.md",
+      "schema": "schemas/work-management/frontmatter/work-item.json",
+      "errors": [
+        "(root) must have required property 'actual'",
+        "(root) must match \"then\" schema",
+        "(root) must match \"then\" schema"
+      ]
+    },
+    {
+      "file": "backlog/022-define-harvest-cull-prime-and-substantiate-workflow-contracts.md",
+      "schema": "schemas/work-management/frontmatter/work-item.json",
+      "errors": [
+        "(root) must have required property 'actual'",
+        "(root) must match \"then\" schema",
+        "(root) must match \"then\" schema"
+      ]
+    },
+    {
+      "file": "backlog/023-implement-target-requirement-projection-and-catalog-fit-slice.md",
+      "schema": "schemas/work-management/frontmatter/work-item.json",
+      "errors": [
+        "(root) must have required property 'actual'",
+        "(root) must match \"then\" schema",
+        "(root) must match \"then\" schema"
+      ]
+    },
+    {
+      "file": "backlog/024-classify-misalignments-into-harvest-cull-prime-and-substantiate-actions.md",
+      "schema": "schemas/work-management/frontmatter/work-item.json",
+      "errors": [
+        "(root) must have required property 'actual'",
+        "(root) must match \"then\" schema",
+        "(root) must match \"then\" schema"
+      ]
+    },
+    {
+      "file": "backlog/025-generate-source-backed-resume-and-communication-deliverables.md",
+      "schema": "schemas/work-management/frontmatter/work-item.json",
+      "errors": [
+        "(root) must have required property 'actual'",
+        "(root) must match \"then\" schema",
+        "(root) must match \"then\" schema"
+      ]
+    },
+    {
+      "file": "backlog/026-track-one-application-with-lightweight-material-records.md",
+      "schema": "schemas/work-management/frontmatter/work-item.json",
+      "errors": [
+        "(root) must have required property 'actual'",
+        "(root) must match \"then\" schema",
+        "(root) must match \"then\" schema"
+      ]
+    },
+    {
+      "file": "backlog/027-adopt-privacy-safe-durable-temporal-execution.md",
+      "schema": "schemas/work-management/frontmatter/work-item.json",
+      "errors": [
+        "/links must NOT have additional properties",
+        "(root) must have required property 'actual'",
+        "(root) must match \"then\" schema",
+        "/links must NOT have additional properties",
+        "(root) must match \"then\" schema",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties"
+      ]
+    },
+    {
+      "file": "backlog/028-define-temporal-execution-boundary-and-threat-model.md",
+      "schema": "schemas/work-management/frontmatter/work-item.json",
+      "errors": [
+        "/links must NOT have additional properties",
+        "/links must NOT have additional properties",
+        "/status_reason must be equal to one of the allowed values",
+        "(root) must match \"then\" schema",
+        "/lifecycle must be equal to constant",
+        "/status must be equal to one of the allowed values",
+        "/status must be equal to one of the allowed values",
+        "/lifecycle must be equal to constant",
+        "/status must be equal to one of the allowed values",
+        "/lifecycle must be equal to constant",
+        "/status must be equal to one of the allowed values",
+        "(root) must match a schema in anyOf",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties"
+      ]
+    },
+    {
+      "file": "backlog/029-build-runtime-execution-adapter-and-pii-safe-payload-contract.md",
+      "schema": "schemas/work-management/frontmatter/work-item.json",
+      "errors": [
+        "/links must NOT have additional properties",
+        "/links must NOT have additional properties",
+        "/status_reason must be equal to one of the allowed values",
+        "(root) must match \"then\" schema",
+        "/lifecycle must be equal to constant",
+        "/status must be equal to one of the allowed values",
+        "/status must be equal to one of the allowed values",
+        "/lifecycle must be equal to constant",
+        "/status must be equal to one of the allowed values",
+        "/lifecycle must be equal to constant",
+        "/status must be equal to one of the allowed values",
+        "(root) must match a schema in anyOf",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties"
+      ]
+    },
+    {
+      "file": "backlog/030-create-isolated-temporal-worker-bootstrap-and-configuration-seam.md",
+      "schema": "schemas/work-management/frontmatter/work-item.json",
+      "errors": [
+        "/links must NOT have additional properties",
+        "/links must NOT have additional properties",
+        "(root) must have required property 'actual'",
+        "(root) must match \"then\" schema",
+        "/links must NOT have additional properties",
+        "/links must NOT have additional properties",
+        "(root) must match \"then\" schema",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties"
+      ]
+    },
+    {
+      "file": "backlog/031-implement-idempotent-runtimeexecution-ledger-and-safe-status-api.md",
+      "schema": "schemas/work-management/frontmatter/work-item.json",
+      "errors": [
+        "/links must NOT have additional properties",
+        "/links must NOT have additional properties",
+        "(root) must have required property 'actual'",
+        "(root) must match \"then\" schema",
+        "/links must NOT have additional properties",
+        "/links must NOT have additional properties",
+        "(root) must match \"then\" schema",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties"
+      ]
+    },
+    {
+      "file": "backlog/032-deliver-opt-in-async-job-fit-vertical-slice.md",
+      "schema": "schemas/work-management/frontmatter/work-item.json",
+      "errors": [
+        "/links must NOT have additional properties",
+        "/links must NOT have additional properties",
+        "(root) must have required property 'actual'",
+        "(root) must match \"then\" schema",
+        "/links must NOT have additional properties",
+        "/links must NOT have additional properties",
+        "(root) must match \"then\" schema",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties"
+      ]
+    },
+    {
+      "file": "backlog/033-build-human-review-signal-bridge.md",
+      "schema": "schemas/work-management/frontmatter/work-item.json",
+      "errors": [
+        "/links must NOT have additional properties",
+        "/links must NOT have additional properties",
+        "(root) must have required property 'actual'",
+        "(root) must match \"then\" schema",
+        "/links must NOT have additional properties",
+        "/links must NOT have additional properties",
+        "(root) must match \"then\" schema",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties"
+      ]
+    },
+    {
+      "file": "backlog/034-implement-durable-harvest-runtime-slice.md",
+      "schema": "schemas/work-management/frontmatter/work-item.json",
+      "errors": [
+        "/links must NOT have additional properties",
+        "/links must NOT have additional properties",
+        "(root) must have required property 'actual'",
+        "(root) must match \"then\" schema",
+        "/links must NOT have additional properties",
+        "/links must NOT have additional properties",
+        "(root) must match \"then\" schema",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties"
+      ]
+    },
+    {
+      "file": "backlog/035-implement-durable-cull-and-prime-runtime-slice.md",
+      "schema": "schemas/work-management/frontmatter/work-item.json",
+      "errors": [
+        "/links must NOT have additional properties",
+        "/links must NOT have additional properties",
+        "(root) must have required property 'actual'",
+        "(root) must match \"then\" schema",
+        "/links must NOT have additional properties",
+        "/links must NOT have additional properties",
+        "(root) must match \"then\" schema",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties"
+      ]
+    },
+    {
+      "file": "backlog/036-implement-substantiation-and-guarded-catalog-publication.md",
+      "schema": "schemas/work-management/frontmatter/work-item.json",
+      "errors": [
+        "/links must NOT have additional properties",
+        "/links must NOT have additional properties",
+        "(root) must have required property 'actual'",
+        "(root) must match \"then\" schema",
+        "/links must NOT have additional properties",
+        "/links must NOT have additional properties",
+        "(root) must match \"then\" schema",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties"
+      ]
+    },
+    {
+      "file": "backlog/037-implement-required-durable-runtime-for-target-and-catalog-fit.md",
+      "schema": "schemas/work-management/frontmatter/work-item.json",
+      "errors": [
+        "/links must NOT have additional properties",
+        "/links must NOT have additional properties",
+        "(root) must have required property 'actual'",
+        "(root) must match \"then\" schema",
+        "/links must NOT have additional properties",
+        "/links must NOT have additional properties",
+        "(root) must match \"then\" schema",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties"
+      ]
+    },
+    {
+      "file": "backlog/038-implement-required-durable-runtime-for-deliverable-generation.md",
+      "schema": "schemas/work-management/frontmatter/work-item.json",
+      "errors": [
+        "/links must NOT have additional properties",
+        "/links must NOT have additional properties",
+        "(root) must have required property 'actual'",
+        "(root) must match \"then\" schema",
+        "/links must NOT have additional properties",
+        "/links must NOT have additional properties",
+        "(root) must match \"then\" schema",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties"
+      ]
+    },
+    {
+      "file": "backlog/039-implement-required-scheduled-application-automation-for-wi-026.md",
+      "schema": "schemas/work-management/frontmatter/work-item.json",
+      "errors": [
+        "/links must NOT have additional properties",
+        "/links must NOT have additional properties",
+        "(root) must have required property 'actual'",
+        "(root) must match \"then\" schema",
+        "/links must NOT have additional properties",
+        "/links must NOT have additional properties",
+        "(root) must match \"then\" schema",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties"
+      ]
+    },
+    {
+      "file": "backlog/040-complete-production-hardening-and-temporal-adoption-decision.md",
+      "schema": "schemas/work-management/frontmatter/work-item.json",
+      "errors": [
+        "/links must NOT have additional properties",
+        "/links must NOT have additional properties",
+        "(root) must have required property 'actual'",
+        "(root) must match \"then\" schema",
+        "/links must NOT have additional properties",
+        "/links must NOT have additional properties",
+        "(root) must match \"then\" schema",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties"
+      ]
+    },
+    {
+      "file": "backlog/041-add-uat-evidence-capture-harness.md",
+      "schema": "schemas/work-management/frontmatter/work-item.json",
+      "errors": [
+        "/links must NOT have additional properties",
+        "/links must NOT have additional properties",
+        "(root) must have required property 'actual'",
+        "(root) must match \"then\" schema",
+        "/links must NOT have additional properties",
+        "/links must NOT have additional properties",
+        "(root) must match \"then\" schema",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties"
+      ]
+    },
+    {
+      "file": "backlog/042-author-local-podman-uat-fixture.md",
+      "schema": "schemas/work-management/frontmatter/work-item.json",
+      "errors": [
+        "/links must NOT have additional properties",
+        "(root) must have required property 'actual'",
+        "(root) must match \"then\" schema",
+        "/links must NOT have additional properties",
+        "(root) must match \"then\" schema",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties"
+      ]
+    },
+    {
+      "file": "backlog/043-add-ci-friendly-uat-orchestrator.md",
+      "schema": "schemas/work-management/frontmatter/work-item.json",
+      "errors": [
+        "/links must NOT have additional properties",
+        "(root) must have required property 'actual'",
+        "(root) must match \"then\" schema",
+        "/links must NOT have additional properties",
+        "(root) must match \"then\" schema",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties"
+      ]
+    },
+    {
+      "file": "backlog/045-fix-local-compose-resume-upload.md",
+      "schema": "schemas/work-management/frontmatter/work-item.json",
+      "errors": [
+        "/links must NOT have additional properties",
+        "/links must NOT have additional properties",
+        "(root) must match \"then\" schema",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties"
+      ]
+    },
+    {
+      "file": "backlog/046-include-pi-bridge-in-local-compose.md",
+      "schema": "schemas/work-management/frontmatter/work-item.json",
+      "errors": [
+        "/links must NOT have additional properties",
+        "/links must NOT have additional properties",
+        "(root) must match \"then\" schema",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties"
+      ]
+    },
+    {
+      "file": "backlog/048-refresh-p0-source-of-truth-docs.md",
+      "schema": "schemas/work-management/frontmatter/work-item.json",
+      "errors": [
+        "/links must NOT have additional properties",
+        "(root) must have required property 'actual'",
+        "(root) must match \"then\" schema",
+        "/links must NOT have additional properties",
+        "(root) must match \"then\" schema",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties"
+      ]
+    },
+    {
+      "file": "backlog/049-align-runtime-execution-temporal-truth.md",
+      "schema": "schemas/work-management/frontmatter/work-item.json",
+      "errors": [
+        "/links must NOT have additional properties",
+        "(root) must have required property 'actual'",
+        "(root) must match \"then\" schema",
+        "/links must NOT have additional properties",
+        "(root) must match \"then\" schema",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties"
+      ]
+    },
+    {
+      "file": "backlog/050-deliver-job-search-application-funnel-slice.md",
+      "schema": "schemas/work-management/frontmatter/work-item.json",
+      "errors": [
+        "/links must NOT have additional properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties"
+      ]
+    },
+    {
+      "file": "backlog/051-add-application-bundle-record-slice.md",
+      "schema": "schemas/work-management/frontmatter/work-item.json",
+      "errors": [
+        "/links must NOT have additional properties",
+        "/links must NOT have additional properties",
+        "(root) must match \"then\" schema",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties"
+      ]
+    },
+    {
+      "file": "backlog/052-enforce-generation-source-eligibility.md",
+      "schema": "schemas/work-management/frontmatter/work-item.json",
+      "errors": [
+        "/links must NOT have additional properties",
+        "/links must NOT have additional properties",
+        "(root) must match \"then\" schema",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties"
+      ]
+    },
+    {
+      "file": "backlog/053-generate-draft-application-bundle-artifacts.md",
+      "schema": "schemas/work-management/frontmatter/work-item.json",
+      "errors": [
+        "/links must NOT have additional properties",
+        "/links must NOT have additional properties",
+        "(root) must match \"then\" schema",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties"
+      ]
+    },
+    {
+      "file": "backlog/054-add-career-inventory-and-curation-slice.md",
+      "schema": "schemas/work-management/frontmatter/work-item.json",
+      "errors": [
+        "/links must NOT have additional properties",
+        "/links must NOT have additional properties",
+        "(root) must match \"then\" schema",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties"
+      ]
+    },
+    {
+      "file": "backlog/055-add-application-bundle-workspace.md",
+      "schema": "schemas/work-management/frontmatter/work-item.json",
+      "errors": [
+        "/links must NOT have additional properties",
+        "/links must NOT have additional properties",
+        "(root) must match \"then\" schema",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties"
+      ]
+    },
+    {
+      "file": "backlog/056-connect-career-refresh-and-runtime-ux.md",
+      "schema": "schemas/work-management/frontmatter/work-item.json",
+      "errors": [
+        "/links must NOT have additional properties",
+        "/links must NOT have additional properties",
+        "(root) must match \"then\" schema",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties"
+      ]
+    },
+    {
+      "file": "backlog/057-run-live-full-loop-mvp-uat.md",
+      "schema": "schemas/work-management/frontmatter/work-item.json",
+      "errors": [
+        "/links must NOT have additional properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties"
+      ]
+    },
+    {
+      "file": "backlog/059-make-release-validation-reproducible.md",
+      "schema": "schemas/work-management/frontmatter/work-item.json",
+      "errors": [
+        "/links must NOT have additional properties",
+        "/links must NOT have additional properties",
+        "(root) must match \"then\" schema",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties"
+      ]
+    },
+    {
+      "file": "backlog/060-draft-figma-based-frontend.md",
+      "schema": "schemas/work-management/frontmatter/work-item.json",
+      "errors": [
+        "/links must NOT have additional properties",
+        "/links must NOT have additional properties",
+        "/links/depends_on must NOT have fewer than 1 items",
+        "/links must NOT have additional properties",
+        "/links must NOT have additional properties",
+        "/links/depends_on must NOT have fewer than 1 items",
+        "(root) must match \"then\" schema",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties"
+      ]
+    },
+    {
+      "file": "backlog/062-separate-today-from-applications.md",
+      "schema": "schemas/work-management/frontmatter/work-item.json",
+      "errors": [
+        "/links must NOT have additional properties",
+        "/links must NOT have additional properties",
+        "/links/depends_on must NOT have fewer than 1 items",
+        "/links must NOT have additional properties",
+        "/links must NOT have additional properties",
+        "/links/depends_on must NOT have fewer than 1 items",
+        "(root) must match \"then\" schema",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties"
+      ]
+    },
+    {
+      "file": "backlog/063-wire-frontend-draft-interactions.md",
+      "schema": "schemas/work-management/frontmatter/work-item.json",
+      "errors": [
+        "/links must NOT have additional properties",
+        "/links must NOT have additional properties",
+        "/links/depends_on must NOT have fewer than 1 items",
+        "/links must NOT have additional properties",
+        "/links must NOT have additional properties",
+        "/links/depends_on must NOT have fewer than 1 items",
+        "(root) must match \"then\" schema",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties"
+      ]
+    },
+    {
+      "file": "backlog/064-simplify-frontend-draft-navigation.md",
+      "schema": "schemas/work-management/frontmatter/work-item.json",
+      "errors": [
+        "/links must NOT have additional properties",
+        "/links must NOT have additional properties",
+        "/links/depends_on must NOT have fewer than 1 items",
+        "/links must NOT have additional properties",
+        "/links must NOT have additional properties",
+        "/links/depends_on must NOT have fewer than 1 items",
+        "(root) must match \"then\" schema",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties"
+      ]
+    },
+    {
+      "file": "backlog/065-make-live-integration-tests-opt-in.md",
+      "schema": "schemas/work-management/frontmatter/work-item.json",
+      "errors": [
+        "/links must NOT have additional properties",
+        "/links must NOT have additional properties",
+        "/links/depends_on must NOT have fewer than 1 items",
+        "/links must NOT have additional properties",
+        "/links must NOT have additional properties",
+        "/links/depends_on must NOT have fewer than 1 items",
+        "(root) must match \"then\" schema",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties"
+      ]
+    },
+    {
+      "file": "backlog/067-make-sources-and-evidence-actionable.md",
+      "schema": "schemas/work-management/frontmatter/work-item.json",
+      "errors": [
+        "/links must NOT have additional properties",
+        "/links must NOT have additional properties",
+        "/links/depends_on must NOT have fewer than 1 items",
+        "/links must NOT have additional properties",
+        "/links must NOT have additional properties",
+        "/links/depends_on must NOT have fewer than 1 items",
+        "(root) must match \"then\" schema",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties"
+      ]
+    },
+    {
+      "file": "backlog/068-build-catalog-development-board.md",
+      "schema": "schemas/work-management/frontmatter/work-item.json",
+      "errors": [
+        "/links must NOT have additional properties",
+        "(root) must have required property 'actual'",
+        "(root) must match \"then\" schema",
+        "/links must NOT have additional properties",
+        "(root) must match \"then\" schema",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties"
+      ]
+    },
+    {
+      "file": "backlog/records/record-wi-051-focused-validation-and-independent-review-passed-after-remediation.md",
+      "schema": "schemas/work-management/frontmatter/record.json",
+      "errors": [
+        "/links/supporting_reference/0 must match pattern \"^(?:(?:\\[(?<text>.+?)\\])?\\(?(?:(?<protocol>(?:[^:]+)s?):\\/\\/)(?:(?<user>[^:\\n\\r]+):(?<pass>[^@\\n\\r]+)@)?(?<host>(?:www\\.)?(?:[^:\\/\\n\\r]+))(?::(?<port>\\d+))?\\/?(?<resource>[^?#\\n\\r]+)?\\??(?<query>[^#\\n\\r]*)?#?(?<anchor>[^\\n\\r]*)?\\)?)$\"",
+        "/links/supporting_reference/0 must match pattern \"^\\[\\[(?<name>[^\\]\\|\\r\\n]+)(?:\\|(?<title>[^\\]\\|\\r\\n]+))?\\]\\](?<agglu>[^\\p{P}\\s]*)$\"",
+        "/links/supporting_reference/0 must match a schema in anyOf",
+        "/links/supporting_reference/0 must match exactly one schema in oneOf",
+        "/links/supporting_reference/0 must be object",
+        "/links/supporting_reference/0 must match exactly one schema in oneOf",
+        "/links/supporting_reference/1 must match pattern \"^(?:(?:\\[(?<text>.+?)\\])?\\(?(?:(?<protocol>(?:[^:]+)s?):\\/\\/)(?:(?<user>[^:\\n\\r]+):(?<pass>[^@\\n\\r]+)@)?(?<host>(?:www\\.)?(?:[^:\\/\\n\\r]+))(?::(?<port>\\d+))?\\/?(?<resource>[^?#\\n\\r]+)?\\??(?<query>[^#\\n\\r]*)?#?(?<anchor>[^\\n\\r]*)?\\)?)$\"",
+        "/links/supporting_reference/1 must match pattern \"^\\[\\[(?<name>[^\\]\\|\\r\\n]+)(?:\\|(?<title>[^\\]\\|\\r\\n]+))?\\]\\](?<agglu>[^\\p{P}\\s]*)$\"",
+        "/links/supporting_reference/1 must match a schema in anyOf",
+        "/links/supporting_reference/1 must match exactly one schema in oneOf",
+        "/links/supporting_reference/1 must be object",
+        "/links/supporting_reference/1 must match exactly one schema in oneOf",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties"
+      ]
+    },
+    {
+      "file": "backlog/records/record-wi-052-source-eligibility-validation-and-independent-review-passed-after-remediation.md",
+      "schema": "schemas/work-management/frontmatter/record.json",
+      "errors": [
+        "/links/supporting_reference/0 must match pattern \"^(?:(?:\\[(?<text>.+?)\\])?\\(?(?:(?<protocol>(?:[^:]+)s?):\\/\\/)(?:(?<user>[^:\\n\\r]+):(?<pass>[^@\\n\\r]+)@)?(?<host>(?:www\\.)?(?:[^:\\/\\n\\r]+))(?::(?<port>\\d+))?\\/?(?<resource>[^?#\\n\\r]+)?\\??(?<query>[^#\\n\\r]*)?#?(?<anchor>[^\\n\\r]*)?\\)?)$\"",
+        "/links/supporting_reference/0 must NOT have more than 128 characters",
+        "/links/supporting_reference/0 must match pattern \"^\\[\\[(?<name>[^\\]\\|\\r\\n]+)(?:\\|(?<title>[^\\]\\|\\r\\n]+))?\\]\\](?<agglu>[^\\p{P}\\s]*)$\"",
+        "/links/supporting_reference/0 must match a schema in anyOf",
+        "/links/supporting_reference/0 must match exactly one schema in oneOf",
+        "/links/supporting_reference/0 must be object",
+        "/links/supporting_reference/0 must match exactly one schema in oneOf",
+        "/links/supporting_reference/1 must match pattern \"^(?:(?:\\[(?<text>.+?)\\])?\\(?(?:(?<protocol>(?:[^:]+)s?):\\/\\/)(?:(?<user>[^:\\n\\r]+):(?<pass>[^@\\n\\r]+)@)?(?<host>(?:www\\.)?(?:[^:\\/\\n\\r]+))(?::(?<port>\\d+))?\\/?(?<resource>[^?#\\n\\r]+)?\\??(?<query>[^#\\n\\r]*)?#?(?<anchor>[^\\n\\r]*)?\\)?)$\"",
+        "/links/supporting_reference/1 must match pattern \"^\\[\\[(?<name>[^\\]\\|\\r\\n]+)(?:\\|(?<title>[^\\]\\|\\r\\n]+))?\\]\\](?<agglu>[^\\p{P}\\s]*)$\"",
+        "/links/supporting_reference/1 must match a schema in anyOf",
+        "/links/supporting_reference/1 must match exactly one schema in oneOf",
+        "/links/supporting_reference/1 must be object",
+        "/links/supporting_reference/1 must match exactly one schema in oneOf",
+        "/links/supporting_reference/2 must match pattern \"^(?:(?:\\[(?<text>.+?)\\])?\\(?(?:(?<protocol>(?:[^:]+)s?):\\/\\/)(?:(?<user>[^:\\n\\r]+):(?<pass>[^@\\n\\r]+)@)?(?<host>(?:www\\.)?(?:[^:\\/\\n\\r]+))(?::(?<port>\\d+))?\\/?(?<resource>[^?#\\n\\r]+)?\\??(?<query>[^#\\n\\r]*)?#?(?<anchor>[^\\n\\r]*)?\\)?)$\"",
+        "/links/supporting_reference/2 must match pattern \"^\\[\\[(?<name>[^\\]\\|\\r\\n]+)(?:\\|(?<title>[^\\]\\|\\r\\n]+))?\\]\\](?<agglu>[^\\p{P}\\s]*)$\"",
+        "/links/supporting_reference/2 must match a schema in anyOf",
+        "/links/supporting_reference/2 must match exactly one schema in oneOf",
+        "/links/supporting_reference/2 must be object",
+        "/links/supporting_reference/2 must match exactly one schema in oneOf",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties"
+      ]
+    },
+    {
+      "file": "backlog/records/record-wi-053-draft-bundle-artifacts-validation-and-review-passed.md",
+      "schema": "schemas/work-management/frontmatter/record.json",
+      "errors": [
+        "/links/supporting_reference/0 must match pattern \"^(?:(?:\\[(?<text>.+?)\\])?\\(?(?:(?<protocol>(?:[^:]+)s?):\\/\\/)(?:(?<user>[^:\\n\\r]+):(?<pass>[^@\\n\\r]+)@)?(?<host>(?:www\\.)?(?:[^:\\/\\n\\r]+))(?::(?<port>\\d+))?\\/?(?<resource>[^?#\\n\\r]+)?\\??(?<query>[^#\\n\\r]*)?#?(?<anchor>[^\\n\\r]*)?\\)?)$\"",
+        "/links/supporting_reference/0 must match pattern \"^\\[\\[(?<name>[^\\]\\|\\r\\n]+)(?:\\|(?<title>[^\\]\\|\\r\\n]+))?\\]\\](?<agglu>[^\\p{P}\\s]*)$\"",
+        "/links/supporting_reference/0 must match a schema in anyOf",
+        "/links/supporting_reference/0 must match exactly one schema in oneOf",
+        "/links/supporting_reference/0 must be object",
+        "/links/supporting_reference/0 must match exactly one schema in oneOf",
+        "/links/supporting_reference/1 must match pattern \"^(?:(?:\\[(?<text>.+?)\\])?\\(?(?:(?<protocol>(?:[^:]+)s?):\\/\\/)(?:(?<user>[^:\\n\\r]+):(?<pass>[^@\\n\\r]+)@)?(?<host>(?:www\\.)?(?:[^:\\/\\n\\r]+))(?::(?<port>\\d+))?\\/?(?<resource>[^?#\\n\\r]+)?\\??(?<query>[^#\\n\\r]*)?#?(?<anchor>[^\\n\\r]*)?\\)?)$\"",
+        "/links/supporting_reference/1 must match pattern \"^\\[\\[(?<name>[^\\]\\|\\r\\n]+)(?:\\|(?<title>[^\\]\\|\\r\\n]+))?\\]\\](?<agglu>[^\\p{P}\\s]*)$\"",
+        "/links/supporting_reference/1 must match a schema in anyOf",
+        "/links/supporting_reference/1 must match exactly one schema in oneOf",
+        "/links/supporting_reference/1 must be object",
+        "/links/supporting_reference/1 must match exactly one schema in oneOf",
+        "/links/supporting_reference/2 must match pattern \"^(?:(?:\\[(?<text>.+?)\\])?\\(?(?:(?<protocol>(?:[^:]+)s?):\\/\\/)(?:(?<user>[^:\\n\\r]+):(?<pass>[^@\\n\\r]+)@)?(?<host>(?:www\\.)?(?:[^:\\/\\n\\r]+))(?::(?<port>\\d+))?\\/?(?<resource>[^?#\\n\\r]+)?\\??(?<query>[^#\\n\\r]*)?#?(?<anchor>[^\\n\\r]*)?\\)?)$\"",
+        "/links/supporting_reference/2 must match pattern \"^\\[\\[(?<name>[^\\]\\|\\r\\n]+)(?:\\|(?<title>[^\\]\\|\\r\\n]+))?\\]\\](?<agglu>[^\\p{P}\\s]*)$\"",
+        "/links/supporting_reference/2 must match a schema in anyOf",
+        "/links/supporting_reference/2 must match exactly one schema in oneOf",
+        "/links/supporting_reference/2 must be object",
+        "/links/supporting_reference/2 must match exactly one schema in oneOf",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties"
+      ]
+    },
+    {
+      "file": "backlog/records/record-wi-054-historical-synthetic-validation.md",
+      "schema": "schemas/work-management/frontmatter/record.json",
+      "errors": [
+        "/links/supporting_reference/3 must match pattern \"^(?:(?:\\[(?<text>.+?)\\])?\\(?(?:(?<protocol>(?:[^:]+)s?):\\/\\/)(?:(?<user>[^:\\n\\r]+):(?<pass>[^@\\n\\r]+)@)?(?<host>(?:www\\.)?(?:[^:\\/\\n\\r]+))(?::(?<port>\\d+))?\\/?(?<resource>[^?#\\n\\r]+)?\\??(?<query>[^#\\n\\r]*)?#?(?<anchor>[^\\n\\r]*)?\\)?)$\"",
+        "/links/supporting_reference/3 must match pattern \"^\\[\\[(?<name>[^\\]\\|\\r\\n]+)(?:\\|(?<title>[^\\]\\|\\r\\n]+))?\\]\\](?<agglu>[^\\p{P}\\s]*)$\"",
+        "/links/supporting_reference/3 must match a schema in anyOf",
+        "/links/supporting_reference/3 must match exactly one schema in oneOf",
+        "/links/supporting_reference/3 must be object",
+        "/links/supporting_reference/3 must match exactly one schema in oneOf",
+        "/links/supporting_reference/4 must match pattern \"^(?:(?:\\[(?<text>.+?)\\])?\\(?(?:(?<protocol>(?:[^:]+)s?):\\/\\/)(?:(?<user>[^:\\n\\r]+):(?<pass>[^@\\n\\r]+)@)?(?<host>(?:www\\.)?(?:[^:\\/\\n\\r]+))(?::(?<port>\\d+))?\\/?(?<resource>[^?#\\n\\r]+)?\\??(?<query>[^#\\n\\r]*)?#?(?<anchor>[^\\n\\r]*)?\\)?)$\"",
+        "/links/supporting_reference/4 must match pattern \"^\\[\\[(?<name>[^\\]\\|\\r\\n]+)(?:\\|(?<title>[^\\]\\|\\r\\n]+))?\\]\\](?<agglu>[^\\p{P}\\s]*)$\"",
+        "/links/supporting_reference/4 must match a schema in anyOf",
+        "/links/supporting_reference/4 must match exactly one schema in oneOf",
+        "/links/supporting_reference/4 must be object",
+        "/links/supporting_reference/4 must match exactly one schema in oneOf",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties"
+      ]
+    },
+    {
+      "file": "backlog/records/record-wi-054-publisher-authorization.md",
+      "schema": "schemas/work-management/frontmatter/record.json",
+      "errors": [
+        "/links/supporting_reference/1 must match pattern \"^(?:(?:\\[(?<text>.+?)\\])?\\(?(?:(?<protocol>(?:[^:]+)s?):\\/\\/)(?:(?<user>[^:\\n\\r]+):(?<pass>[^@\\n\\r]+)@)?(?<host>(?:www\\.)?(?:[^:\\/\\n\\r]+))(?::(?<port>\\d+))?\\/?(?<resource>[^?#\\n\\r]+)?\\??(?<query>[^#\\n\\r]*)?#?(?<anchor>[^\\n\\r]*)?\\)?)$\"",
+        "/links/supporting_reference/1 must match pattern \"^\\[\\[(?<name>[^\\]\\|\\r\\n]+)(?:\\|(?<title>[^\\]\\|\\r\\n]+))?\\]\\](?<agglu>[^\\p{P}\\s]*)$\"",
+        "/links/supporting_reference/1 must match a schema in anyOf",
+        "/links/supporting_reference/1 must match exactly one schema in oneOf",
+        "/links/supporting_reference/1 must be object",
+        "/links/supporting_reference/1 must match exactly one schema in oneOf",
+        "/links/supporting_reference/2 must match pattern \"^(?:(?:\\[(?<text>.+?)\\])?\\(?(?:(?<protocol>(?:[^:]+)s?):\\/\\/)(?:(?<user>[^:\\n\\r]+):(?<pass>[^@\\n\\r]+)@)?(?<host>(?:www\\.)?(?:[^:\\/\\n\\r]+))(?::(?<port>\\d+))?\\/?(?<resource>[^?#\\n\\r]+)?\\??(?<query>[^#\\n\\r]*)?#?(?<anchor>[^\\n\\r]*)?\\)?)$\"",
+        "/links/supporting_reference/2 must match pattern \"^\\[\\[(?<name>[^\\]\\|\\r\\n]+)(?:\\|(?<title>[^\\]\\|\\r\\n]+))?\\]\\](?<agglu>[^\\p{P}\\s]*)$\"",
+        "/links/supporting_reference/2 must match a schema in anyOf",
+        "/links/supporting_reference/2 must match exactly one schema in oneOf",
+        "/links/supporting_reference/2 must be object",
+        "/links/supporting_reference/2 must match exactly one schema in oneOf",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties"
+      ]
+    },
+    {
+      "file": "backlog/records/record-wi-054-synthetic-inventory-validation-passed.md",
+      "schema": "schemas/work-management/frontmatter/record.json",
+      "errors": [
+        "/links/supporting_reference/0 must match pattern \"^(?:(?:\\[(?<text>.+?)\\])?\\(?(?:(?<protocol>(?:[^:]+)s?):\\/\\/)(?:(?<user>[^:\\n\\r]+):(?<pass>[^@\\n\\r]+)@)?(?<host>(?:www\\.)?(?:[^:\\/\\n\\r]+))(?::(?<port>\\d+))?\\/?(?<resource>[^?#\\n\\r]+)?\\??(?<query>[^#\\n\\r]*)?#?(?<anchor>[^\\n\\r]*)?\\)?)$\"",
+        "/links/supporting_reference/0 must match pattern \"^\\[\\[(?<name>[^\\]\\|\\r\\n]+)(?:\\|(?<title>[^\\]\\|\\r\\n]+))?\\]\\](?<agglu>[^\\p{P}\\s]*)$\"",
+        "/links/supporting_reference/0 must match a schema in anyOf",
+        "/links/supporting_reference/0 must match exactly one schema in oneOf",
+        "/links/supporting_reference/0 must be object",
+        "/links/supporting_reference/0 must match exactly one schema in oneOf",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties"
+      ]
+    },
+    {
+      "file": "backlog/records/record-wi-055-historical-approval.md",
+      "schema": "schemas/work-management/frontmatter/record.json",
+      "errors": [
+        "/links/supporting_reference/2 must match pattern \"^(?:(?:\\[(?<text>.+?)\\])?\\(?(?:(?<protocol>(?:[^:]+)s?):\\/\\/)(?:(?<user>[^:\\n\\r]+):(?<pass>[^@\\n\\r]+)@)?(?<host>(?:www\\.)?(?:[^:\\/\\n\\r]+))(?::(?<port>\\d+))?\\/?(?<resource>[^?#\\n\\r]+)?\\??(?<query>[^#\\n\\r]*)?#?(?<anchor>[^\\n\\r]*)?\\)?)$\"",
+        "/links/supporting_reference/2 must match pattern \"^\\[\\[(?<name>[^\\]\\|\\r\\n]+)(?:\\|(?<title>[^\\]\\|\\r\\n]+))?\\]\\](?<agglu>[^\\p{P}\\s]*)$\"",
+        "/links/supporting_reference/2 must match a schema in anyOf",
+        "/links/supporting_reference/2 must match exactly one schema in oneOf",
+        "/links/supporting_reference/2 must be object",
+        "/links/supporting_reference/2 must match exactly one schema in oneOf",
+        "/links/supporting_reference/3 must match pattern \"^(?:(?:\\[(?<text>.+?)\\])?\\(?(?:(?<protocol>(?:[^:]+)s?):\\/\\/)(?:(?<user>[^:\\n\\r]+):(?<pass>[^@\\n\\r]+)@)?(?<host>(?:www\\.)?(?:[^:\\/\\n\\r]+))(?::(?<port>\\d+))?\\/?(?<resource>[^?#\\n\\r]+)?\\??(?<query>[^#\\n\\r]*)?#?(?<anchor>[^\\n\\r]*)?\\)?)$\"",
+        "/links/supporting_reference/3 must match pattern \"^\\[\\[(?<name>[^\\]\\|\\r\\n]+)(?:\\|(?<title>[^\\]\\|\\r\\n]+))?\\]\\](?<agglu>[^\\p{P}\\s]*)$\"",
+        "/links/supporting_reference/3 must match a schema in anyOf",
+        "/links/supporting_reference/3 must match exactly one schema in oneOf",
+        "/links/supporting_reference/3 must be object",
+        "/links/supporting_reference/3 must match exactly one schema in oneOf",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties"
+      ]
+    },
+    {
+      "file": "backlog/records/record-wi-055-validation-passed.md",
+      "schema": "schemas/work-management/frontmatter/record.json",
+      "errors": [
+        "/links/supporting_reference/1 must match pattern \"^(?:(?:\\[(?<text>.+?)\\])?\\(?(?:(?<protocol>(?:[^:]+)s?):\\/\\/)(?:(?<user>[^:\\n\\r]+):(?<pass>[^@\\n\\r]+)@)?(?<host>(?:www\\.)?(?:[^:\\/\\n\\r]+))(?::(?<port>\\d+))?\\/?(?<resource>[^?#\\n\\r]+)?\\??(?<query>[^#\\n\\r]*)?#?(?<anchor>[^\\n\\r]*)?\\)?)$\"",
+        "/links/supporting_reference/1 must match pattern \"^\\[\\[(?<name>[^\\]\\|\\r\\n]+)(?:\\|(?<title>[^\\]\\|\\r\\n]+))?\\]\\](?<agglu>[^\\p{P}\\s]*)$\"",
+        "/links/supporting_reference/1 must match a schema in anyOf",
+        "/links/supporting_reference/1 must match exactly one schema in oneOf",
+        "/links/supporting_reference/1 must be object",
+        "/links/supporting_reference/1 must match exactly one schema in oneOf",
+        "/links/supporting_reference/2 must match pattern \"^(?:(?:\\[(?<text>.+?)\\])?\\(?(?:(?<protocol>(?:[^:]+)s?):\\/\\/)(?:(?<user>[^:\\n\\r]+):(?<pass>[^@\\n\\r]+)@)?(?<host>(?:www\\.)?(?:[^:\\/\\n\\r]+))(?::(?<port>\\d+))?\\/?(?<resource>[^?#\\n\\r]+)?\\??(?<query>[^#\\n\\r]*)?#?(?<anchor>[^\\n\\r]*)?\\)?)$\"",
+        "/links/supporting_reference/2 must match pattern \"^\\[\\[(?<name>[^\\]\\|\\r\\n]+)(?:\\|(?<title>[^\\]\\|\\r\\n]+))?\\]\\](?<agglu>[^\\p{P}\\s]*)$\"",
+        "/links/supporting_reference/2 must match a schema in anyOf",
+        "/links/supporting_reference/2 must match exactly one schema in oneOf",
+        "/links/supporting_reference/2 must be object",
+        "/links/supporting_reference/2 must match exactly one schema in oneOf",
+        "/links/supporting_reference/3 must match pattern \"^(?:(?:\\[(?<text>.+?)\\])?\\(?(?:(?<protocol>(?:[^:]+)s?):\\/\\/)(?:(?<user>[^:\\n\\r]+):(?<pass>[^@\\n\\r]+)@)?(?<host>(?:www\\.)?(?:[^:\\/\\n\\r]+))(?::(?<port>\\d+))?\\/?(?<resource>[^?#\\n\\r]+)?\\??(?<query>[^#\\n\\r]*)?#?(?<anchor>[^\\n\\r]*)?\\)?)$\"",
+        "/links/supporting_reference/3 must match pattern \"^\\[\\[(?<name>[^\\]\\|\\r\\n]+)(?:\\|(?<title>[^\\]\\|\\r\\n]+))?\\]\\](?<agglu>[^\\p{P}\\s]*)$\"",
+        "/links/supporting_reference/3 must match a schema in anyOf",
+        "/links/supporting_reference/3 must match exactly one schema in oneOf",
+        "/links/supporting_reference/3 must be object",
+        "/links/supporting_reference/3 must match exactly one schema in oneOf",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties"
+      ]
+    },
+    {
+      "file": "backlog/records/record-wi-059-historical-approval.md",
+      "schema": "schemas/work-management/frontmatter/record.json",
+      "errors": [
+        "/links/supporting_reference/2 must match pattern \"^(?:(?:\\[(?<text>.+?)\\])?\\(?(?:(?<protocol>(?:[^:]+)s?):\\/\\/)(?:(?<user>[^:\\n\\r]+):(?<pass>[^@\\n\\r]+)@)?(?<host>(?:www\\.)?(?:[^:\\/\\n\\r]+))(?::(?<port>\\d+))?\\/?(?<resource>[^?#\\n\\r]+)?\\??(?<query>[^#\\n\\r]*)?#?(?<anchor>[^\\n\\r]*)?\\)?)$\"",
+        "/links/supporting_reference/2 must match pattern \"^\\[\\[(?<name>[^\\]\\|\\r\\n]+)(?:\\|(?<title>[^\\]\\|\\r\\n]+))?\\]\\](?<agglu>[^\\p{P}\\s]*)$\"",
+        "/links/supporting_reference/2 must match a schema in anyOf",
+        "/links/supporting_reference/2 must match exactly one schema in oneOf",
+        "/links/supporting_reference/2 must be object",
+        "/links/supporting_reference/2 must match exactly one schema in oneOf",
+        "/links/supporting_reference/3 must match pattern \"^(?:(?:\\[(?<text>.+?)\\])?\\(?(?:(?<protocol>(?:[^:]+)s?):\\/\\/)(?:(?<user>[^:\\n\\r]+):(?<pass>[^@\\n\\r]+)@)?(?<host>(?:www\\.)?(?:[^:\\/\\n\\r]+))(?::(?<port>\\d+))?\\/?(?<resource>[^?#\\n\\r]+)?\\??(?<query>[^#\\n\\r]*)?#?(?<anchor>[^\\n\\r]*)?\\)?)$\"",
+        "/links/supporting_reference/3 must match pattern \"^\\[\\[(?<name>[^\\]\\|\\r\\n]+)(?:\\|(?<title>[^\\]\\|\\r\\n]+))?\\]\\](?<agglu>[^\\p{P}\\s]*)$\"",
+        "/links/supporting_reference/3 must match a schema in anyOf",
+        "/links/supporting_reference/3 must match exactly one schema in oneOf",
+        "/links/supporting_reference/3 must be object",
+        "/links/supporting_reference/3 must match exactly one schema in oneOf",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties"
+      ]
+    },
+    {
+      "file": "backlog/records/record-wi-059-historical-ci-validation.md",
+      "schema": "schemas/work-management/frontmatter/record.json",
+      "errors": [
+        "/links/supporting_reference/3 must match pattern \"^(?:(?:\\[(?<text>.+?)\\])?\\(?(?:(?<protocol>(?:[^:]+)s?):\\/\\/)(?:(?<user>[^:\\n\\r]+):(?<pass>[^@\\n\\r]+)@)?(?<host>(?:www\\.)?(?:[^:\\/\\n\\r]+))(?::(?<port>\\d+))?\\/?(?<resource>[^?#\\n\\r]+)?\\??(?<query>[^#\\n\\r]*)?#?(?<anchor>[^\\n\\r]*)?\\)?)$\"",
+        "/links/supporting_reference/3 must match pattern \"^\\[\\[(?<name>[^\\]\\|\\r\\n]+)(?:\\|(?<title>[^\\]\\|\\r\\n]+))?\\]\\](?<agglu>[^\\p{P}\\s]*)$\"",
+        "/links/supporting_reference/3 must match a schema in anyOf",
+        "/links/supporting_reference/3 must match exactly one schema in oneOf",
+        "/links/supporting_reference/3 must be object",
+        "/links/supporting_reference/3 must match exactly one schema in oneOf",
+        "/links/supporting_reference/4 must match pattern \"^(?:(?:\\[(?<text>.+?)\\])?\\(?(?:(?<protocol>(?:[^:]+)s?):\\/\\/)(?:(?<user>[^:\\n\\r]+):(?<pass>[^@\\n\\r]+)@)?(?<host>(?:www\\.)?(?:[^:\\/\\n\\r]+))(?::(?<port>\\d+))?\\/?(?<resource>[^?#\\n\\r]+)?\\??(?<query>[^#\\n\\r]*)?#?(?<anchor>[^\\n\\r]*)?\\)?)$\"",
+        "/links/supporting_reference/4 must match pattern \"^\\[\\[(?<name>[^\\]\\|\\r\\n]+)(?:\\|(?<title>[^\\]\\|\\r\\n]+))?\\]\\](?<agglu>[^\\p{P}\\s]*)$\"",
+        "/links/supporting_reference/4 must match a schema in anyOf",
+        "/links/supporting_reference/4 must match exactly one schema in oneOf",
+        "/links/supporting_reference/4 must be object",
+        "/links/supporting_reference/4 must match exactly one schema in oneOf",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties",
+        "(root) must NOT have unevaluated properties"
+      ]
+    },
+    {
+      "file": "backlog/records/record-wi-064-final-independent-review.md",
+      "schema": "schemas/work-management/frontmatter/record.json",
+      "errors": [
+        "/subtype must be equal to one of the allowed values",
+        "/subtype must match pattern \"^x-[a-z0-9]+(?:-[a-z0-9]+)*$\"",
+        "/subtype must match exactly one schema in oneOf"
+      ]
+    },
+    {
+      "file": "backlog/records/record-wi-064-independent-review.md",
+      "schema": "schemas/work-management/frontmatter/record.json",
+      "errors": [
+        "/subtype must be equal to one of the allowed values",
+        "/subtype must match pattern \"^x-[a-z0-9]+(?:-[a-z0-9]+)*$\"",
+        "/subtype must match exactly one schema in oneOf"
+      ]
+    },
+    {
+      "file": "backlog/records/record-wi-067-independent-review-approved.md",
+      "schema": "schemas/work-management/frontmatter/record.json",
+      "errors": [
+        "/subtype must be equal to one of the allowed values",
+        "/subtype must match pattern \"^x-[a-z0-9]+(?:-[a-z0-9]+)*$\"",
+        "/subtype must match exactly one schema in oneOf"
+      ]
+    }
+  ],
+  "schema_load_errors": [],
+  "exit_code": 1
+}

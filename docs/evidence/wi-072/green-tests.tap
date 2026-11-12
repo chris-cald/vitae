@@ -1,0 +1,64 @@
+TAP version 13
+# Subtest: WI-072 missing actual conditional: authoritative baseline red, repository green
+ok 1 - WI-072 missing actual conditional: authoritative baseline red, repository green
+  ---
+  duration_ms: 7.719208
+  type: 'test'
+  ...
+# Subtest: WI-072 unknown relationship keys: authoritative baseline red, repository green
+ok 2 - WI-072 unknown relationship keys: authoritative baseline red, repository green
+  ---
+  duration_ms: 5.2075
+  type: 'test'
+  ...
+# Subtest: WI-072 empty dependency list: authoritative baseline red, repository green
+ok 3 - WI-072 empty dependency list: authoritative baseline red, repository green
+  ---
+  duration_ms: 0.45475
+  type: 'test'
+  ...
+# Subtest: WI-072 malformed supporting references: authoritative baseline red, repository green
+ok 4 - WI-072 malformed supporting references: authoritative baseline red, repository green
+  ---
+  duration_ms: 3.364084
+  type: 'test'
+  ...
+# Subtest: WI-072 record subtype extension: authoritative baseline red, repository green
+ok 5 - WI-072 record subtype extension: authoritative baseline red, repository green
+  ---
+  duration_ms: 0.284417
+  type: 'test'
+  ...
+# Subtest: WI-072 closed status reason compatibility: authoritative baseline red, repository green
+ok 6 - WI-072 closed status reason compatibility: authoritative baseline red, repository green
+  ---
+  duration_ms: 0.251833
+  type: 'test'
+  ...
+# Subtest: WI-072 all 59 actual baseline files conform; authority is not skipped
+ok 7 - WI-072 all 59 actual baseline files conform; authority is not skipped
+  ---
+  duration_ms: 4.060375
+  type: 'test'
+  ...
+# Subtest: WI-072 historical bodies, facts, valid effort and relationships are preserved
+ok 8 - WI-072 historical bodies, facts, valid effort and relationships are preserved
+  ---
+  duration_ms: 8.5105
+  type: 'test'
+  ...
+# Subtest: WI-072 field report accounts for every metadata change and preserves original relationship labels
+ok 9 - WI-072 field report accounts for every metadata change and preserves original relationship labels
+  ---
+  duration_ms: 4.236917
+  type: 'test'
+  ...
+1..9
+# tests 9
+# suites 0
+# pass 9
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 195.404625

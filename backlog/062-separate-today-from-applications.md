@@ -11,9 +11,6 @@ estimated: 1
 actual: 1
 completed_date: '2026-11-04'
 links:
-  parent: []
-  depends_on: []
-  implements: []
   evidence:
     - '[[record-today-and-applications-rework-validated]]'
 tags:

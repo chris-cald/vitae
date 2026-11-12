@@ -12,8 +12,6 @@ links:
   supporting_reference:
     - https://github.com/chris-cald/vitae/pull/7
     - https://github.com/chris-cald/vitae/pull/7#pullrequestreview-5630395741
-    - '`d32999d7ac4dff96f8dd793fbf3eaf608a2f3bd1`'
-    - '`ad9af44c63e907796df981fede3783b40026f3d3`'
 ---
 
 ## Recorded At

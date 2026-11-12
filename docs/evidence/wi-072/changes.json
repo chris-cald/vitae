@@ -1,0 +1,20 @@
+{
+  "format": "wi-072-chunked-evidence-v1",
+  "canonical_sha256": "29145b86579349d341c69fda4e341b913609e279c39d00a1822fac1fd74fe02c",
+  "canonical_bytes": 106458,
+  "record_count": 59,
+  "chunks": [
+    {
+      "file": "changes.part-001.json",
+      "position": 1,
+      "count": 29,
+      "sha256": "4e77e9cd49635408cd9e26a754b93e3541ebd2276a747183aa3094237fa7d771"
+    },
+    {
+      "file": "changes.part-002.json",
+      "position": 2,
+      "count": 30,
+      "sha256": "88600adfcbaab90fb38cd01d08487e112e2b3420e2ce63271f742514e17091d4"
+    }
+  ]
+}

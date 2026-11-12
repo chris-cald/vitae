@@ -11,9 +11,6 @@ estimated: 1
 actual: 1
 completed_date: '2026-11-05'
 links:
-  parent: []
-  depends_on: []
-  implements: []
   evidence:
     - '[[record-wi-067-validation-passed]]'
     - '[[record-wi-067-persistence-validation-passed]]'

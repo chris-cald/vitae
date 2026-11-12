@@ -7,11 +7,10 @@ lifecycle: active
 status: completed
 status_reason: WI-040 accepted self-hosted-first MVP/UAT evidence on 2026-09-30
 priority: high
-estimated: 21
 links:
   depends_on:
     - '[[022-define-harvest-cull-prime-and-substantiate-workflow-contracts]]'
-  implements:
+  reference:
     - '[[../docs/adr/0004-adopt-privacy-safe-temporal-execution-substrate]]'
 tags:
   - temporal

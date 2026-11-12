@@ -8,16 +8,14 @@ lifecycle: active
 status: completed
 status_reason: completed
 priority: critical
-estimated: 5
 completed_date: '2026-11-07'
 commits:
   c33cf33ac09be20efb5d7e338e077f076458e7ee: Reviewed mock-only Catalog Development lifecycle; eight frontend-draft files
 links:
-  parent:
-    - '[[050-deliver-job-search-application-funnel-slice]]'
   reference:
     - '[[../docs/prd/mvp-book-of-work-to-application-loop]]'
     - '[[054-add-career-inventory-and-curation-slice]]'
+    - '[[050-deliver-job-search-application-funnel-slice]]'
   evidence:
     - '[[record-wi-068-local-validation]]'
 tags:

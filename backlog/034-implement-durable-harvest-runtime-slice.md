@@ -7,15 +7,13 @@ lifecycle: active
 status: completed
 status_reason: accepted
 priority: high
-estimated: 5
 links:
-  parent:
-    - '[[027-adopt-privacy-safe-durable-temporal-execution]]'
   depends_on:
     - '[[029-build-runtime-execution-adapter-and-pii-safe-payload-contract]]'
     - '[[030-create-isolated-temporal-worker-bootstrap-and-configuration-seam]]'
     - '[[031-implement-idempotent-runtimeexecution-ledger-and-safe-status-api]]'
-  implements:
+  reference:
+    - '[[027-adopt-privacy-safe-durable-temporal-execution]]'
     - '[[../docs/adr/0004-adopt-privacy-safe-temporal-execution-substrate]]'
 tags:
   - temporal

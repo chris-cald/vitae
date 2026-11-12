@@ -4,7 +4,7 @@ id: record:wi-064-final-independent-review
 title: wi-064 final independent review
 summary: wi-064 final independent review
 type: record
-subtype: review-result
+subtype: x-review-result
 lifecycle: active
 status: ready
 status_reason: recorded
