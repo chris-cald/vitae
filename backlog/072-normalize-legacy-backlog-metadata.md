@@ -5,9 +5,10 @@ summary: Repair the 59-file historical schema baseline with factual metadata-onl
 type: work-item
 subtype: bug
 lifecycle: active
-status: running
-status_reason: implementation
+status: completed
+status_reason: completed
 priority: critical
+completed_date: '2026-11-12'
 links:
   reference:
     - '[[069-complete-connected-mock-dual-lifecycles]]'
@@ -31,12 +32,12 @@ Installed DV runtime de10e6d1531b5943d46cf1291a8e00fb4f1d75a3 with explicit inst
 
 ## Acceptance Criteria
 
-- [ ] Preserve exact base audit, command, exit status, runtime identity and file/field classification; identify all 59 files without conflating older 60-file evidence.
-- [ ] Add red-first regressions per error category using authoritative schemas: missing actual conditional, unknown link keys, empty depends_on, malformed supporting references, invalid record subtype and any remaining status/lifecycle schema failures.
-- [ ] Apply smallest mechanical metadata-only corrections; omit necessary estimated/actual fields per user decision, normalize link names/values and extension subtypes while preserving relationships and all markdown bodies byte-for-byte. Return genuine semantic ambiguities to parent rather than guessing.
-- [ ] Achieve real global audit zero schema-load errors, zero schema violations, zero parse/duplicate/unresolved-link errors and process exit zero with installed schema-map/profile ci/fail-on-error; preserve full report.
-- [ ] Focused tests, relevant doc-pack tests, explicit draft check, root check and clean-checkout pilot rehearsal pass. Independent reviewer verifies unchanged bodies/product source, scope and current-head evidence.
-- [ ] Publish through real PR/CI/provider review and required squash; preserve source-to-squash mappings, supported closure and integration evidence. Do not claim WI070 acceptance, WI050/WI057 live UAT or archive gate completion from metadata repair.
+- [x] Preserve exact base audit, command, exit status, runtime identity and file/field classification; identify all 59 files without conflating older 60-file evidence.
+- [x] Add red-first regressions per error category using authoritative schemas: missing actual conditional, unknown link keys, empty depends_on, malformed supporting references, invalid record subtype and any remaining status/lifecycle schema failures.
+- [x] Apply smallest mechanical metadata-only corrections; omit necessary estimated/actual fields per user decision, normalize link names/values and extension subtypes while preserving relationships and all markdown bodies byte-for-byte. Return genuine semantic ambiguities to parent rather than guessing.
+- [x] Achieve real global audit zero schema-load errors, zero schema violations, zero parse/duplicate/unresolved-link errors and process exit zero with installed schema-map/profile ci/fail-on-error; preserve full report.
+- [x] Focused tests, relevant doc-pack tests, explicit draft check, root check and clean-checkout pilot rehearsal pass. Independent reviewer verifies unchanged bodies/product source, scope and current-head evidence.
+- [x] Publish through real PR/CI/provider review and required squash; preserve source-to-squash mappings, supported closure and integration evidence. Do not claim WI070 acceptance, WI050/WI057 live UAT or archive gate completion from metadata repair.
 
 ## Delivery
 
