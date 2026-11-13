@@ -1,0 +1,88 @@
+TAP version 13
+# Subtest: error before close waits for actual close and fails instead of publishing success
+ok 1 - error before close waits for actual close and fails instead of publishing success
+  ---
+  duration_ms: 0.677959
+  type: 'test'
+  ...
+# Subtest: exit during load rejects the phase and still reaches cleanup
+ok 2 - exit during load rejects the phase and still reaches cleanup
+  ---
+  duration_ms: 0.175792
+  type: 'test'
+  ...
+# Subtest: already closed child finishes without another kill
+ok 3 - already closed child finishes without another kill
+  ---
+  duration_ms: 0.150709
+  type: 'test'
+  ...
+# Subtest: failed spawn without child rejects and permits cleanup
+ok 4 - failed spawn without child rejects and permits cleanup
+  ---
+  duration_ms: 0.072917
+  type: 'test'
+  ...
+# Subtest: unexpected non-page denial fails ordinary network verdict, while explicit probes are separated
+ok 5 - unexpected non-page denial fails ordinary network verdict, while explicit probes are separated
+  ---
+  duration_ms: 0.45175
+  type: 'test'
+  ...
+# Subtest: websocket canary matches only the exact CONNECT authority
+ok 6 - websocket canary matches only the exact CONNECT authority
+  ---
+  duration_ms: 0.073333
+  type: 'test'
+  ...
+# Subtest: only enumerated loopback static GETs are allowed
+ok 7 - only enumerated loopback static GETs are allowed
+  ---
+  duration_ms: 0.681875
+  type: 'test'
+  ...
+# Subtest: real product loads at desktop using only enumerated static resources
+ok 8 - real product loads at desktop using only enumerated static resources
+  ---
+  duration_ms: 180.626042
+  type: 'test'
+  ...
+# Subtest: pointer creation shows required-fields blocker and closes on cancel
+ok 9 - pointer creation shows required-fields blocker and closes on cancel
+  ---
+  duration_ms: 176.376042
+  type: 'test'
+  ...
+# Subtest: keyboard reaches creation and cancels without synthetic DOM clicks
+ok 10 - keyboard reaches creation and cancels without synthetic DOM clicks
+  ---
+  duration_ms: 188.549541
+  type: 'test'
+  ...
+# Subtest: local canaries are denied across request and target types
+ok 11 - local canaries are denied across request and target types
+  ---
+  duration_ms: 233.748292
+  type: 'test'
+  ...
+# Subtest: creation and cancel preserve counts until one confirmed creation
+ok 12 - creation and cancel preserve counts until one confirmed creation
+  ---
+  duration_ms: 243.372541
+  type: 'test'
+  ...
+# Subtest: browser interception blocks an unlisted API request
+ok 13 - browser interception blocks an unlisted API request
+  ---
+  duration_ms: 162.009709
+  type: 'test'
+  ...
+1..13
+# tests 13
+# suites 0
+# pass 13
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 1248.315583

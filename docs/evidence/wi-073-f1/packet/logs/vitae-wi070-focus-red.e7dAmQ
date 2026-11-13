@@ -1,0 +1,31 @@
+TAP version 13
+# Subtest: keyboard reaches creation and cancels without synthetic DOM clicks
+not ok 1 - keyboard reaches creation and cancels without synthetic DOM clicks
+  ---
+  duration_ms: 200.701417
+  type: 'test'
+  location: '/Users/macos/dev/personal/chris-cald/vitae/.a5c/worktrees/wi-070/frontend-draft/test/wi070-product.test.mjs:21:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    The expression evaluated to a falsy value:
+    
+      assert.ok(result.keyboardCancel.focusAfterCancelTag)
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  operator: '=='
+  stack: |-
+    TestContext.<anonymous> (file:///Users/macos/dev/personal/chris-cald/vitae/.a5c/worktrees/wi-070/frontend-draft/test/wi070-product.test.mjs:25:10)
+    async Test.run (node:internal/test_runner/test:1054:7)
+    async startSubtestAfterBootstrap (node:internal/test_runner/harness:296:3)
+  ...
+1..1
+# tests 1
+# suites 0
+# pass 0
+# fail 1
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 261.300959

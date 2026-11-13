@@ -1,0 +1,6 @@
+6fe71b3c9ff3af4d97c957ccc07aeb97ca7ef5df99784267335bed68d4446445  frontend-draft/test/wi070-lifecycle.mjs
+9d4d4b8a696d90916019a212db20596f1e87ddfc04bb9c431909a2aadbfad3f1  frontend-draft/test/wi070-lifecycle.test.mjs
+7eacc51ebeb4e1f889c23b8624bcf79677137e6bcf8a48b6946f7c15b4958856  frontend-draft/test/wi070-network.mjs
+aee7a0a0cf1967fc061b893c5bc43234a9ca9ddfada6f27d97242a7db5d48d4c  frontend-draft/test/wi070-network.test.mjs
+fbbf11b88f4f4a6a38ceeb33fc50b18985bc9957c1f1dea5cb7a393ddf260042  frontend-draft/test/wi070-product.mjs
+f897fa64645d2807f5b42e2b15cf41baf2020ca5cf9a3607bf2bea04b06fe377  frontend-draft/test/wi070-product.test.mjs

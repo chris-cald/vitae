@@ -1,0 +1,90 @@
+{
+  "timestamp": "2026-11-13T07:31:44.211Z",
+  "sourceHead": "917003105f896baa1127a78608bc4dab9e0eff5c",
+  "width": 1440,
+  "height": 900,
+  "input": "pointer-and-character-keys",
+  "result": {
+    "appCounts": [
+      2,
+      2,
+      3
+    ],
+    "eventCounts": [
+      0,
+      0,
+      1
+    ],
+    "blocked": true,
+    "focusAfterCancel": {
+      "tag": "BODY",
+      "label": null,
+      "text": ""
+    }
+  },
+  "networkVerdict": {
+    "ok": true,
+    "unexpected": []
+  },
+  "cdp": [
+    {
+      "method": "GET",
+      "path": "/",
+      "resourceType": "Document",
+      "allowed": true
+    },
+    {
+      "method": "GET",
+      "path": "/assets/index-Dp2TDMLV.js",
+      "resourceType": "Script",
+      "allowed": true
+    },
+    {
+      "method": "GET",
+      "path": "/assets/index-DcqpGG8M.css",
+      "resourceType": "Stylesheet",
+      "allowed": true
+    }
+  ],
+  "proxy": [
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:54867/",
+      "allowed": true
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:54867/assets/index-Dp2TDMLV.js",
+      "allowed": true
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:54867/assets/index-DcqpGG8M.css",
+      "allowed": true
+    }
+  ],
+  "canaryHits": [],
+  "buildReceipt": {
+    "hashes": {
+      "/": "31f416fe369832c2851ca17d14154a8e01582bc1d9905d058e9e97a57659835c",
+      "/assets/index-DcqpGG8M.css": "8760e2ec21b840d11840731f924a8034581d9e3d0fc855d30c73b9ca5b9705b2",
+      "/assets/index-Dp2TDMLV.js": "c14c34722c040603ba62fea275b80e28852e56ffdabd38f8839335592c2ab0a3"
+    },
+    "served": [
+      {
+        "path": "/",
+        "sha256": "31f416fe369832c2851ca17d14154a8e01582bc1d9905d058e9e97a57659835c"
+      },
+      {
+        "path": "/assets/index-Dp2TDMLV.js",
+        "sha256": "c14c34722c040603ba62fea275b80e28852e56ffdabd38f8839335592c2ab0a3"
+      },
+      {
+        "path": "/assets/index-DcqpGG8M.css",
+        "sha256": "8760e2ec21b840d11840731f924a8034581d9e3d0fc855d30c73b9ca5b9705b2"
+      }
+    ],
+    "unchanged": true
+  },
+  "pass": true
+}
