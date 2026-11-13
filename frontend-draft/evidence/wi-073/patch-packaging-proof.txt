@@ -1,0 +1,13 @@
+WI-073 zero-context patch packaging correction
+
+The prior reviewed patch is preserved in /tmp/vitae-wi073-delta.Pl7uGS/candidate.tar and its manifest. Its SHA-256 is 6c1710216af4aa3909ccbfd91046a63a0de5f23164893048416bccb43db07d66. It contained a unified-diff blank context line that the unfiltered staged Git whitespace check reported as trailing whitespace.
+
+The corrected -U0 patch SHA-256 is c28bda22c295bcbf5a199efbf9f0a4dbec38dfb7e1450f0dc0e0b4fc8d310cfb. Its only purpose is patch packaging; original native receipts bind the prior patch bytes and are unchanged.
+
+Actual verification in the WI-073 worktree:
+1. Checked pinned v3 base SHA-256: cae20ab207b11afffdf39acb4bba33cbadcf24aeadbafcd986550b75324b81aa.
+2. Copied that base and ran `patch -s /tmp/vitae-wi073-zero-context-proof.mjs frontend-draft/test/wi073-support/focus-case.patch`: exit 0; no special patch option was required.
+3. Checked adapted output SHA-256: 77b40fe1012e99ab6a92feb6ea3cc416d23a3a6c8850bb4aefbcb7b620bc94f4, byte-identical to the previously reviewed adapted module.
+4. Ran unfiltered `git diff --cached --check` after staging the corrected patch: exit 0. Run it again after staging this record before committing.
+
+No product, expectation, network policy, browser flags or lifecycle behavior changed in this packaging correction. This record does not claim final validation or WI-070 acceptance.

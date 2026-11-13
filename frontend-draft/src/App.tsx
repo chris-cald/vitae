@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { CatalogDevelopment } from "./CatalogDevelopment";
 import { activeView, primaryViews, type ViewId } from "./workbench";
 import {
@@ -41,6 +41,7 @@ export default function App() {
     [error, setError] = useState("");
   const [creating, setCreating] = useState(false),
     [target, setTarget] = useState({ title: "", requirements: "" });
+  const creationTrigger = useRef<HTMLButtonElement | null>(null);
   const app = getApp(state, appId);
   function run(action: (s: Connected) => void) {
     const draft = structuredClone(state);
@@ -77,7 +78,8 @@ export default function App() {
       },
     });
   }
-  function startCreation() {
+  function startCreation(trigger: HTMLButtonElement) {
+    creationTrigger.current = trigger;
     setTarget({ title: "", requirements: "" });
     setCreating(true);
     setError("");
@@ -114,7 +116,7 @@ export default function App() {
           </div>
           <div className="top-actions">
             <span className="status">Synthetic session only</span>
-            <button className="quiet-button" onClick={startCreation}>
+            <button className="quiet-button" onClick={(e) => startCreation(e.currentTarget)}>
               New application
             </button>
           </div>
@@ -167,6 +169,7 @@ export default function App() {
               onClick={() => {
                 setCreating(false);
                 setError("");
+                if (creationTrigger.current?.isConnected) creationTrigger.current.focus();
               }}
             >
               Cancel creation
@@ -237,7 +240,7 @@ export default function App() {
             <section className="panel applications-panel">
               <div className="panel-heading">
                 <h2>Application pipeline</h2>
-                <button onClick={startCreation}>+ Add</button>
+                <button onClick={(e) => startCreation(e.currentTarget)}>+ Add</button>
               </div>
               <label>
                 Search applications
