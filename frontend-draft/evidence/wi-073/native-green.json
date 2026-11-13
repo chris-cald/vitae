@@ -1,0 +1,665 @@
+{
+  "phase": "green",
+  "head": "e1139d75f779184b1ab24d430604e74f6c26a4fa",
+  "sources": {
+    "src/App.tsx": "695e406c35fc4049bd4163a5bf273b9714f6a36a18158401b59fcc5fbad01608",
+    "test/connected-dom.test.mjs": "da4d95c186c5cb649374e06bc8a5167b3d0fa677d8d8ef29f24a0d033b1ae50e",
+    "test/wi073-support/focus-case.patch": "6b2fb2564cb9f6e20aeb37c2cba5bdd2a8839b78db49cda926d06a7582c3b82c",
+    "test/wi073-support/run-focus.mjs": "be18281b822cd994a10429dafca8e3995d6ae01680c80daf17901c6704a95321"
+  },
+  "diffSha256": "056724367108158dfc014c100731ffe674633c69e72afba9c08091f3b7f73831",
+  "stage": "/var/folders/n9/jd6_rpdj5p3fxyq0dgr1wvbh0000gn/T/vitae-wi073-green-Sm2Jmy",
+  "build": {
+    "index.html": "fbebad0f8416acee87057c063010a005ee8467bd3ebdf0c12d441b4d24f9adc2",
+    "assets/index-BO0smVDa.js": "8210ef4cb94df7aec97208994d03511629ad6abf88e2fff9874b7aea78bbd643",
+    "assets/index-DcqpGG8M.css": "8760e2ec21b840d11840731f924a8034581d9e3d0fc855d30c73b9ca5b9705b2"
+  },
+  "staged": {
+    "index.html": "fbebad0f8416acee87057c063010a005ee8467bd3ebdf0c12d441b4d24f9adc2",
+    "assets/index-BO0smVDa.js": "8210ef4cb94df7aec97208994d03511629ad6abf88e2fff9874b7aea78bbd643",
+    "assets/index-DcqpGG8M.css": "8760e2ec21b840d11840731f924a8034581d9e3d0fc855d30c73b9ca5b9705b2"
+  },
+  "stageModules": {
+    "wi070-lifecycle.mjs": "6fe71b3c9ff3af4d97c957ccc07aeb97ca7ef5df99784267335bed68d4446445",
+    "wi070-network.mjs": "7eacc51ebeb4e1f889c23b8624bcf79677137e6bcf8a48b6946f7c15b4958856",
+    "wi070-product.mjs": "e1277240bd695265a46990d6967f5c43117fd7b93aaa9799f4913c411dbd5d64"
+  },
+  "cases": [
+    {
+      "width": 1440,
+      "input": "pointer",
+      "trigger": "New application",
+      "focus": {
+        "section": true,
+        "closed": true,
+        "blocked": true,
+        "restored": true,
+        "focusTag": "BUTTON",
+        "focusVisible": false,
+        "nextTab": "Open Catalog Development",
+        "appCounts": [
+          2,
+          2,
+          3
+        ],
+        "eventCounts": [
+          0,
+          0,
+          1
+        ]
+      },
+      "networkVerdict": {
+        "ok": true,
+        "unexpected": []
+      },
+      "canaryHits": [],
+      "buildReceipt": {
+        "hashes": {
+          "/": "fbebad0f8416acee87057c063010a005ee8467bd3ebdf0c12d441b4d24f9adc2",
+          "/assets/index-BO0smVDa.js": "8210ef4cb94df7aec97208994d03511629ad6abf88e2fff9874b7aea78bbd643",
+          "/assets/index-DcqpGG8M.css": "8760e2ec21b840d11840731f924a8034581d9e3d0fc855d30c73b9ca5b9705b2"
+        },
+        "served": [
+          {
+            "path": "/",
+            "sha256": "fbebad0f8416acee87057c063010a005ee8467bd3ebdf0c12d441b4d24f9adc2"
+          },
+          {
+            "path": "/assets/index-BO0smVDa.js",
+            "sha256": "8210ef4cb94df7aec97208994d03511629ad6abf88e2fff9874b7aea78bbd643"
+          },
+          {
+            "path": "/assets/index-DcqpGG8M.css",
+            "sha256": "8760e2ec21b840d11840731f924a8034581d9e3d0fc855d30c73b9ca5b9705b2"
+          }
+        ],
+        "unchanged": true
+      },
+      "servedMatches": true,
+      "expected": "Open Catalog Development"
+    },
+    {
+      "width": 1440,
+      "input": "pointer",
+      "trigger": "+ Add",
+      "focus": {
+        "section": true,
+        "closed": true,
+        "blocked": true,
+        "restored": true,
+        "focusTag": "BUTTON",
+        "focusVisible": false,
+        "nextTab": "Search applications",
+        "appCounts": [
+          2,
+          2,
+          3
+        ],
+        "eventCounts": [
+          0,
+          0,
+          1
+        ]
+      },
+      "networkVerdict": {
+        "ok": true,
+        "unexpected": []
+      },
+      "canaryHits": [],
+      "buildReceipt": {
+        "hashes": {
+          "/": "fbebad0f8416acee87057c063010a005ee8467bd3ebdf0c12d441b4d24f9adc2",
+          "/assets/index-BO0smVDa.js": "8210ef4cb94df7aec97208994d03511629ad6abf88e2fff9874b7aea78bbd643",
+          "/assets/index-DcqpGG8M.css": "8760e2ec21b840d11840731f924a8034581d9e3d0fc855d30c73b9ca5b9705b2"
+        },
+        "served": [
+          {
+            "path": "/",
+            "sha256": "fbebad0f8416acee87057c063010a005ee8467bd3ebdf0c12d441b4d24f9adc2"
+          },
+          {
+            "path": "/assets/index-BO0smVDa.js",
+            "sha256": "8210ef4cb94df7aec97208994d03511629ad6abf88e2fff9874b7aea78bbd643"
+          },
+          {
+            "path": "/assets/index-DcqpGG8M.css",
+            "sha256": "8760e2ec21b840d11840731f924a8034581d9e3d0fc855d30c73b9ca5b9705b2"
+          }
+        ],
+        "unchanged": true
+      },
+      "servedMatches": true,
+      "expected": "Search applications"
+    },
+    {
+      "width": 1440,
+      "input": "keyboard",
+      "trigger": "New application",
+      "focus": {
+        "section": true,
+        "closed": true,
+        "blocked": true,
+        "restored": true,
+        "focusTag": "BUTTON",
+        "focusVisible": true,
+        "nextTab": "Open Catalog Development",
+        "appCounts": [
+          2,
+          2,
+          3
+        ],
+        "eventCounts": [
+          0,
+          0,
+          1
+        ]
+      },
+      "networkVerdict": {
+        "ok": true,
+        "unexpected": []
+      },
+      "canaryHits": [],
+      "buildReceipt": {
+        "hashes": {
+          "/": "fbebad0f8416acee87057c063010a005ee8467bd3ebdf0c12d441b4d24f9adc2",
+          "/assets/index-BO0smVDa.js": "8210ef4cb94df7aec97208994d03511629ad6abf88e2fff9874b7aea78bbd643",
+          "/assets/index-DcqpGG8M.css": "8760e2ec21b840d11840731f924a8034581d9e3d0fc855d30c73b9ca5b9705b2"
+        },
+        "served": [
+          {
+            "path": "/",
+            "sha256": "fbebad0f8416acee87057c063010a005ee8467bd3ebdf0c12d441b4d24f9adc2"
+          },
+          {
+            "path": "/assets/index-BO0smVDa.js",
+            "sha256": "8210ef4cb94df7aec97208994d03511629ad6abf88e2fff9874b7aea78bbd643"
+          },
+          {
+            "path": "/assets/index-DcqpGG8M.css",
+            "sha256": "8760e2ec21b840d11840731f924a8034581d9e3d0fc855d30c73b9ca5b9705b2"
+          }
+        ],
+        "unchanged": true
+      },
+      "servedMatches": true,
+      "expected": "Open Catalog Development"
+    },
+    {
+      "width": 1440,
+      "input": "keyboard",
+      "trigger": "+ Add",
+      "focus": {
+        "section": true,
+        "closed": true,
+        "blocked": true,
+        "restored": true,
+        "focusTag": "BUTTON",
+        "focusVisible": true,
+        "nextTab": "Search applications",
+        "appCounts": [
+          2,
+          2,
+          3
+        ],
+        "eventCounts": [
+          0,
+          0,
+          1
+        ]
+      },
+      "networkVerdict": {
+        "ok": true,
+        "unexpected": []
+      },
+      "canaryHits": [],
+      "buildReceipt": {
+        "hashes": {
+          "/": "fbebad0f8416acee87057c063010a005ee8467bd3ebdf0c12d441b4d24f9adc2",
+          "/assets/index-BO0smVDa.js": "8210ef4cb94df7aec97208994d03511629ad6abf88e2fff9874b7aea78bbd643",
+          "/assets/index-DcqpGG8M.css": "8760e2ec21b840d11840731f924a8034581d9e3d0fc855d30c73b9ca5b9705b2"
+        },
+        "served": [
+          {
+            "path": "/",
+            "sha256": "fbebad0f8416acee87057c063010a005ee8467bd3ebdf0c12d441b4d24f9adc2"
+          },
+          {
+            "path": "/assets/index-BO0smVDa.js",
+            "sha256": "8210ef4cb94df7aec97208994d03511629ad6abf88e2fff9874b7aea78bbd643"
+          },
+          {
+            "path": "/assets/index-DcqpGG8M.css",
+            "sha256": "8760e2ec21b840d11840731f924a8034581d9e3d0fc855d30c73b9ca5b9705b2"
+          }
+        ],
+        "unchanged": true
+      },
+      "servedMatches": true,
+      "expected": "Search applications"
+    },
+    {
+      "width": 390,
+      "input": "pointer",
+      "trigger": "New application",
+      "focus": {
+        "section": true,
+        "closed": true,
+        "blocked": true,
+        "restored": true,
+        "focusTag": "BUTTON",
+        "focusVisible": false,
+        "nextTab": "Open Catalog Development",
+        "appCounts": [
+          2,
+          2,
+          3
+        ],
+        "eventCounts": [
+          0,
+          0,
+          1
+        ]
+      },
+      "networkVerdict": {
+        "ok": true,
+        "unexpected": []
+      },
+      "canaryHits": [],
+      "buildReceipt": {
+        "hashes": {
+          "/": "fbebad0f8416acee87057c063010a005ee8467bd3ebdf0c12d441b4d24f9adc2",
+          "/assets/index-BO0smVDa.js": "8210ef4cb94df7aec97208994d03511629ad6abf88e2fff9874b7aea78bbd643",
+          "/assets/index-DcqpGG8M.css": "8760e2ec21b840d11840731f924a8034581d9e3d0fc855d30c73b9ca5b9705b2"
+        },
+        "served": [
+          {
+            "path": "/",
+            "sha256": "fbebad0f8416acee87057c063010a005ee8467bd3ebdf0c12d441b4d24f9adc2"
+          },
+          {
+            "path": "/assets/index-BO0smVDa.js",
+            "sha256": "8210ef4cb94df7aec97208994d03511629ad6abf88e2fff9874b7aea78bbd643"
+          },
+          {
+            "path": "/assets/index-DcqpGG8M.css",
+            "sha256": "8760e2ec21b840d11840731f924a8034581d9e3d0fc855d30c73b9ca5b9705b2"
+          }
+        ],
+        "unchanged": true
+      },
+      "servedMatches": true,
+      "expected": "Open Catalog Development"
+    },
+    {
+      "width": 390,
+      "input": "pointer",
+      "trigger": "+ Add",
+      "focus": {
+        "section": true,
+        "closed": true,
+        "blocked": true,
+        "restored": true,
+        "focusTag": "BUTTON",
+        "focusVisible": false,
+        "nextTab": "Search applications",
+        "appCounts": [
+          2,
+          2,
+          3
+        ],
+        "eventCounts": [
+          0,
+          0,
+          1
+        ]
+      },
+      "networkVerdict": {
+        "ok": true,
+        "unexpected": []
+      },
+      "canaryHits": [],
+      "buildReceipt": {
+        "hashes": {
+          "/": "fbebad0f8416acee87057c063010a005ee8467bd3ebdf0c12d441b4d24f9adc2",
+          "/assets/index-BO0smVDa.js": "8210ef4cb94df7aec97208994d03511629ad6abf88e2fff9874b7aea78bbd643",
+          "/assets/index-DcqpGG8M.css": "8760e2ec21b840d11840731f924a8034581d9e3d0fc855d30c73b9ca5b9705b2"
+        },
+        "served": [
+          {
+            "path": "/",
+            "sha256": "fbebad0f8416acee87057c063010a005ee8467bd3ebdf0c12d441b4d24f9adc2"
+          },
+          {
+            "path": "/assets/index-BO0smVDa.js",
+            "sha256": "8210ef4cb94df7aec97208994d03511629ad6abf88e2fff9874b7aea78bbd643"
+          },
+          {
+            "path": "/assets/index-DcqpGG8M.css",
+            "sha256": "8760e2ec21b840d11840731f924a8034581d9e3d0fc855d30c73b9ca5b9705b2"
+          }
+        ],
+        "unchanged": true
+      },
+      "servedMatches": true,
+      "expected": "Search applications"
+    },
+    {
+      "width": 390,
+      "input": "keyboard",
+      "trigger": "New application",
+      "focus": {
+        "section": true,
+        "closed": true,
+        "blocked": true,
+        "restored": true,
+        "focusTag": "BUTTON",
+        "focusVisible": true,
+        "nextTab": "Open Catalog Development",
+        "appCounts": [
+          2,
+          2,
+          3
+        ],
+        "eventCounts": [
+          0,
+          0,
+          1
+        ]
+      },
+      "networkVerdict": {
+        "ok": true,
+        "unexpected": []
+      },
+      "canaryHits": [],
+      "buildReceipt": {
+        "hashes": {
+          "/": "fbebad0f8416acee87057c063010a005ee8467bd3ebdf0c12d441b4d24f9adc2",
+          "/assets/index-BO0smVDa.js": "8210ef4cb94df7aec97208994d03511629ad6abf88e2fff9874b7aea78bbd643",
+          "/assets/index-DcqpGG8M.css": "8760e2ec21b840d11840731f924a8034581d9e3d0fc855d30c73b9ca5b9705b2"
+        },
+        "served": [
+          {
+            "path": "/",
+            "sha256": "fbebad0f8416acee87057c063010a005ee8467bd3ebdf0c12d441b4d24f9adc2"
+          },
+          {
+            "path": "/assets/index-BO0smVDa.js",
+            "sha256": "8210ef4cb94df7aec97208994d03511629ad6abf88e2fff9874b7aea78bbd643"
+          },
+          {
+            "path": "/assets/index-DcqpGG8M.css",
+            "sha256": "8760e2ec21b840d11840731f924a8034581d9e3d0fc855d30c73b9ca5b9705b2"
+          }
+        ],
+        "unchanged": true
+      },
+      "servedMatches": true,
+      "expected": "Open Catalog Development"
+    },
+    {
+      "width": 390,
+      "input": "keyboard",
+      "trigger": "+ Add",
+      "focus": {
+        "section": true,
+        "closed": true,
+        "blocked": true,
+        "restored": true,
+        "focusTag": "BUTTON",
+        "focusVisible": true,
+        "nextTab": "Search applications",
+        "appCounts": [
+          2,
+          2,
+          3
+        ],
+        "eventCounts": [
+          0,
+          0,
+          1
+        ]
+      },
+      "networkVerdict": {
+        "ok": true,
+        "unexpected": []
+      },
+      "canaryHits": [],
+      "buildReceipt": {
+        "hashes": {
+          "/": "fbebad0f8416acee87057c063010a005ee8467bd3ebdf0c12d441b4d24f9adc2",
+          "/assets/index-BO0smVDa.js": "8210ef4cb94df7aec97208994d03511629ad6abf88e2fff9874b7aea78bbd643",
+          "/assets/index-DcqpGG8M.css": "8760e2ec21b840d11840731f924a8034581d9e3d0fc855d30c73b9ca5b9705b2"
+        },
+        "served": [
+          {
+            "path": "/",
+            "sha256": "fbebad0f8416acee87057c063010a005ee8467bd3ebdf0c12d441b4d24f9adc2"
+          },
+          {
+            "path": "/assets/index-BO0smVDa.js",
+            "sha256": "8210ef4cb94df7aec97208994d03511629ad6abf88e2fff9874b7aea78bbd643"
+          },
+          {
+            "path": "/assets/index-DcqpGG8M.css",
+            "sha256": "8760e2ec21b840d11840731f924a8034581d9e3d0fc855d30c73b9ca5b9705b2"
+          }
+        ],
+        "unchanged": true
+      },
+      "servedMatches": true,
+      "expected": "Search applications"
+    },
+    {
+      "width": 480,
+      "input": "pointer",
+      "trigger": "New application",
+      "focus": {
+        "section": true,
+        "closed": true,
+        "blocked": true,
+        "restored": true,
+        "focusTag": "BUTTON",
+        "focusVisible": false,
+        "nextTab": "Open Catalog Development",
+        "appCounts": [
+          2,
+          2,
+          3
+        ],
+        "eventCounts": [
+          0,
+          0,
+          1
+        ]
+      },
+      "networkVerdict": {
+        "ok": true,
+        "unexpected": []
+      },
+      "canaryHits": [],
+      "buildReceipt": {
+        "hashes": {
+          "/": "fbebad0f8416acee87057c063010a005ee8467bd3ebdf0c12d441b4d24f9adc2",
+          "/assets/index-BO0smVDa.js": "8210ef4cb94df7aec97208994d03511629ad6abf88e2fff9874b7aea78bbd643",
+          "/assets/index-DcqpGG8M.css": "8760e2ec21b840d11840731f924a8034581d9e3d0fc855d30c73b9ca5b9705b2"
+        },
+        "served": [
+          {
+            "path": "/",
+            "sha256": "fbebad0f8416acee87057c063010a005ee8467bd3ebdf0c12d441b4d24f9adc2"
+          },
+          {
+            "path": "/assets/index-BO0smVDa.js",
+            "sha256": "8210ef4cb94df7aec97208994d03511629ad6abf88e2fff9874b7aea78bbd643"
+          },
+          {
+            "path": "/assets/index-DcqpGG8M.css",
+            "sha256": "8760e2ec21b840d11840731f924a8034581d9e3d0fc855d30c73b9ca5b9705b2"
+          }
+        ],
+        "unchanged": true
+      },
+      "servedMatches": true,
+      "expected": "Open Catalog Development"
+    },
+    {
+      "width": 480,
+      "input": "pointer",
+      "trigger": "+ Add",
+      "focus": {
+        "section": true,
+        "closed": true,
+        "blocked": true,
+        "restored": true,
+        "focusTag": "BUTTON",
+        "focusVisible": false,
+        "nextTab": "Search applications",
+        "appCounts": [
+          2,
+          2,
+          3
+        ],
+        "eventCounts": [
+          0,
+          0,
+          1
+        ]
+      },
+      "networkVerdict": {
+        "ok": true,
+        "unexpected": []
+      },
+      "canaryHits": [],
+      "buildReceipt": {
+        "hashes": {
+          "/": "fbebad0f8416acee87057c063010a005ee8467bd3ebdf0c12d441b4d24f9adc2",
+          "/assets/index-BO0smVDa.js": "8210ef4cb94df7aec97208994d03511629ad6abf88e2fff9874b7aea78bbd643",
+          "/assets/index-DcqpGG8M.css": "8760e2ec21b840d11840731f924a8034581d9e3d0fc855d30c73b9ca5b9705b2"
+        },
+        "served": [
+          {
+            "path": "/",
+            "sha256": "fbebad0f8416acee87057c063010a005ee8467bd3ebdf0c12d441b4d24f9adc2"
+          },
+          {
+            "path": "/assets/index-BO0smVDa.js",
+            "sha256": "8210ef4cb94df7aec97208994d03511629ad6abf88e2fff9874b7aea78bbd643"
+          },
+          {
+            "path": "/assets/index-DcqpGG8M.css",
+            "sha256": "8760e2ec21b840d11840731f924a8034581d9e3d0fc855d30c73b9ca5b9705b2"
+          }
+        ],
+        "unchanged": true
+      },
+      "servedMatches": true,
+      "expected": "Search applications"
+    },
+    {
+      "width": 480,
+      "input": "keyboard",
+      "trigger": "New application",
+      "focus": {
+        "section": true,
+        "closed": true,
+        "blocked": true,
+        "restored": true,
+        "focusTag": "BUTTON",
+        "focusVisible": true,
+        "nextTab": "Open Catalog Development",
+        "appCounts": [
+          2,
+          2,
+          3
+        ],
+        "eventCounts": [
+          0,
+          0,
+          1
+        ]
+      },
+      "networkVerdict": {
+        "ok": true,
+        "unexpected": []
+      },
+      "canaryHits": [],
+      "buildReceipt": {
+        "hashes": {
+          "/": "fbebad0f8416acee87057c063010a005ee8467bd3ebdf0c12d441b4d24f9adc2",
+          "/assets/index-BO0smVDa.js": "8210ef4cb94df7aec97208994d03511629ad6abf88e2fff9874b7aea78bbd643",
+          "/assets/index-DcqpGG8M.css": "8760e2ec21b840d11840731f924a8034581d9e3d0fc855d30c73b9ca5b9705b2"
+        },
+        "served": [
+          {
+            "path": "/",
+            "sha256": "fbebad0f8416acee87057c063010a005ee8467bd3ebdf0c12d441b4d24f9adc2"
+          },
+          {
+            "path": "/assets/index-BO0smVDa.js",
+            "sha256": "8210ef4cb94df7aec97208994d03511629ad6abf88e2fff9874b7aea78bbd643"
+          },
+          {
+            "path": "/assets/index-DcqpGG8M.css",
+            "sha256": "8760e2ec21b840d11840731f924a8034581d9e3d0fc855d30c73b9ca5b9705b2"
+          }
+        ],
+        "unchanged": true
+      },
+      "servedMatches": true,
+      "expected": "Open Catalog Development"
+    },
+    {
+      "width": 480,
+      "input": "keyboard",
+      "trigger": "+ Add",
+      "focus": {
+        "section": true,
+        "closed": true,
+        "blocked": true,
+        "restored": true,
+        "focusTag": "BUTTON",
+        "focusVisible": true,
+        "nextTab": "Search applications",
+        "appCounts": [
+          2,
+          2,
+          3
+        ],
+        "eventCounts": [
+          0,
+          0,
+          1
+        ]
+      },
+      "networkVerdict": {
+        "ok": true,
+        "unexpected": []
+      },
+      "canaryHits": [],
+      "buildReceipt": {
+        "hashes": {
+          "/": "fbebad0f8416acee87057c063010a005ee8467bd3ebdf0c12d441b4d24f9adc2",
+          "/assets/index-BO0smVDa.js": "8210ef4cb94df7aec97208994d03511629ad6abf88e2fff9874b7aea78bbd643",
+          "/assets/index-DcqpGG8M.css": "8760e2ec21b840d11840731f924a8034581d9e3d0fc855d30c73b9ca5b9705b2"
+        },
+        "served": [
+          {
+            "path": "/",
+            "sha256": "fbebad0f8416acee87057c063010a005ee8467bd3ebdf0c12d441b4d24f9adc2"
+          },
+          {
+            "path": "/assets/index-BO0smVDa.js",
+            "sha256": "8210ef4cb94df7aec97208994d03511629ad6abf88e2fff9874b7aea78bbd643"
+          },
+          {
+            "path": "/assets/index-DcqpGG8M.css",
+            "sha256": "8760e2ec21b840d11840731f924a8034581d9e3d0fc855d30c73b9ca5b9705b2"
+          }
+        ],
+        "unchanged": true
+      },
+      "servedMatches": true,
+      "expected": "Search applications"
+    }
+  ]
+}

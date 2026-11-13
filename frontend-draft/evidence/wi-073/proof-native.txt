@@ -1,0 +1,18 @@
+2026-11-13T16:06:23Z
+
+> vitae-frontend-draft@0.0.0 build
+> tsc --noEmit && vite build
+
+rolldown-vite v7.2.5 building client environment for production...
+[2Ktransforming...✓ 18 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                   0.40 kB │ gzip:  0.27 kB
+dist/assets/index-DcqpGG8M.css   11.83 kB │ gzip:  3.26 kB
+dist/assets/index-BO0smVDa.js   251.82 kB │ gzip: 77.28 kB
+✓ built in 84ms
+2026-11-13T16:06:24Z
+receipt: /var/folders/n9/jd6_rpdj5p3fxyq0dgr1wvbh0000gn/T/vitae-wi073-green-k5bmkz/receipt.json
+{"phase":"green","cases":12,"failures":[]}
+2026-11-13T16:06:28Z
+exit=0

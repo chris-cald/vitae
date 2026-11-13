@@ -54,6 +54,79 @@ async function select(label, value) {
   });
 }
 const card = (id) => document.querySelector(`[data-catalog-item="${id}"]`);
+test("cancel returns focus to the actual creation trigger, including after reopening", async (t) => {
+  await mount(t);
+  const button = (label) => [...document.querySelectorAll("button")].find((b) => b.textContent === label);
+  const cancelFrom = async (origin) => {
+    origin.focus();
+    await act(() => origin.click());
+    const cancel = button("Cancel creation");
+    assert.ok(cancel);
+    cancel.focus();
+    assert.equal(document.activeElement, cancel);
+    await act(() => cancel.click());
+    assert.equal(document.querySelector('[aria-label="Create synthetic Target"]'), null);
+    assert.ok(document.activeElement === origin, "Cancel must restore the originating button");
+  };
+  await cancelFrom(button("New application"));
+  await click("Applications");
+  await cancelFrom(button("+ Add"));
+  await cancelFrom(button("New application"));
+});
+test("cancel creation preserves each application's local context and action draft", async (t) => {
+  await mount(t);
+  await click("Applications");
+  await click("Open Product strategy application");
+  await click("Cover letter");
+  await input("Application notes", "synthetic-note-a");
+  await click("Submit");
+  await input("Action date", "2026-02-05");
+  await input("Submission channel", "synthetic-channel-a");
+  await click("Open Operating systems application");
+  await click("Interview");
+  await input("Application notes", "synthetic-note-b");
+  await click("Record follow-up");
+  await input("Action date", "2026-02-06");
+  await input("Action detail", "synthetic-detail-b");
+  await input("Search applications", "operating");
+  const value = (label) => document.querySelector(`[aria-label="${label}"]`).value;
+  const assertB = () => {
+    assert.equal(document.querySelector(".decision-panel h2").textContent, "Operating systems");
+    assert.equal(document.querySelector(".projection strong").textContent, "Interview");
+    assert.equal(value("Search applications"), "operating");
+    assert.equal(value("Application notes"), "synthetic-note-b");
+    assert.equal(value("Action date"), "2026-02-06");
+    assert.equal(value("Action detail"), "synthetic-detail-b");
+    assert.match(document.querySelector(".decision-panel").textContent, /Canonical status: draft/);
+    assert.match(document.querySelector(".decision-panel").textContent, /No confirmed material events/);
+  };
+  for (const label of ["New application", "+ Add"]) {
+    const origin = [...document.querySelectorAll("button")].find((b) => b.textContent === label);
+    origin.focus();
+    await act(() => origin.click());
+    assert.equal(value("Target title"), "");
+    assert.equal(value("Target requirements"), "");
+    await input("Target title", "cancelled target");
+    await input("Target requirements", "cancelled requirements");
+    const cancel = [...document.querySelectorAll("button")].find((b) => b.textContent === "Cancel creation");
+    cancel.focus();
+    await act(() => cancel.click());
+    assert.ok(document.activeElement === origin, "Cancel restores its originating trigger");
+    assert.equal(document.querySelector('[aria-label="Create synthetic Target"]'), null);
+    assertB();
+  }
+  await input("Search applications", "");
+  await click("Open Product strategy application");
+  assert.equal(document.querySelector(".projection strong").textContent, "Cover letter");
+  assert.equal(value("Application notes"), "synthetic-note-a");
+  assert.equal(value("Action date"), "2026-02-05");
+  assert.equal(value("Submission channel"), "synthetic-channel-a");
+  assert.match(document.querySelector(".decision-panel").textContent, /Canonical status: draft/);
+  assert.match(document.querySelector(".decision-panel").textContent, /No confirmed material events/);
+  await click("Open Operating systems application");
+  assert.equal(value("Application notes"), "synthetic-note-b");
+  assert.equal(value("Action detail"), "synthetic-detail-b");
+});
 test("creation is inline, cancellable, distinct and does not fabricate activity", async (t) => {
   await mount(t);
   assert.equal(document.querySelectorAll("nav").length, 1);

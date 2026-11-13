@@ -1,0 +1,72 @@
+--- v3/wi070-product.mjs
++++ adapted/wi070-product.mjs
+@@ -14 +14 @@
+-export async function inspectProduct({ width, height, screenshot, blockedScreenshot, probeDenied = false, creationCancel = false, keyboardCancel = false, isolationCanaries = false } = {}) {
++export async function inspectProduct({ width, height, screenshot, blockedScreenshot, probeDenied = false, creationCancel = false, keyboardCancel = false, isolationCanaries = false, focusCase = null } = {}) {
+@@ -84,0 +85,63 @@
++    let focusResult;
++    if (focusCase) {
++      const evaluate = async expression => {
++        const value = await send('Runtime.evaluate', {expression, returnByValue:true});
++        if (value.exceptionDetails) throw Error(value.exceptionDetails.text);
++        return value.result.value;
++      };
++      const button = label => `[...document.querySelectorAll('button')].find(e=>e.textContent.trim()===${JSON.stringify(label)})`;
++      const key = async (name, code, value) => {
++        const event = {key:name,code,windowsVirtualKeyCode:value,nativeVirtualKeyCode:value};
++        await send('Input.dispatchKeyEvent', {type:'keyDown',...event,...(name === 'Enter' ? {text:'\r'} : {})});
++        await send('Input.dispatchKeyEvent', {type:'keyUp',...event});
++      };
++      const pointer = async selector => {
++        const point = await evaluate(`(()=>{const e=${selector};if(!e)throw Error('missing target');e.scrollIntoView({block:'center'});const r=e.getBoundingClientRect(),x=r.x+r.width/2,y=r.y+r.height/2;if(document.elementFromPoint(x,y)!==e)throw Error('not hit target');return {x,y}})()`);
++        await send('Input.dispatchMouseEvent',{type:'mousePressed',...point,button:'left',clickCount:1});
++        await send('Input.dispatchMouseEvent',{type:'mouseReleased',...point,button:'left',clickCount:1});
++      };
++      const seek = async selector => {
++        for (let i=0;i<80;i++) { if (await evaluate(`document.activeElement===(${selector})`)) return; await key('Tab','Tab',9); }
++        throw Error('keyboard target not reached');
++      };
++      const activate = async selector => { if (focusCase.input === 'pointer') await pointer(selector); else { await seek(selector); await key('Enter','Enter',13); } };
++      const nav = label => `[...document.querySelectorAll('nav button')].find(e=>e.textContent.trim()===${JSON.stringify(label)})`;
++      const appCounts=[], eventCounts=[];
++      const countApps = () => evaluate("document.querySelectorAll('[data-application]').length");
++      const countEvents = () => evaluate("[...document.querySelectorAll('.single-view article ol')].reduce((n,e)=>n+e.children.length,0)");
++      const type = async (label,value) => {
++        const selector = `document.querySelector(${JSON.stringify(`[aria-label="${label}"]`)})`;
++        if (focusCase.input === 'pointer') await pointer(selector); else await seek(selector);
++        for (const c of value) { await send('Input.dispatchKeyEvent',{type:'char',text:c}); if (!await evaluate(`document.activeElement===${selector}`)) throw Error('typing focus lost'); }
++      };
++      await activate(nav('Applications')); appCounts.push(await countApps());
++      await activate(nav('Activity')); eventCounts.push(await countEvents());
++      await activate(nav(focusCase.trigger === '+ Add' ? 'Applications' : 'Today'));
++      const origin = button(focusCase.trigger);
++      const reference = await send('Runtime.evaluate',{expression:origin});
++      if (!reference.result.objectId) throw Error('origin missing');
++      await activate(origin);
++      const section = await evaluate(`!!document.querySelector('[aria-label="Create synthetic Target"]')`);
++      await activate(button('Confirm creation'));
++      const blocked = await evaluate("document.querySelector('[role=alert]')?.textContent.includes('Target title and requirements are required') === true");
++      await type('Target title','Synthetic cancelled');
++      await type('Target requirements','Synthetic requirement');
++      const context = () => evaluate(`(()=>{const v=s=>document.querySelector(s)?.value??null;const panel=document.querySelector('.decision-panel');return {view:document.querySelector('.topbar h1')?.textContent??null,application:panel?.querySelector('h2')?.textContent??null,search:v('[aria-label="Search applications"]'),note:v('[aria-label="Application notes"]'),surface:document.querySelector('.projection strong')?.textContent??null,status:panel?.textContent.match(/Canonical status: [a-z-]+/)?.[0]??null,actionDate:v('[aria-label="Action date"]'),actionDetail:v('[aria-label="Action detail"]'),channel:v('[aria-label="Submission channel"]')}})()`);
++      const beforeContext = await context();
++      await activate(button('Cancel creation'));
++      const afterContext = await context();
++      const identity = await send('Runtime.callFunctionOn',{objectId:reference.result.objectId,functionDeclaration:'function(){return this===document.activeElement}',returnByValue:true});
++      const closed = await evaluate(`!document.querySelector('[aria-label="Create synthetic Target"]')`);
++      const focusVisible = await evaluate("document.activeElement.matches(':focus-visible')");
++      const focusTag = await evaluate('document.activeElement.tagName');
++      await key('Tab','Tab',9);
++      const nextTab = await evaluate("document.activeElement.getAttribute('aria-label') || document.activeElement.textContent.trim() || document.activeElement.tagName");
++      await activate(nav('Activity')); eventCounts.push(await countEvents());
++      await activate(nav('Applications')); appCounts.push(await countApps());
++      await activate(button('+ Add'));
++      await type('Target title','Synthetic third role');
++      await type('Target requirements','Synthetic delivery');
++      await activate(button('Confirm creation')); appCounts.push(await countApps());
++      await activate(nav('Activity')); eventCounts.push(await countEvents());
++      focusResult = {section,closed,blocked,beforeContext,afterContext,restored:identity.result.value,focusTag,focusVisible,nextTab,appCounts,eventCounts};
++    }
+@@ -161 +224 @@
+-    outcome = {text:result.result.value, origin, profile, probeFailed, creationCancel:creationResult, keyboardCancel:keyboardResult, canaries};
++    outcome = {text:result.result.value, origin, profile, focusCase:focusResult, probeFailed, creationCancel:creationResult, keyboardCancel:keyboardResult, canaries};
